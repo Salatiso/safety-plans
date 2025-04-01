@@ -237,7 +237,7 @@
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
             <p>
                 <a href="../privacy.html">Privacy Policy</a> | 
                 <a href="../terms.html">Terms of Service</a> | 
@@ -248,6 +248,11 @@
 
     <!-- JavaScript -->
     <script>
+        // Sidebar Toggle for Mobile
+        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
         // Show Client Section
         function showClientSection() {
             document.getElementById('client-section').style.display = 'block';
