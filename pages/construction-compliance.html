@@ -284,146 +284,154 @@
 
         <!-- JavaScript -->
         <script>
-            // Sidebar Toggle for Mobile
-            document.querySelector('.sidebar-trigger').addEventListener('click', function() {
-                document.querySelector('.sidebar').classList.toggle('active');
-            });
+    // Sidebar Toggle for Mobile
+    document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    });
 
-            // Show Client Section
-            function showClientSection() {
-                document.getElementById('client-section').style.display = 'block';
-                document.getElementById('contractor-section').style.display = 'none';
-                document.getElementById('role-selection').style.display = 'none';
+    // Show Client Section
+    function showClientSection() {
+        document.getElementById('client-section').style.display = 'block';
+        document.getElementById('contractor-section').style.display = 'none';
+        document.querySelector('.responsibilities-container').style.display = 'none';
+    }
+
+    // Show Contractor Section
+    function showContractorSection() {
+        document.getElementById('contractor-section').style.display = 'block';
+        document.getElementById('client-section').style.display = 'none';
+        document.querySelector('.responsibilities-container').style.display = 'none';
+    }
+
+    // Client Risk Assessment Form Submission
+    document.getElementById('client-risk-assessment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const duration = this.duration.value;
+        const employees = this.employees.value;
+        const scope = this.scope.value.toLowerCase();
+        let message = "Based on your input, you may need the following permits:\n";
+        if (duration > 180 || employees > 50 || scope.includes('demolition') || scope.includes('asbestos')) {
+            message += "- Construction Work Permit (Regulation 3)\n";
+            if (scope.includes('asbestos')) {
+                message += "- Asbestos Work Permit\n";
             }
+        } else {
+            message = "No external permits are required for this project.";
+        }
+        document.getElementById('client-permit-message').innerText = message;
+        document.getElementById('client-permit-result').style.display = 'block';
+    });
 
-            // Show Contractor Section
-            function showContractorSection() {
-                document.getElementById('contractor-section').style.display = 'block';
-                document.getElementById('client-section').style.display = 'none';
-                document.getElementById('role-selection').style.display = 'none';
-            }
+    // Client Specification Form Submission
+    document.getElementById('client-specification-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const projectName = this['project-name'].value;
+        const safetyRequirements = this['safety-requirements'].value;
+        const monitoringPlan = this['monitoring-plan'].value;
+        const message = `Health and Safety Specification for ${projectName}\nSafety Requirements: ${safetyRequirements}\nMonitoring Plan: ${monitoringPlan}`;
+        document.getElementById('client-specification-message').innerText = message;
+        document.getElementById('client-specification-result').style.display = 'block';
+    });
 
-            // Client Risk Assessment Form Submission
-            document.getElementById('client-risk-assessment-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const duration = this.duration.value;
-                const employees = this.employees.value;
-                const scope = this.scope.value.toLowerCase();
-                let message = "Based on your input, you may need the following permits:\n";
-                if (duration > 180 || employees > 50 || scope.includes('demolition') || scope.includes('asbestos')) {
-                    message += "- Construction Work Permit (Regulation 3)\n";
-                    if (scope.includes('asbestos')) {
-                        message += "- Asbestos Work Permit\n";
-                    }
-                } else {
-                    message = "No external permits are required for this project.";
-                }
-                document.getElementById('client-permit-message').innerText = message;
-                document.getElementById('client-permit-result').style.display = 'block';
+    // Client Notification Form Submission
+    document.getElementById('client-notification-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const clientName = this['client-name'].value;
+        const projectAddress = this['project-address'].value;
+        const startDate = this['start-date'].value;
+        const message = `Notification of Construction Work\nClient: ${clientName}\nProject Address: ${projectAddress}\nStart Date: ${startDate}`;
+        document.getElementById('client-notification-message').innerText = message;
+        document.getElementById('client-notification-result').style.display = 'block';
+    });
+
+    // Contractor Risk Assessment Form Submission
+    document.getElementById('contractor-risk-assessment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const activities = Array.from(this.querySelectorAll('input[name="activity"]:checked')).map(input => input.value);
+        let message = "Risk Assessment Results:\n";
+        if (activities.length === 0) {
+            message = "Please select at least one activity to assess risks.";
+        } else {
+            activities.forEach(activity => {
+                if (activity === 'site-access') message += "- Site Access: Implement access control measures.\n";
+                if (activity === 'stacking-material') message += "- Stacking of Material: Ensure proper stacking to prevent falling objects.\n";
+                if (activity === 'ladders') message += "- Use of Ladders: Provide fall protection and training.\n";
+                if (activity === 'painting') message += "- Painting: Use PPE and ensure ventilation.\n";
+                if (activity === 'electrical') message += "- Electrical Installation: Use qualified electricians and lockout/tagout procedures.\n";
             });
+        }
+        document.getElementById('contractor-risk-message').innerText = message;
+        document.getElementById('contractor-risk-result').style.display = 'block';
+    });
 
-            // Client Specification Form Submission
-            document.getElementById('client-specification-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const projectName = this['project-name'].value;
-                const safetyRequirements = this['safety-requirements'].value;
-                const monitoringPlan = this['monitoring-plan'].value;
-                const message = `Health and Safety Specification for ${projectName}\nSafety Requirements: ${safetyRequirements}\nMonitoring Plan: ${monitoringPlan}`;
-                document.getElementById('client-specification-message').innerText = message;
-                document.getElementById('client-specification-result').style.display = 'block';
+    // Contractor Plan Form Submission
+    document.getElementById('contractor-plan-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const projectName = this['project-name'].value;
+        const controlMeasures = this['control-measures'].value;
+        const emergencyProcedures = this['emergency-procedures'].value;
+        const message = `Health and Safety Plan for ${projectName}\nControl Measures: ${controlMeasures}\nEmergency Procedures: ${emergencyProcedures}`;
+        document.getElementById('contractor-plan-message').innerText = message;
+        document.getElementById('contractor-plan-result').style.display = 'block';
+    });
+
+    // Contractor Appointment Form Submission
+    document.getElementById('contractor-appointment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const roles = Array.from(this.querySelectorAll('input[name="role"]:checked')).map(input => input.value);
+        const appointeeName = this['appointee-name'].value;
+        let message = `Appointment Letters for ${appointeeName}:\n`;
+        if (roles.length === 0) {
+            message = "Please select at least one role to generate appointment letters.";
+        } else {
+            roles.forEach(role => {
+                message += `- ${role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
             });
+        }
+        document.getElementById('contractor-appointment-message').innerText = message;
+        document.getElementById('contractor-appointment-result').style.display = 'block';
+    });
 
-            // Client Notification Form Submission
-            document.getElementById('client-notification-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const clientName = this['client-name'].value;
-                const projectAddress = this['project-address'].value;
-                const startDate = this['start-date'].value;
-                const message = `Notification of Construction Work\nClient: ${clientName}\nProject Address: ${projectAddress}\nStart Date: ${startDate}`;
-                document.getElementById('client-notification-message').innerText = message;
-                document.getElementById('client-notification-result').style.display = 'block';
-            });
+    // Download Functions (Placeholder - In a real application, this would generate a file)
+    function downloadClientSpecification() {
+        alert('Downloading Health and Safety Specification...');
+    }
 
-            // Contractor Risk Assessment Form Submission
-            document.getElementById('contractor-risk-assessment-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const activities = Array.from(this.querySelectorAll('input[name="activity"]:checked')).map(input => input.value);
-                let message = "Risk Assessment Results:\n";
-                if (activities.length === 0) {
-                    message = "Please select at least one activity to assess risks.";
-                } else {
-                    activities.forEach(activity => {
-                        if (activity === 'site-access') message += "- Site Access: Implement access control measures.\n";
-                        if (activity === 'stacking-material') message += "- Stacking of Material: Ensure proper stacking to prevent falling objects.\n";
-                        if (activity === 'ladders') message += "- Use of Ladders: Provide fall protection and training.\n";
-                        if (activity === 'painting') message += "- Painting: Use PPE and ensure ventilation.\n";
-                        if (activity === 'electrical') message += "- Electrical Installation: Use qualified electricians and lockout/tagout procedures.\n";
-                    });
-                }
-                document.getElementById('contractor-risk-message').innerText = message;
-                document.getElementById('contractor-risk-result').style.display = 'block';
-            });
+    function downloadClientNotification() {
+        alert('Downloading Notification of Construction Work...');
+    }
 
-            // Contractor Plan Form Submission
-            document.getElementById('contractor-plan-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const projectName = this['project-name'].value;
-                const controlMeasures = this['control-measures'].value;
-                const emergencyProcedures = this['emergency-procedures'].value;
-                const message = `Health and Safety Plan for ${projectName}\nControl Measures: ${controlMeasures}\nEmergency Procedures: ${emergencyProcedures}`;
-                document.getElementById('contractor-plan-message').innerText = message;
-                document.getElementById('contractor-plan-result').style.display = 'block';
-            });
+    function downloadContractorPlan() {
+        alert('Downloading Health and Safety Plan...');
+    }
 
-            // Contractor Appointment Form Submission
-            document.getElementById('contractor-appointment-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const roles = Array.from(this.querySelectorAll('input[name="role"]:checked')).map(input => input.value);
-                const appointeeName = this['appointee-name'].value;
-                let message = `Appointment Letters for ${appointeeName}:\n`;
-                if (roles.length === 0) {
-                    message = "Please select at least one role to generate appointment letters.";
-                } else {
-                    roles.forEach(role => {
-                        message += `- ${role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
-                    });
-                }
-                document.getElementById('contractor-appointment-message').innerText = message;
-                document.getElementById('contractor-appointment-result').style.display = 'block';
-            });
+    function downloadContractorAppointments() {
+        alert('Downloading Appointment Letters...');
+    }
 
-            // Download Functions (Placeholder - In a real application, this would generate a file)
-            function downloadClientSpecification() {
-                alert('Downloading Health and Safety Specification...');
-            }
+    // Dynamically set padding-top for main content, top for sidebar, and top for sticky buttons based on header height
+    window.addEventListener('load', function() {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+        document.querySelector('.sidebar').style.top = headerHeight + 'px';
+        document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        // Set top for both sets of sticky buttons
+        document.querySelectorAll('.role-selection-sticky').forEach(buttonContainer => {
+            buttonContainer.style.top = headerHeight + 'px';
+        });
+    });
 
-            function downloadClientNotification() {
-                alert('Downloading Notification of Construction Work...');
-            }
-
-            function downloadContractorPlan() {
-                alert('Downloading Health and Safety Plan...');
-            }
-
-            function downloadContractorAppointments() {
-                alert('Downloading Appointment Letters...');
-            }
-
-            // Dynamically set padding-top for main content and top for sidebar based on header height
-            window.addEventListener('load', function() {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
-                document.querySelector('.sidebar').style.top = headerHeight + 'px';
-                document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
-            });
-
-            window.addEventListener('resize', function() {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
-                document.querySelector('.sidebar').style.top = headerHeight + 'px';
-                document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
-            });
-        </script>
+    window.addEventListener('resize', function() {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+        document.querySelector('.sidebar').style.top = headerHeight + 'px';
+        document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        // Set top for both sets of sticky buttons
+        document.querySelectorAll('.role-selection-sticky').forEach(buttonContainer => {
+            buttonContainer.style.top = headerHeight + 'px';
+        });
+    });
+</script>
     </body>
 </html>
                 
