@@ -514,3 +514,10 @@ footer a:focus {
         font-size: 14px;
     }
 }
+.content a[href*="psgJEQAAQBAJ"] {
+    color: #3498db; /* Blue for Safety First: The Essentials of OHS Plans */
+}
+
+.content a[href*="vscJEQAAQBAJ"] {
+    color: #e74c3c; /* Red for Safety First, Essentials for Your OHS Career Journey */
+}
