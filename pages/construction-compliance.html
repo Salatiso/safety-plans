@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="construction-compliance"> <!-- Added page-specific class -->
     <!-- Sidebar Menu -->
     <div class="sidebar">
         <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
@@ -95,7 +95,7 @@
         </section>
 
         <!-- Role Selection Section -->
-        <section class="content" id="role-selection">
+        <section class="content role-selection-sticky" id="role-selection"> <!-- Added class for sticky behavior -->
             <h2>Select Your Role</h2>
             <p>
                 Are you a client (project owner) or a contractor? Select your role to proceed with the compliance process.
@@ -224,170 +224,173 @@
 
         <!-- Legislative Reference Section -->
         <section class="content">
-            <h2>Legislative References</h2>
-            <p>
-                The following legislation governs construction compliance in South Africa:
-            </p>
-            <ul>
-                <li><a href="https://www.gov.za/documents/occupational-health-and-safety-act" target="_blank">Occupational Health and Safety Act, 1993 (Act No. 85 of 1993)</a></li>
-                <li><a href="https://www.gov.za/documents/construction-regulations-2014" target="_blank">Construction Regulations, 2014</a></li>
-                <li><a href="https://www.labourguide.co.za/health-and-safety" target="_blank">Labour Guide: Health and Safety Resources</a></li>
-            </ul>
-        </section>
+            <h2>Leg
+                        <!-- Legislative Reference Section -->
+            <section class="content">
+                <h2>Legislative References</h2>
+                <p>
+                    The following legislation governs construction compliance in South Africa:
+                </p>
+                <ul>
+                    <li><a href="https://www.gov.za/documents/occupational-health-and-safety-act" target="_blank">Occupational Health and Safety Act, 1993 (Act No. 85 of 1993)</a></li>
+                    <li><a href="https://www.gov.za/documents/construction-regulations-2014" target="_blank">Construction Regulations, 2014</a></li>
+                    <li><a href="https://www.labourguide.co.za/health-and-safety" target="_blank">Labour Guide: Health and Safety Resources</a></li>
+                </ul>
+            </section>
 
-        <!-- Footer -->
-        <footer>
-            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
-            <p>
-                <a href="../privacy.html">Privacy Policy</a> | 
-                <a href="../terms.html">Terms of Service</a> | 
-                <a href="../contact.html">Contact Us</a>
-            </p>
-        </footer>
-    </div>
+            <!-- Footer -->
+            <footer>
+                <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+                <p>
+                    <a href="../privacy.html">Privacy Policy</a> | 
+                    <a href="../terms.html">Terms of Service</a> | 
+                    <a href="../contact.html">Contact Us</a>
+                </p>
+            </footer>
+        </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Sidebar Toggle for Mobile
-        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        });
+        <!-- JavaScript -->
+        <script>
+            // Sidebar Toggle for Mobile
+            document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('active');
+            });
 
-        // Show Client Section
-        function showClientSection() {
-            document.getElementById('client-section').style.display = 'block';
-            document.getElementById('contractor-section').style.display = 'none';
-            document.getElementById('role-selection').style.display = 'none';
-        }
-
-        // Show Contractor Section
-        function showContractorSection() {
-            document.getElementById('contractor-section').style.display = 'block';
-            document.getElementById('client-section').style.display = 'none';
-            document.getElementById('role-selection').style.display = 'none';
-        }
-
-        // Client Risk Assessment Form Submission
-        document.getElementById('client-risk-assessment-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const scope = formData.get('scope').toLowerCase();
-            const duration = parseInt(formData.get('duration'));
-            const employees = parseInt(formData.get('employees'));
-
-            let message = 'Based on your project details, ';
-            if (scope.includes('demolition') || scope.includes('asbestos') || duration > 180 || employees > 50) {
-                message += 'you may require external permits for high-risk activities (e.g., demolition, asbestos work). Please consult the Department of Labour.';
-            } else {
-                message += 'no external permits are required at this stage.';
+            // Show Client Section
+            function showClientSection() {
+                document.getElementById('client-section').style.display = 'block';
+                document.getElementById('contractor-section').style.display = 'none';
+                document.getElementById('role-selection').style.display = 'none';
             }
 
-            document.getElementById('client-permit-message').innerText = message;
-            document.getElementById('client-permit-result').style.display = 'block';
-        });
-
-        // Client Specification Form Submission
-        document.getElementById('client-specification-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const projectName = formData.get('project-name');
-            const safetyRequirements = formData.get('safety-requirements');
-            const monitoringPlan = formData.get('monitoring-plan');
-
-            const message = `Health and Safety Specification for ${projectName} has been generated. Safety Requirements: ${safetyRequirements}. Monitoring Plan: ${monitoringPlan}.`;
-            document.getElementById('client-specification-message').innerText = message;
-            document.getElementById('client-specification-result').style.display = 'block';
-        });
-
-        // Client Notification Form Submission
-        document.getElementById('client-notification-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const clientName = formData.get('client-name');
-            const projectAddress = formData.get('project-address');
-            const startDate = formData.get('start-date');
-
-            const message = `Notification of Construction Work for ${clientName} at ${projectAddress}, starting on ${startDate}, has been generated.`;
-            document.getElementById('client-notification-message').innerText = message;
-            document.getElementById('client-notification-result').style.display = 'block';
-        });
-
-        // Contractor Risk Assessment Form Submission
-        document.getElementById('contractor-risk-assessment-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const activities = formData.getAll('activity');
-            
-            let message = 'Risk Assessment Results:\n';
-            if (activities.length === 0) {
-                message += 'No activities selected. Please select at least one activity.';
-            } else {
-                activities.forEach(activity => {
-                    if (activity === 'site-access') message += '- Site Access: Control unauthorized access with positive identification and site induction.\n';
-                    if (activity === 'stacking-material') message += '- Stacking of Material: Ensure proper stacking to prevent falling objects.\n';
-                    if (activity === 'ladders') message += '- Use of Ladders: Implement fall protection and ensure ladder stability.\n';
-                    if (activity === 'painting') message += '- Painting: Provide ventilation and PPE to mitigate fume exposure.\n';
-                    if (activity === 'electrical') message += '- Electrical Installation: Use qualified electricians and ensure proper insulation.\n';
-                });
+            // Show Contractor Section
+            function showContractorSection() {
+                document.getElementById('contractor-section').style.display = 'block';
+                document.getElementById('client-section').style.display = 'none';
+                document.getElementById('role-selection').style.display = 'none';
             }
 
-            document.getElementById('contractor-risk-message').innerText = message;
-            document.getElementById('contractor-risk-result').style.display = 'block';
-        });
+            // Client Risk Assessment Form Submission
+            document.getElementById('client-risk-assessment-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const duration = this.duration.value;
+                const employees = this.employees.value;
+                const scope = this.scope.value.toLowerCase();
+                let message = "Based on your input, you may need the following permits:\n";
+                if (duration > 180 || employees > 50 || scope.includes('demolition') || scope.includes('asbestos')) {
+                    message += "- Construction Work Permit (Regulation 3)\n";
+                    if (scope.includes('asbestos')) {
+                        message += "- Asbestos Work Permit\n";
+                    }
+                } else {
+                    message = "No external permits are required for this project.";
+                }
+                document.getElementById('client-permit-message').innerText = message;
+                document.getElementById('client-permit-result').style.display = 'block';
+            });
 
-        // Contractor Plan Form Submission
-        document.getElementById('contractor-plan-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const projectName = formData.get('project-name');
-            const controlMeasures = formData.get('control-measures');
-            const emergencyProcedures = formData.get('emergency-procedures');
+            // Client Specification Form Submission
+            document.getElementById('client-specification-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const projectName = this['project-name'].value;
+                const safetyRequirements = this['safety-requirements'].value;
+                const monitoringPlan = this['monitoring-plan'].value;
+                const message = `Health and Safety Specification for ${projectName}\nSafety Requirements: ${safetyRequirements}\nMonitoring Plan: ${monitoringPlan}`;
+                document.getElementById('client-specification-message').innerText = message;
+                document.getElementById('client-specification-result').style.display = 'block';
+            });
 
-            const message = `Health and Safety Plan for ${projectName} has been generated. Control Measures: ${controlMeasures}. Emergency Procedures: ${emergencyProcedures}.`;
-            document.getElementById('contractor-plan-message').innerText = message;
-            document.getElementById('contractor-plan-result').style.display = 'block';
-        });
+            // Client Notification Form Submission
+            document.getElementById('client-notification-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const clientName = this['client-name'].value;
+                const projectAddress = this['project-address'].value;
+                const startDate = this['start-date'].value;
+                const message = `Notification of Construction Work\nClient: ${clientName}\nProject Address: ${projectAddress}\nStart Date: ${startDate}`;
+                document.getElementById('client-notification-message').innerText = message;
+                document.getElementById('client-notification-result').style.display = 'block';
+            });
 
-        // Contractor Appointment Form Submission
-        document.getElementById('contractor-appointment-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const roles = formData.getAll('role');
-            const appointeeName = formData.get('appointee-name');
+            // Contractor Risk Assessment Form Submission
+            document.getElementById('contractor-risk-assessment-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const activities = Array.from(this.querySelectorAll('input[name="activity"]:checked')).map(input => input.value);
+                let message = "Risk Assessment Results:\n";
+                if (activities.length === 0) {
+                    message = "Please select at least one activity to assess risks.";
+                } else {
+                    activities.forEach(activity => {
+                        if (activity === 'site-access') message += "- Site Access: Implement access control measures.\n";
+                        if (activity === 'stacking-material') message += "- Stacking of Material: Ensure proper stacking to prevent falling objects.\n";
+                        if (activity === 'ladders') message += "- Use of Ladders: Provide fall protection and training.\n";
+                        if (activity === 'painting') message += "- Painting: Use PPE and ensure ventilation.\n";
+                        if (activity === 'electrical') message += "- Electrical Installation: Use qualified electricians and lockout/tagout procedures.\n";
+                    });
+                }
+                document.getElementById('contractor-risk-message').innerText = message;
+                document.getElementById('contractor-risk-result').style.display = 'block';
+            });
 
-            let message = `Appointment Letters for ${appointeeName}:\n`;
-            if (roles.length === 0) {
-                message += 'No roles selected. Please select at least one role.';
-            } else {
-                roles.forEach(role => {
-                    message += `- ${role.replace('-', ' ').toUpperCase()} appointment letter generated.\n`;
-                });
+            // Contractor Plan Form Submission
+            document.getElementById('contractor-plan-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const projectName = this['project-name'].value;
+                const controlMeasures = this['control-measures'].value;
+                const emergencyProcedures = this['emergency-procedures'].value;
+                const message = `Health and Safety Plan for ${projectName}\nControl Measures: ${controlMeasures}\nEmergency Procedures: ${emergencyProcedures}`;
+                document.getElementById('contractor-plan-message').innerText = message;
+                document.getElementById('contractor-plan-result').style.display = 'block';
+            });
+
+            // Contractor Appointment Form Submission
+            document.getElementById('contractor-appointment-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const roles = Array.from(this.querySelectorAll('input[name="role"]:checked')).map(input => input.value);
+                const appointeeName = this['appointee-name'].value;
+                let message = `Appointment Letters for ${appointeeName}:\n`;
+                if (roles.length === 0) {
+                    message = "Please select at least one role to generate appointment letters.";
+                } else {
+                    roles.forEach(role => {
+                        message += `- ${role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                    });
+                }
+                document.getElementById('contractor-appointment-message').innerText = message;
+                document.getElementById('contractor-appointment-result').style.display = 'block';
+            });
+
+            // Download Functions (Placeholder - In a real application, this would generate a file)
+            function downloadClientSpecification() {
+                alert('Downloading Health and Safety Specification...');
             }
 
-            document.getElementById('contractor-appointment-message').innerText = message;
-            document.getElementById('contractor-appointment-result').style.display = 'block';
-        });
+            function downloadClientNotification() {
+                alert('Downloading Notification of Construction Work...');
+            }
 
-        // Download Functions (Placeholder - Implement actual download logic)
-        function downloadClientSpecification() {
-            alert('Downloading Health and Safety Specification...');
-            // Implement actual download logic here
-        }
+            function downloadContractorPlan() {
+                alert('Downloading Health and Safety Plan...');
+            }
 
-        function downloadClientNotification() {
-            alert('Downloading Notification of Construction Work...');
-            // Implement actual download logic here
-        }
+            function downloadContractorAppointments() {
+                alert('Downloading Appointment Letters...');
+            }
 
-        function downloadContractorPlan() {
-            alert('Downloading Health and Safety Plan...');
-            // Implement actual download logic here
-        }
+            // Dynamically set padding-top for main content and top for sidebar based on header height
+            window.addEventListener('load', function() {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+                document.querySelector('.sidebar').style.top = headerHeight + 'px';
+                document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+            });
 
-        function downloadContractorAppointments() {
-            alert('Downloading Appointment Letters...');
-            // Implement actual download logic here
-        }
-    </script>
-</body>
+            window.addEventListener('resize', function() {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+                document.querySelector('.sidebar').style.top = headerHeight + 'px';
+                document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+            });
+        </script>
+    </body>
 </html>
+                
