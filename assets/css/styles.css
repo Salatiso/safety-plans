@@ -8,29 +8,11 @@ body {
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
-    left: -200px; /* Hidden by default */
+    left: 0;
     top: 0;
     height: 100%;
     width: 200px;
-    transition: left 0.3s ease; /* Smooth slide-in/out */
-}
-
-.sidebar-trigger {
-    position: absolute;
-    left: 200px;
-    top: 50%;
-    transform: translateY(-50%);
     background-color: #003087;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    writing-mode: vertical-rl; /* Rotate text */
-    text-orientation: mixed;
-}
-
-.sidebar-content {
-    background-color: #003087;
-    height: 100%;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -55,18 +37,9 @@ body {
     background-color: #007bff;
 }
 
-.sidebar:hover {
-    left: 0; /* Slide in on hover */
-}
-
 /* Main Content Styles */
 .main-content {
-    margin-left: 30px; /* Space for the trigger */
-    transition: margin-left 0.3s ease;
-}
-
-.sidebar:hover ~ .main-content {
-    margin-left: 230px; /* Adjust main content when sidebar is visible */
+    margin-left: 200px; /* Space for the fixed sidebar */
 }
 
 header {
