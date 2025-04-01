@@ -12,78 +12,21 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Sidebar Styles */
-.sidebar {
+/* Header Styles (Static) */
+header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #2c3e50;
-    color: #fff;
-    transition: transform 0.3s ease;
-}
-
-.sidebar-trigger {
     width: 100%;
-    padding: 15px;
-    background-color: #34495e;
-    color: #fff;
-    border: none;
-    font-size: 18px;
-    text-align: left;
-    cursor: pointer;
-}
-
-.sidebar-trigger:hover,
-.sidebar-trigger:focus {
-    background-color: #3e5c76;
-    outline: none;
-}
-
-.sidebar-content {
-    padding: 20px;
-}
-
-.sidebar-content h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-.sidebar-content a {
-    display: block;
-    color: #ecf0f1;
-    text-decoration: none;
-    padding: 10px 0;
-    font-size: 16px;
-}
-
-.sidebar-content a:hover,
-.sidebar-content a:focus {
-    color: #3498db;
-    outline: none;
-}
-
-/* Main Content Styles */
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    min-height: 100vh;
-    transition: margin-left 0.3s ease;
-}
-
-/* Header Styles */
-header {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    z-index: 1000;
 }
 
 header h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
+    font-size: 24px;
     color: #2c3e50;
     margin-bottom: 10px;
 }
@@ -135,6 +78,69 @@ nav a:focus {
 .search-bar button:focus {
     background-color: #2980b9;
     outline: none;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 80px; /* Adjusted to start below the header */
+    left: 0;
+    width: 250px;
+    height: calc(100% - 80px); /* Adjusted height to account for header */
+    background-color: #2c3e50;
+    color: #fff;
+    transition: transform 0.3s ease;
+    z-index: 900;
+}
+
+.sidebar-trigger {
+    width: 100%;
+    padding: 15px;
+    background-color: #34495e;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sidebar-trigger:hover,
+.sidebar-trigger:focus {
+    background-color: #3e5c76;
+    outline: none;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.sidebar-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar-content a {
+    display: block;
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.sidebar-content a:hover,
+.sidebar-content a:focus {
+    color: #3498db;
+    outline: none;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    padding-top: 100px; /* Adjusted to account for the fixed header height */
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
 }
 
 /* Section Styles */
@@ -281,16 +287,12 @@ footer a:focus {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-250px);
+    header {
+        padding: 10px 15px;
     }
 
-    .sidebar.active {
-        transform: translateX(0);
-    }
-
-    .main-content {
-        margin-left: 0;
+    header h1 {
+        font-size: 20px;
     }
 
     nav {
@@ -300,6 +302,7 @@ footer a:focus {
 
     nav a {
         margin-right: 0;
+        font-size: 14px;
     }
 
     .search-bar {
@@ -308,10 +311,27 @@ footer a:focus {
 
     .search-bar input {
         width: 70%;
+        font-size: 12px;
     }
 
     .search-bar button {
         width: 30%;
+        font-size: 12px;
+    }
+
+    .sidebar {
+        top: 70px; /* Adjusted for smaller header on mobile */
+        height: calc(100% - 70px);
+        transform: translateX(-250px);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding-top: 80px; /* Adjusted for smaller header on mobile */
     }
 
     .role-buttons {
