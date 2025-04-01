@@ -372,3 +372,145 @@ footer a:focus {
         top: 70px; /* Matches the header height on mobile (adjusted padding and font size) */
     }
 }
+/* Responsibilities Container */
+.responsibilities-container {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+    justify-content: space-between;
+}
+
+/* Responsibility Tables */
+.responsibility-table {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.responsibility-table:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.responsibility-table h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Table Styling */
+.responsibility-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.responsibility-table td {
+    padding: 12px 15px;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+/* Add a subtle icon before each responsibility */
+.responsibility-table td::before {
+    content: '✔';
+    color: #3498db;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+/* Highlight Client and Contractor Tables Differently */
+.client-table h3 {
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.contractor-table h3 {
+    border-bottom: 3px solid #e74c3c;
+    padding-bottom: 5px;
+}
+
+/* Button Containers */
+.role-buttons.client-buttons,
+.role-buttons.contractor-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Sticky Behavior for Buttons */
+.construction-compliance .role-selection-sticky {
+    position: sticky;
+    top: 0; /* Will be set dynamically by JavaScript */
+    z-index: 950; /* Above sidebar (900), below header (1000) */
+    background-color: #fff; /* Matches the table background */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling for Engagement */
+.cta-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.client-buttons .cta-button {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.client-buttons .cta-button:hover,
+.client-buttons .cta-button:focus {
+    background-color: #2980b9;
+    transform: scale(1.05);
+    outline: none;
+}
+
+.contractor-buttons .cta-button {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.contractor-buttons .cta-button:hover,
+.contractor-buttons .cta-button:focus {
+    background-color: #c0392b;
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .responsibilities-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .responsibility-table {
+        width: 100%;
+    }
+
+    .responsibility-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .role-buttons.client-buttons,
+    .role-buttons.contractor-buttons {
+        margin-top: 15px;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+}
