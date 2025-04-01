@@ -357,3 +357,18 @@ footer a:focus {
         text-align: center;
     }
 }
+/* Sticky Role Selection for construction-compliance.html */
+.construction-compliance .role-selection-sticky .role-buttons {
+    position: sticky;
+    top: 80px; /* Matches the header height on desktop (15px padding + content height) */
+    background-color: #f4f4f4; /* Matches the body background for a seamless look */
+    padding: 10px 0; /* Adds padding to ensure buttons don't overlap content */
+    z-index: 100; /* Ensures the sticky buttons appear above other content but below the header (z-index 1000) */
+}
+
+/* Adjust sticky position for mobile (header height changes) */
+@media (max-width: 768px) {
+    .construction-compliance .role-selection-sticky .role-buttons {
+        top: 70px; /* Matches the header height on mobile (adjusted padding and font size) */
+    }
+}
