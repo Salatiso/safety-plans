@@ -48,8 +48,40 @@
             </p>
         </section>
 
-        <!-- Client Responsibilities Section -->
-        <section class="content">
+        <!-- Risk Assessment Section -->
+        <section class="content" id="risk-assessment">
+            <h2>Step 1: Assess Permit Requirements</h2>
+            <p>
+                Before proceeding, enter your project details to determine if external permits are required under the Construction Regulations, 2014 (e.g., for high-risk activities like demolition or asbestos work).
+            </p>
+            <div class="form">
+                <form id="risk-assessment-form">
+                    <label>Project Duration (days): <input type="number" name="duration" required></label><br>
+                    <label>Number of Employees: <input type="number" name="employees" required></label><br>
+                    <label>Scope of Work: <textarea name="scope" placeholder="Describe the scope of work (e.g., demolition, excavation)" required></textarea></label><br>
+                    <button type="submit" class="cta-button">Assess Permit Requirements</button>
+                </form>
+                <div id="permit-result" style="display: none; margin-top: 20px;">
+                    <h3>Permit Requirements</h3>
+                    <p id="permit-message"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Role Selection Section -->
+        <section class="content" id="role-selection" style="display: none;">
+            <h2>Step 2: Select Your Role</h2>
+            <p>
+                Are you a client (project owner) or a contractor? Select your role to proceed with the compliance process.
+            </p>
+            <div class="role-buttons">
+                <button onclick="showClientSection()" class="cta-button">I am a Client</button>
+                <button onclick="showContractorSection()" class="cta-button">I am a Contractor</button>
+            </div>
+        </section>
+
+        <!-- Client Section -->
+        <section class="content" id="client-section" style="display: none;">
             <h2>Client Responsibilities</h2>
             <p>
                 As a client, you play a critical role in ensuring construction safety. Section 8(2)(e) of the OHS Act requires you to ensure that contractors are competent and that the site is safe for workers.
@@ -63,20 +95,23 @@
                     <li>Provide welfare facilities (e.g., sanitation, rest areas) for workers.</li>
                 </ul>
             </div>
+
+            <h2>Create a Health and Safety Specification</h2>
+            <p>
+                Under Regulation 5(1)(a) of the Construction Regulations, 2014, clients must provide a Health and Safety Specification for the project. Complete the form below to generate your specification.
+            </p>
             <div class="form">
-                <h3>Track Client Compliance</h3>
-                <form>
-                    <label>Contractor Selection: <input type="text" name="contractor-selection" placeholder="Name of selected contractor"></label><br>
-                    <label>Management Structure: <textarea name="management-structure" placeholder="Describe the management structure"></textarea></label><br>
-                    <label>Monitoring Plan: <textarea name="monitoring-plan" placeholder="Describe how you will monitor the project"></textarea></label><br>
-                    <label>Welfare Facilities: <input type="text" name="welfare-facilities" placeholder="List provided facilities"></label><br>
-                    <button type="submit" class="cta-button">Save Client Requirements</button>
+                <form id="client-specification-form">
+                    <label>Project Name: <input type="text" name="project-name" required></label><br>
+                    <label>Safety Requirements: <textarea name="safety-requirements" placeholder="List specific safety requirements (e.g., PPE, fall protection)" required></textarea></label><br>
+                    <label>Monitoring Plan: <textarea name="monitoring-plan" placeholder="Describe how you will monitor safety compliance" required></textarea></label><br>
+                    <button type="submit" class="cta-button">Generate Health and Safety Specification</button>
                 </form>
             </div>
         </section>
 
-        <!-- Contractor Responsibilities Section -->
-        <section class="content">
+        <!-- Contractor Section -->
+        <section class="content" id="contractor-section" style="display: none;">
             <h2>Contractor Responsibilities</h2>
             <p>
                 Contractors must comply with the OHS Act and its regulations, including the Construction Regulations, 2014. Regulation 5 requires contractors to ensure safety measures are in place to protect workers and the public.
@@ -90,14 +125,18 @@
                     <li>Train workers on safety procedures and emergency protocols.</li>
                 </ul>
             </div>
+
+            <h2>Create a Health and Safety Plan</h2>
+            <p>
+                Under Regulation 5(1) of the Construction Regulations, 2014, contractors must develop a Health and Safety Plan. Complete the form below to generate your plan and requisite documents.
+            </p>
             <div class="form">
-                <h3>Track Contractor Compliance</h3>
-                <form>
-                    <label>Safety Measures: <textarea name="safety-measures" placeholder="List implemented safety measures"></textarea></label><br>
-                    <label>Equipment Compliance: <input type="text" name="equipment-compliance" placeholder="List compliant equipment"></label><br>
-                    <label>Inspection Schedule: <textarea name="inspection-schedule" placeholder="Describe inspection schedule"></textarea></label><br>
-                    <label>Training Records: <input type="text" name="training-records" placeholder="List training sessions conducted"></label><br>
-                    <button type="submit" class="cta-button">Save Contractor Requirements</button>
+                <form id="contractor-plan-form">
+                    <label>Project Name: <input type="text" name="project-name" required></label><br>
+                    <label>Risk Assessment: <textarea name="risk-assessment" placeholder="Describe the risk assessment process and findings" required></textarea></label><br>
+                    <label>Safety Training: <textarea name="safety-training" placeholder="List safety training provided to workers" required></textarea></label><br>
+                    <label>Equipment Safety: <textarea name="equipment-safety" placeholder="Describe equipment safety measures" required></textarea></label><br>
+                    <button type="submit" class="cta-button">Generate Health and Safety Plan</button>
                 </form>
             </div>
         </section>
@@ -119,5 +158,81 @@
             </p>
         </footer>
     </div>
+
+    <!-- JavaScript for Dynamic Functionality -->
+    <script>
+        // Risk Assessment Form Submission
+        document.getElementById("risk-assessment-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const duration = parseInt(document.querySelector("input[name='duration']").value);
+            const employees = parseInt(document.querySelector("input[name='employees']").value);
+            const scope = document.querySelector("textarea[name='scope']").value.toLowerCase();
+
+            // Basic logic to determine permit requirements
+            let permitMessage = "Based on your inputs, no external permits are required.";
+            if (duration > 180 || employees > 50 || scope.includes("demolition") || scope.includes("asbestos")) {
+                permitMessage = "Based on your inputs, you may need to apply for external permits (e.g., for high-risk activities like demolition or asbestos work). Consult the Construction Regulations, 2014, for details.";
+            }
+
+            // Display permit result and show role selection
+            document.getElementById("permit-message").textContent = permitMessage;
+            document.getElementById("permit-result").style.display = "block";
+            document.getElementById("role-selection").style.display = "block";
+            document.getElementById("risk-assessment").scrollIntoView({ behavior: "smooth" });
+        });
+
+        // Show Client Section
+        function showClientSection() {
+            document.getElementById("client-section").style.display = "block";
+            document.getElementById("contractor-section").style.display = "none";
+            document.getElementById("role-selection").style.display = "none";
+            document.getElementById("client-section").scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Show Contractor Section
+        function showContractorSection() {
+            document.getElementById("contractor-section").style.display = "block";
+            document.getElementById("client-section").style.display = "none";
+            document.getElementById("role-selection").style.display = "none";
+            document.getElementById("contractor-section").scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Client Specification Form Submission
+        document.getElementById("client-specification-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const projectName = document.querySelector("input[name='project-name']").value;
+            const safetyRequirements = document.querySelector("textarea[name='safety-requirements']").value;
+            const monitoringPlan = document.querySelector("textarea[name='monitoring-plan']").value;
+
+            // Generate Health and Safety Specification document
+            const specification = `Health and Safety Specification\n\nProject Name: ${projectName}\n\nSafety Requirements:\n${safetyRequirements}\n\nMonitoring Plan:\n${monitoringPlan}`;
+            const blob = new Blob([specification], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Health_and_Safety_Specification.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Contractor Plan Form Submission
+        document.getElementById("contractor-plan-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const projectName = document.querySelector("#contractor-plan-form input[name='project-name']").value;
+            const riskAssessment = document.querySelector("textarea[name='risk-assessment']").value;
+            const safetyTraining = document.querySelector("textarea[name='safety-training']").value;
+            const equipmentSafety = document.querySelector("textarea[name='equipment-safety']").value;
+
+            // Generate Health and Safety Plan document
+            const plan = `Health and Safety Plan\n\nProject Name: ${projectName}\n\nRisk Assessment:\n${riskAssessment}\n\nSafety Training:\n${safetyTraining}\n\nEquipment Safety Measures:\n${equipmentSafety}`;
+            const blob = new Blob([plan], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Health_and_Safety_Plan.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
 </body>
 </html>
