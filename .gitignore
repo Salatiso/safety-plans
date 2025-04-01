@@ -1,0 +1,11 @@
+echo # Ignore node modules (if you use JavaScript dependencies) > .gitignore
+echo node_modules/ >> .gitignore
+echo # Ignore build artifacts >> .gitignore
+echo dist/ >> .gitignore
+echo # Ignore temporary files >> .gitignore
+echo *.log >> .gitignore
+echo *.tmp >> .gitignore
+echo # Ignore OS-specific files >> .gitignore
+echo .DS_Store >> .gitignore
+echo Thumbs.db >> .gitignore
+echo Desktop.ini >> .gitignore
