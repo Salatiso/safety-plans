@@ -25,13 +25,14 @@
         <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
-            <div class="tool-category">
-                <button class="category-toggle">Compliance Tools</button>
-                <div class="category-content">
-                    <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Compliance</a>
-                    <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-                </div>
-            </div>
+            <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
         </div>
     </div>
 
@@ -85,20 +86,12 @@
             document.querySelector('.sidebar').classList.toggle('active');
             document.querySelector('.sidebar-content').classList.toggle('active');
         });
-        document.querySelectorAll('.category-toggle').forEach(button => {
-            button.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                content.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-        });
 
         // Pre-populated risks
         const risks = [
             { activity: "Painting", hazard: "Dust from sanding", effect: "Respiratory condition", controls: "RPE, Medical Exam", freq: 3, prob: 3, rating: 9 },
             { activity: "Painting", hazard: "Working at heights", effect: "Fall, Injury", controls: "Scaffolding, PPE", freq: 4, prob: 3, rating: 12 },
             { activity: "Excavation", hazard: "Trench collapse", effect: "Crushing injuries", controls: "Shoring, Inspections", freq: 4, prob: 4, rating: 16 },
-            // Add more from your list later
         ];
 
         // Populate risk table
