@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Safety First OHS Tools, your solution for Occupational Health and Safety compliance in South Africa.">
+    <meta name="keywords" content="OHS tools, construction safety, South Africa, compliance">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Safety First OHS Tools | About</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .about-container { max-width: 900px; margin: 20px auto; padding: 20px; }
+        .about-section { margin-bottom: 20px; }
+        .tool-list { list-style-type: none; padding: 0; }
+        .tool-list li { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Safety First OHS Tools</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="search-bar">
+                    <form role="search">
+                        <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                        <button type="submit" aria-label="Search">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <section class="about-container">
+            <div class="about-section">
+                <h2>About Safety First OHS Tools</h2>
+                <p>Welcome to Safety First OHS Tools! Our mission is to make Occupational Health and Safety (OHS) compliance simple, fast, and accessible for everyone in South Africa, especially in construction. We provide free, easy-to-use tools that help you meet legal requirements and keep your workplace safe.</p>
+            </div>
+
+            <div class="about-section">
+                <h3>What We Offer</h3>
+                <p>Our tools are designed to save you time and effort. Here’s what you can do with Safety First OHS Tools:</p>
+                <ul class="tool-list">
+                    <li><strong>Construction Health and Safety</strong>: Generate H&S specifications and plans for clients and contractors.</li>
+                    <li><strong>Emergency Response Planning</strong>: Create plans to handle emergencies on site.</li>
+                    <li><strong>Risk Assessment</strong>: Identify and evaluate risks to keep your project safe.</li>
+                    <li><strong>Legal Appointments</strong>: Produce compliant appointment letters for OHS roles.</li>
+                    <li><strong>Incident Management</strong>: Manage and report workplace incidents (coming soon).</li>
+                    <li><strong>General Induction</strong>: Prepare induction materials for new workers (coming soon).</li>
+                    <li><strong>Inspections & Audits</strong>: Conduct safety checks with ease (coming soon).</li>
+                    <li><strong>Toolbox Talks</strong>: Deliver safety talks for your team (coming soon).</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h3>Who We Are</h3>
+                <p>Safety First OHS Tools was created by Salatiso Lonwabo Mdeni, a passionate advocate for workplace safety in South Africa. Inspired by the need to simplify OHS compliance, this site brings together practical tools to help businesses, contractors, and workers stay safe and meet regulations like the Occupational Health and Safety Act 85 of 1993 and Construction Regulations 2014.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Sidebar functionality
+        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-content').classList.toggle('active');
+        });
+
+        // Dynamic header adjustment
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        }
+    </script>
+</body>
+</html>
