@@ -3,36 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ensure construction compliance in South Africa with Safety First OHS Tools. Follow client and contractor requirements under the Occupational Health and Safety Act, 1993, and Construction Regulations, 2014, to maintain a safe construction site.">
-    <meta name="keywords" content="construction compliance South Africa, OHS Act construction requirements, client responsibilities construction, contractor safety compliance, workplace safety construction, health and safety plan, risk assessment, legal appointments">
+    <meta name="description" content="Safety First OHS Tools provides resources to ensure compliance with South African Occupational Health and Safety regulations. Automate processes, reduce costs, and empower your team with our tools.">
+    <meta name="keywords" content="OHS compliance South Africa, occupational health and safety tools, construction compliance, emergency response plan, baseline risk assessment, workplace safety">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Construction Compliance | Safety First OHS Tools</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>Safety First OHS Tools | Home</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body class="construction-compliance"> <!-- Added page-specific class -->
+<body>
     <!-- Sidebar Menu -->
     <div class="sidebar">
         <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
-            <a href="construction-compliance.html">Construction Compliance</a>
-            <a href="emergency-response-plan.html">Emergency Response Plan</a>
-            <a href="baseline-risk-assessment.html">Baseline Risk Assessment</a>
+            <!-- Compliance Tools -->
+            <div class="tool-category">
+                <button class="category-toggle">Compliance Tools</button>
+                <div class="category-content">
+                    <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Compliance</a>
+                </div>
+            </div>
+            <!-- Safety Plans -->
+            <div class="tool-category">
+                <button class="category-toggle">Safety Plans</button>
+                <div class="category-content">
+                    <a href="pages/emergency-response-plan.html"><span class="icon">⚠️</span> Emergency Response Plan</a>
+                </div>
+            </div>
+            <!-- Risk Management -->
+            <div class="tool-category">
+                <button class="category-toggle">Risk Management</button>
+                <div class="category-content">
+                    <a href="pages/baseline-risk-assessment.html"><span class="icon">📋</span> Baseline Risk Assessment</a>
+                    <a href="pages/risk-register.html"><span class="icon">📊</span> Risk Register</a>
+                </div>
+            </div>
+            <!-- Templates -->
+            <div class="tool-category">
+                <button class="category-toggle">Templates</button>
+                <div class="category-content">
+                    <a href="pages/appointment-letters.html"><span class="icon">📝</span> Appointment Letters</a>
+                    <a href="pages/inspection-templates.html"><span class="icon">🔍</span> Inspection Templates</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <header>
-            <h1>Construction Compliance</h1>
+            <h1>Safety First OHS Tools</h1>
             <nav>
-                <a href="../index.html">Home</a>
-                <a href="construction-compliance.html">Construction Compliance</a>
-                <a href="emergency-response-plan.html">Emergency Response</a>
-                <a href="baseline-risk-assessment.html">Baseline Risk Assessment</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
                 <div class="search-bar">
                     <form role="search">
                         <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
@@ -42,398 +66,138 @@
             </nav>
         </header>
 
-        <!-- Legal Justification and Requirements Section -->
-        <!-- Legal Justification and Requirements Section -->
-<section class="intro">
-    <h2>Legal Requirements for Construction Compliance in South Africa</h2>
-    <p>
-        Under the <strong>Occupational Health and Safety Act, 1993 (Act No. 85 of 1993)</strong>, both clients and contractors have specific legal obligations to ensure a safe construction site. The <strong>Construction Regulations, 2014</strong> further outline these responsibilities to protect workers, visitors, and the public.
-    </p>
-    <div class="responsibilities-container">
-        <!-- Client Responsibilities Table -->
-        <div class="responsibility-table client-table">
-            <h3>Client Responsibilities</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Prepare a health and safety specification for the project (Regulation 5(1)(a)).</td>
-                    </tr>
-                    <tr>
-                        <td>Provide a baseline risk assessment to the contractor (Regulation 5(1)(a)).</td>
-                    </tr>
-                    <tr>
-                        <td>Appoint a competent principal contractor (Regulation 5(1)(k)).</td>
-                    </tr>
-                    <tr>
-                        <td>Ensure the contractor complies with the OHS Act and regulations.</td>
-                    </tr>
-                    <tr>
-                        <td>Notify the Department of Labour of the construction work using Annexure 2 (Regulation 4).</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="role-buttons client-buttons role-selection-sticky" id="role-selection">
-                <button onclick="showClientSection()" class="cta-button">I am a Client</button>
-            </div>
-        </div>
-        <!-- Contractor Responsibilities Table -->
-        <div class="responsibility-table contractor-table">
-            <h3>Contractor Responsibilities</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Develop a health and safety plan based on the client’s specification (Regulation 5(1)(b)).</td>
-                    </tr>
-                    <tr>
-                        <td>Conduct risk assessments and implement safety measures (Regulation 5(1)(q)).</td>
-                    </tr>
-                    <tr>
-                        <td>Appoint competent personnel for key roles, such as Construction Manager (CR 8(1)), Construction Supervisor (CR 8(7)), and First Aider (GSR 3).</td>
-                    </tr>
-                    <tr>
-                        <td>Ensure all work is supervised and risks are mitigated (Regulation 5(1)).</td>
-                    </tr>
-                    <tr>
-                        <td>Maintain a health and safety file with all required documentation (Regulation 5(1)(s)).</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="role-buttons contractor-buttons role-selection-sticky" id="role-selection-contractor">
-                <button onclick="showContractorSection()" class="cta-button">I am a Contractor</button>
-            </div>
-        </div>
-    </div>
-    <p>
-        Failure to comply with these regulations can result in penalties, project delays, or legal action. Use the tools below to ensure compliance with South African health and safety legislation.
-    </p>
-</section>
-
-        <!-- Tool Benefits Section -->
-      <!-- Tool Benefits Section -->
-<!-- Tool Benefits Section -->
-<section class="content">
-    <h2>How This Tool Helps You</h2>
-    <p>
-        Safety First OHS Tools, inspired by the <em>Safety First</em> book series and the expertise of its author, Salatiso Lonwabo Mdeni, simplifies construction compliance for both clients and contractors. Drawing from the insights of <a href="https://books.google.co.za/books?id=psgJEQAAQBAJ" target="_blank"><em>Safety First: The Essentials of OHS Plans</em></a> and <a href="https://www.google.co.za/books/edition/Safety_First_Essentials_for_Your_OHS_Car/vscJEQAAQBAJ" target="_blank"><em>Safety First, Essentials for Your OHS Career Journey</em></a>, this tool helps you generate the following key documents required by the Occupational Health and Safety Act, 1993, and the Construction Regulations, 2014:
-    </p>
-    <ul>
-        <li><strong>Health and Safety Specification</strong>: A document outlining safety requirements for the project (for clients).</li>
-        <li><strong>Baseline Risk Assessment</strong>: An assessment to identify and mitigate risks on the site (for contractors).</li>
-        <li><strong>Health and Safety Plan</strong>: A detailed plan to ensure safety compliance during the project (for contractors).</li>
-        <li><strong>Notification of Construction Work (Annexure 2)</strong>: A legal requirement to notify the Department of Labour before starting work.</li>
-        <li><strong>Legal Appointment Letters</strong>: Templates for appointing key OHS roles, such as Construction Manager, First Aider, and Fire Marshal.</li>
-        <li><strong>Other Required Documentation</strong>: Additional documents such as training records, equipment safety checklists, and permit applications (for both clients and contractors).</li>
-    </ul>
-    <p>
-        Select your role above to get started with generating these documents and ensuring compliance.
-    </p>
-</section>
-
-        <!-- Role Selection Section -->
-        <section class="content role-selection-sticky" id="role-selection"> <!-- Added class for sticky behavior -->
-            <h2>Select Your Role</h2>
+        <!-- Understand South African OHS Compliance Section -->
+        <section class="intro">
+            <h2>Understand South African OHS Compliance</h2>
             <p>
-                Are you a client (project owner) or a contractor? Select your role to proceed with the compliance process.
+                Navigating Occupational Health and Safety (OHS) compliance in South Africa is critical for businesses to ensure the safety of workers, visitors, and the public. The <strong>Occupational Health and Safety Act, 1993 (Act No. 85 of 1993)</strong>, along with its regulations, such as the <strong>Construction Regulations, 2014</strong>, sets out clear legal obligations for employers, contractors, and clients. Compliance not only protects lives but also prevents costly penalties, project delays, and legal action.
             </p>
-            <div class="role-buttons">
-                <button onclick="showClientSection()" class="cta-button">I am a Client</button>
-                <button onclick="showContractorSection()" class="cta-button">I am a Contractor</button>
-            </div>
+            <p>
+                At Safety First OHS Tools, we provide resources to simplify compliance, empowering you to meet legal requirements efficiently and effectively. Whether you're a business owner, contractor, or safety professional, our tools are designed to support you at every step.
+            </p>
         </section>
 
-        <!-- Client Section -->
-        <section class="content" id="client-section" style="display: none;">
-            <h2>Step 1: Assess Permit Requirements (Client)</h2>
-            <p>
-                Before creating your health and safety specification, enter your project details to determine if external permits are required under the Construction Regulations, 2014 (e.g., for high-risk activities like demolition or asbestos work).
-            </p>
-            <div class="form">
-                <form id="client-risk-assessment-form">
-                    <label>Project Duration (days): <input type="number" name="duration" required></label><br>
-                    <label>Number of Employees: <input type="number" name="employees" required></label><br>
-                    <label>Scope of Work: <textarea name="scope" placeholder="Describe the scope of work (e.g., demolition, excavation)" required></textarea></label><br>
-                    <button type="submit" class="cta-button">Assess Permit Requirements</button>
-                </form>
-                <div id="client-permit-result" style="display: none; margin-top: 20px;">
-                    <h3>Permit Requirements</h3>
-                    <p id="client-permit-message"></p>
-                </div>
-            </div>
-
-            <h2>Step 2: Create a Health and Safety Specification</h2>
-            <p>
-                Under Regulation 5(1)(a) of the Construction Regulations, 2014, clients must provide a Health and Safety Specification for the project. Complete the form below to generate your specification.
-            </p>
-            <div class="form">
-                <form id="client-specification-form">
-                    <label>Project Name: <input type="text" name="project-name" required></label><br>
-                    <label>Safety Requirements: <textarea name="safety-requirements" placeholder="List specific safety requirements (e.g., PPE, fall protection)" required></textarea></label><br>
-                    <label>Monitoring Plan: <textarea name="monitoring-plan" placeholder="Describe how you will monitor safety compliance" required></textarea></label><br>
-                    <button type="submit" class="cta-button">Generate Health and Safety Specification</button>
-                </form>
-                <div id="client-specification-result" style="display: none; margin-top: 20px;">
-                    <h3>Health and Safety Specification</h3>
-                    <p id="client-specification-message"></p>
-                    <button onclick="downloadClientSpecification()" class="cta-button">Download Specification</button>
-                </div>
-            </div>
-
-            <h2>Step 3: Notify the Department of Labour</h2>
-            <p>
-                Under Regulation 4 of the Construction Regulations, 2014, you must notify the Department of Labour before starting construction work. Complete the form below to generate the Notification of Construction Work (Annexure 2).
-            </p>
-            <div class="form">
-                <form id="client-notification-form">
-                    <label>Client Name: <input type="text" name="client-name" required></label><br>
-                    <label>Project Address: <input type="text" name="project-address" required></label><br>
-                    <label>Start Date: <input type="date" name="start-date" required></label><br>
-                    <button type="submit" class="cta-button">Generate Notification</button>
-                </form>
-                <div id="client-notification-result" style="display: none; margin-top: 20px;">
-                    <h3>Notification of Construction Work</h3>
-                    <p id="client-notification-message"></p>
-                    <button onclick="downloadClientNotification()" class="cta-button">Download Notification</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contractor Section -->
-        <section class="content" id="contractor-section" style="display: none;">
-            <h2>Step 1: Conduct a Risk Assessment (Contractor)</h2>
-            <p>
-                Under Regulation 5(1)(q) of the Construction Regulations, 2014, contractors must conduct a risk assessment to identify hazards and implement control measures. Select the activities below to assess risks.
-            </p>
-            <div class="form">
-                <form id="contractor-risk-assessment-form">
-                    <label><input type="checkbox" name="activity" value="site-access"> Site Access (e.g., unauthorized personnel)</label><br>
-                    <label><input type="checkbox" name="activity" value="stacking-material"> Stacking of Material (e.g., falling objects)</label><br>
-                    <label><input type="checkbox" name="activity" value="ladders"> Use of Ladders (e.g., falls from height)</label><br>
-                    <label><input type="checkbox" name="activity" value="painting"> Painting (e.g., exposure to fumes)</label><br>
-                    <label><input type="checkbox" name="activity" value="electrical"> Electrical Installation (e.g., electrocution)</label><br>
-                    <button type="submit" class="cta-button">Assess Risks</button>
-                </form>
-                <div id="contractor-risk-result" style="display: none; margin-top: 20px;">
-                    <h3>Risk Assessment Results</h3>
-                    <p id="contractor-risk-message"></p>
-                </div>
-            </div>
-
-            <h2>Step 2: Create a Health and Safety Plan</h2>
-            <p>
-                Under Regulation 5(1)(b) of the Construction Regulations, 2014, contractors must develop a Health and Safety Plan based on the client’s specification. Complete the form below to generate your plan.
-            </p>
-            <div class="form">
-                <form id="contractor-plan-form">
-                    <label>Project Name: <input type="text" name="project-name" required></label><br>
-                    <label>Control Measures: <textarea name="control-measures" placeholder="List control measures for identified risks" required></textarea></label><br>
-                    <label>Emergency Procedures: <textarea name="emergency-procedures" placeholder="Describe emergency procedures (e.g., evacuation plan)" required></textarea></label><br>
-                    <button type="submit" class="cta-button">Generate Health and Safety Plan</button>
-                </form>
-                <div id="contractor-plan-result" style="display: none; margin-top: 20px;">
-                    <h3>Health and Safety Plan</h3>
-                    <p id="contractor-plan-message"></p>
-                    <button onclick="downloadContractorPlan()" class="cta-button">Download Plan</button>
-                </div>
-            </div>
-
-            <h2>Step 3: Appoint Key Personnel</h2>
-            <p>
-                Under the Construction Regulations, 2014, contractors must appoint competent personnel for key roles. Select the roles below to generate appointment letters.
-            </p>
-            <div class="form">
-                <form id="contractor-appointment-form">
-                    <label><input type="checkbox" name="role" value="construction-manager"> Construction Manager (CR 8(1))</label><br>
-                    <label><input type="checkbox" name="role" value="construction-supervisor"> Construction Supervisor (CR 8(7))</label><br>
-                    <label><input type="checkbox" name="role" value="first-aider"> First Aider (GSR 3)</label><br>
-                    <label><input type="checkbox" name="role" value="fire-marshal"> Fire Marshal</label><br>
-                    <label>Appointee Name: <input type="text" name="appointee-name" required></label><br>
-                    <button type="submit" class="cta-button">Generate Appointment Letters</button>
-                </form>
-                <div id="contractor-appointment-result" style="display: none; margin-top: 20px;">
-                    <h3>Appointment Letters</h3>
-                    <p id="contractor-appointment-message"></p>
-                    <button onclick="downloadContractorAppointments()" class="cta-button">Download Appointment Letters</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Legislative Reference Section -->
+        <!-- Our Value Proposition Section -->
         <section class="content">
-            <h2>Leg
-                        <!-- Legislative Reference Section -->
-            <section class="content">
-                <h2>Legislative References</h2>
-                <p>
-                    The following legislation governs construction compliance in South Africa:
-                </p>
-                <ul>
-                    <li><a href="https://www.gov.za/documents/occupational-health-and-safety-act" target="_blank">Occupational Health and Safety Act, 1993 (Act No. 85 of 1993)</a></li>
-                    <li><a href="https://www.gov.za/documents/construction-regulations-2014" target="_blank">Construction Regulations, 2014</a></li>
-                    <li><a href="https://www.labourguide.co.za/health-and-safety" target="_blank">Labour Guide: Health and Safety Resources</a></li>
-                </ul>
-            </section>
+            <h2>Our Value Proposition</h2>
+            <p>
+                The greatest advantage of the tools and resources on Safety First OHS Tools lies in their ability to <strong>automate manual, time-consuming, and expensive processes</strong>. By using our tools, you can take control of your OHS compliance journey, reducing the need for constant involvement from accredited OHS professionals—engaging them only when legally required. This approach not only lowers costs but also fosters greater involvement and commitment to OHS across all levels of your organization, from company owners to employees at every level.
+            </p>
+            <p>
+                Our tools empower you to:
+            </p>
+            <ul>
+                <li>Generate essential OHS documents with ease, saving time and resources.</li>
+                <li>Ensure compliance with South African OHS laws, minimizing risks and liabilities.</li>
+                <li>Foster a culture of safety by involving all team members in the compliance process.</li>
+                <li>Reduce dependency on external consultants, giving you more control and flexibility.</li>
+            </ul>
+        </section>
 
-            <!-- Footer -->
-            <footer>
-                <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
-                <p>
-                    <a href="../privacy.html">Privacy Policy</a> | 
-                    <a href="../terms.html">Terms of Service</a> | 
-                    <a href="../contact.html">Contact Us</a>
-                </p>
-            </footer>
-        </div>
+        <!-- Inspired by Safety First Book Series Section -->
+        <section class="content">
+            <h2>Inspired by the <em>Safety First</em> Book Series</h2>
+            <p>
+                Safety First OHS Tools draws inspiration from the renowned <em>Safety First</em> book series, authored by John Doe, a leading expert in occupational health and safety. These books provide foundational knowledge and practical insights that guide our mission to simplify OHS compliance for all.
+            </p>
+            <div class="responsibilities-container">
+                <!-- Safety First: The Essentials of OHS Plans -->
+                <div class="responsibility-table book-table">
+                    <h3><em>Safety First: The Essentials of OHS Plans</em></h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    A comprehensive guide to creating effective OHS plans, ensuring compliance with South African regulations.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="https://play.google.com/books/reader?id=psgJEQAAQBAJ&hl=en" target="_blank" class="cta-button book-button">Explore the Book</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Safety First, Essentials for Your OHS Career Journey -->
+                <div class="responsibility-table book-table">
+                    <h3><em>Safety First, Essentials for Your OHS Career Journey</em></h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    A must-read for OHS professionals, offering insights and strategies to advance your career in safety management.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="https://play.google.com/books/reader?id=vscJEQAAQBAJ&pg=GBS.PA1&hl=en" target="_blank" class="cta-button book-button">Explore the Book</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
-        <!-- JavaScript -->
-        <script>
-    // Sidebar Toggle for Mobile
-    document.querySelector('.sidebar-trigger').addEventListener('click', function() {
-        document.querySelector('.sidebar').classList.toggle('active');
-    });
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p>
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="terms.html">Terms of Service</a> | 
+                <a href="contact.html">Contact Us</a>
+            </p>
+        </footer>
+    </div>
 
-    // Show Client Section
-    function showClientSection() {
-        document.getElementById('client-section').style.display = 'block';
-        document.getElementById('contractor-section').style.display = 'none';
-        document.querySelector('.responsibilities-container').style.display = 'none';
-    }
-
-    // Show Contractor Section
-    function showContractorSection() {
-        document.getElementById('contractor-section').style.display = 'block';
-        document.getElementById('client-section').style.display = 'none';
-        document.querySelector('.responsibilities-container').style.display = 'none';
-    }
-
-    // Client Risk Assessment Form Submission
-    document.getElementById('client-risk-assessment-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const duration = this.duration.value;
-        const employees = this.employees.value;
-        const scope = this.scope.value.toLowerCase();
-        let message = "Based on your input, you may need the following permits:\n";
-        if (duration > 180 || employees > 50 || scope.includes('demolition') || scope.includes('asbestos')) {
-            message += "- Construction Work Permit (Regulation 3)\n";
-            if (scope.includes('asbestos')) {
-                message += "- Asbestos Work Permit\n";
-            }
-        } else {
-            message = "No external permits are required for this project.";
-        }
-        document.getElementById('client-permit-message').innerText = message;
-        document.getElementById('client-permit-result').style.display = 'block';
-    });
-
-    // Client Specification Form Submission
-    document.getElementById('client-specification-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const projectName = this['project-name'].value;
-        const safetyRequirements = this['safety-requirements'].value;
-        const monitoringPlan = this['monitoring-plan'].value;
-        const message = `Health and Safety Specification for ${projectName}\nSafety Requirements: ${safetyRequirements}\nMonitoring Plan: ${monitoringPlan}`;
-        document.getElementById('client-specification-message').innerText = message;
-        document.getElementById('client-specification-result').style.display = 'block';
-    });
-
-    // Client Notification Form Submission
-    document.getElementById('client-notification-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const clientName = this['client-name'].value;
-        const projectAddress = this['project-address'].value;
-        const startDate = this['start-date'].value;
-        const message = `Notification of Construction Work\nClient: ${clientName}\nProject Address: ${projectAddress}\nStart Date: ${startDate}`;
-        document.getElementById('client-notification-message').innerText = message;
-        document.getElementById('client-notification-result').style.display = 'block';
-    });
-
-    // Contractor Risk Assessment Form Submission
-    document.getElementById('contractor-risk-assessment-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const activities = Array.from(this.querySelectorAll('input[name="activity"]:checked')).map(input => input.value);
-        let message = "Risk Assessment Results:\n";
-        if (activities.length === 0) {
-            message = "Please select at least one activity to assess risks.";
-        } else {
-            activities.forEach(activity => {
-                if (activity === 'site-access') message += "- Site Access: Implement access control measures.\n";
-                if (activity === 'stacking-material') message += "- Stacking of Material: Ensure proper stacking to prevent falling objects.\n";
-                if (activity === 'ladders') message += "- Use of Ladders: Provide fall protection and training.\n";
-                if (activity === 'painting') message += "- Painting: Use PPE and ensure ventilation.\n";
-                if (activity === 'electrical') message += "- Electrical Installation: Use qualified electricians and lockout/tagout procedures.\n";
-            });
-        }
-        document.getElementById('contractor-risk-message').innerText = message;
-        document.getElementById('contractor-risk-result').style.display = 'block';
-    });
-
-    // Contractor Plan Form Submission
-    document.getElementById('contractor-plan-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const projectName = this['project-name'].value;
-        const controlMeasures = this['control-measures'].value;
-        const emergencyProcedures = this['emergency-procedures'].value;
-        const message = `Health and Safety Plan for ${projectName}\nControl Measures: ${controlMeasures}\nEmergency Procedures: ${emergencyProcedures}`;
-        document.getElementById('contractor-plan-message').innerText = message;
-        document.getElementById('contractor-plan-result').style.display = 'block';
-    });
-
-    // Contractor Appointment Form Submission
-    document.getElementById('contractor-appointment-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const roles = Array.from(this.querySelectorAll('input[name="role"]:checked')).map(input => input.value);
-        const appointeeName = this['appointee-name'].value;
-        let message = `Appointment Letters for ${appointeeName}:\n`;
-        if (roles.length === 0) {
-            message = "Please select at least one role to generate appointment letters.";
-        } else {
-            roles.forEach(role => {
-                message += `- ${role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
-            });
-        }
-        document.getElementById('contractor-appointment-message').innerText = message;
-        document.getElementById('contractor-appointment-result').style.display = 'block';
-    });
-
-    // Download Functions (Placeholder - In a real application, this would generate a file)
-    function downloadClientSpecification() {
-        alert('Downloading Health and Safety Specification...');
-    }
-
-    function downloadClientNotification() {
-        alert('Downloading Notification of Construction Work...');
-    }
-
-    function downloadContractorPlan() {
-        alert('Downloading Health and Safety Plan...');
-    }
-
-    function downloadContractorAppointments() {
-        alert('Downloading Appointment Letters...');
-    }
-
-    // Dynamically set padding-top for main content, top for sidebar, and top for sticky buttons based on header height
-    window.addEventListener('load', function() {
-        const headerHeight = document.querySelector('header').offsetHeight;
-        document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
-        document.querySelector('.sidebar').style.top = headerHeight + 'px';
-        document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
-        // Set top for both sets of sticky buttons
-        document.querySelectorAll('.role-selection-sticky').forEach(buttonContainer => {
-            buttonContainer.style.top = headerHeight + 'px';
+    <!-- JavaScript -->
+    <script>
+        // Sidebar Toggle for Mobile
+        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
         });
-    });
 
-    window.addEventListener('resize', function() {
-        const headerHeight = document.querySelector('header').offsetHeight;
-        document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
-        document.querySelector('.sidebar').style.top = headerHeight + 'px';
-        document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
-        // Set top for both sets of sticky buttons
-        document.querySelectorAll('.role-selection-sticky').forEach(buttonContainer => {
-            buttonContainer.style.top = headerHeight + 'px';
+        // Category Toggle for Sidebar
+        document.querySelectorAll('.category-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+                this.classList.toggle('active');
+            });
         });
-    });
-</script>
-    </body>
+
+        // Set Active Link in Sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const sidebarLinks = document.querySelectorAll('.sidebar-content a');
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath || link.getAttribute('href') === currentPath.replace(/^\/safety-plans\//, '')) {
+                    link.classList.add('active');
+                    // Expand the parent category if the active link is inside one
+                    const categoryContent = link.closest('.category-content');
+                    if (categoryContent) {
+                        categoryContent.classList.add('active');
+                        categoryContent.previousElementSibling.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Dynamically set padding-top for main content and top for sidebar based on header height
+        window.addEventListener('load', function() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        });
+
+        window.addEventListener('resize', function() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        });
+    </script>
+</body>
 </html>
-                
