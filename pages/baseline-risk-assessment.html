@@ -3,63 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baseline Risk Assessment - Safety First OHS Tools</title>
+    <meta name="description" content="Risk Register tool coming soon to Safety First OHS Tools. Help us shape this tool by sharing your ideas!">
+    <meta name="keywords" content="risk register, OHS compliance South Africa, occupational health and safety tools, risk management">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Risk Register | Safety First OHS Tools</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Baseline Risk Assessment</h1>
-        <nav>
-    <a href="../index.html">Home</a>
-    <a href="construction-compliance.html">Construction Compliance</a>
-    <a href="emergency-response-plan.html">Emergency Response</a>
-    <a href="baseline-risk-assessment.html">Baseline Risk Assessment</a>
-    <a href="../about.html">About</a>
-    <a href="../contact.html">Contact</a>
-</nav>
-    </header>
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <div class="tool-category">
+                <button class="category-toggle">Compliance Tools</button>
+                <div class="category-content">
+                    <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Compliance</a>
+                </div>
+            </div>
+            <div class="tool-category">
+                <button class="category-toggle">Safety Plans</button>
+                <div class="category-content">
+                    <a href="emergency-response-plan.html"><span class="icon">⚠️</span> Emergency Response Plan</a>
+                </div>
+            </div>
+            <div class="tool-category">
+                <button class="category-toggle">Risk Management</button>
+                <div class="category-content">
+                    <a href="baseline-risk-assessment.html"><span class="icon">📋</span> Baseline Risk Assessment</a>
+                    <a href="risk-register.html"><span class="icon">📊</span> Risk Register <span class="coming-soon">Coming Soon</span></a>
+                </div>
+            </div>
+            <div class="tool-category">
+                <button class="category-toggle">Templates</button>
+                <div class="category-content">
+                    <a href="appointment-letters.html"><span class="icon">📝</span> Appointment Letters <span class="coming-soon">Coming Soon</span></a>
+                    <a href="inspection-templates.html"><span class="icon">🔍</span> Inspection Templates <span class="coming-soon">Coming Soon</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <section class="content">
-        <h2>Baseline Risk Assessment Tool</h2>
-        <p>
-            This tool helps you identify and assess workplace risks as outlined in <em>Safety First: The Essentials of OHS Plans</em>. Follow the steps below to conduct a baseline risk assessment for your organization.
-        </p>
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Safety First OHS Tools</h1>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <div class="search-bar">
+                    <form role="search">
+                        <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                        <button type="submit" aria-label="Search">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
 
-        <div class="section">
-            <h3>Step 1: Identify Hazards</h3>
+        <!-- Placeholder Section -->
+        <section class="intro">
+            <h2>Risk Register Tool – Coming Soon!</h2>
             <p>
-                Walk through your workplace and list potential hazards, such as machinery, chemicals, or ergonomic issues.
+                We’re thrilled to announce that our <strong>Risk Register Tool</strong> is in the works! This tool will help you identify, assess, and manage risks in your workplace, ensuring compliance with South African OHS regulations and keeping your team safe.
             </p>
-        </div>
+        </section>
 
-        <div class="section">
-            <h3>Step 2: Assess Risks</h3>
+        <!-- Teaser and Contribution Section -->
+        <section class="content">
+            <h2>What’s Coming?</h2>
             <p>
-                For each hazard, evaluate the likelihood and severity of potential incidents. Use a risk matrix to prioritize risks.
+                The Risk Register Tool will empower you to:
             </p>
-        </div>
-
-        <div class="section">
-            <h3>Step 3: Implement Controls</h3>
+            <div class="responsibilities-container">
+                <div class="responsibility-table teaser-table">
+                    <h3>Manage Risks Effectively</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Identify and document potential risks in your workplace.</td>
+                            </tr>
+                            <tr>
+                                <td>Assess the likelihood and impact of each risk.</td>
+                            </tr>
+                            <tr>
+                                <td>Implement mitigation strategies to reduce risks.</td>
+                            </tr>
+                            <tr>
+                                <td>Track and monitor risks over time for continuous improvement.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h2>Help Us Shape This Tool!</h2>
             <p>
-                Develop control measures to mitigate identified risks, such as engineering controls, administrative controls, or personal protective equipment (PPE).
+                We want to make this tool as valuable as possible for you. Have ideas about what you’d like to see in the Risk Register Tool? Whether it’s specific features, templates, or resources, we’d love to hear from you! Your input will help us create a tool that truly meets your needs.
             </p>
-        </div>
+            <p>
+                <a href="../contact.html" class="cta-button contribute-button">Share Your Ideas</a>
+            </p>
+        </section>
 
-        <div class="form">
-            <h3>Risk Assessment Form</h3>
-            <form>
-                <label>Hazard: <input type="text" name="hazard" placeholder="e.g., Slippery Floor"></label><br>
-                <label>Likelihood (1-5): <input type="number" name="likelihood" min="1" max="5"></label><br>
-                <label>Severity (1-5): <input type="number" name="severity" min="1" max="5"></label><br>
-                <label>Control Measure: <textarea name="control-measure" placeholder="Describe the control measure"></textarea></label><br>
-                <button type="submit">Save Assessment</button>
-            </form>
-        </div>
-    </section>
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p>
+                <a href="../privacy.html">Privacy Policy</a> | 
+                <a href="../terms.html">Terms of Service</a> | 
+                <a href="../contact.html">Contact Us</a>
+            </p>
+        </footer>
+    </div>
 
-    <footer>
-        <p>Contact us at: salatiso@salatiso.com | © 2025 Safety First OHS Tools</p>
-    </footer>
+    <!-- JavaScript -->
+    <script>
+        // Sidebar Toggle for Mobile
+        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Category Toggle for Sidebar
+        document.querySelectorAll('.category-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+        });
+
+        // Set Active Link in Sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const sidebarLinks = document.querySelectorAll('.sidebar-content a');
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath || link.getAttribute('href') === currentPath.replace(/^\/safety-plans\//, '')) {
+                    link.classList.add('active');
+                    // Expand the parent category if the active link is inside one
+                    const categoryContent = link.closest('.category-content');
+                    if (categoryContent) {
+                        categoryContent.classList.add('active');
+                        categoryContent.previousElementSibling.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Dynamically set padding-top for main content and top for sidebar based on header height
+        window.addEventListener('load', function() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        });
+
+        window.addEventListener('resize', function() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        });
+    </script>
 </body>
 </html>
