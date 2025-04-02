@@ -58,7 +58,7 @@
 
         <section class="intro">
             <h2>Construction Health and Safety Compliance Tool</h2>
-            <p>Simplify compliance across all construction stages—Pre-Construction, Construction, and Post-Construction. Answer the questions below to generate tailored H&S documents for clients and contractors, aligned with South Africa’s Construction Regulations 2014.</p>
+            <p>Simplify compliance across all construction stages—Пре-Construction, Construction, and Post-Construction. Answer the questions below to generate tailored H&S documents for clients and contractors, aligned with South Africa’s Construction Regulations 2014.</p>
             <div class="role-prompt">
                 <p>Select your role to begin:</p>
                 <div class="role-buttons">
@@ -130,13 +130,11 @@
     <script>
         const { jsPDF } = window.jspdf;
 
-        // Sidebar toggle
         document.querySelector('.sidebar-trigger').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
             document.querySelector('.sidebar-content').classList.toggle('active');
         });
 
-        // Role selection
         document.getElementById('client-btn').addEventListener('click', () => {
             document.getElementById('client-form').classList.add('active');
             document.getElementById('contractor-form').classList.remove('active');
@@ -146,7 +144,6 @@
             document.getElementById('client-form').classList.remove('active');
         });
 
-        // Client form submission
         document.getElementById('client-input').addEventListener('submit', (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -175,7 +172,6 @@
             }
         });
 
-        // Contractor form submission
         document.getElementById('contractor-input').addEventListener('submit', (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
