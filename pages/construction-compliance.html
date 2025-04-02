@@ -1,7 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Same as before -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Streamline construction health and safety compliance in South Africa with Safety First OHS Tools. Automated tools for clients and contractors.">
+    <meta name="keywords" content="construction compliance South Africa, OHS tools, construction safety automation, H&S specifications, contractor H&S plan">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Safety First OHS Tools | Construction Compliance</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .tool-container { max-width: 900px; margin: 20px auto; padding: 20px; }
+        .form-section { display: none; margin-top: 20px; }
+        .form-section.active { display: block; }
+        .form-section label { display: block; margin: 10px 0; }
+        .form-section input, .form-section textarea { width: 100%; max-width: 400px; padding: 5px; }
+        .form-section a { color: #007bff; text-decoration: none; font-size: 0.9em; }
+        .form-section a:hover { text-decoration: underline; }
+        .output { margin-top: 20px; }
+        .download-btn { padding: 8px 16px; background-color: #28a745; color: white; border: none; cursor: pointer; margin: 5px; }
+        .role-prompt { text-align: center; margin: 20px 0; }
+        .role-buttons button { padding: 10px 20px; margin: 0 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -9,30 +30,13 @@
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
             <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-            <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-            <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-            <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-            <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
-            <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-            <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
-        </div>
-    </div>
-    <!-- Rest of the file remains unchanged -->
-</body>
-</html>
-<body>
-    <div class="sidebar">
-        <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
-        <div class="sidebar-content">
-            <h3>OHS Tools</h3>
-            <div class="tool-category">
-                <button class="category-toggle">Compliance Tools</button>
-                <div class="category-content">
-                    <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Compliance</a>
-                    <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-                </div>
-            </div>
+            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
         </div>
     </div>
 
@@ -40,9 +44,9 @@
         <header>
             <h1>Safety First OHS Tools</h1>
             <nav>
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
                 <div class="search-bar">
                     <form role="search">
                         <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
@@ -53,27 +57,10 @@
         </header>
 
         <section class="intro">
-            <h2>Construction Compliance Tool</h2>
-            <div class="intro-boxes">
-                <div class="intro-box">
-                    <h3>Client Duties</h3>
-                    <p>Per Construction Regulations 2014 (Reg 5):<br>
-                    - Appoint competent contractors and agents.<br>
-                    - Prepare baseline risk assessments.<br>
-                    - Develop H&S specifications.<br>
-                    - Notify the Dept. of Labour if required.</p>
-                </div>
-                <div class="intro-box">
-                    <h3>Contractor Duties</h3>
-                    <p>Per Construction Regulations 2014 (Reg 7):<br>
-                    - Develop an H&S plan based on client specs.<br>
-                    - Register with COID.<br>
-                    - Appoint safety officers.<br>
-                    - Ensure training and compliance.</p>
-                </div>
-            </div>
+            <h2>Construction Health and Safety Compliance Tool</h2>
+            <p>Simplify compliance across all construction stages—Pre-Construction, Construction, and Post-Construction. Answer the questions below to generate tailored H&S documents for clients and contractors, aligned with South Africa’s Construction Regulations 2014.</p>
             <div class="role-prompt">
-                <p>Please select your role to proceed:</p>
+                <p>Select your role to begin:</p>
                 <div class="role-buttons">
                     <button id="client-btn">I am a Client</button>
                     <button id="contractor-btn">I am a Contractor</button>
@@ -84,32 +71,51 @@
         <section class="content tool-container">
             <!-- Client Form -->
             <div id="client-form" class="form-section">
-                <h3>Client Input</h3>
+                <h3>Client Compliance Input</h3>
                 <form id="client-input">
+                    <h4>Pre-Construction Stage</h4>
                     <label>Project Name: <input type="text" name="project-name" required></label>
                     <label>Location: <input type="text" name="location" required></label>
-                    <label>Description: <textarea name="description" required></textarea></label>
-                    <label>Duration (days): <input type="number" name="duration" required></label>
-                    <label>Person-Days: <input type="number" name="person-days" required></label>
-                    <label>Value (ZAR): <input type="number" name="value" required></label>
-                    <label>Scope: <textarea name="scope" required></textarea></label>
-                    <label>Complex Design (Y/N): <input type="checkbox" name="complex-design"></label>
-                    <button type="submit">Generate Documents</button>
+                    <label>Project Description: <textarea name="description" required></textarea></label>
+                    <label>Estimated Duration (days): <input type="number" name="duration" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=7" target="_blank">CR 4(1)</a></label>
+                    <label>Estimated Person-Days: <input type="number" name="person-days" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=7" target="_blank">CR 4(1)</a></label>
+                    <label>Project Value (ZAR): <input type="number" name="value" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=7" target="_blank">CR 4(1)</a></label>
+                    <label>Scope of Work: <textarea name="scope" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=8" target="_blank">CR 5(1)(a)</a></textarea></label>
+                    <label>Is this a complex design requiring an agent? <input type="radio" name="complex-design" value="yes"> Yes <input type="radio" name="complex-design" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=9" target="_blank">CR 5(5)</a></label>
+                    <label>Have you conducted a baseline risk assessment? <input type="radio" name="baseline-risk" value="yes"> Yes <input type="radio" name="baseline-risk" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=8" target="_blank">CR 5(1)(f)</a></label>
+
+                    <h4>Construction Stage</h4>
+                    <label>Will you monitor contractor compliance? <input type="radio" name="monitor-compliance" value="yes"> Yes <input type="radio" name="monitor-compliance" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=8" target="_blank">CR 5(1)(o)</a></label>
+
+                    <h4>Post-Construction Stage</h4>
+                    <label>Do you require an H&S file from the contractor? <input type="radio" name="hs-file" value="yes"> Yes <input type="radio" name="hs-file" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=9" target="_blank">CR 5(1)(s)</a></label>
+
+                    <button type="submit">Generate Client Documents</button>
                 </form>
                 <div id="client-output" class="output"></div>
             </div>
 
             <!-- Contractor Form -->
             <div id="contractor-form" class="form-section">
-                <h3>Contractor Input</h3>
+                <h3>Contractor Compliance Input</h3>
                 <form id="contractor-input">
+                    <h4>Pre-Construction Stage</h4>
                     <label>Contractor Name: <input type="text" name="contractor-name" required></label>
-                    <label>COID Number: <input type="text" name="coid-number" required></label>
-                    <label>Letter of Good Standing: <input type="file" name="coid-letter" accept=".pdf,.docx"></label>
-                    <label>H&S Specifications: <input type="file" name="hs-specs" accept=".pdf,.docx" required></label>
-                    <label>Site Activities: <textarea name="activities" required></textarea></label>
-                    <label>Employee Count: <input type="number" name="employee-count" required></label>
-                    <button type="submit">Generate Documents</button>
+                    <label>COID Number: <input type="text" name="coid-number" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(e)</a></label>
+                    <label>Letter of Good Standing: <input type="file" name="coid-letter" accept=".pdf,.docx"> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(e)</a></label>
+                    <label>Client H&S Specifications: <input type="file" name="hs-specs" accept=".pdf,.docx" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(a)</a></label>
+                    <label>Have you registered with a compensation fund? <input type="radio" name="compensation-fund" value="yes"> Yes <input type="radio" name="compensation-fund" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(e)</a></label>
+
+                    <h4>Construction Stage</h4>
+                    <label>Site Activities: <textarea name="activities" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(a)</a></textarea></label>
+                    <label>Employee Count: <input type="number" name="employee-count" required> <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(c)(iii)</a></label>
+                    <label>Have you appointed a safety officer? <input type="radio" name="safety-officer" value="yes"> Yes <input type="radio" name="safety-officer" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=12" target="_blank">CR 8(1)</a></label>
+                    <label>Will you provide induction training? <input type="radio" name="training" value="yes"> Yes <input type="radio" name="training" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(2)</a></label>
+
+                    <h4>Post-Construction Stage</h4>
+                    <label>Will you compile an H&S file? <input type="radio" name="hs-file-contractor" value="yes"> Yes <input type="radio" name="hs-file-contractor" value="no" checked> No <a href="https://www.gov.za/sites/default/files/gcis_document/201409/37305rg10139gon426.pdf#page=11" target="_blank">CR 7(1)(g)</a></label>
+
+                    <button type="submit">Generate Contractor Documents</button>
                 </form>
                 <div id="contractor-output" class="output"></div>
             </div>
@@ -117,24 +123,17 @@
 
         <footer>
             <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
-            <p><a href="../privacy.html">Privacy Policy</a> | <a href="../terms.html">Terms of Service</a> | <a href="../contact.html">Contact Us</a></p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
         </footer>
     </div>
 
     <script>
         const { jsPDF } = window.jspdf;
 
-        // Sidebar functionality
+        // Sidebar toggle
         document.querySelector('.sidebar-trigger').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
             document.querySelector('.sidebar-content').classList.toggle('active');
-        });
-        document.querySelectorAll('.category-toggle').forEach(button => {
-            button.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                content.classList.toggle('active');
-                this.classList.toggle('active');
-            });
         });
 
         // Role selection
@@ -153,10 +152,11 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             const permitRequired = data.duration > 180 || data['person-days'] > 500 || data.value > 500000;
-            const agentRequired = data['complex-design'] === 'on';
+            const score = (data['complex-design'] === 'yes' ? 1 : 0) + (data['baseline-risk'] === 'yes' ? 1 : 0) + 
+                          (data['monitor-compliance'] === 'yes' ? 1 : 0) + (data['hs-file'] === 'yes' ? 1 : 0);
 
             const output = document.getElementById('client-output');
-            output.innerHTML = '<h4>Generated Documents</h4>';
+            output.innerHTML = `<h4>Generated Documents (Compliance Score: ${score}/4)</h4>`;
 
             if (permitRequired) {
                 const notificationDoc = new jsPDF();
@@ -165,12 +165,12 @@
             }
 
             const specsDoc = new jsPDF();
-            specsDoc.text(`Health and Safety Specifications\nProject: ${data['project-name']}\nLocation: ${data.location}\nScope: ${data.scope}\nRequirements: Comply with OHSA and Construction Regs`, 10, 10);
+            specsDoc.text(`Health & Safety Specifications\nProject: ${data['project-name']}\nLocation: ${data.location}\nScope: ${data.scope}\nBaseline Risk Done: ${data['baseline-risk']}`, 10, 10);
             output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-specifications.pdf\', specsDoc)">Download H&S Specs</button>';
 
-            if (agentRequired) {
+            if (data['complex-design'] === 'yes') {
                 const agentDoc = new jsPDF();
-                agentDoc.text(`Agent Appointment Letter\nProject: ${data['project-name']}\nAppointed to oversee complex design compliance per Reg 4(1).`, 10, 10);
+                agentDoc.text(`Agent Appointment Letter\nProject: ${data['project-name']}\nRole: Oversee complex design per CR 5(5)`, 10, 10);
                 output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'agent-appointment.pdf\', agentDoc)">Download Agent Appointment</button>';
             }
         });
@@ -180,24 +180,28 @@
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
+            const score = (data['compensation-fund'] === 'yes' ? 1 : 0) + (data['safety-officer'] === 'yes' ? 1 : 0) + 
+                          (data['training'] === 'yes' ? 1 : 0) + (data['hs-file-contractor'] === 'yes' ? 1 : 0);
 
             const output = document.getElementById('contractor-output');
-            output.innerHTML = '<h4>Generated Documents</h4>';
+            output.innerHTML = `<h4>Generated Documents (Compliance Score: ${score}/4)</h4>`;
 
             const planDoc = new jsPDF();
-            planDoc.text(`Health and Safety Plan\nContractor: ${data['contractor-name']}\nCOID: ${data['coid-number']}`, 10, 10);
-            planDoc.text(`Purpose: Ensure compliance with OHSA, Construction Regs, and Client Specs`, 10, 20);
-            planDoc.text(`Activities: ${data.activities}\nEmployees: ${data['employee-count']}`, 10, 30);
-            planDoc.text('Key Controls:\n- Induction training\n- Risk elimination\n- Emergency planning', 10, 50);
+            planDoc.text(`Health & Safety Plan\nContractor: ${data['contractor-name']}\nCOID: ${data['coid-number']}\nActivities: ${data.activities}`, 10, 10);
+            planDoc.text(`Employees: ${data['employee-count']}\nSafety Officer: ${data['safety-officer']}\nTraining: ${data['training']}`, 10, 30);
             output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-plan.pdf\', planDoc)">Download H&S Plan</button>';
+
+            if (data['hs-file-contractor'] === 'yes') {
+                const fileDoc = new jsPDF();
+                fileDoc.text(`H&S File\nContractor: ${data['contractor-name']}\nIncludes all compliance records per CR 7(1)(g)`, 10, 10);
+                output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-file.pdf\', fileDoc)">Download H&S File</button>';
+            }
         });
 
-        // PDF Download Helper
         function downloadPDF(filename, doc) {
             doc.save(filename);
         }
 
-        // Dynamic header adjustment
         window.addEventListener('load', adjustLayout);
         window.addEventListener('resize', adjustLayout);
         function adjustLayout() {
