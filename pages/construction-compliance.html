@@ -9,14 +9,17 @@
     <title>Safety First OHS Tools | Construction Compliance</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        .tool-container { max-width: 800px; margin: 20px auto; text-align: center; }
+        .tool-container { max-width: 900px; margin: 20px auto; text-align: center; }
         .role-buttons button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
         .form-section { display: none; margin-top: 20px; }
         .form-section.active { display: block; }
-        .risk-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .risk-table th, .risk-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .risk-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+        .risk-table th, .risk-table td { border: 1px solid #ddd; padding: 6px; text-align: left; }
+        .risk-table input { width: 100%; box-sizing: border-box; }
         .output { margin-top: 20px; }
+        .download-btn { padding: 8px 16px; margin: 5px; background-color: #28a745; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -71,8 +74,10 @@
                     <label>Location: <input type="text" name="location" required></label><br>
                     <label>Description: <textarea name="description" required></textarea></label><br>
                     <label>Duration (days): <input type="number" name="duration" required></label><br>
+                    <label>Person-Days: <input type="number" name="person-days" required></label><br>
                     <label>Value (ZAR): <input type="number" name="value" required></label><br>
                     <label>Scope: <textarea name="scope" required></textarea></label><br>
+                    <label>Complex Design (Y/N): <input type="checkbox" name="complex-design"></label><br>
                     <button type="submit">Generate Documents</button>
                 </form>
                 <div id="client-output" class="output"></div>
@@ -84,17 +89,16 @@
                 <form id="contractor-input">
                     <label>Contractor Name: <input type="text" name="contractor-name" required></label><br>
                     <label>COID Number: <input type="text" name="coid-number" required></label><br>
-                    <label>H&S Specifications: <input type="file" name="hs-specs" accept=".pdf,.docx"></label><br>
+                    <label>Letter of Good Standing: <input type="file" name="coid-letter" accept=".pdf,.docx"></label><br>
+                    <label>H&S Specifications: <input type="file" name="hs-specs" accept=".pdf,.docx" required></label><br>
                     <label>Site Activities: <textarea name="activities" required></textarea></label><br>
                     <label>Employee Count: <input type="number" name="employee-count" required></label><br>
                     <h4>Risk Assessment</h4>
                     <table class="risk-table">
                         <thead>
-                            <tr><th>Activity</th><th>Hazard</th><th>Health Effect</th><th>Controls</th><th>Risk Rating</th></tr>
+                            <tr><th>Activity</th><th>Hazard</th><th>Effect</th><th>Controls</th><th>Freq</th><th>Prob</th><th>Rating</th></tr>
                         </thead>
-                        <tbody id="risk-table-body">
-                            <!-- Pre-populated risks added via JS -->
-                        </tbody>
+                        <tbody id="risk-table-body"></tbody>
                     </table>
                     <button type="button" id="add-risk">Add Custom Risk</button>
                     <button type="submit">Generate Documents</button>
@@ -111,7 +115,9 @@
 
     <!-- JavaScript -->
     <script>
-        // Sidebar functionality (from index.html)
+        const { jsPDF } = window.jspdf;
+
+        // Sidebar functionality
         document.querySelector('.sidebar-trigger').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
         });
@@ -133,19 +139,27 @@
             document.getElementById('client-form').classList.remove('active');
         });
 
-        // Pre-populated risks
+        // Expanded risks
         const risks = [
-            { activity: "Painting", hazard: "Dust from sanding", effect: "Respiratory condition", controls: "RPE, Medical Exam", rating: "M" },
-            { activity: "Painting", hazard: "Working at heights", effect: "Fall, Injury", controls: "Scaffolding, PPE", rating: "M-H" },
-            { activity: "Excavation", hazard: "Trench collapse", effect: "Crushing injuries", controls: "Shoring, Inspections", rating: "H" },
-            // Add more from expanded list above
+            { activity: "Painting", hazard: "Dust from sanding", effect: "Respiratory condition", controls: "RPE, Medical Exam", freq: 3, prob: 3, rating: 9 },
+            { activity: "Painting", hazard: "Working at heights", effect: "Fall, Injury", controls: "Scaffolding, PPE", freq: 4, prob: 3, rating: 12 },
+            { activity: "Excavation", hazard: "Trench collapse", effect: "Crushing injuries", controls: "Shoring, Inspections", freq: 4, prob: 4, rating: 16 },
+            { activity: "Concrete Work", hazard: "Cement dust", effect: "Respiratory irritation", controls: "RPE, Wet methods", freq: 3, prob: 3, rating: 9 },
+            { activity: "Scaffolding", hazard: "Fall from height", effect: "Fractures", controls: "Guardrails, Harnesses", freq: 4, prob: 4, rating: 16 },
+            { activity: "Electrical", hazard: "Electric shock", effect: "Burns, Cardiac arrest", controls: "Lockout-tagout, PPE", freq: 4, prob: 3, rating: 12 },
+            // Add more from your list as needed
         ];
 
         // Populate risk table
         const riskTableBody = document.getElementById('risk-table-body');
         risks.forEach(risk => {
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${risk.activity}</td><td>${risk.hazard}</td><td>${risk.effect}</td><td>${risk.controls}</td><td>${risk.rating}</td>`;
+            row.innerHTML = `
+                <td>${risk.activity}</td><td>${risk.hazard}</td><td>${risk.effect}</td><td>${risk.controls}</td>
+                <td><input type="number" min="1" max="5" value="${risk.freq}"></td>
+                <td><input type="number" min="1" max="5" value="${risk.prob}"></td>
+                <td>${risk.rating}</td>
+            `;
             riskTableBody.appendChild(row);
         });
 
@@ -157,7 +171,9 @@
                 <td><input type="text" name="hazard"></td>
                 <td><input type="text" name="effect"></td>
                 <td><input type="text" name="controls"></td>
-                <td><input type="text" name="rating"></td>
+                <td><input type="number" min="1" max="5" value="1"></td>
+                <td><input type="number" min="1" max="5" value="1"></td>
+                <td>1</td>
             `;
             riskTableBody.appendChild(row);
         });
@@ -167,14 +183,36 @@
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
-            const permitRequired = data.duration > 180 || data.value > 500000; // Simplified logic
-            let output = `<h4>Generated Documents</h4>`;
+            const permitRequired = data.duration > 180 || data['person-days'] > 500 || data.value > 500000;
+            const agentRequired = data['complex-design'] === 'on';
+
+            const output = document.getElementById('client-output');
+            output.innerHTML = '<h4>Generated Documents</h4>';
+
+            // Notification of Construction Work
             if (permitRequired) {
-                output += `<p><strong>Notification of Construction Work</strong>: Required (Duration: ${data.duration} days, Value: R${data.value})</p>`;
+                const notificationDoc = new jsPDF();
+                notificationDoc.text(`Notification of Construction Work\nProject: ${data['project-name']}\nLocation: ${data.location}\nDuration: ${data.duration} days\nPerson-Days: ${data['person-days']}`, 10, 10);
+                output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'notification.pdf\', notificationDoc)">Download Notification</button>';
             }
-            output += `<p><strong>Baseline Risk Assessment</strong>: Generated for ${data.scope}</p>`;
-            output += `<p><strong>H&S Specifications</strong>: Prepared for ${data.projectName}</p>`;
-            document.getElementById('client-output').innerHTML = output;
+
+            // Baseline Risk Assessment
+            const riskDoc = new jsPDF();
+            riskDoc.text(`Baseline Risk Assessment\nProject: ${data['project-name']}\nScope: ${data.scope}`, 10, 10);
+            riskDoc.text('Hazards identified based on scope will be detailed here.', 10, 30);
+            output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'baseline-risk-assessment.pdf\', riskDoc)">Download Risk Assessment</button>';
+
+            // H&S Specifications
+            const specsDoc = new jsPDF();
+            specsDoc.text(`Health and Safety Specifications\nProject: ${data['project-name']}\nLocation: ${data.location}\nScope: ${data.scope}\nRequirements: Comply with OHSA and Construction Regs`, 10, 10);
+            output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-specifications.pdf\', specsDoc)">Download H&S Specs</button>';
+
+            // Agent Appointment (if required)
+            if (agentRequired) {
+                const agentDoc = new jsPDF();
+                agentDoc.text(`Agent Appointment Letter\nProject: ${data['project-name']}\nAppointed to oversee complex design compliance per Reg 4(1).`, 10, 10);
+                output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'agent-appointment.pdf\', agentDoc)">Download Agent Appointment</button>';
+            }
         });
 
         // Contractor form submission
@@ -187,15 +225,41 @@
                 hazard: row.cells[1].querySelector('input')?.value || row.cells[1].textContent,
                 effect: row.cells[2].querySelector('input')?.value || row.cells[2].textContent,
                 controls: row.cells[3].querySelector('input')?.value || row.cells[3].textContent,
-                rating: row.cells[4].querySelector('input')?.value || row.cells[4].textContent,
+                freq: parseInt(row.cells[4].querySelector('input').value),
+                prob: parseInt(row.cells[5].querySelector('input').value),
+                rating: parseInt(row.cells[4].querySelector('input').value) * parseInt(row.cells[5].querySelector('input').value)
             }));
-            let output = `<h4>Generated Documents</h4>`;
-            output += `<p><strong>Detailed Risk Assessment</strong>: Includes ${customRisks.length} risks for ${data.activities}</p>`;
-            output += `<p><strong>H&S Plan</strong>: Aligned with COID #${data.coidNumber} and Client Specs</p>`;
-            document.getElementById('contractor-output').innerHTML = output;
+
+            const output = document.getElementById('contractor-output');
+            output.innerHTML = '<h4>Generated Documents</h4>';
+
+            // Detailed Risk Assessment
+            const riskDoc = new jsPDF();
+            riskDoc.text(`Detailed Risk Assessment\nContractor: ${data['contractor-name']}\nActivities: ${data.activities}`, 10, 10);
+            let y = 30;
+            customRisks.forEach((risk, i) => {
+                riskDoc.text(`${i + 1}. ${risk.activity}: ${risk.hazard} - ${risk.effect} (Rating: ${risk.rating})`, 10, y);
+                riskDoc.text(`   Controls: ${risk.controls}`, 10, y + 5);
+                y += 15;
+                if (y > 280) { riskDoc.addPage(); y = 10; }
+            });
+            output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'detailed-risk-assessment.pdf\', riskDoc)">Download Risk Assessment</button>';
+
+            // H&S Plan (based on Appendix V)
+            const planDoc = new jsPDF();
+            planDoc.text(`Health and Safety Plan\nContractor: ${data['contractor-name']}\nCOID: ${data['coid-number']}`, 10, 10);
+            planDoc.text(`Purpose: Ensure compliance with OHSA, Construction Regs, and Client Specs`, 10, 20);
+            planDoc.text(`Activities: ${data.activities}\nEmployees: ${data['employee-count']}`, 10, 30);
+            planDoc.text('Key Controls:\n- Induction training\n- Risk elimination\n- Emergency planning', 10, 50);
+            output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-plan.pdf\', planDoc)">Download H&S Plan</button>';
         });
 
-        // Dynamic header adjustment (from index.html)
+        // PDF Download Helper
+        function downloadPDF(filename, doc) {
+            doc.save(filename);
+        }
+
+        // Dynamic header adjustment
         window.addEventListener('load', adjustLayout);
         window.addEventListener('resize', adjustLayout);
         function adjustLayout() {
