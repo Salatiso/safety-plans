@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate legal appointment letters for OHS compliance with Safety First OHS Tools.">
+    <meta name="keywords" content="legal appointments, OHS South Africa, construction safety">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Safety First OHS Tools | Legal Appointments</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .tool-container { max-width: 900px; margin: 20px auto; text-align: center; }
+        .form-section { margin-top: 20px; }
+        .form-section label { display: block; margin: 10px 0; text-align: left; }
+        .form-section input, .form-section textarea, .form-section select { width: 100%; max-width: 400px; padding: 5px; }
+        .output { margin-top: 20px; }
+        .download-btn { padding: 8px 16px; margin: 5px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <button class="sidebar-trigger" aria-label="Toggle OHS Tools Menu">Tools</button>
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
 
+    <div class="main-content">
+        <header>
+            <h1>Safety First OHS Tools</h1>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <div class="search-bar">
+                    <form role="search">
+                        <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                        <button type="submit" aria-label="Search">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <section class="intro">
+            <h2>Legal Appointments Tool</h2>
+            <p>Select an appointment type and provide details to generate a compliant appointment letter.</p>
+        </section>
+
+        <section class="content tool-container">
+            <form id="appointment-input" class="form-section">
+                <label>Appointment Type:
+                    <select name="appointment-type" required>
+                        <option value="">Select an appointment</option>
+                        <option value="Construction Manager (CR 8(1))">Construction Manager (CR 8(1))</option>
+                        <option value="Construction Supervisor (CR 8(7))">Construction Supervisor (CR 8(7))</option>
+                        <option value="Construction Health and Safety Officer (CR 8(5))">Construction Health and Safety Officer (CR 8(5))</option>
+                        <option value="Housekeeping, Staking and Storage Supervisor (CR 27 & 28)">Housekeeping, Staking and Storage Supervisor (CR 27 & 28)</option>
+                        <option value="Tool Inspector">Tool Inspector</option>
+                        <option value="Electrical Tool Inspector">Electrical Tool Inspector</option>
+                        <option value="PPE Supervisor">PPE Supervisor</option>
+                        <option value="OHS Representative">OHS Representative</option>
+                        <option value="OHS Committee Chairperson">OHS Committee Chairperson</option>
+                        <option value="Nominated OHS Committee Member">Nominated OHS Committee Member</option>
+                        <option value="Employer Representative (Section 16(2))">Employer Representative (Section 16(2))</option>
+                        <option value="OHS Coordinator">OHS Coordinator</option>
+                        <option value="Incident Investigator">Incident Investigator</option>
+                        <option value="First Aider">First Aider</option>
+                        <option value="Hazardous Chemicals Substance Coordinator">Hazardous Chemicals Substance Coordinator</option>
+                        <option value="Fire Marshal">Fire Marshal</option>
+                        <option value="Emergency Coordinator">Emergency Coordinator</option>
+                    </select>
+                </label>
+                <label>Authorised Person Name: <input type="text" name="authorised-name" required></label>
+                <label>Appointee Name: <input type="text" name="appointee-name" required></label>
+                <label>Site/Area: <input type="text" name="site" required></label>
+                <label>Duration (e.g., weeks/months/years): <input type="text" name="duration" required></label>
+                <button type="submit">Generate Appointment Letter</button>
+            </form>
+            <div id="appointment-output" class="output"></div>
+        </section>
+
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p><a href="../privacy.html">Privacy Policy</a> | <a href="../terms.html">Terms of Service</a> | <a href="../contact.html">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        // Sidebar functionality
+        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-content').classList.toggle('active');
+        });
+
+        // Appointment templates (simplified duties for brevity; full duties can be added)
+        const templates = {
+            "Construction Manager (CR 8(1))": `Ensure compliance to Construction Regulations 2014, coordinate site activities, ensure training, etc.`,
+            "Construction Supervisor (CR 8(7))": `Take responsibility for construction activities, ensure compliance to regulations, etc.`,
+            "Construction Health and Safety Officer (CR 8(5))": `Assist in health and safety control, conduct risk assessments, maintain records, etc.`,
+            "Housekeeping, Staking and Storage Supervisor (CR 27 & 28)": `Ensure proper storage, removal of waste, compliance with CR 27 & 28, etc.`,
+            "Tool Inspector": `Ensure tools are used correctly, maintained, and inspected, etc.`,
+            "Electrical Tool Inspector": `Ensure electrical tools meet standards, are maintained, and safely used, etc.`,
+            "PPE Supervisor": `Ensure PPE is worn, maintained, and users are trained, etc.`,
+            "OHS Representative": `Perform duties per Section 17-20, conduct inspections, report deviations, etc.`,
+            "OHS Committee Chairperson": `Chair OHS committee, discuss incidents, ensure compliance, etc.`,
+            "Nominated OHS Committee Member": `Attend OHS meetings, discuss incidents, ensure compliance, etc.`,
+            "Employer Representative (Section 16(2))": `Ensure compliance with Section 16, attend OHS issues, etc.`,
+            "OHS Coordinator": `Identify tasks, conduct risk analysis, ensure training, etc.`,
+            "Incident Investigator": `Investigate incidents within 7 days, report findings, etc.`,
+            "First Aider": `Administer first aid, maintain first aid box, keep incident register, etc.`,
+            "Hazardous Chemicals Substance Coordinator": `Manage HCS documentation, conduct inspections, ensure safe handling, etc.`,
+            "Fire Marshal": `Check firefighting equipment, ensure escape routes, participate in drills, etc.`,
+            "Emergency Coordinator": `Align emergency plans, appoint team, facilitate training, etc.`,
+        };
+
+        // Form submission
+        document.getElementById('appointment-input').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            const doc = new jsPDF();
+            doc.text(`Occupational Health and Safety Appointment Letter`, 10, 10);
+            doc.text(`Document No: 001/10/16 | Revision: 2.0`, 10, 20);
+            doc.text(`Appointment: ${data['appointment-type']}`, 10, 30);
+            doc.text(`I, ${data['authorised-name']}, hereby appoint you, ${data['appointee-name']}, as ${data['appointment-type']} for ${data.site}.`, 10, 40);
+            doc.text(`Effective from acceptance, valid for ${data.duration}.`, 10, 50);
+            doc.text(`DUTIES AND RESPONSIBILITIES: ${templates[data['appointment-type']]}`, 10, 60, { maxWidth: 180 });
+            doc.text(`Authorised Person: ${data['authorised-name']} | Date: __________`, 10, 90);
+            doc.text(`Acceptance: I, ${data['appointee-name']}, accept this appointment. | Date: __________`, 10, 100);
+
+            const output = document.getElementById('appointment-output');
+            output.innerHTML = '<h4>Generated Document</h4>';
+            output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'appointment-letter.pdf\', doc)">Download Appointment Letter</button>';
+        });
+
+        function downloadPDF(filename, doc) {
+            doc.save(filename);
+        }
+
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        }
+    </script>
+</body>
+</html>
