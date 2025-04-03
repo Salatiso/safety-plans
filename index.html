@@ -15,18 +15,17 @@
     <div class="sidebar">
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
-            <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
-            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+            <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
         </div>
     </div>
 
-    <!-- Rest of index.html remains unchanged -->
     <div class="main-content">
         <header>
             <h1>Safety First OHS Tools</h1>
@@ -47,8 +46,60 @@
                 </div>
             </nav>
         </header>
-        <!-- ... rest of content ... -->
+
+        <section class="intro">
+            <h1>Master OHS Compliance with Safety First</h1>
+            <p>Welcome to Safety First OHS Tools, your hub for simplifying Occupational Health and Safety in South Africa. Inspired by the <em>Safety First</em> book series, we offer automated tools, expert resources, and a vibrant community to make compliance accessible and efficient.</p>
+            <p>Explore our tools in the sidebar, hire OHS pros, or join discussions—start streamlining your safety today!</p>
+            <div class="feature-teasers">
+                <a href="resources.html" class="teaser">Resources</a>
+                <a href="services.html" class="teaser">Services</a>
+                <a href="community.html" class="teaser">Community</a>
+            </div>
+        </section>
+
+        <section class="book-section">
+            <div class="book-box">
+                <img src="https://books.google.com/books/content?id=vscJEQAAQBAJ&printsec=frontcover&img=1&zoom=1" alt="Safety First: A Comprehensive Guide Book Cover">
+                <h3>Safety First: A Comprehensive Guide</h3>
+                <p>A detailed resource for OHS pros, covering risk management to legal compliance.</p>
+                <a href="https://play.google.com/books/reader?id=vscJEQAAQBAJ&pg=GBS.PA1&hl=en" target="_blank">Read or Buy Now</a>
+            </div>
+            <div class="book-box">
+                <img src="https://books.google.com/books/content?id=psgJEQAAQBAJ&printsec=frontcover&img=1&zoom=1" alt="Safety First: A Step-by-Step Guide Book Cover">
+                <h3>Safety First: A Step-by-Step Guide</h3>
+                <p>A practical handbook with actionable steps for workplace safety compliance.</p>
+                <a href="https://play.google.com/books/reader?id=psgJEQAAQBAJ&pg=GBS.PA1&hl=en" target="_blank">Read or Buy Now</a>
+            </div>
+        </section>
+
+        <section class="featured-provider">
+            <h2>Featured Service Provider</h2>
+            <p>John Doe – Construction Safety Agent, Cape Town<br>Expertise in H&S specs and site audits.<br><a href="services.html">Contact Now</a></p>
+        </section>
+
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
     </div>
-    <!-- ... script unchanged ... -->
+
+    <script>
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        }
+    </script>
 </body>
 </html>
