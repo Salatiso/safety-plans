@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find OHS service providers at Safety First OHS Tools. Hire agents, officers, and consultants for your compliance needs.">
+    <meta name="keywords" content="OHS service providers, safety agents, health and safety officers, OHS consultants South Africa">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Safety First OHS Tools | Services</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
 
+    <div class="main-content">
+        <header>
+            <h1>Safety First OHS Tools</h1>
+            <nav>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="services.html">Services</a>
+                    <a href="community.html">Community</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="search-bar">
+                    <form role="search">
+                        <input type="text" placeholder="Search Providers..." aria-label="Search Providers">
+                        <button type="submit" aria-label="Search">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <section class="intro">
+            <h1>OHS Service Providers</h1>
+            <p>Need a safety agent, officer, or consultant? Browse our directory to find the right pro for your project. Filter by expertise and location coming soon!</p>
+        </section>
+
+        <section class="services-section">
+            <h2>Directory</h2>
+            <div class="provider-list">
+                <div class="provider-item">
+                    <h3>John Doe – Construction Safety Agent</h3>
+                    <p>Location: Cape Town<br>Expertise: H&S Specs, Site Audits<br><a href="mailto:john@example.com">Request Quote</a></p>
+                </div>
+                <div class="provider-item">
+                    <h3>Jane Smith – OHS Officer</h3>
+                    <p>Location: Johannesburg<br>Expertise: Risk Assessments, Training<br><a href="mailto:jane@example.com">Request Quote</a></p>
+                </div>
+            </div>
+
+            <div class="cta">
+                <p>Are you an OHS pro? <a href="contact.html">List Your Services</a></p>
+                <p>Rate your experience in our <a href="community.html">Community</a></p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
+        }
+    </script>
+</body>
+</html>
