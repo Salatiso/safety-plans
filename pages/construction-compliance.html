@@ -26,18 +26,18 @@
 </head>
 <body>
     <div class="sidebar">
-    <div class="sidebar-content">
-        <h3>OHS Tools</h3>
-        <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-        <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-        <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-        <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-        <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-        <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
-        <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-        <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
     </div>
-</div>
 
     <div class="main-content">
         <header>
@@ -56,8 +56,8 @@
         </header>
 
         <section class="intro">
-            <h2>Construction Health and Safety Compliance Tool</h2>
-            <p>Simplify compliance across all construction stages—Пре-Construction, Construction, and Post-Construction. Answer the questions below to generate tailored H&S documents for clients and contractors, aligned with South Africa’s Construction Regulations 2014.</p>
+            <h1>Construction Health and Safety Compliance</h1>
+            <p>Streamline your construction safety compliance with automated tools tailored for South Africa’s Construction Regulations 2014. Select your role below to generate precise H&S documents.</p>
             <div class="role-prompt">
                 <p>Select your role to begin:</p>
                 <div class="role-buttons">
@@ -68,7 +68,6 @@
         </section>
 
         <section class="content tool-container">
-            <!-- Client Form -->
             <div id="client-form" class="form-section">
                 <h3>Client Compliance Input</h3>
                 <form id="client-input">
@@ -94,7 +93,6 @@
                 <div id="client-output" class="output"></div>
             </div>
 
-            <!-- Contractor Form -->
             <div id="contractor-form" class="form-section">
                 <h3>Contractor Compliance Input</h3>
                 <form id="contractor-input">
@@ -128,11 +126,6 @@
 
     <script>
         const { jsPDF } = window.jspdf;
-
-        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.querySelector('.sidebar-content').classList.toggle('active');
-        });
 
         document.getElementById('client-btn').addEventListener('click', () => {
             document.getElementById('client-form').classList.add('active');
