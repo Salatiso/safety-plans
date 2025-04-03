@@ -3,68 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Coming soon: [Tool Name] tool by Safety First OHS Tools. Suggest features by emailing us!">
-    <meta name="keywords" content="OHS tools, construction safety, South Africa, [Tool Name]">
+    <meta name="description" content="Coming soon: Risk Assessment tool by Safety First OHS Tools. Simplify OHS compliance in South Africa.">
+    <meta name="keywords" content="risk assessment, OHS tools, Safety First">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Safety First OHS Tools | [Tool Name]</title>
+    <title>Safety First OHS Tools | Risk Assessment</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        .coming-soon-container { max-width: 900px; margin: 20px auto; text-align: center; padding: 20px; }
-        .coming-soon-container p { margin: 15px 0; }
-        .coming-soon-container a { color: #007bff; text-decoration: none; }
-        .coming-soon-container a:hover { text-decoration: underline; }
-    </style>
 </head>
 <body>
     <div class="sidebar">
-    <div class="sidebar-content">
-        <h3>OHS Tools</h3>
-        <a href="pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-        <a href="pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-        <a href="pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-        <a href="pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-        <a href="pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-        <a href="pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
-        <a href="pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-        <a href="pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
     </div>
-</div>
 
     <div class="main-content">
         <header>
             <h1>Safety First OHS Tools</h1>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="services.html">Services</a>
+                    <a href="community.html">Community</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
                 <div class="search-bar">
                     <form role="search">
-                        <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                        <input type="text" placeholder="Search Tools..." aria-label="Search Tools">
                         <button type="submit" aria-label="Search">Search</button>
                     </form>
                 </div>
             </nav>
         </header>
 
-        <section class="coming-soon-container">
-            <h2>[Tool Name] - Coming Soon!</h2>
-            <p>This tool is under development and will be available soon to help you with your OHS needs.</p>
-            <p>We’d love to hear from you! Tell us what features or content you’d like to see in this tool by emailing <a href="mailto:salatiso@salatiso.com">salatiso@salatiso.com</a>.</p>
+        <section class="intro">
+            <h1>Risk Assessment</h1>
+            <p>Coming soon! Our Risk Assessment tool will help you identify and manage workplace hazards with ease. Stay tuned for updates.</p>
+            <div class="cta">
+                <p>Want to contribute ideas? <a href="contact.html">Contact Us</a> or join our <a href="community.html">Community</a>.</p>
+            </div>
         </section>
 
         <footer>
             <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
             <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
         </footer>
     </div>
 
     <script>
-        document.querySelector('.sidebar-trigger').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.querySelector('.sidebar-content').classList.toggle('active');
-        });
-
         window.addEventListener('load', adjustLayout);
         window.addEventListener('resize', adjustLayout);
         function adjustLayout() {
