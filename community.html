@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join the Safety First OHS Tools Community. Discuss OHS topics, find mentors, and explore job or freelance opportunities.">
+    <meta name="keywords" content="OHS community, safety forum, OHS jobs, OHS mentorship">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Safety First OHS Tools | Community</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
 
+    <div class="main-content">
+        <header>
+            <h1>Safety First OHS Tools</h1>
+            <nav>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="services.html">Services</a>
+                    <a href="community.html">Community</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="search-bar">
+                    <form role="search">
+                        <input type="text" placeholder="Search Community..." aria-label="Search Community">
+                        <button type="submit" aria-label="Search">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <section class="intro">
+            <h1>Join Our OHS Community</h1>
+            <p>Connect with pros, share ideas, find mentors, and explore opportunities—all inspired by <em>Safety First</em>. Coming soon: full forum access!</p>
+        </section>
+
+        <section class="community-section">
+            <h2>Discussion Forum</h2>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <h3>Best H&S Plan Tips</h3>
+                    <p>Ask pros for advice on crafting effective plans.</p>
+                </div>
+                <div class="forum-item">
+                    <h3>Career Q&A</h3>
+                    <p>Get guidance from seasoned OHS experts.</p>
+                </div>
+            </div>
+
+            <h2>Opportunities</h2>
+            <div class="opportunity-list">
+                <div class="opportunity-item">
+                    <h3>Job: Safety Officer – Durban</h3>
+                    <p>Full-time role, apply via <a href="mailto:jobs@example.com">email</a>.</p>
+                </div>
+                <div class="opportunity-item">
+                    <h3>Freelance: H&S Review – 10 Hours</h3>
+                    <p>Short-term gig, contact <a href="mailto:gigs@example.com">here</a>.</p>
+                </div>
+            </div>
+
+            <h2>Mentorship</h2>
+            <div class="cta">
+                <p>Sign up as a mentor or mentee! <a href="contact.html">Join Now</a></p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelector('.main-content').style.paddingTop = headerHeight + 'px';
+            document.querySelector('.sidebar').style.top = headerHeight + 'px';
+            document.querySelector('.sidebar').style.height = `calc(100% - ${
