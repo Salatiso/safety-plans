@@ -7,7 +7,7 @@
     <meta name="keywords" content="construction compliance South Africa, OHS tools, construction safety automation, H&S specifications, contractor H&S plan">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
     <title>Safety First OHS Tools | Construction Compliance</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/safety-plans/assets/css/styles.css"> <!-- Fixed path -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -31,12 +31,12 @@
             <h1>Safety First OHS Tools</h1>
             <nav>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="services.html">Services</a>
-                    <a href="community.html">Community</a>
-                    <a href="about.html">About</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="../index.html">Home</a> <!-- Fixed path -->
+                    <a href="../resources.html">Resources</a> <!-- Fixed path -->
+                    <a href="../services.html">Services</a> <!-- Fixed path -->
+                    <a href="../community.html">Community</a> <!-- Fixed path -->
+                    <a href="../about.html">About</a> <!-- Fixed path -->
+                    <a href="../contact.html">Contact</a> <!-- Fixed path -->
                 </div>
                 <div class="search-bar">
                     <form role="search">
@@ -106,7 +106,7 @@
 
         <footer>
             <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            <p><a href="../privacy.html">Privacy Policy</a> | <a href="../terms.html">Terms of Service</a> | <a href="../contact.html">Contact Us</a></p> <!-- Fixed paths -->
             <div class="newsletter">
                 <h3>Stay Updated</h3>
                 <form>
@@ -156,7 +156,7 @@
                 output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'agent-appointment.pdf\', agentDoc)">Download Agent Appointment</button>';
             }
 
-            output.innerHTML += '<p class="tool-links">Need an Agent or Officer? <a href="services.html">Find Providers</a> | Discuss this in our <a href="community.html">Community</a></p>';
+            output.innerHTML += '<p class="tool-links">Need an Agent or Officer? <a href="../services.html">Find Providers</a> | Discuss this in our <a href="../community.html">Community</a></p>'; // Fixed paths
         });
 
         document.getElementById('contractor-input').addEventListener('submit', (e) => {
@@ -180,7 +180,7 @@
                 output.innerHTML += '<button class="download-btn" onclick="downloadPDF(\'hs-file.pdf\', fileDoc)">Download H&S File</button>';
             }
 
-            output.innerHTML += '<p class="tool-links">Need an Officer? <a href="services.html">Find Providers</a> | Discuss this in our <a href="community.html">Community</a></p>';
+            output.innerHTML += '<p class="tool-links">Need an Officer? <a href="../services.html">Find Providers</a> | Discuss this in our <a href="../community.html">Community</a></p>'; // Fixed paths
         });
 
         function downloadPDF(filename, doc) {
