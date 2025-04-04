@@ -3,15 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Safety First OHS Tools - Your go-to resource for occupational health and safety plans and tools.">
+    <meta name="description" content="Salatiso OHS Tools - Your go-to resource for occupational health and safety plans and tools.">
     <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Safety First OHS Tools</title>
+    <title>Salatiso OHS Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
+            <div class="header-content">
+                <h1>Salatiso OHS Tools</h1>
+                <nav role="navigation" aria-label="Main navigation">
+                    <div class="nav-links">
+                        <a href="/safety-plans/index.html">Home</a>
+                        <a href="/safety-plans/resources.html">Resources</a>
+                        <a href="/safety-plans/services.html">Services</a>
+                        <a href="/safety-plans/community.html">Community</a>
+                        <a href="/safety-plans/about.html">About</a>
+                        <a href="/safety-plans/contact.html">Contact</a>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search">
+                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                            <button type="submit" aria-label="Search">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
     <div class="sidebar">
-        <div class="logo-placeholder">[Logo Placeholder - Reserved for Safety First OHS Tools Logo]</div>
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
             <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
@@ -26,33 +50,13 @@
     </div>
 
     <div class="main-content">
-        <header>
-            <h1>Safety First OHS Tools</h1>
-            <nav role="navigation" aria-label="Main navigation">
-                <div class="nav-links">
-                    <a href="/safety-plans/index.html">Home</a>
-                    <a href="/safety-plans/resources.html">Resources</a>
-                    <a href="/safety-plans/services.html">Services</a>
-                    <a href="/safety-plans/community.html">Community</a>
-                    <a href="/safety-plans/about.html">About</a>
-                    <a href="/safety-plans/contact.html">Contact</a>
-                </div>
-                <div class="search-bar">
-                    <form role="search">
-                        <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
-                        <button type="submit" aria-label="Search">Search</button>
-                    </form>
-                </div>
-            </nav>
-        </header>
-
         <section class="intro">
-            <h2>Welcome to Safety First OHS Tools</h2>
+            <h2>Welcome to Salatiso OHS Tools</h2>
             <p>Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
         </section>
 
         <footer>
-            <p>© 2025 Safety First OHS Tools. All rights reserved.</p>
+            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
             <p>
                 <a href="/safety-plans/privacy.html">Privacy Policy</a> |
                 <a href="/safety-plans/terms.html">Terms of Service</a> |
@@ -170,67 +174,35 @@
             flex-direction: row; /* Ensure sidebar and main content align */
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            background-color: #1a2526;
-            color: #ecf0f1;
-            overflow-y: auto;
-            z-index: 100;
-        }
-        .logo-placeholder {
-            padding: 10px;
-            text-align: center;
-            color: #ecf0f1;
-            font-size: 0.9em;
-            background-color: #2a3536;
-        }
-        .sidebar-content {
-            padding: 20px;
-        }
-        .sidebar h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 1em;
-        }
-        .sidebar a .icon {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .sidebar a:hover {
-            color: #00aaff;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            background-color: #f5f6f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Ensure it takes full height */
-        }
+        /* Header */
         header {
             background-color: #1a2526;
             color: #fff;
             padding: 15px 30px;
             position: fixed;
             top: 0;
-            left: 250px;
+            left: 0;
             right: 0;
             z-index: 90;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo-placeholder {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+            width: 250px; /* Match sidebar width */
+            height: 40px;
+            line-height: 20px;
+        }
+        .header-content {
+            flex: 1;
         }
         header h1 {
             font-family: 'Montserrat', sans-serif;
@@ -271,6 +243,52 @@
         }
         .search-bar button:hover {
             background-color: #0088cc;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            background-color: #1a2526;
+            color: #ecf0f1;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-content {
+            padding: 20px;
+        }
+        .sidebar h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 1em;
+        }
+        .sidebar a .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .sidebar a:hover {
+            color: #00aaff;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            background-color: #f5f6f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure it takes full height */
         }
 
         /* Intro Section */
@@ -425,8 +443,15 @@
                 margin-left: 0;
             }
             header {
-                left: 0;
                 position: relative;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-placeholder {
+                width: 100%;
+                margin-bottom: 10px;
             }
             .intro {
                 margin: 20px;
