@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="sidebar">
+        <div class="logo-placeholder">[Logo Placeholder - Reserved for Safety First OHS Tools Logo]</div>
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
             <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
@@ -179,6 +180,13 @@
             color: #ecf0f1;
             overflow-y: auto;
             z-index: 100;
+        }
+        .logo-placeholder {
+            padding: 10px;
+            text-align: center;
+            color: #ecf0f1;
+            font-size: 0.9em;
+            background-color: #2a3536;
         }
         .sidebar-content {
             padding: 20px;
@@ -370,6 +378,8 @@
             max-height: 400px;
             overflow-y: auto;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column; /* Improved layout */
         }
         .chat-hidden {
             display: none;
@@ -377,6 +387,7 @@
         #chat-output {
             padding: 10px;
             font-size: 14px;
+            flex: 1; /* Allow output to grow */
         }
         #chat-input {
             width: 70%;
@@ -396,6 +407,12 @@
             background-color: #0088cc;
         }
 
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 2px solid #00aaff;
+            outline-offset: 2px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -406,7 +423,6 @@
             }
             .main-content {
                 margin-left: 0;
-                padding-top: 0;
             }
             header {
                 left: 0;
@@ -414,6 +430,14 @@
             }
             .intro {
                 margin: 20px;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
+                margin: 5px 10px;
             }
         }
     </style>
