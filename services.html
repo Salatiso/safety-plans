@@ -93,5 +93,77 @@
             document.querySelector('.sidebar').style.height = `calc(100% - ${headerHeight}px)`;
         }
     </script>
+    <!-- Chatbot Widget -->
+<div class="chatbot-container">
+    <button id="chat-toggle" class="chat-toggle-btn">
+        <span class="chat-icon">⛑️</span> Ask Me
+    </button>
+    <div id="chat-window" class="chat-hidden">
+        <div id="chat-output"></div>
+        <input id="chat-input" type="text" placeholder="Ask about OHS...">
+        <button id="chat-send">Send</button>
+    </div>
+</div>
+
+<!-- Firebase Scripts and Chatbot Logic -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+<script>
+    // Firebase Config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
+        authDomain: "safety-first-chatbot.firebaseapp.com",
+        projectId: "safety-first-chatbot",
+        storageBucket: "safety-first-chatbot.firebasestorage.app",
+        messagingSenderId: "741489856541",
+        appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
+        measurementId: "G-04Y1PQDYVD"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Toggle Chat Window
+    document.getElementById('chat-toggle').addEventListener('click', () => {
+        document.getElementById('chat-window').classList.toggle('chat-hidden');
+    });
+
+    // Send Question to Chatbot
+    document.getElementById('chat-send').addEventListener('click', async () => {
+        const input = document.getElementById('chat-input').value;
+        const output = document.getElementById('chat-output');
+        output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+
+        const query = input.toLowerCase();
+        const snapshot = await db.collection('ohs-knowledge').get();
+        let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.content.toLowerCase().includes(query)) {
+                response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
+            }
+        });
+        output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
+        document.getElementById('chat-input').value = '';
+        output.scrollTop = output.scrollHeight;
+    });
+
+    // Adjust Layout
+    window.addEventListener('load', adjustLayout);
+    window.addEventListener('resize', adjustLayout);
+    function adjustLayout() {
+        const headerHeight = document.querySelector('header').offsetHeight || 0;
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        if (sidebar && mainContent) {
+            sidebar.style.top = `${headerHeight}px`;
+            sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
+            mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
+            mainContent.style.paddingTop = `${headerHeight}px`;
+            mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+        }
+    }
+</script>
 </body>
 </html>
