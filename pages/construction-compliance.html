@@ -53,6 +53,77 @@
         <section class="intro">
             <h2>Construction Health and Safety</h2>
             <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
+
+            <!-- Role Selection -->
+            <div class="role-selection">
+                <h3>Select Your Role</h3>
+                <button id="client-btn" class="role-btn">Client</button>
+                <button id="contractor-btn" class="role-btn">Contractor</button>
+                <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
+            </div>
+
+            <!-- Project Form (Hidden until role selected) -->
+            <div id="project-form-container" class="form-container hidden">
+                <h3>Start New Project</h3>
+                <form id="project-form">
+                    <label for="project-name">Project Name:</label>
+                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
+
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" required aria-label="Project Location">
+
+                    <label for="cost">Cost (R):</label>
+                    <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost">
+
+                    <label for="duration">Duration (days):</label>
+                    <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration">
+
+                    <label>Activities Involved:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> <label for="scaffolding">Scaffolding</label>
+                        <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction"> <label for="multi-storey">Multi-Storey Construction</label>
+                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal"> <label for="asbestos">Asbestos Removal</label>
+                    </div>
+
+                    <label for="cidb-grade">CIDB Grading:</label>
+                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
+                        <option value="Not Applicable">Not Applicable</option>
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6">Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                    </select>
+
+                    <label for="scope-details">Scope Details:</label>
+                    <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details"></textarea>
+
+                    <button type="submit">Generate Documents</button>
+                </form>
+            </div>
+
+            <!-- Cart Section -->
+            <div id="cart-container" class="cart-container hidden">
+                <h3>Your Cart</h3>
+                <table id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+                <div class="checkout">
+                    <label for="promo-code">Promo Code:</label>
+                    <input type="text" id="promo-code" placeholder="Enter SAFETYFREE2025" aria-label="Promo Code">
+                    <button id="checkout-btn">Checkout</button>
+                </div>
+            </div>
         </section>
 
         <footer>
@@ -87,6 +158,10 @@
     <!-- Firebase Scripts and Chatbot Logic -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <!-- jsPDF for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- New JS File for Construction Compliance -->
+    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
     <script>
         // Firebase Config
         const firebaseConfig = {
@@ -309,6 +384,123 @@
         .intro p {
             font-size: 1em;
             color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Role Selection */
+        .role-selection {
+            margin-top: 20px;
+        }
+        .role-selection h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .role-btn {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .role-btn:hover {
+            background-color: #0088cc;
+        }
+
+        /* Form Container */
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        #project-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 600;
+        }
+        #project-form input[type="text"],
+        #project-form input[type="number"],
+        #project-form select,
+        #project-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+        #project-form button {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #project-form button:hover {
+            background-color: #0088cc;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* Cart Container */
+        .cart-container {
+            margin-top: 20px;
+        }
+        .cart-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        #cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        #cart-table th,
+        #cart-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #cart-table th {
+            background-color: #f5f6f5;
+        }
+        .checkout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #promo-code {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        #checkout-btn {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #checkout-btn:hover {
+            background-color: #0088cc;
         }
 
         /* Footer */
@@ -463,6 +655,16 @@
             }
             .nav-links a {
                 margin: 5px 10px;
+            }
+            .role-btn {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+            #project-form input,
+            #project-form select,
+            #project-form textarea {
+                width: 100%;
             }
         }
     </style>
