@@ -1,3 +1,4 @@
+// ohs-data.js
 const ohsData = {
     legalRequirements: [
         { id: 'ohsa', text: 'Occupational Health and Safety Act (OHSA) (Act 85 of 1993)', checked: false },
@@ -6,19 +7,15 @@ const ohsData = {
         { id: 'electrical', text: 'Electrical Installation Regulations', checked: false },
         { id: 'driven-machinery', text: 'Driven Machinery Regulations', checked: false },
         { id: 'municipal-bylaws', text: 'Local Municipal Bylaws', checked: false, requiresDetails: true, detailsLabel: "Specify Bylaws:" },
-        // ... more legal requirements
     ],
-
     roles: [
         { value: 'Construction Manager', text: 'Construction Manager (CR 8(1))', responsibilities: 'Oversee site safety, ensure compliance, manage H&S plan' },
         { value: 'Construction Supervisor', text: 'Construction Supervisor (CR 8(7))', responsibilities: 'Supervise work, enforce safety procedures' },
         { value: 'H&S Officer', text: 'Health and Safety Officer (CR 8(5))', responsibilities: 'Conduct inspections, risk assessments, incident investigations' },
         { value: 'First Aider', text: 'First Aider', responsibilities: 'Provide first aid, maintain first aid kit' },
         { value: 'Fire Warden', text: 'Fire Warden', responsibilities: 'Manage fire safety, evacuation procedures' },
-        { value: 'Other', text: 'Other (Specify)', responsibilities: '', requiresDetails: true, detailsLabel: "Specify Role:" } // Generic role
-        // ... more roles
+        { value: 'Other', text: 'Other (Specify)', responsibilities: '', requiresDetails: true, detailsLabel: "Specify Role:" }
     ],
-
     trainingTopics: [
         { id: 'site-induction', text: 'Site Induction', checked: false },
         { id: 'fall-protection', text: 'Fall Protection Training', checked: false },
@@ -26,9 +23,7 @@ const ohsData = {
         { id: 'first-aid', text: 'First Aid Training', checked: false },
         { id: 'fire-safety', text: 'Fire Safety Training', checked: false },
         { id: 'hcs-training', text: 'Hazardous Chemical Substances Training', checked: false, requiresDetails: true, detailsLabel: "Specify Chemicals:" },
-        // ... more training topics
     ],
-
     ppeTypes: [
         { id: 'hard-hats', text: 'Hard Hats', checked: false },
         { id: 'safety-glasses', text: 'Safety Glasses', checked: false },
@@ -36,9 +31,7 @@ const ohsData = {
         { id: 'high-vis', text: 'High-Visibility Vests', checked: false },
         { id: 'respirators', text: 'Respirators', checked: false, requiresDetails: true, detailsLabel: "Respirator Type:" },
         { id: 'gloves', text: 'Gloves', checked: false, requiresDetails: true, detailsLabel: "Glove Type:" },
-        // ... more PPE types
     ],
-
     riskAssessmentActivities: [
         { value: 'Demolition', text: 'Demolition' },
         { value: 'Excavation', text: 'Excavation' },
@@ -48,18 +41,14 @@ const ohsData = {
         { value: 'Electrical Work', text: 'Electrical Work' },
         { value: 'Welding', text: 'Welding' },
         { value: 'Confined Space Entry', text: 'Confined Space Entry' },
-        { value: 'Other', text: 'Other (Specify)', requiresDetails: true, detailsLabel: "Specify Activity:"  } // Generic activity
-        // ... more activities
+        { value: 'Other', text: 'Other (Specify)', requiresDetails: true, detailsLabel: "Specify Activity:" }
     ],
-
-    hazards: { // Nested object for hazards, risks, controls
+    hazards: {
         'Demolition': [
             { name: 'Asbestos exposure', risk: 'Respiratory illness', control: 'Licensed removal, PPE' },
             { name: 'Falling debris', risk: 'Injury', control: 'Barricades, hard hats' },
             { name: 'Structural collapse', risk: 'Injury, fatality', control: 'Demolition plan, exclusion zone' },
             { name: 'Noise', risk: 'Hearing loss', control: 'Ear protection' }
-
-            // ... more demolition hazards
         ],
         'Excavation': [
             { name: 'Trench collapse', risk: 'Burial/injury', control: 'Shoring, inspections' },
@@ -92,6 +81,8 @@ const ohsData = {
             { name: 'Oxygen Deficiency', risk: 'Asphyxiation', control: 'Air monitoring, ventilation' },
             { name: 'Toxic gases', risk: 'Respiratory illness', control: 'Air monitoring, ventilation, PPE' }
         ],
-        // ... Hazards for other activities
     }
 };
+
+// Export for use in other scripts
+window.ohsData = ohsData;
