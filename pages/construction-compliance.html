@@ -11,73 +11,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/safety-plans/assets/css/styles.css"> <style>
-        /* Inline styles (refined) */
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            background-color: #f5f6f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding-top: 70px; /* Adjusted padding to account for header */
-        }
-
-        .intro {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
-
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .intro p {
-            font-size: 1em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .role-selection {
+    <link rel="stylesheet" href="/safety-plans/assets/css/styles.css">
+    <style>
+        .form-cart-wrapper {
             margin-top: 20px;
         }
 
-        .role-selection h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        .role-btn {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            margin-right: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .role-btn:hover {
-            background-color: #0088cc;
-        }
-
-        .form-container {
-            margin-top: 20px;
-        }
-
-        .form-container h3 {
+        .form-cart-wrapper h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2em;
             margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #client-project-form label {
@@ -119,12 +70,11 @@
             background-color: #0088cc;
         }
 
-        .hidden {
-            display: none;
-        }
-
-        /* Cart Container */
         .cart-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
 
@@ -176,6 +126,10 @@
 
         #checkout-btn:hover {
             background-color: #0088cc;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -241,73 +195,108 @@
                 <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
             </div>
 
-            <div id="project-form-container" class="form-container hidden">
-                <h3>Start New Project</h3>
-                <form id="client-project-form"> <label for="project-name">Project Name:</label>
-                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
+            <div class="form-cart-wrapper hidden"> <div id="project-form-container" class="form-container">
+                    <h3>Start New Project</h3>
+                    <form id="client-project-form">
+                        <label for="project-name">Project Name:</label>
+                        <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
 
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" required aria-label="Project Location">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required aria-label="Project Location">
 
-                    <label for="client-name">Client Name:</label> <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
+                        <label for="client-name">Client Name:</label>
+                        <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
 
-                    <label for="cost">Cost (R):</label>
-                    <input type="number" id="cost" name="cost" min="0" step="1" required
-                        aria-label="Project Cost">
+                        <label for="client-contact-name">Client Contact Name:</label>
+                        <input type="text" id="client-contact-name" name="clientContactName" required
+                            aria-label="Client Contact Name">
 
-                    <label for="duration">Duration (days):</label>
-                    <input type="number" id="duration" name="duration" min="1" step="1" required
-                        aria-label="Project Duration">
+                        <label for="client-contact-title">Client Contact Title:</label>
+                        <input type="text" id="client-contact-title" name="clientContactTitle" required
+                            aria-label="Client Contact Title">
 
-                    <label>Activities Involved:</label>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> <label
-                            for="scaffolding">Scaffolding</label>
-                        <input type="checkbox" id="multi-storey" name="activities"
-                            value="Multi-Storey Construction"> <label for="multi-storey">Multi-Storey
-                            Construction</label>
-                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal"> <label
-                            for="asbestos">Asbestos Removal</label>
-                        </div>
+                        <label for="client-contact-phone">Client Contact Phone:</label>
+                        <input type="tel" id="client-contact-phone" name="clientContactPhone"
+                            aria-label="Client Contact Phone">
 
-                    <label for="cidb-grade">CIDB Grading:</label>
-                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
-                        <option value="Not Applicable">Not Applicable</option>
-                        <option value="1">Grade 1</option>
-                        <option value="2">Grade 2</option>
-                        <option value="3">Grade 3</option>
-                        <option value="4">Grade 4</option>
-                        <option value="5">Grade 5</option>
-                        <option value="6">Grade 6</option>
-                        <option value="7">Grade 7</option>
-                        <option value="8">Grade 8</option>
-                        <option value="9">Grade 9</option>
-                    </select>
+                        <label for="client-contact-email">Client Contact Email:</label>
+                        <input type="email" id="client-contact-email" name="clientContactEmail"
+                            aria-label="Client Contact Email">
 
-                    <label for="scope-details">Scope Details:</label>
-                    <textarea id="scope-details" name="scopeDetails" rows="4" required
-                        aria-label="Scope Details"></textarea>
+                        <label for="cost">Cost (R):</label>
+                        <input type="number" id="cost" name="cost" min="0" step="1" required
+                            aria-label="Project Cost">
 
-                    <button type="submit">Generate Documents</button>
-                </form>
-            </div>
+                        <label for="duration">Duration (days):</label>
+                        <input type="number" id="duration" name="duration" min="1" step="1" required
+                            aria-label="Project Duration">
 
-            <div id="cart-container" class="cart-container hidden">
-                <h3>Your Cart</h3>
-                <table id="cart-table">
-                    <thead>
-                        <tr>
-                            <th>Document</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items"></tbody>
-                </table>
-                <div class="checkout">
-                    <label for="promo-code">Promo Code:</label>
-                    <input type="text" id="promo-code" placeholder="Enter SAFETYFREE2025"
-                        aria-label="Promo Code">
-                    <button id="checkout-btn">Checkout</button>
+                        <label>Activities Involved:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> <label
+                                for="scaffolding">Scaffolding</label>
+                            <input type="checkbox" id="multi-storey" name="activities"
+                                value="Multi-Storey Construction"> <label for="multi-storey">Multi-Storey
+                                Construction</label>
+                            <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
+                            <label for="asbestos">Asbestos Removal</label>
+                            <input type="checkbox" id="excavation" name="activities" value="Excavation"> <label
+                                for="excavation">Excavation</label>
+                            <input type="checkbox" id="demolition" name="activities" value="Demolition"> <label
+                                for="demolition">Demolition</label>
+                            <input type="checkbox" id="crane-ops" name="activities" value="Crane Operations"> <label
+                                for="crane-ops">Crane Operations</label>
+                            <input type="checkbox" id="electrical-work" name="activities" value="Electrical Work">
+                            <label for="electrical-work">Electrical Work</label>
+                            <input type="checkbox" id="welding" name="activities" value="Welding"> <label
+                                for="welding">Welding</label>
+                            <input type="checkbox" id="confined-space" name="activities"
+                                value="Confined Space Entry"> <label for="confined-space">Confined Space Entry</label>
+                            <input type="checkbox" id="other-activity" name="activities" value="Other"> <label
+                                for="other-activity">Other (Specify):</label>
+                            <input type="text" id="other-activity-details" name="otherActivityDetails"
+                                style="display: none;">
+                            </div>
+
+                        <label for="cidb-grade">CIDB Grading:</label>
+                        <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
+                            <option value="Not Applicable">Not Applicable</option>
+                            <option value="1">Grade 1</option>
+                            <option value="2">Grade 2</option>
+                            <option value="3">Grade 3</option>
+                            <option value="4">Grade 4</option>
+                            <option value="5">Grade 5</option>
+                            <option value="6">Grade 6</option>
+                            <option value="7">Grade 7</option>
+                            <option value="8">Grade 8</option>
+                            <option value="9">Grade 9</option>
+                        </select>
+
+                        <label for="scope-details">Scope Details:</label>
+                        <textarea id="scope-details" name="scopeDetails" rows="4" required
+                            aria-label="Scope Details"></textarea>
+
+                        <button type="submit">Generate Documents</button>
+                    </form>
+                </div>
+
+                <div id="cart-container" class="cart-container hidden">
+                    <h3>Your Cart</h3>
+                    <table id="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Document</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items"></tbody>
+                    </table>
+                    <div class="checkout">
+                        <label for="promo-code">Promo Code:</label>
+                        <input type="text" id="promo-code" placeholder="Enter SAFETYFREE2025"
+                            aria-label="Promo Code">
+                        <button id="checkout-btn">Checkout</button>
+                    </div>
                 </div>
             </div>
         </section>
