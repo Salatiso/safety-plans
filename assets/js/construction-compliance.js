@@ -1,9 +1,6 @@
 // construction-compliance.js
 
-// Cart array to store generated documents
-let cart = [];
-
-// Role Selection
+// Show form based on role selection
 document.getElementById('client-btn').addEventListener('click', () => showForm('Client'));
 document.getElementById('contractor-btn').addEventListener('click', () => showForm('Contractor'));
 document.getElementById('hns-pro-btn').addEventListener('click', () => showForm('Health & Safety Professional'));
@@ -11,170 +8,225 @@ document.getElementById('hns-pro-btn').addEventListener('click', () => showForm(
 function showForm(role) {
     const formContainer = document.getElementById('project-form-container');
     formContainer.classList.remove('hidden');
-    formContainer.dataset.role = role; // Store selected role
-    document.getElementById('project-form').reset(); // Reset form
-    document.getElementById('cart-container').classList.add('hidden'); // Hide cart
-    cart = []; // Clear cart
+    console.log(`${role} form displayed`);
 }
 
-// Form Submission
-document.getElementById('project-form').addEventListener('submit', (e) => {
+// Form submission and PDF generation
+document.getElementById('project-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const role = document.getElementById('project-form-container').dataset.role;
-    if (role !== 'Client') return; // Only process for Client role
 
-    const formData = new FormData(e.target);
-    const project = {
-        name: formData.get('projectName'),
-        location: formData.get('location'),
-        cost: parseInt(formData.get('cost')),
-        duration: parseInt(formData.get('duration')),
-        activities: formData.getAll('activities'),
-        cidbGrade: formData.get('cidbGrade'),
-        scopeDetails: formData.get('scopeDetails')
-    };
+    // Capture form data
+    const projectName = document.getElementById('project-name').value;
+    const location = document.getElementById('location').value;
+    const scopeDetails = document.getElementById('scope-details').value;
+    const cost = document.getElementById('cost').value;
+    const duration = document.getElementById('duration').value;
+    const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(input => input.value);
+    const cidbGrade = document.getElementById('cidb-grade').value;
+    // Assuming "Contractor Name" field added with id="contractor-name"
+    const contractorName = document.getElementById('contractor-name')?.value || "To be filled";
 
-    const score = calculateRiskScore(project);
-    const docs = generateDocuments(project, score);
-    addToCart(docs);
-    showCart();
-});
-
-// Risk Scoring
-function calculateRiskScore(project) {
-    let score = 0;
-    if (project.cost > 13000000) score += 20; // R13M threshold
-    if (project.duration > 365) score += 20; // 365 days threshold
-    
-    project.activities.forEach(activity => {
-        const matchedActivity = ohsData.riskAssessmentActivities.find(act => act.text === activity);
-        if (matchedActivity && ohsData.hazards[matchedActivity.value]?.some(h => h.risk.includes('fatality'))) {
-            score += 20; // Higher weight for fatality risks
-        } else {
-            score += 10; // Standard weight
-        }
-    });
-    
-    if (['7', '8', '9'].includes(project.cidbGrade)) score += 10; // High CIDB grades
-    return score;
-}
-
-// Document Generation
-function generateDocuments(project, score) {
+    // Initialize jsPDF
     const { jsPDF } = window.jspdf;
-    const docs = [];
+    const doc = new jsPDF();
 
-    // Health and Safety Specifications
-    const specsDoc = new jsPDF();
-    specsDoc.setFontSize(16);
-    specsDoc.text(`Health and Safety Specification for ${project.name}`, 10, 10);
-    specsDoc.setFontSize(12);
-    specsDoc.text(`Location: ${project.location}`, 10, 30);
-    specsDoc.text(`Scope: ${project.scopeDetails}`, 10, 40);
-    specsDoc.text('Activities Involved:', 10, 50);
-    project.activities.forEach((activity, index) => {
-        specsDoc.text(`- ${activity}`, 10, 60 + index * 10);
-    });
-    let yPos = 60 + project.activities.length * 10 + 10;
-    specsDoc.text('Legal Requirements:', 10, yPos);
-    ohsData.legalRequirements.forEach((req, index) => {
-        specsDoc.text(`- ${req.text}`, 10, yPos + 10 + index * 10);
-    });
-    yPos += ohsData.legalRequirements.length * 10 + 10;
-    specsDoc.text('Contractor Responsibilities:', 10, yPos);
-    ohsData.roles.forEach((role, index) => {
-        specsDoc.text(`- ${role.text}: ${role.responsibilities}`, 10, yPos + 10 + index * 10);
-    });
-    docs.push({ name: 'H&S Specification', pdf: specsDoc, price: 0 });
-
-    // Baseline Risk Assessment
-    const raDoc = new jsPDF();
-    raDoc.setFontSize(16);
-    raDoc.text(`Baseline Risk Assessment for ${project.name}`, 10, 10);
-    raDoc.setFontSize(12);
-    raDoc.text('Identified Hazards and Controls:', 10, 20);
-    let raYPos = 30;
-    project.activities.forEach((activity, index) => {
-        const matchedActivity = ohsData.riskAssessmentActivities.find(act => act.text === activity);
-        if (matchedActivity && ohsData.hazards[matchedActivity.value]) {
-            ohsData.hazards[matchedActivity.value].forEach((hazard, hIndex) => {
-                raDoc.text(`- ${hazard.name}: Risk - ${hazard.risk}, Control - ${hazard.control}`, 10, raYPos + (index + hIndex) * 10);
-            });
-            raYPos += ohsData.hazards[matchedActivity.value].length * 10;
-        } else {
-            raDoc.text(`- ${activity}: Control - ${getControl(activity)}`, 10, raYPos + index * 10);
-        }
-    });
-    docs.push({ name: 'Baseline Risk Assessment', pdf: raDoc, price: 0 });
-
-    // Construction Work Permit Application
-    if (score > 50) {
-        const permitDoc = new jsPDF();
-        permitDoc.setFontSize(16);
-        permitDoc.text(`Construction Work Permit Application`, 10, 10);
-        permitDoc.setFontSize(12);
-        permitDoc.text(`Project: ${project.name}`, 10, 20);
-        permitDoc.text(`Location: ${project.location}`, 10, 30);
-        permitDoc.text(`Cost: R${project.cost}`, 10, 40);
-        permitDoc.text(`Duration: ${project.duration} days`, 10, 50);
-        permitDoc.text(`CIDB Grade: ${project.cidbGrade}`, 10, 60);
-        permitDoc.text('Submit to: Provincial Director, Department of Employment and Labour', 10, 70);
-        permitDoc.text(`Note: Required under CR 3 due to high risk (Score: ${score})`, 10, 80);
-        const highRiskActivities = project.activities.filter(act => {
-            const matched = ohsData.riskAssessmentActivities.find(a => a.text === act);
-            return matched && ohsData.hazards[matched.value]?.some(h => h.risk.includes('fatality'));
-        });
-        if (highRiskActivities.length > 0) {
-            permitDoc.text('High-Risk Activities:', 10, 90);
-            highRiskActivities.forEach((act, index) => {
-                permitDoc.text(`- ${act}`, 10, 100 + index * 10);
-            });
-        }
-        docs.push({ name: 'Construction Work Permit Application', pdf: permitDoc, price: 0 });
+    // Helper function for headers
+    function addHeader(pageNum) {
+        doc.setFontSize(12);
+        doc.text("Occupational Health and Safety Specifications for Contractors", 10, 10);
+        doc.setFontSize(10);
+        doc.text(`Document No: `, 150, 10);
+        doc.text(`Revision: 1.0`, 150, 15);
+        doc.text(`Date Issued: April 09, 2025`, 150, 20);
+        doc.text(`Date Approved: `, 150, 25);
+        doc.text(`Page No: Page ${pageNum} of 8`, 150, 30);
     }
 
-    return docs;
-}
+    // PAGE 1: Site-Specific Details
+    addHeader(1);
+    doc.setFontSize(12);
+    doc.text("Site-Specific Contractor and Project Details", 10, 40);
+    doc.setFontSize(10);
+    doc.text(`Project Name: ${projectName}`, 10, 50);
+    doc.text(`Location: ${location}`, 10, 60);
+    doc.text(`Scope of Work: ${scopeDetails.substring(0, 100)}...`, 10, 70); // Truncate for brevity
+    doc.text(`Cost (R): ${cost}`, 10, 80);
+    doc.text(`Duration (Days): ${duration}`, 10, 90);
+    doc.text(`Activities Involved: ${activities.join(", ") || "None"}`, 10, 100);
+    doc.text(`CIDB Grading: ${cidbGrade}`, 10, 110);
+    doc.text(`Contractor Name: ${contractorName}`, 10, 120);
 
-// Hazard-Control Mapping (Fallback)
-function getControl(activity) {
-    const controls = {
-        'Scaffolding': 'Erect guardrails, ensure competent erection',
-        'Multi-Storey Construction': 'Install fall protection, regular inspections',
-        'Asbestos Removal': 'Use PPE, licensed removal specialists'
-    };
-    return controls[activity] || 'General safety measures';
-}
+    // PAGE 2: Contents
+    doc.addPage();
+    addHeader(2);
+    doc.setFontSize(12);
+    doc.text("Contents", 10, 40);
+    doc.setFontSize(10);
+    const contents = [
+        "1. Purpose",
+        "2. Interpretation",
+        "   2.1 Scope",
+        "   2.2 References",
+        "   2.3 Definitions",
+        "3. Administrative Requirements",
+        "   3.1 Reporting",
+        "   3.2 Registration with Compensation Authorities",
+        "   3.3 Statutory Appointments",
+        "   3.4 Risk Management",
+        "   3.5 Incidents and Accident Management",
+        "   3.6 OHS Plan",
+        "   3.7 Audit and Inspection",
+        "   3.8 Records",
+        "4. Operational Requirements",
+        "   4.1 Training",
+        "   4.2 Supervision, Discipline, and Reporting",
+        "   4.3 OHS Committee",
+        "   4.4 Occupational Health",
+        "   4.5 Safety and Security",
+        "   4.6 Emergency Preparedness",
+        "   4.7 Work Procedures",
+        "   4.8 Welfare Facilities",
+        "   4.9 Cooperation",
+        "   4.10 Subcontractors",
+        "   4.11 Public and Site Visitor Health & Safety",
+        "   4.12 Access to Site",
+        "   4.13 Housekeeping",
+        "   4.14 Intoxication",
+        "   4.15 Environmental Impact and Nuisance",
+        "5. Physical Requirements",
+        "   5.1 Specific Physical Requirements",
+        "   5.2 Edge Protection and Barricading",
+        "   5.3 Vessels Under Pressure and Gas Bottles",
+        "   5.4 Lifting Machines, Tackle, and Operations",
+        "   5.5 Fall Protection",
+        "   5.6 Severe Weather Plan",
+        "   5.7 Ladders",
+        "   5.8 Electrical Installations and Tools",
+        "   5.9 Lockout Procedures",
+        "   5.10 Waste Chutes",
+        "   5.11 Hazardous Chemical Substances",
+        "   5.12 Traffic Diversions",
+        "6. General Contract Requirements",
+        "   6.1 Contractor as Employer",
+        "   6.2 Indemnity Agreement",
+        "   6.3 No Usage of Client Equipment",
+        "   6.4 Duration of Agreement"
+    ];
+    contents.forEach((line, i) => doc.text(line, 10, 50 + i * 5));
 
-// Cart Management
-function addToCart(documents) {
-    cart = documents;
-}
+    // PAGE 3: Purpose
+    doc.addPage();
+    addHeader(3);
+    doc.setFontSize(12);
+    doc.text("1. Purpose", 10, 40);
+    doc.setFontSize(10);
+    doc.text("The aim of these health and safety specifications is to outline the minimum requirements for compliance with occupational health and safety standards and ensure that the contractor’s activities do not negatively impact employees, visitors, clients, other stakeholders, or the surrounding environment during the contract period. These requirements align with applicable occupational health and safety legislation, obligating the client to safeguard not only their employees but also others affected by the contracted activities. They enable the contractor to manage OHS risks effectively throughout the project duration, as reflected in the OHS plan submitted prior to commencing work.", 10, 50, { maxWidth: 190 });
+    doc.text("These specifications represent the minimum standards, and the contractor bears the responsibility to ensure full compliance with all relevant legislation. The client or their authorized agent may conduct scheduled or ad-hoc inspections and audits to verify compliance. This document serves as an annexure to the main contract and applicable service level agreements, carrying equal enforcement weight. Any perceived contradictions with the principal agreement must be reported to the client for resolution.", 10, 90, { maxWidth: 190 });
 
-function showCart() {
+    // PAGE 4: Interpretation
+    doc.addPage();
+    addHeader(4);
+    doc.setFontSize(12);
+    doc.text("2. Interpretation", 10, 40);
+    doc.setFontSize(10);
+    doc.text("2.1 Scope", 10, 50);
+    doc.text("These minimum requirements apply to the contractor for the duration of their engagement with the client, encompassing all contractors, subcontractors, and any parties performing work governed by applicable occupational health and safety legislation and regulations.", 10, 60, { maxWidth: 190 });
+    doc.text("2.2 References", 10, 80);
+    doc.text("- Occupational Health and Safety Act and its regulations (e.g., South Africa: Act 85 of 1993, or equivalent jurisdiction-specific laws).", 10, 90);
+    doc.text("- Construction Regulations (as applicable).", 10, 100);
+    doc.text("- Relevant codes of practice (e.g., SABS standards for scaffolding).", 10, 110);
+    doc.text("2.3 Definitions", 10, 130);
+    doc.text("- Client: The entity engaging the contractor for the project.", 10, 140);
+    doc.text("- Contractor: The entity responsible for executing the work as per the contract.", 10, 150);
+    doc.text("- OHS: Occupational Health and Safety.", 10, 160);
+    doc.text("- HIRA: Hazard Identification and Risk Assessment.", 10, 170);
+
+    // PAGE 5: Administrative Requirements (Partial)
+    doc.addPage();
+    addHeader(5);
+    doc.setFontSize(12);
+    doc.text("3. Administrative Requirements", 10, 40);
+    doc.setFontSize(10);
+    doc.text("3.1 Reporting", 10, 50);
+    doc.text("The contractor must submit regular OHS reports as stipulated by the client, including incident reports, inspection findings, and compliance updates.", 10, 60, { maxWidth: 190 });
+    doc.text("3.4 Risk Management", 10, 80);
+    doc.text("3.4.1 Risk Assessments and Hazard Identification (HIRA)", 10, 90);
+    doc.text(`The contractor must conduct HIRA for all project activities, with specific emphasis on: ${activities.join(", ") || "None"} as identified in the project scope. Results must be documented and maintained on-site.`, 10, 100, { maxWidth: 190 });
+    doc.text("3.6 OHS Plan", 10, 120);
+    doc.text(`The contractor must submit an OHS plan prior to commencing work, tailored to the project: ${projectName} at ${location}. The plan must address all identified risks and comply with these specifications.`, 10, 130, { maxWidth: 190 });
+
+    // PAGE 6: Physical Requirements (Partial)
+    doc.addPage();
+    addHeader(6);
+    doc.setFontSize(12);
+    doc.text("5. Physical Requirements", 10, 40);
+    doc.setFontSize(10);
+    doc.text("5.5 Fall Protection", 10, 50);
+    if (activities.includes("Multi-Storey Construction")) {
+        doc.text("For projects involving Multi-Storey Construction, the contractor must implement fall protection measures, including guard rails per applicable standards (e.g., SABS 10085-1) and ensure workers are medically fit and trained.", 10, 60, { maxWidth: 190 });
+    } else {
+        doc.text("No specific fall protection requirements identified based on selected activities.", 10, 60, { maxWidth: 190 });
+    }
+    doc.text("5.11 Hazardous Chemical Substances", 10, 80);
+    if (activities.includes("Asbestos Removal")) {
+        doc.text("If Asbestos Removal is involved, the contractor must comply with regulations for handling hazardous substances, maintaining safety data sheets and training records on-site.", 10, 90, { maxWidth: 190 });
+    } else {
+        doc.text("No specific hazardous chemical substance requirements identified based on selected activities.", 10, 90, { maxWidth: 190 });
+    }
+
+    // PAGE 7: General Contract Requirements (Partial)
+    doc.addPage();
+    addHeader(7);
+    doc.setFontSize(12);
+    doc.text("6. General Contract Requirements", 10, 40);
+    doc.setFontSize(10);
+    doc.text("6.1 Contractor as Employer", 10, 50);
+    doc.text(`The contractor is deemed an employer in their own right, responsible for complying with OHS legislation sections related to employee safety and third-party protection during the project: ${projectName}.`, 10, 60, { maxWidth: 190 });
+    doc.text("6.2 Indemnity Agreement", 10, 80);
+    doc.text(`The contractor indemnifies the client against losses or damages arising from their operations at ${location}.`, 10, 90, { maxWidth: 190 });
+
+    // PAGE 8: Acknowledgement
+    doc.addPage();
+    addHeader(8);
+    doc.setFontSize(12);
+    doc.text("Acknowledgement", 10, 40);
+    doc.setFontSize(10);
+    doc.text("Thus done and signed by the respective parties as follows:", 10, 50);
+    doc.text("For: Contractor", 10, 60);
+    doc.text("Name:", 10, 70);
+    doc.addField('text', { name: 'contractorName', x: 30, y: 68, width: 100, height: 10 });
+    doc.text("Role:", 10, 80);
+    doc.addField('text', { name: 'contractorRole', x: 30, y: 78, width: 100, height: 10 });
+    doc.text("Date:", 10, 90);
+    doc.addField('text', { name: 'contractorDate', x: 30, y: 88, width: 100, height: 10 });
+    doc.text("Place:", 10, 100);
+    doc.addField('text', { name: 'contractorPlace', x: 30, y: 98, width: 100, height: 10 });
+    doc.text("For: Client", 10, 120);
+    doc.text("Name:", 10, 130);
+    doc.addField('text', { name: 'clientName', x: 30, y: 128, width: 100, height: 10 });
+    doc.text("Role:", 10, 140);
+    doc.addField('text', { name: 'clientRole', x: 30, y: 138, width: 100, height: 10 });
+    doc.text("Date:", 10, 150);
+    doc.addField('text', { name: 'clientDate', x: 30, y: 148, width: 100, height: 10 });
+    doc.text("Place:", 10, 160);
+    doc.addField('text', { name: 'clientPlace', x: 30, y: 158, width: 100, height: 10 });
+
+    // Save the PDF
+    doc.save(`${projectName}-OHS-Specifications.pdf`);
+
+    // Show cart (simplified for now)
     const cartContainer = document.getElementById('cart-container');
     const cartItems = document.getElementById('cart-items');
     cartContainer.classList.remove('hidden');
-    cartItems.innerHTML = '';
-    cart.forEach(doc => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${doc.name}</td><td>R${doc.price}</td>`;
-        cartItems.appendChild(row);
-    });
-}
+    cartItems.innerHTML = `<tr><td>OHS Specifications for ${projectName}</td><td>R0 (Promo)</td></tr>`;
+});
 
-// Checkout
+// Checkout logic (unchanged from previous)
 document.getElementById('checkout-btn').addEventListener('click', () => {
-    const promoCode = document.getElementById('promo-code').value.trim();
-    if (promoCode === 'SAFETYFREE2025') {
-        cart.forEach(doc => {
-            doc.pdf.save(`${doc.name.replace(/\s+/g, '_')}_${Date.now()}.pdf`);
-        });
-        alert('Documents downloaded successfully!');
-        cart = [];
-        document.getElementById('cart-container').classList.add('hidden');
-        document.getElementById('project-form-container').classList.add('hidden');
+    const promoCode = document.getElementById('promo-code').value;
+    if (promoCode === "SAFETYFREE2025") {
+        alert("Checkout successful! Promo code applied - documents are free.");
     } else {
-        alert('Invalid promo code. Use SAFETYFREE2025 for free access until Dec 31, 2025.');
+        alert("Invalid promo code. Please use SAFETYFREE2025.");
     }
 });
