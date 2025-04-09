@@ -12,7 +12,7 @@ function showForm(role) {
     const formContainer = document.getElementById('project-form-container');
     formContainer.classList.remove('hidden');
     formContainer.dataset.role = role; // Store selected role
-    document.getElementById('project-form').reset(); // Reset form
+    document.getElementById('client-project-form').reset(); // Reset form
     document.getElementById('cart-container').classList.add('hidden'); // Hide cart
     cart = []; // Clear cart
 }
