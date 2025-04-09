@@ -67,6 +67,9 @@
             <div id="project-form-container" class="form-container hidden">
                 <h3>Start New Project</h3>
                 <form id="project-form">
+                    <label for="contractor-name">Contractor Name:</label>
+                    <input type="text" id="contractor-name" name="contractorName" aria-label="Contractor Name">
+
                     <label for="project-name">Project Name:</label>
                     <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
 
@@ -156,7 +159,7 @@
         </div>
     </div>
 
-    <!-- Scripts (Moved to end of body with defer) -->
+    <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -231,7 +234,6 @@
     </script>
 
     <style>
-        /* [Your existing CSS remains unchanged - omitted for brevity] */
         * {
             margin: 0;
             padding: 0;
