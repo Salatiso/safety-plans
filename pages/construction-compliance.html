@@ -156,16 +156,14 @@
         </div>
     </div>
 
-    <!-- Firebase Scripts and Chatbot Logic -->
+    <!-- Scripts (Moved to end of body with defer) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-    <!-- jsPDF for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- OHS Data and Construction Compliance JS -->
-    <script src="/safety-plans/assets/js/ohs-data.js"></script>
-    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
+    <script src="/safety-plans/assets/js/ohs-data.js" defer></script>
+    <script src="/safety-plans/assets/js/construction-compliance.js" defer></script>
     <script>
-        // Firebase Config
+        // Firebase Config and Chatbot Logic
         const firebaseConfig = {
             apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
             authDomain: "safety-first-chatbot.firebaseapp.com",
@@ -176,7 +174,6 @@
             measurementId: "G-04Y1PQDYVD"
         };
 
-        // Initialize Firebase with error handling
         try {
             firebase.initializeApp(firebaseConfig);
             const db = firebase.firestore();
@@ -185,16 +182,14 @@
             document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
         }
 
-        // Toggle Chat Window
         document.getElementById('chat-toggle').addEventListener('click', () => {
             document.getElementById('chat-window').classList.toggle('chat-hidden');
         });
 
-        // Send Question to Chatbot
         document.getElementById('chat-send').addEventListener('click', async () => {
             const input = document.getElementById('chat-input').value.trim();
             const output = document.getElementById('chat-output');
-            if (!input) return; // Prevent empty submissions
+            if (!input) return;
 
             output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
             const query = input.toLowerCase();
@@ -236,7 +231,7 @@
     </script>
 
     <style>
-        /* Reset and Base Styles */
+        /* [Your existing CSS remains unchanged - omitted for brevity] */
         * {
             margin: 0;
             padding: 0;
@@ -248,10 +243,8 @@
             min-height: 100vh;
             background-color: #f5f6f5;
             overflow-x: hidden;
-            flex-direction: row; /* Ensure sidebar and main content align */
+            flex-direction: row;
         }
-
-        /* Header */
         header {
             background-color: #1a2526;
             color: #fff;
@@ -274,7 +267,7 @@
             border-radius: 4px;
             font-size: 0.9em;
             text-align: center;
-            width: 250px; /* Match sidebar width */
+            width: 250px;
             height: 40px;
             line-height: 20px;
         }
@@ -321,8 +314,6 @@
         .search-bar button:hover {
             background-color: #0088cc;
         }
-
-        /* Sidebar */
         .sidebar {
             position: fixed;
             left: 0;
@@ -357,25 +348,21 @@
         .sidebar a:hover {
             color: #00aaff;
         }
-
-        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: 250px;
             background-color: #f5f6f5;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Ensure it takes full height */
+            min-height: 100vh;
         }
-
-        /* Intro Section */
         .intro {
             background-color: #fff;
             padding: 30px;
             border-radius: 8px;
             margin: 100px 30px 30px 30px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 1; /* Allow it to grow */
+            flex: 1;
         }
         .intro h2 {
             font-family: 'Montserrat', sans-serif;
@@ -388,8 +375,6 @@
             color: #666;
             margin-bottom: 20px;
         }
-
-        /* Role Selection */
         .role-selection {
             margin-top: 20px;
         }
@@ -411,8 +396,6 @@
         .role-btn:hover {
             background-color: #0088cc;
         }
-
-        /* Form Container */
         .form-container {
             margin-top: 20px;
         }
@@ -457,8 +440,6 @@
         .hidden {
             display: none;
         }
-
-        /* Cart Container */
         .cart-container {
             margin-top: 20px;
         }
@@ -504,8 +485,6 @@
         #checkout-btn:hover {
             background-color: #0088cc;
         }
-
-        /* Footer */
         footer {
             background-color: #1a2526;
             color: #fff;
@@ -554,8 +533,6 @@
         .newsletter button:hover {
             background-color: #0088cc;
         }
-
-        /* Chatbot */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -591,7 +568,7 @@
             overflow-y: auto;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             display: flex;
-            flex-direction: column; /* Improved layout */
+            flex-direction: column;
         }
         .chat-hidden {
             display: none;
@@ -599,7 +576,7 @@
         #chat-output {
             padding: 10px;
             font-size: 14px;
-            flex: 1; /* Allow output to grow */
+            flex: 1;
         }
         #chat-input {
             width: 70%;
@@ -618,14 +595,10 @@
         #chat-send:hover {
             background-color: #0088cc;
         }
-
-        /* Accessibility Focus Styles */
         a:focus, button:focus, input:focus {
             outline: 2px solid #00aaff;
             outline-offset: 2px;
         }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
