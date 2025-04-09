@@ -17,13 +17,14 @@ function showForm(role) {
     cart = []; // Clear cart
 }
 
-// Form Submission
-document.getElementById('project-form').addEventListener('submit', (e) => {
+// Form Submission (Modified)
+document.getElementById('client-project-form').addEventListener('submit', (e) => { // Updated ID
     e.preventDefault();
     const formData = new FormData(e.target);
     const project = {
         name: formData.get('projectName'),
         location: formData.get('location'),
+        clientName: formData.get('clientName'), // Added Client Name
         cost: parseInt(formData.get('cost')),
         duration: parseInt(formData.get('duration')),
         activities: formData.getAll('activities'),
@@ -32,12 +33,12 @@ document.getElementById('project-form').addEventListener('submit', (e) => {
     };
 
     const score = calculateRiskScore(project);
-    const documents = generateDocuments(project, score);
-    addToCart(documents);
+    const docs = generateDocuments(project, score);
+    addToCart(docs);
     showCart();
 });
 
-// Risk Scoring
+// Risk Scoring (unchanged)
 function calculateRiskScore(project) {
     let score = 0;
     if (project.cost > 13000000) score += 20; // R13M threshold
@@ -47,7 +48,7 @@ function calculateRiskScore(project) {
     return score;
 }
 
-// Document Generation
+// Document Generation (Modified)
 function generateDocuments(project, score) {
     const { jsPDF } = window.jspdf;
     const docs = [];
@@ -55,21 +56,23 @@ function generateDocuments(project, score) {
     // Health and Safety Specifications
     const specsDoc = new jsPDF();
     specsDoc.text(`Health and Safety Specifications for ${project.name}`, 10, 10);
-    specsDoc.text(`Location: ${project.location}`, 10, 20);
-    specsDoc.text(`Scope: ${project.scopeDetails}`, 10, 30);
-    specsDoc.text('Activities Involved:', 10, 40);
+    specsDoc.text(`Client: ${project.clientName}`, 10, 30); // Added Client Name
+    specsDoc.text(`Location: ${project.location}`, 10, 40);
+    specsDoc.text(`Scope: ${project.scopeDetails}`, 10, 50);
+    specsDoc.text('Activities Involved:', 10, 60);
     project.activities.forEach((activity, index) => {
-        specsDoc.text(`- ${activity}`, 10, 50 + index * 10);
+        specsDoc.text(`- ${activity}`, 10, 70 + index * 10);
     });
     docs.push({ name: 'H&S Specifications', pdf: specsDoc, price: 0 });
 
     // Baseline Risk Assessment
     const raDoc = new jsPDF();
     raDoc.text(`Baseline Risk Assessment for ${project.name}`, 10, 10);
-    raDoc.text('Identified Hazards and Controls:', 10, 20);
+    raDoc.text(`Client: ${project.clientName}`, 10, 20); // Added Client Name
+    raDoc.text('Identified Hazards and Controls:', 10, 30);
     project.activities.forEach((activity, index) => {
         const control = getControl(activity);
-        raDoc.text(`- Hazard: ${activity}, Control: ${control}`, 10, 30 + index * 10);
+        raDoc.text(`- Hazard: ${activity}, Control: ${control}`, 10, 40 + index * 10);
     });
     docs.push({ name: 'Baseline Risk Assessment', pdf: raDoc, price: 0 });
 
@@ -78,18 +81,20 @@ function generateDocuments(project, score) {
         const permitDoc = new jsPDF();
         permitDoc.text(`Construction Work Permit Application`, 10, 10);
         permitDoc.text(`Project: ${project.name}`, 10, 20);
-        permitDoc.text(`Location: ${project.location}`, 10, 30);
-        permitDoc.text(`Cost: R${project.cost}`, 10, 40);
-        permitDoc.text(`Duration: ${project.duration} days`, 10, 50);
-        permitDoc.text(`CIDB Grade: ${project.cidbGrade}`, 10, 60);
-        permitDoc.text('Submit to: Provincial Director, Department of Employment and Labour', 10, 70);
-        permitDoc.text('Note: Required under CR 3(3) due to high risk (Score: ' + score + ')', 10, 80);
+        permitDoc.text(`Client: ${project.clientName}`, 10, 30); // Added Client Name
+        permitDoc.text(`Location: ${project.location}`, 10, 40);
+        permitDoc.text(`Cost: R${project.cost}`, 10, 50);
+        permitDoc.text(`Duration: ${project.duration} days`, 10, 60);
+        permitDoc.text(`CIDB Grade: ${project.cidbGrade}`, 10, 70);
+        permitDoc.text('Submit to: Provincial Director, Department of Employment and Labour', 10, 80);
+        permitDoc.text('Note: Required under CR 3 due to high risk (Score: ' + score + ')', 10, 90);
         docs.push({ name: 'Construction Work Permit Application', pdf: permitDoc, price: 0 });
     }
 
     return docs;
 }
 
+// Hazard-Control Mapping (unchanged)
 function getControl(activity) {
     const controls = {
         'Scaffolding': 'Erect guardrails, ensure competent erection',
@@ -99,7 +104,7 @@ function getControl(activity) {
     return controls[activity] || 'General safety measures';
 }
 
-// Cart Management
+// Cart Management (unchanged)
 function addToCart(documents) {
     cart = documents;
 }
@@ -116,7 +121,7 @@ function showCart() {
     });
 }
 
-// Checkout
+// Checkout (unchanged)
 document.getElementById('checkout-btn').addEventListener('click', () => {
     const promoCode = document.getElementById('promo-code').value.trim();
     if (promoCode === 'SAFETYFREE2025') {
