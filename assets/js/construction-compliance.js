@@ -7,8 +7,12 @@ document.getElementById('hns-pro-btn').addEventListener('click', () => showForm(
 
 function showForm(role) {
     const formContainer = document.getElementById('project-form-container');
-    formContainer.classList.remove('hidden');
-    console.log(`${role} form displayed`);
+    if (formContainer) {
+        formContainer.classList.remove('hidden');
+        console.log(`${role} form displayed`);
+    } else {
+        console.error("Form container not found");
+    }
 }
 
 // Form submission and PDF generation
@@ -24,6 +28,13 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
     const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(input => input.value);
     const cidbGrade = document.getElementById('cidb-grade').value;
     const contractorName = document.getElementById('contractor-name')?.value || "To be filled";
+
+    // Check if jsPDF is loaded
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+        console.error("jsPDF library not loaded");
+        alert("Error: PDF generation library not loaded. Please try again later.");
+        return;
+    }
 
     // Initialize jsPDF
     const { jsPDF } = window.jspdf;
@@ -203,22 +214,22 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
     doc.text("Thus done and signed by the respective parties as follows:", 10, 50);
     doc.text("For: Contractor", 10, 60);
     doc.text("Name:", 10, 70);
-    doc.addField('text', { name: 'contractorName', x: 30, y: 68, width: 100, height: 10 });
+    doc.text("____________________", 30, 70); // Placeholder instead of addField
     doc.text("Role:", 10, 80);
-    doc.addField('text', { name: 'contractorRole', x: 30, y: 78, width: 100, height: 10 });
+    doc.text("____________________", 30, 80);
     doc.text("Date:", 10, 90);
-    doc.addField('text', { name: 'contractorDate', x: 30, y: 88, width: 100, height: 10 });
+    doc.text("____________________", 30, 90);
     doc.text("Place:", 10, 100);
-    doc.addField('text', { name: 'contractorPlace', x: 30, y: 98, width: 100, height: 10 });
+    doc.text("____________________", 30, 100);
     doc.text("For: Client", 10, 120);
     doc.text("Name:", 10, 130);
-    doc.addField('text', { name: 'clientName', x: 30, y: 128, width: 100, height: 10 });
+    doc.text("____________________", 30, 130);
     doc.text("Role:", 10, 140);
-    doc.addField('text', { name: 'clientRole', x: 30, y: 138, width: 100, height: 10 });
+    doc.text("____________________", 30, 140);
     doc.text("Date:", 10, 150);
-    doc.addField('text', { name: 'clientDate', x: 30, y: 148, width: 100, height: 10 });
+    doc.text("____________________", 30, 150);
     doc.text("Place:", 10, 160);
-    doc.addField('text', { name: 'clientPlace', x: 30, y: 158, width: 100, height: 10 });
+    doc.text("____________________", 30, 160);
 
     // Save the PDF
     doc.save(`${projectName}-OHS-Specifications.pdf`);
@@ -226,8 +237,12 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
     // Show cart
     const cartContainer = document.getElementById('cart-container');
     const cartItems = document.getElementById('cart-items');
-    cartContainer.classList.remove('hidden');
-    cartItems.innerHTML = `<tr><td>OHS Specifications for ${projectName}</td><td>R0 (Promo)</td></tr>`;
+    if (cartContainer && cartItems) {
+        cartContainer.classList.remove('hidden');
+        cartItems.innerHTML = `<tr><td>OHS Specifications for ${projectName}</td><td>R0 (Promo)</td></tr>`;
+    } else {
+        console.error("Cart elements not found");
+    }
 });
 
 // Checkout logic
