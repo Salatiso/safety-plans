@@ -53,7 +53,6 @@
         <section class="intro">
             <h2>Construction Health and Safety</h2>
             <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
-            <!-- Added PDF Link -->
             <p>Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
 
             <!-- Role Selection -->
@@ -233,6 +232,73 @@
                 mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
             }
         }
+
+        // Client-Specific PDF Generation Logic
+        const { jsPDF } = window.jspdf;
+        let selectedRole = null;
+
+        // Role Selection
+        document.getElementById('client-btn').addEventListener('click', () => {
+            selectedRole = 'client';
+            document.getElementById('project-form-container').classList.remove('hidden');
+            document.getElementById('cart-container').classList.remove('hidden');
+        });
+        document.getElementById('contractor-btn').addEventListener('click', () => {
+            selectedRole = 'contractor';
+            document.getElementById('project-form-container').classList.remove('hidden');
+            document.getElementById('cart-container').classList.add('hidden');
+        });
+        document.getElementById('hns-pro-btn').addEventListener('click', () => {
+            selectedRole = 'hns-pro';
+            document.getElementById('project-form-container').classList.remove('hidden');
+            document.getElementById('cart-container').classList.add('hidden');
+        });
+
+        // Form Submission and PDF Generation
+        document.getElementById('project-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (selectedRole !== 'client') return; // Only generate for client role
+
+            // Collect form data
+            const projectName = document.getElementById('project-name').value;
+            const location = document.getElementById('location').value;
+            const cost = document.getElementById('cost').value;
+            const duration = document.getElementById('duration').value;
+            const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(input => input.value);
+            const cidbGrade = document.getElementById('cidb-grade').value;
+            const scopeDetails = document.getElementById('scope-details').value;
+
+            // Check if authorization is needed (e.g., high-risk activities)
+            const needsAuthorization = activities.includes('Asbestos Removal') || activities.includes('Multi-Storey Construction') || cidbGrade >= 7;
+            const authText = needsAuthorization 
+                ? 'This project requires authorization from the Department of Labour due to high-risk activities or scale.'
+                : 'No authorization required based on provided details.';
+
+            // Generate PDF
+            const doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.text('Construction Health and Safety Specification', 20, 20);
+            doc.setFontSize(12);
+            doc.text(`Project Name: ${projectName}`, 20, 40);
+            doc.text(`Location: ${location}`, 20, 50);
+            doc.text(`Cost: R${cost}`, 20, 60);
+            doc.text(`Duration: ${duration} days`, 20, 70);
+            doc.text(`CIDB Grade: ${cidbGrade}`, 20, 80);
+            doc.text('Activities Involved:', 20, 90);
+            doc.text(activities.join(', ') || 'None selected', 20, 100);
+            doc.text('Scope Details:', 20, 110);
+            doc.text(doc.splitTextToSize(scopeDetails, 170), 20, 120);
+            doc.text('Authorization Status:', 20, 150);
+            doc.text(doc.splitTextToSize(authText, 170), 20, 160);
+            doc.text('Health and Safety Specification for Contractor:', 20, 180);
+            doc.text('- Comply with Occupational Health and Safety Act, 85 of 1993.', 20, 190);
+            doc.text('- Implement risk assessments and mitigation strategies.', 20, 200);
+            doc.text('- Ensure all workers are trained and inducted.', 20, 210);
+            doc.text('- Maintain incident management and emergency response plans.', 20, 220);
+
+            // Save the PDF
+            doc.save(`${projectName}_OHS_Specification.pdf`);
+        });
     </script>
 
     <style>
