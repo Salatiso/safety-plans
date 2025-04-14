@@ -8,6 +8,11 @@
     <meta name="author" content="Salatiso Lonwabo Mdeni">
     <title>Salatiso OHS Tools - Construction Health and Safety</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/safety-plans/assets/css/main.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <header>
@@ -39,13 +44,13 @@
         <div class="sidebar-content">
             <h3>OHS Tools</h3>
             <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="/safety-plans/pages/emergency-response-plan.html" class="disabled" title="Coming Soon"><span class="icon">🚨</span> Emergency Response Planning</a>
             <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-            <a href="/safety-plans/pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-            <a href="/safety-plans/pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-            <a href="/safety-plans/pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
-            <a href="/safety-plans/pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-            <a href="/safety-plans/pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+            <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> Incident Management</a>
+            <a href="/safety-plans/pages/general-induction.html" class="disabled" title="Coming Soon"><span class="icon">🎓</span> General Induction</a>
+            <a href="/safety-plans/pages/inspections-audits.html" class="disabled" title="Coming Soon"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="/safety-plans/pages/toolbox-talks.html" class="disabled" title="Coming Soon"><span class="icon">🛠️</span> Toolbox Talks</a>
         </div>
     </div>
 
@@ -63,20 +68,20 @@
                 <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
             </div>
 
-            <!-- Project Form (Hidden until role selected) -->
+            <!-- Project Form (Hidden until H&S Professional selected) -->
             <div id="project-form-container" class="form-container hidden">
-                <h3>Start New Project</h3>
-                <form id="project-form"> 
+                <h3>Generate OHS Specification</h3>
+                <form id="project-form">
                     <label for="project-name">Project Name:</label>
                     <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
                     
                     <label for="client-name">Client Company Name:</label>
                     <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
 
-                    <label for="clientcontact-name">Contact Person Name:</label>
+                    <label for="contractor-name">Contractor Company Name:</label>
                     <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name">
 
-                    <label for="client-address">Client Address:</label>
+                    <label for="site-address">Site Address:</label>
                     <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address">
 
                     <label for="type-of-work">Type of Work to be Done:</label>
@@ -114,6 +119,8 @@
 
                     <label for="scope-details">Scope Details:</label>
                     <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details"></textarea>
+
+                    <div id="dynamic-fields"></div>
 
                     <button type="submit">Generate Documents</button>
                 </form>
@@ -156,7 +163,6 @@
         </footer>
     </div>
 
-    <!-- Chatbot Widget -->
     <div class="chatbot-container">
         <button id="chat-toggle" class="chat-toggle-btn">
             <span class="chat-icon">⛑️</span> Ask Me
@@ -168,491 +174,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="/safety-plans/assets/js/ohs-data.js" defer></script>
-    <script src="/safety-plans/assets/js/construction-compliance.js" defer></script>
-    <script>
-        // Firebase Config and Chatbot Logic
-        const firebaseConfig = {
-            apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
-            authDomain: "safety-first-chatbot.firebaseapp.com",
-            projectId: "safety-first-chatbot",
-            storageBucket: "safety-first-chatbot.firebasestorage.app",
-            messagingSenderId: "741489856541",
-            appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
-            measurementId: "G-04Y1PQDYVD"
-        };
-
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
-        }
-
-        document.getElementById('chat-toggle').addEventListener('click', () => {
-            document.getElementById('chat-window').classList.toggle('chat-hidden');
-        });
-
-        document.getElementById('chat-send').addEventListener('click', async () => {
-            const input = document.getElementById('chat-input').value.trim();
-            const output = document.getElementById('chat-output');
-            if (!input) return;
-
-            output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
-            const query = input.toLowerCase();
-
-            try {
-                const snapshot = await db.collection('ohs-knowledge').get();
-                let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.content && data.content.toLowerCase().includes(query)) {
-                        response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
-                    }
-                });
-                output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
-            } catch (error) {
-                console.error("Firestore query failed:", error);
-                output.innerHTML += `<p><strong>Chatbot:</strong> Oops, something went wrong. Please try again!</p>`;
-            }
-
-            document.getElementById('chat-input').value = '';
-            output.scrollTop = output.scrollHeight;
-        });
-
-        // Adjust Layout
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
-        function adjustLayout() {
-            const headerHeight = document.querySelector('header').offsetHeight || 0;
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            if (sidebar && mainContent) {
-                sidebar.style.top = `${headerHeight}px`;
-                sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-                mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
-                mainContent.style.paddingTop = `${headerHeight}px`;
-                mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
-            }
-        }
-    </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f5f6f5;
-            overflow-x: hidden;
-            flex-direction: row;
-        }
-        header {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 15px 30px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 90;
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .logo-placeholder {
-            background-color: #fff;
-            color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            text-align: center;
-            width: 250px;
-            height: 40px;
-            line-height: 20px;
-        }
-        .header-content {
-            flex: 1;
-        }
-        header h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            margin-right: 15px;
-            font-size: 0.9em;
-        }
-        .nav-links a:hover {
-            color: #00aaff;
-        }
-        .search-bar form {
-            display: flex;
-            align-items: center;
-        }
-        .search-bar input {
-            padding: 6px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            font-size: 0.9em;
-        }
-        .search-bar button {
-            padding: 6px 12px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        .search-bar button:hover {
-            background-color: #0088cc;
-        }
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            background-color: #1a2526;
-            color: #ecf0f1;
-            overflow-y: auto;
-            z-index: 100;
-        }
-        .sidebar-content {
-            padding: 20px;
-        }
-        .sidebar h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 1em;
-        }
-        .sidebar a .icon {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .sidebar a:hover {
-            color: #00aaff;
-        }
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            background-color: #f5f6f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .intro {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 100px 30px 30px 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 1;
-        }
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .intro p {
-            font-size: 1em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .role-selection {
-            margin-top: 20px;
-        }
-        .role-selection h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .role-btn {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            margin-right: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .role-btn:hover {
-            background-color: #0088cc;
-        }
-        .form-container {
-            margin-top: 20px;
-        }
-        .form-container h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-        #project-form label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: 600;
-        }
-        #project-form input[type="text"],
-        #project-form input[type="number"],
-        #project-form select,
-        #project-form textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-        .checkbox-group {
-            margin-bottom: 15px;
-        }
-        .checkbox-group input {
-            margin-right: 5px;
-        }
-        #project-form button {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        #project-form button:hover {
-            background-color: #0088cc;
-        }
-        .hidden {
-            display: none;
-        }
-        .cart-container {
-            margin-top: 20px;
-        }
-        .cart-container h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-        #cart-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        #cart-table th,
-        #cart-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        #cart-table th {
-            background-color: #f5f6f5;
-        }
-        .checkout {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #promo-code {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-        #checkout-btn {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        #checkout-btn:hover {
-            background-color: #0088cc;
-        }
-        footer {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 30px;
-            text-align: center;
-        }
-        footer p {
-            margin: 5px 0;
-            font-size: 0.9em;
-        }
-        footer a {
-            color: #00aaff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .newsletter {
-            margin-top: 20px;
-        }
-        .newsletter h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            font-size: 0.9em;
-            width: 200px;
-        }
-        .newsletter button {
-            padding: 8px 16px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        .newsletter button:hover {
-            background-color: #0088cc;
-        }
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        .chat-toggle-btn {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-        }
-        .chat-toggle-btn:hover {
-            background-color: #0088cc;
-        }
-        .chat-icon {
-            margin-right: 5px;
-            font-size: 20px;
-        }
-        #chat-window {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-hidden {
-            display: none;
-        }
-        #chat-output {
-            padding: 10px;
-            font-size: 14px;
-            flex: 1;
-        }
-        #chat-input {
-            width: 70%;
-            padding: 8px;
-            border: none;
-            border-top: 1px solid #ddd;
-        }
-        #chat-send {
-            width: 30%;
-            padding: 8px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        #chat-send:hover {
-            background-color: #0088cc;
-        }
-        a:focus, button:focus, input:focus {
-            outline: 2px solid #00aaff;
-            outline-offset: 2px;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            header {
-                position: relative;
-            }
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .logo-placeholder {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .intro {
-                margin: 20px;
-            }
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-links a {
-                margin: 5px 10px;
-            }
-            .role-btn {
-                display: block;
-                width: 100%;
-                margin: 5px 0;
-            }
-            #project-form input,
-            #project-form select,
-            #project-form textarea {
-                width: 100%;
-            }
-        }
-    </style>
+    <script src="/safety-plans/assets/js/common.js"></script>
+    <script src="/safety-plans/assets/js/chatbot.js"></script>
+    <script src="/safety-plans/assets/js/ohs-data.js"></script>
+    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
 </body>
 </html>
