@@ -8,9 +8,11 @@
     <meta name="author" content="Salatiso Lonwabo Mdeni">
     <title>Salatiso OHS Tools - Risk Assessment</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/risk-assessment.css">
+    <link rel="stylesheet" href="../assets/css/risk-assessment.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
 </head>
 <body>
     <header>
@@ -62,7 +64,7 @@
                 <h3>Step 1: Select Project Type</h3>
                 <form id="project-type-form">
                     <label for="project-type">What type of project are you working on?</label>
-                    <select id="project-type" name="project-type" required>
+                    <select id="project-type" name="project-type" required aria-describedby="project-type-desc">
                         <option value="" disabled selected>Select a project type</option>
                         <option value="maintenance">Maintenance and Repair (e.g., plumbing, electrical fixes)</option>
                         <option value="small-construction">Small-Scale Construction (e.g., renovations, single-storey)</option>
@@ -71,6 +73,7 @@
                         <option value="office">Office/Administrative (e.g., ergonomic assessments)</option>
                         <option value="general">General/Other (e.g., mixed or unique projects)</option>
                     </select>
+                    <p id="project-type-desc" class="form-desc">Choose the type that best matches your project to see relevant activities.</p>
                     <button type="submit">Next: Select Activities</button>
                 </form>
             </div>
@@ -80,7 +83,8 @@
                 <h3>Step 2: Select Activities</h3>
                 <form id="activities-form">
                     <p>Select the activities relevant to your project. Use the search bar to find specific tasks.</p>
-                    <input type="text" id="activity-search" placeholder="Search activities (e.g., scaffolding)" aria-label="Search activities">
+                    <input type="text" id="activity-search" placeholder="Search activities (e.g., scaffolding)" aria-label="Search activities" aria-describedby="activity-search-desc">
+                    <p id="activity-search-desc" class="form-desc">Type to filter activities by name or hazard.</p>
                     <div id="activity-groups"></div>
                     <button type="button" class="back-btn">Back</button>
                     <button type="submit" disabled>Next: Assign Ratings</button>
@@ -117,7 +121,8 @@
                     <p>Verify your selections and add project details. For large projects, ensure Department of Labour notification if required.</p>
                     <h4>Project Details</h4>
                     <label for="project-name">Project Name</label>
-                    <input type="text" id="project-name" name="project-name" placeholder="e.g., Office Renovation 2025">
+                    <input type="text" id="project-name" name="project-name" placeholder="e.g., Office Renovation 2025" required aria-describedby="project-name-desc">
+                    <p id="project-name-desc" class="form-desc">Required for PDF naming.</p>
                     <label for="project-location">Location</label>
                     <input type="text" id="project-location" name="project-location" placeholder="e.g., Cape Town CBD">
                     <label for="contractor-name">Contractor Name</label>
@@ -127,7 +132,8 @@
                     <label for="project-duration">Duration</label>
                     <input type="text" id="project-duration" name="project-duration" placeholder="e.g., 6 months">
                     <label for="custom-notes">Custom Notes</label>
-                    <textarea id="custom-notes" name="custom-notes" placeholder="e.g., Check underground cables"></textarea>
+                    <textarea id="custom-notes" name="custom-notes" placeholder="e.g., Check underground cables" aria-describedby="custom-notes-desc"></textarea>
+                    <p id="custom-notes-desc" class="form-desc">Add any additional instructions or notes.</p>
                     <h4>Selected Activities</h4>
                     <table class="review-table">
                         <thead>
@@ -192,80 +198,6 @@
         </div>
     </div>
 
-    <!-- Firebase Scripts and Chatbot Logic -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-    <script>
-        // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
-            authDomain: "safety-first-chatbot.firebaseapp.com",
-            projectId: "safety-first-chatbot",
-            storageBucket: "safety-first-chatbot.firebasestorage.app",
-            messagingSenderId: "741489856541",
-            appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
-            measurementId: "G-04Y1PQDYVD"
-        };
-
-        // Initialize Firebase with error handling
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
-        }
-
-        // Toggle Chat Window
-        document.getElementById('chat-toggle').addEventListener('click', () => {
-            document.getElementById('chat-window').classList.toggle('chat-hidden');
-        });
-
-        // Send Question to Chatbot
-        document.getElementById('chat-send').addEventListener('click', async () => {
-            const input = document.getElementById('chat-input').value.trim();
-            const output = document.getElementById('chat-output');
-            if (!input) return; // Prevent empty submissions
-
-            output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
-            const query = input.toLowerCase();
-
-            try {
-                const snapshot = await db.collection('ohs-knowledge').get();
-                let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.content && data.content.toLowerCase().includes(query)) {
-                        response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
-                    }
-                });
-                output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
-            } catch (error) {
-                console.error("Firestore query failed:", error);
-                output.innerHTML += `<p><strong>Chatbot:</strong> Oops, something went wrong. Please try again!</p>`;
-            }
-
-            document.getElementById('chat-input').value = '';
-            output.scrollTop = output.scrollHeight;
-        });
-
-        // Adjust Layout
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
-        function adjustLayout() {
-            const headerHeight = document.querySelector('header').offsetHeight || 0;
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            if (sidebar && mainContent) {
-                sidebar.style.top = `${headerHeight}px`;
-                sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-                mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
-                mainContent.style.paddingTop = `${headerHeight}px`;
-                mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
-            }
-        }
-    </script>
-    <!-- Risk Assessment Logic -->
-    <script src="../js/risk-assessment.js"></script>
+    <script src="../assets/js/risk-assessment.js"></script>
 </body>
 </html>
