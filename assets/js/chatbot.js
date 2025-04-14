@@ -13,9 +13,13 @@ const firebaseConfig = {
 try {
     firebase.initializeApp(firebaseConfig);
     window.db = firebase.firestore();
+    console.log("Firebase initialized successfully");
 } catch (error) {
     console.error("Firebase initialization failed:", error);
-    document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
+    const chatOutput = document.getElementById('chat-output');
+    if (chatOutput) {
+        chatOutput.innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
+    }
 }
 
 document.getElementById('chat-toggle')?.addEventListener('click', () => {
@@ -25,15 +29,16 @@ document.getElementById('chat-toggle')?.addEventListener('click', () => {
 
 document.getElementById('chat-send')?.addEventListener('click', async () => {
     console.log("Chat send clicked");
-    const input = document.getElementById('chat-input').value.trim();
+    const input = document.getElementById('chat-input')?.value.trim();
     const output = document.getElementById('chat-output');
-    if (!input) return;
+    if (!input || !output) return;
 
     output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
     const query = input.toLowerCase();
 
     try {
-        const snapshot = await db.collection('ohs-knowledge').get();
+        if (!window.db) throw new Error("Firestore not initialized");
+        const snapshot = await window.db.collection('ohs-knowledge').get();
         let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
         snapshot.forEach(doc => {
             const data = doc.data();
