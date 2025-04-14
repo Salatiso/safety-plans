@@ -15,9 +15,9 @@ body {
 
 /* Header */
 .header-container {
-    background-color: #1a2526; /* Restored original dark background */
+    background-color: #1a2526;
     color: white;
-    padding: 15px;
+    padding: 10px 15px; /* Reduced padding for a more compact look */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,7 +30,7 @@ body {
 
 .header-content h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 22px; /* Adjusted to a more compact size */
+    font-size: 20px; /* Adjusted for compactness */
     margin-bottom: 5px;
 }
 
@@ -54,11 +54,12 @@ body {
     border: none;
     border-radius: 2px;
     font-size: 14px;
+    width: 150px; /* Adjusted for compactness */
 }
 
 .search-bar button {
     padding: 4px 8px;
-    background-color: #ff6f61; /* Coral color for buttons */
+    background-color: #ff6f61;
     color: white;
     border: none;
     border-radius: 2px;
@@ -75,10 +76,10 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 200px; /* Adjusted to a more compact width */
-    background-color: #f4f4f4; /* Restored light background */
+    width: 200px;
+    background-color: #f4f4f4;
     border-right: 1px solid #ddd;
-    padding: 15px;
+    padding: 10px; /* Reduced padding */
 }
 
 .sidebar-content h3 {
@@ -89,7 +90,7 @@ body {
 
 .sidebar-content a {
     display: block;
-    padding: 8px 0;
+    padding: 6px 0; /* Adjusted for compactness */
     color: #1a2526;
     text-decoration: none;
     font-size: 14px;
@@ -110,14 +111,14 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-left: 200px; /* Adjusted to match sidebar width */
+    margin-left: 200px;
     padding: 15px;
     min-height: 100vh;
 }
 
 .intro h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
+    font-size: 22px; /* Adjusted for compactness */
     margin-bottom: 8px;
 }
 
@@ -128,19 +129,19 @@ body {
 
 /* Role Selection */
 .role-selection {
-    margin: 15px 0;
+    margin: 10px 0; /* Reduced margin */
 }
 
 .role-selection h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+    font-size: 16px; /* Adjusted for compactness */
     margin-bottom: 8px;
 }
 
 .role-btn {
-    padding: 8px 16px;
+    padding: 6px 12px; /* Adjusted for compactness */
     margin-right: 8px;
-    background-color: #1a2526; /* Restored original button color */
+    background-color: #1a2526;
     color: white;
     border: none;
     border-radius: 3px;
@@ -154,17 +155,17 @@ body {
 
 /* Forms */
 .form-container, #compliance-form {
-    margin: 15px 0;
+    margin: 10px 0; /* Reduced margin */
 }
 
 .form-container h3, #compliance-form h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+    font-size: 16px; /* Adjusted for compactness */
     margin-bottom: 10px;
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduced margin */
 }
 
 .form-group label {
@@ -178,8 +179,8 @@ body {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    max-width: 400px; /* Adjusted for better form layout */
-    padding: 6px;
+    max-width: 300px; /* Adjusted for compactness */
+    padding: 5px;
     border: 1px solid #ddd;
     border-radius: 2px;
     font-size: 14px;
@@ -197,8 +198,8 @@ body {
 
 button[type="submit"],
 .back-btn {
-    padding: 8px 16px;
-    background-color: #ff6f61; /* Restored coral button color */
+    padding: 6px 12px; /* Adjusted for compactness */
+    background-color: #ff6f61;
     color: white;
     border: none;
     border-radius: 3px;
@@ -213,7 +214,7 @@ button[type="submit"]:hover,
 }
 
 .back-btn {
-    background-color: #666; /* Restored original back button color */
+    background-color: #666;
 }
 
 .back-btn:hover {
@@ -221,21 +222,21 @@ button[type="submit"]:hover,
 }
 
 .hidden {
-    display: none !important; /* Added !important to ensure visibility toggling */
+    display: none !important;
 }
 
 /* Compliance Checklist Steps */
 .step h4 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 14px; /* Adjusted for compactness */
+    margin-bottom: 8px;
 }
 
 .requirement-group h4 {
     cursor: pointer;
     background-color: #e0e0e0;
-    padding: 5px 8px;
-    margin: 8px 0;
+    padding: 4px 8px;
+    margin: 6px 0;
     font-size: 14px;
 }
 
@@ -245,7 +246,7 @@ button[type="submit"]:hover,
 }
 
 .requirement-group li {
-    padding: 5px 0;
+    padding: 4px 0;
     font-size: 14px;
 }
 
@@ -258,15 +259,15 @@ button[type="submit"]:hover,
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 table th,
 table td {
     border: 1px solid #ddd;
-    padding: 6px;
+    padding: 5px;
     text-align: left;
-    font-size: 14px;
+    font-size: 12px; /* Adjusted for compactness */
 }
 
 table th {
@@ -276,29 +277,29 @@ table th {
 
 .compliance-note {
     background-color: #fff3cd;
-    padding: 8px;
+    padding: 6px;
     border-radius: 3px;
-    margin: 10px 0;
+    margin: 8px 0;
     font-size: 14px;
 }
 
 /* Cart */
 .cart-container {
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 .cart-container h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
 .checkout {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .checkout input {
-    padding: 6px;
+    padding: 5px;
     margin-right: 8px;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -307,9 +308,9 @@ table th {
 
 /* Footer */
 footer {
-    background-color: #1a2526; /* Restored original dark background */
+    background-color: #1a2526;
     color: white;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -318,7 +319,7 @@ footer p {
 }
 
 footer a {
-    color: #ff6f61; /* Restored coral link color */
+    color: #ff6f61;
     text-decoration: none;
 }
 
@@ -327,17 +328,17 @@ footer a:hover {
 }
 
 .newsletter {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .newsletter h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 14px;
+    margin-bottom: 6px;
 }
 
 .newsletter input {
-    padding: 6px;
+    padding: 5px;
     border: none;
     border-radius: 2px;
     margin-right: 8px;
@@ -345,7 +346,7 @@ footer a:hover {
 }
 
 .newsletter button {
-    padding: 6px 12px;
+    padding: 5px 10px;
     background-color: #ff6f61;
     color: white;
     border: none;
@@ -366,7 +367,7 @@ footer a:hover {
 }
 
 .chat-toggle-btn {
-    padding: 8px 16px;
+    padding: 6px 12px;
     background-color: #ff6f61;
     color: white;
     border: none;
