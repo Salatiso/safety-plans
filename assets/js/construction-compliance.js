@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contractorBtn: document.getElementById("contractor-btn"),
         hnsProBtn: document.getElementById("hns-pro-btn")
     });
+    console.log("Compliance Form Steps:", document.querySelectorAll("#compliance-form .step"));
 });
 
 // Role Selection
@@ -131,8 +132,10 @@ function showSpecForm(role) {
     if (role === "Health & Safety Professional") {
         console.log("Adding SACPCMP field for Health & Safety Professional");
         dynamicFields.innerHTML += `
-            <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
-            <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration">
+            <div class="form-group">
+                <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
+                <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration">
+            </div>
         `;
     }
 
@@ -143,19 +146,23 @@ function showSpecForm(role) {
         checkbox.addEventListener("change", () => {
             console.log(`Activity checkbox changed: ${checkbox.value}, checked: ${checkbox.checked}`);
             // Clear activity-specific fields
-            dynamicFields.innerHTML = dynamicFields.innerHTML.split('<label for="sacpcmp-reg">')[0];
+            dynamicFields.innerHTML = dynamicFields.innerHTML.split('<div class="form-group"><label for="sacpcmp-reg">')[0];
             if (document.getElementById("scaffolding")?.checked) {
                 console.log("Adding Scaffold Supervisor field");
                 dynamicFields.innerHTML += `
-                    <label for="scaffold-supervisor">Scaffold Supervisor Name:</label>
-                    <input type="text" id="scaffold-supervisor" name="scaffoldSupervisor" aria-label="Scaffold Supervisor">
+                    <div class="form-group">
+                        <label for="scaffold-supervisor">Scaffold Supervisor Name:</label>
+                        <input type="text" id="scaffold-supervisor" name="scaffoldSupervisor" aria-label="Scaffold Supervisor">
+                    </div>
                 `;
             }
             if (document.getElementById("asbestos")?.checked) {
                 console.log("Adding Asbestos Coordinator field");
                 dynamicFields.innerHTML += `
-                    <label for="asbestos-coordinator">Asbestos Coordinator Name:</label>
-                    <input type="text" id="asbestos-coordinator" name="asbestosCoordinator" aria-label="Asbestos Coordinator">
+                    <div class="form-group">
+                        <label for="asbestos-coordinator">Asbestos Coordinator Name:</label>
+                        <input type="text" id="asbestos-coordinator" name="asbestosCoordinator" aria-label="Asbestos Coordinator">
+                    </div>
                 `;
             }
         });
@@ -1204,7 +1211,7 @@ document.getElementById("project-form")?.addEventListener("submit", function (e)
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM loaded, initializing Compliance Checklist");
 
-    const steps = document.querySelectorAll(".step");
+    const steps = document.querySelectorAll("#compliance-form .step");
     const checklistTypeForm = document.getElementById("checklist-type-form");
     const requirementsForm = document.getElementById("requirements-form");
     const statusForm = document.getElementById("status-form");
