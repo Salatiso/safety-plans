@@ -525,6 +525,8 @@ const riskDatabase = [
 
 // Form Navigation and Logic
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM loaded, initializing risk assessment");
+
     const steps = document.querySelectorAll(".step");
     const projectTypeForm = document.getElementById("project-type-form");
     const activitiesForm = document.getElementById("activities-form");
@@ -539,8 +541,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let ratings = {};
     let projectDetails = {};
 
+    if (!projectTypeForm) {
+        console.error("Error: #project-type-form not found");
+        return;
+    }
+
     // Show/hide steps
     function showStep(stepId) {
+        console.log(`Showing step: ${stepId}`);
         steps.forEach(step => step.classList.add("hidden"));
         document.getElementById(stepId).classList.remove("hidden");
         window.scrollTo(0, 0);
@@ -549,17 +557,36 @@ document.addEventListener("DOMContentLoaded", () => {
     // Step 1: Project Type
     projectTypeForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        console.log("Project type form submitted");
         const projectType = document.getElementById("project-type").value;
+        console.log(`Selected project type: ${projectType}`);
         if (!projectType) {
             alert("Please select a project type.");
+            console.warn("No project type selected");
             return;
         }
         populateActivities(projectType);
         showStep("step-2");
     });
 
+    // Fallback: Button click handler
+    const nextButton = projectTypeForm.querySelector("button[type='submit']");
+    if (nextButton) {
+        nextButton.addEventListener("click", (e) => {
+            console.log("Next button clicked");
+            if (!projectTypeForm.checkValidity()) {
+                console.warn("Form validation failed");
+                alert("Please select a project type.");
+                return;
+            }
+            // Trigger submit manually
+            projectTypeForm.dispatchEvent(new Event("submit"));
+        });
+    }
+
     // Populate activities based on project type
     function populateActivities(projectType) {
+        console.log(`Populating activities for: ${projectType}`);
         activityGroups.innerHTML = "";
         const filteredGroups = projectType === "general"
             ? riskDatabase
@@ -576,6 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!filteredGroups.length) {
             activityGroups.innerHTML = "<p>No activities available for this project type.</p>";
             activitiesForm.querySelector("button[type='submit']").disabled = true;
+            console.warn("No activities found for project type");
             return;
         }
 
@@ -615,6 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const updateNextButton = () => {
             const checked = document.querySelectorAll('input[name="activity"]:checked').length;
             activitiesForm.querySelector("button[type='submit']").disabled = !checked;
+            console.log(`Next button state: ${!checked ? 'disabled' : 'enabled'}, checked: ${checked}`);
         };
         document.querySelectorAll('input[name="activity"]').forEach(checkbox => {
             checkbox.addEventListener("change", updateNextButton);
@@ -625,6 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Search activities
     activitySearch.addEventListener("input", () => {
         const query = activitySearch.value.toLowerCase();
+        console.log(`Search query: ${query}`);
         document.querySelectorAll(".activity-group li").forEach(li => {
             const text = li.textContent.toLowerCase();
             li.style.display = query && !text.includes(query) ? "none" : "block";
@@ -634,6 +664,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Step 2: Activities
     activitiesForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        console.log("Activities form submitted");
         selectedActivities = Array.from(document.querySelectorAll('input[name="activity"]:checked')).map(cb => ({
             activity: cb.value,
             hazard: cb.dataset.hazard,
@@ -643,17 +674,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }));
         if (!selectedActivities.length) {
             alert("Please select at least one activity.");
+            console.warn("No activities selected");
             return;
         }
+        console.log("Selected activities:", selectedActivities);
         populateRatings();
         showStep("step-3");
     });
 
     // Back button for Step 2
-    activitiesForm.querySelector(".back-btn").addEventListener("click", () => showStep("step-1"));
+    activitiesForm.querySelector(".back-btn").addEventListener("click", () => {
+        console.log("Back to step-1");
+        showStep("step-1");
+    });
 
     // Populate ratings table
     function populateRatings() {
+        console.log("Populating ratings table");
         ratingsTableBody.innerHTML = "";
         selectedActivities.forEach((item, index) => {
             ratingsTableBody.innerHTML += `
@@ -680,26 +717,33 @@ document.addEventListener("DOMContentLoaded", () => {
         ratingsForm.addEventListener("change", () => {
             const allRated = Array.from(ratingsForm.querySelectorAll("select")).every(select => select.value);
             ratingsForm.querySelector("button[type='submit']").disabled = !allRated;
+            console.log(`Ratings next button: ${allRated ? 'enabled' : 'disabled'}`);
         });
     }
 
     // Step 3: Ratings
     ratingsForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        console.log("Ratings form submitted");
         ratings = {};
         Array.from(ratingsForm.querySelectorAll("select")).forEach(select => {
             const index = select.name.split("-")[1];
             ratings[selectedActivities[index].activity + "-" + selectedActivities[index].hazard] = select.value;
         });
+        console.log("Ratings:", ratings);
         populateReview();
         showStep("step-4");
     });
 
     // Back button for Step 3
-    ratingsForm.querySelector(".back-btn").addEventListener("click", () => showStep("step-2"));
+    ratingsForm.querySelector(".back-btn").addEventListener("click", () => {
+        console.log("Back to step-2");
+        showStep("step-2");
+    });
 
     // Populate review table
     function populateReview() {
+        console.log("Populating review table");
         reviewTableBody.innerHTML = "";
         selectedActivities.forEach(item => {
             reviewTableBody.innerHTML += `
@@ -717,6 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Show compliance note for large construction
         if (document.getElementById("project-type").value === "large-construction") {
             complianceNote.classList.remove("hidden");
+            console.log("Showing compliance note");
         } else {
             complianceNote.classList.add("hidden");
         }
@@ -725,6 +770,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Step 4: Review
     reviewForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        console.log("Review form submitted");
         projectDetails = {
             name: document.getElementById("project-name").value.trim(),
             location: document.getElementById("project-location").value.trim(),
@@ -735,19 +781,26 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         if (!projectDetails.name) {
             alert("Please enter a project name.");
+            console.warn("No project name provided");
             return;
         }
+        console.log("Project details:", projectDetails);
         generatePDF();
         showStep("step-5");
     });
 
     // Back button for Step 4
-    reviewForm.querySelector(".back-btn").addEventListener("click", () => showStep("step-3"));
+    reviewForm.querySelector(".back-btn").addEventListener("click", () => {
+        console.log("Back to step-3");
+        showStep("step-3");
+    });
 
     // Generate PDF
     function generatePDF() {
+        console.log("Generating PDF");
         if (!window.jspdf?.jsPDF) {
             alert("PDF generation failed. Please try again later.");
+            console.error("jsPDF not loaded");
             return;
         }
         const { jsPDF } = window.jspdf;
@@ -790,16 +843,19 @@ document.addEventListener("DOMContentLoaded", () => {
             doc.text(projectDetails.notes, 10, 20, { maxWidth: 190 });
         }
         doc.save(`Risk_Assessment_${projectDetails.name.replace(/\s+/g, "_")}.pdf`);
+        console.log("PDF generated");
     }
 
     // Step 5: Guidance
-    document.getElementById("download-again").addEventListener BARF("click", (e) => {
+    document.getElementById("download-again").addEventListener("click", (e) => {
         e.preventDefault();
+        console.log("Download again clicked");
         generatePDF();
     });
 
     document.getElementById("start-new").addEventListener("click", (e) => {
         e.preventDefault();
+        console.log("Start new assessment");
         selectedActivities = [];
         ratings = {};
         projectDetails = {};
@@ -817,10 +873,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Chatbot Logic
     document.getElementById('chat-toggle').addEventListener('click', () => {
+        console.log("Toggling chatbot");
         document.getElementById('chat-window').classList.toggle('chat-hidden');
     });
 
     document.getElementById('chat-send').addEventListener('click', async () => {
+        console.log("Chat send clicked");
         const input = document.getElementById('chat-input').value.trim();
         const output = document.getElementById('chat-output');
         if (!input) return;
@@ -849,6 +907,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Layout Adjustment
     function adjustLayout() {
+        console.log("Adjusting layout");
         const headerHeight = document.querySelector("header").offsetHeight || 0;
         const sidebar = document.querySelector(".sidebar");
         const mainContent = document.querySelector(".main-content");
