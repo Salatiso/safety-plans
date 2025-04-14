@@ -57,23 +57,24 @@
     <div class="main-content">
         <section class="risk-assessment-form">
             <h2>Risk Assessment</h2>
-            <p>Create a customized risk assessment by selecting your project type, activities, and assigning risk ratings.</p>
+            <p>Create a customized risk assessment by selecting the type, activities, and assigning risk ratings.</p>
             
-            <!-- Step 1: Select Project Type -->
+            <!-- Step 1: Select Risk Assessment Type -->
             <div class="step" id="step-1">
-                <h3>Step 1: Select Project Type</h3>
-                <form id="project-type-form">
-                    <label for="project-type">What type of project are you working on?</label>
-                    <select id="project-type" name="project-type" required aria-describedby="project-type-desc">
-                        <option value="" disabled selected>Select a project type</option>
-                        <option value="maintenance">Maintenance and Repair (e.g., plumbing, electrical fixes)</option>
-                        <option value="small-construction">Small-Scale Construction (e.g., renovations, single-storey)</option>
-                        <option value="large-construction">Large-Scale Construction (e.g., multi-storey, major contracts)</option>
-                        <option value="electrical">Electrical Work (e.g., low/high-voltage installations)</option>
-                        <option value="office">Office/Administrative (e.g., ergonomic assessments)</option>
-                        <option value="general">General/Other (e.g., mixed or unique projects)</option>
+                <h3>Step 1: Select Risk Assessment Type</h3>
+                <form id="risk-assessment-type-form">
+                    <label for="assessment-type">What type of risk assessment are you conducting?</label>
+                    <select id="assessment-type" name="assessment-type" required aria-describedby="assessment-type-desc">
+                        <option value="" disabled selected>Select a risk assessment type</option>
+                        <option value="baseline">Baseline Risk Assessment</option>
+                        <option value="issue-based">Issue-Based Risk Assessment</option>
+                        <option value="continuous">Continuous Risk Assessment</option>
+                        <option value="periodic">Periodic/Regular Risk Assessment</option>
+                        <option value="ergonomic">Ergonomic Risk Assessment</option>
+                        <option value="chemical">Chemical Risk Assessment</option>
+                        <option value="noise">Noise Risk Assessment</option>
                     </select>
-                    <p id="project-type-desc" class="form-desc">Choose the type that best matches your project to see relevant activities.</p>
+                    <p id="assessment-type-desc" class="form-desc">Choose the type that best matches your needs (e.g., Baseline for new projects, Ergonomic for office tasks).</p>
                     <button type="submit">Next: Select Activities</button>
                 </form>
             </div>
@@ -82,7 +83,7 @@
             <div class="step hidden" id="step-2">
                 <h3>Step 2: Select Activities</h3>
                 <form id="activities-form">
-                    <p>Select the activities relevant to your project. Use the search bar to find specific tasks.</p>
+                    <p>Review suggested activities for your assessment, uncheck those that don’t apply, and search for additional tasks if needed.</p>
                     <input type="text" id="activity-search" placeholder="Search activities (e.g., scaffolding)" aria-label="Search activities" aria-describedby="activity-search-desc">
                     <p id="activity-search-desc" class="form-desc">Type to filter activities by name or hazard.</p>
                     <div id="activity-groups"></div>
@@ -118,22 +119,37 @@
             <div class="step hidden" id="step-4">
                 <h3>Step 4: Review and Customize</h3>
                 <form id="review-form">
-                    <p>Verify your selections and add project details. For large projects, ensure Department of Labour notification if required.</p>
-                    <h4>Project Details</h4>
-                    <label for="project-name">Project Name</label>
-                    <input type="text" id="project-name" name="project-name" placeholder="e.g., Office Renovation 2025" required aria-describedby="project-name-desc">
-                    <p id="project-name-desc" class="form-desc">Required for PDF naming.</p>
-                    <label for="project-location">Location</label>
-                    <input type="text" id="project-location" name="project-location" placeholder="e.g., Cape Town CBD">
-                    <label for="contractor-name">Contractor Name</label>
-                    <input type="text" id="contractor-name" name="contractor-name" placeholder="e.g., ABC Construction">
-                    <label for="project-start">Start Date</label>
-                    <input type="date" id="project-start" name="project-start">
-                    <label for="project-duration">Duration</label>
-                    <input type="text" id="project-duration" name="project-duration" placeholder="e.g., 6 months">
+                    <p>Verify your selections and add site/project and personnel details.</p>
+                    <h4>Site/Project Details</h4>
+                    <label for="site-name">Site/Project Name</label>
+                    <input type="text" id="site-name" name="site-name" placeholder="e.g., Office Renovation 2025" required aria-describedby="site-name-desc">
+                    <p id="site-name-desc" class="form-desc">Required for document naming.</p>
+                    <label for="site-address">Address</label>
+                    <input type="text" id="site-address" name="site-address" placeholder="e.g., 123 Main St, Cape Town">
+                    <label for="site-location">Location</label>
+                    <input type="text" id="site-location" name="site-location" placeholder="e.g., Cape Town CBD">
+                    <h4>Conducted By</h4>
+                    <label for="conductor-name">Name & Surname</label>
+                    <input type="text" id="conductor-name" name="conductor-name" placeholder="e.g., John Doe">
+                    <label for="conductor-role">Role/Title</label>
+                    <input type="text" id="conductor-role" name="conductor-role" placeholder="e.g., Safety Officer">
+                    <label for="conductor-email">Email Address</label>
+                    <input type="email" id="conductor-email" name="conductor-email" placeholder="e.g., john@safetyfirst.help">
+                    <label for="conductor-phone">Telephone</label>
+                    <input type="tel" id="conductor-phone" name="conductor-phone" placeholder="e.g., +27 123 456 789">
+                    <h4>Conducted On Behalf Of/For</h4>
+                    <label for="company-name">Company Name</label>
+                    <input type="text" id="company-name" name="company-name" placeholder="e.g., ABC Construction">
+                    <label for="company-contact">Contact Person</label>
+                    <input type="text" id="company-contact" name="company-contact" placeholder="e.g., Jane Smith">
+                    <label for="company-role">Role</label>
+                    <input type="text" id="company-role" name="company-role" placeholder="e.g., Project Manager">
+                    <label for="company-details">Contact Details</label>
+                    <input type="text" id="company-details" name="company-details" placeholder="e.g., jane@abc.co.za, +27 987 654 321">
+                    <h4>Additional Notes</h4>
                     <label for="custom-notes">Custom Notes</label>
                     <textarea id="custom-notes" name="custom-notes" placeholder="e.g., Check underground cables" aria-describedby="custom-notes-desc"></textarea>
-                    <p id="custom-notes-desc" class="form-desc">Add any additional instructions or notes.</p>
+                    <p id="custom-notes-desc" class="form-desc">Add any additional instructions or notes (will appear in table).</p>
                     <h4>Selected Activities</h4>
                     <table class="review-table">
                         <thead>
@@ -161,7 +177,7 @@
                 <ul>
                     <li>Implement control measures (e.g., provide PPE, train workers).</li>
                     <li>Conduct toolbox talks to brief staff on hazards.</li>
-                    <li>Review the assessment if the project scope changes (OHSA Section 8).</li>
+                    <li>Review the assessment if the scope changes (OHSA Section 8).</li>
                     <li>For large projects, notify the Department of Labour if required.</li>
                     <li>Contact us for support: <a href="/safety-plans/contact.html">Contact Page</a>.</li>
                 </ul>
