@@ -1,291 +1,652 @@
-// construction-compliance.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ensure construction health and safety compliance with Salatiso OHS Tools.">
+    <meta name="keywords" content="OHS tools, construction safety, occupational health and safety, safety plans, South Africa OHS, Salatiso">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Salatiso OHS Tools - Construction Health and Safety</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
+            <div class="header-content">
+                <h1>Salatiso OHS Tools</h1>
+                <nav role="navigation" aria-label="Main navigation">
+                    <div class="nav-links">
+                        <a href="/safety-plans/index.html">Home</a>
+                        <a href="/safety-plans/resources.html">Resources</a>
+                        <a href="/safety-plans/services.html">Services</a>
+                        <a href="/safety-plans/community.html">Community</a>
+                        <a href="/safety-plans/about.html">About</a>
+                        <a href="/safety-plans/contact.html">Contact</a>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search">
+                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                            <button type="submit" aria-label="Search">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-// Show form based on role selection
-document.getElementById('client-btn').addEventListener('click', () => showForm('Client'));
-document.getElementById('contractor-btn').addEventListener('click', () => showForm('Contractor'));
-document.getElementById('hns-pro-btn').addEventListener('click', () => showForm('Health & Safety Professional'));
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="/safety-plans/pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="/safety-plans/pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="/safety-plans/pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="/safety-plans/pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="/safety-plans/pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
 
-function showForm(role) {
-    const formContainer = document.getElementById('project-form-container');
-    if (formContainer) {
-        formContainer.classList.remove('hidden');
-        console.log(`${role} form displayed`);
-    } else {
-        console.error("Form container not found");
-    }
-}
+    <div class="main-content">
+        <section class="intro">
+            <h2>Construction Health and Safety</h2>
+            <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
+            <p>Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
 
-// Form submission and PDF generation
-document.getElementById('project-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+            <!-- Role Selection -->
+            <div class="role-selection">
+                <h3>Select Your Role</h3>
+                <button id="client-btn" class="role-btn">Client</button>
+                <button id="contractor-btn" class="role-btn">Contractor</button>
+                <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
+            </div>
 
-    // Capture form data
-    const projectName = document.getElementById('project-name').value;
-    const location = document.getElementById('location').value;
-    const scopeDetails = document.getElementById('scope-details').value;
-    const cost = document.getElementById('cost').value;
-    const duration = document.getElementById('duration').value;
-    const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(input => input.value);
-    const cidbGrade = document.getElementById('cidb-grade').value;
-    const contractorName = document.getElementById('contractor-name')?.value || "To be filled";
+            <!-- Project Form (Hidden until role selected) -->
+            <div id="project-form-container" class="form-container hidden">
+                <h3>Start New Project</h3>
+                <form id="project-form">
+                    <label for="client-name">Client Name:</label>
+                    <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
 
-    // Check if jsPDF is loaded
-    if (!window.jspdf || !window.jspdf.jsPDF) {
-        console.error("jsPDF library not loaded");
-        alert("Error: PDF generation library not loaded. Please try again later.");
-        return;
-    }
+                    <label for="contractor-name">Contractor Name:</label>
+                    <input type="text" id="contractor-name" name="contractorName" aria-label="Contractor Name">
 
-    // Initialize jsPDF
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+                    <label for="project-name">Project Name:</label>
+                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
 
-    // Helper function for header, watermark, footer
-    function addHeaderFooter() {
-        // Header
-        doc.setFillColor(245, 246, 245); // #F5F6F5 (light gray band)
-        doc.rect(0, 0, 210, 10, 'F'); // Full width, 10mm height
-        doc.setFontSize(16);
-        doc.setFont("helvetica", "bold"); // Montserrat not native; using Helvetica bold
-        doc.setTextColor(26, 37, 38); // #1A2526 (dark blue)
-        doc.text("OHS Specifications for Contractors", 105, 8, { align: "center" });
-        doc.setDrawColor(255, 165, 0); // #FFA500 (orange)
-        doc.setLineWidth(0.5);
-        doc.line(10, 10, 200, 10); // Orange line below band
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" required aria-label="Project Location">
 
-        // Watermark
-        doc.setFontSize(14);
-        doc.setTextColor(255, 245, 230); // #FFF5E6 (very light orange, simulating 15% opacity)
-        doc.setFont("helvetica", "bold"); // Bold for prominence
-        doc.text("SF Generated by SafetyFirst.help", 105, 148.5, {
-            angle: 45, // Diagonal, centered
-            align: "center"
+                    <label for="cost">Cost (R):</label>
+                    <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost">
+
+                    <label for="duration">Duration (days):</label>
+                    <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration">
+
+                    <label>Activities Involved:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> <label for="scaffolding">Scaffolding</label>
+                        <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction"> <label for="multi-storey">Multi-Storey Construction</label>
+                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal"> <label for="asbestos">Asbestos Removal</label>
+                    </div>
+
+                    <label for="cidb-grade">CIDB Grading:</label>
+                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
+                        <option value="Not Applicable">Not Applicable</option>
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6">Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                    </select>
+
+                    <label for="scope-details">Scope Details:</label>
+                    <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details"></textarea>
+
+                    <button type="submit">Generate Documents</button>
+                </form>
+            </div>
+
+            <!-- Cart Section -->
+            <div id="cart-container" class="cart-container hidden">
+                <h3>Your Cart</h3>
+                <table id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+                <div class="checkout">
+                    <label for="promo-code">Promo Code:</label>
+                    <input type="text" id="promo-code" placeholder="Enter SAFETYFREE2025" aria-label="Promo Code">
+                    <button id="checkout-btn">Checkout</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
+            <p>
+                <a href="/safety-plans/privacy.html">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html">Terms of Service</a> |
+                <a href="/safety-plans/contact.html">Contact Us</a>
+            </p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn">
+            <span class="chat-icon">⛑️</span> Ask Me
+        </button>
+        <div id="chat-window" class="chat-hidden">
+            <div id="chat-output"></div>
+            <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS">
+            <button id="chat-send" aria-label="Send message">Send</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/safety-plans/assets/js/ohs-data.js" defer></script>
+    <script src="/safety-plans/assets/js/construction-compliance.js" defer></script>
+    <script>
+        // Firebase Config and Chatbot Logic
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
+            authDomain: "safety-first-chatbot.firebaseapp.com",
+            projectId: "safety-first-chatbot",
+            storageBucket: "safety-first-chatbot.firebasestorage.app",
+            messagingSenderId: "741489856541",
+            appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
+            measurementId: "G-04Y1PQDYVD"
+        };
+
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
+        }
+
+        document.getElementById('chat-toggle').addEventListener('click', () => {
+            document.getElementById('chat-window').classList.toggle('chat-hidden');
         });
-        doc.setTextColor(0, 0, 0); // Reset to black
 
-        // Footer
-        doc.setDrawColor(128, 128, 128); // #808080 (gray rule)
-        doc.setLineWidth(0.5);
-        doc.line(10, 287, 200, 287); // Rule above footer
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(51, 51, 51); // #333333 (dark gray)
-        doc.text("© 2025 ", 85, 292, { align: "right" });
-        doc.setTextColor(255, 165, 0); // #FFA500 (orange)
-        doc.text("SafetyFirst.help", 92, 292);
-        doc.setTextColor(51, 51, 51);
-        doc.text(" | Powered by Safety First Book Series: The Essentials of OHS Plans, Risk Management for Safer Sites, Emergency Preparedness Guide | Contact: salatiso@safetyfirst.help | All rights reserved.", 97, 292, { maxWidth: 110 });
-    }
+        document.getElementById('chat-send').addEventListener('click', async () => {
+            const input = document.getElementById('chat-input').value.trim();
+            const output = document.getElementById('chat-output');
+            if (!input) return;
 
-    // PAGE 1: Site-Specific Details
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Site-Specific Contractor and Project Details", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Project Name: ${projectName}`, 10, 30);
-    doc.text(`Location: ${location}`, 10, 40);
-    doc.text(`Scope of Work: ${scopeDetails.substring(0, 100)}...`, 10, 50, { maxWidth: 190 });
-    doc.text(`Cost (R): ${cost}`, 10, 70);
-    doc.text(`Duration (Days): ${duration}`, 10, 80);
-    doc.text(`Activities Involved: ${activities.join(", ") || "None"}`, 10, 90, { maxWidth: 190 });
-    doc.text(`CIDB Grading: ${cidbGrade}`, 10, 110);
-    doc.text(`Contractor Name: ${contractorName}`, 10, 120);
-    // Legal Notice
-    doc.setDrawColor(211, 211, 211); // #D3D3D3 (light gray border)
-    doc.setLineWidth(0.5);
-    doc.rect(10, 140, 190, 80); // Notice box
-    doc.setFontSize(9);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Important Notice", 12, 147, { align: "left" });
-    doc.text("This Occupational Health and Safety (OHS) Specifications document is generated by ", 12, 154, { maxWidth: 186 });
-    doc.setTextColor(255, 165, 0); // #FFA500
-    doc.text("SafetyFirst.help", 137, 154);
-    doc.setTextColor(0, 0, 0);
-    doc.text(", inspired by the Safety First book series by Salatiso Lonwabo Mdeni. Benefits: Our service provides a customizable, compliant template based on industry standards, designed to streamline your OHS planning. Limitations: The accuracy and completeness of this document depend on the quality and accuracy of the input data provided by the user. SafetyFirst.help strives to incorporate the most current regulations, but we cannot guarantee applicability to all jurisdictions or scenarios. User Responsibility: It is your responsibility to review, verify, and, if necessary, consult a qualified professional to ensure this document meets all relevant legal and project-specific requirements before use. Unauthorized reproduction or distribution is prohibited. © 2025 SafetyFirst.help. All rights reserved.", 12, 161, { maxWidth: 186 });
+            output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+            const query = input.toLowerCase();
 
-    // PAGE 2: Contents
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Contents", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    const contents = [
-        "1. Purpose",
-        "2. Interpretation",
-        "   2.1 Scope",
-        "   2.2 References",
-        "   2.3 Definitions",
-        "3. Administrative Requirements",
-        "   3.1 Reporting",
-        "   3.2 Registration with Compensation Authorities",
-        "   3.3 Statutory Appointments",
-        "   3.4 Risk Management",
-        "   3.5 Incidents and Accident Management",
-        "   3.6 OHS Plan",
-        "   3.7 Audit and Inspection",
-        "   3.8 Records",
-        "4. Operational Requirements",
-        "   4.1 Training",
-        "   4.2 Supervision, Discipline, and Reporting",
-        "   4.3 OHS Committee",
-        "   4.4 Occupational Health",
-        "   4.5 Safety and Security",
-        "   4.6 Emergency Preparedness",
-        "   4.7 Work Procedures",
-        "   4.8 Welfare Facilities",
-        "   4.9 Cooperation",
-        "   4.10 Subcontractors",
-        "   4.11 Public and Site Visitor Health & Safety",
-        "   4.12 Access to Site",
-        "   4.13 Housekeeping",
-        "   4.14 Intoxication",
-        "   4.15 Environmental Impact and Nuisance",
-        "5. Physical Requirements",
-        "   5.1 Specific Physical Requirements",
-        "   5.2 Edge Protection and Barricading",
-        "   5.3 Vessels Under Pressure and Gas Bottles",
-        "   5.4 Lifting Machines, Tackle, and Operations",
-        "   5.5 Fall Protection",
-        "   5.6 Severe Weather Plan",
-        "   5.7 Ladders",
-        "   5.8 Electrical Installations and Tools",
-        "   5.9 Lockout Procedures",
-        "   5.10 Waste Chutes",
-        "   5.11 Hazardous Chemical Substances",
-        "   5.12 Traffic Diversions",
-        "6. General Contract Requirements",
-        "   6.1 Contractor as Employer",
-        "   6.2 Indemnity Agreement",
-        "   6.3 No Usage of Client Equipment",
-        "   6.4 Duration of Agreement"
-    ];
-    contents.forEach((line, i) => doc.text(line, 10, 30 + i * 4));
+            try {
+                const snapshot = await db.collection('ohs-knowledge').get();
+                let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.content && data.content.toLowerCase().includes(query)) {
+                        response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
+                    }
+                });
+                output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
+            } catch (error) {
+                console.error("Firestore query failed:", error);
+                output.innerHTML += `<p><strong>Chatbot:</strong> Oops, something went wrong. Please try again!</p>`;
+            }
 
-    // PAGE 3: Purpose
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("1. Purpose", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("The aim of these health and safety specifications is to outline the minimum requirements for compliance with occupational health and safety standards and ensure that the contractor’s activities do not negatively impact employees, visitors, clients, other stakeholders, or the surrounding environment during the contract period. These requirements align with applicable occupational health and safety legislation, obligating the client to safeguard not only their employees but also others affected by the contracted activities. They enable the contractor to manage OHS risks effectively throughout the project duration, as reflected in the OHS plan submitted prior to commencing work.", 10, 30, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("These specifications represent the minimum standards, and the contractor bears the responsibility to ensure full compliance with all relevant legislation. The client or their authorized agent may conduct scheduled or ad-hoc inspections and audits to verify compliance. This document serves as an annexure to the main contract and applicable service level agreements, carrying equal enforcement weight. Any perceived contradictions with the principal agreement must be reported to the client for resolution.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+            document.getElementById('chat-input').value = '';
+            output.scrollTop = output.scrollHeight;
+        });
 
-    // PAGE 4: Interpretation
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("2. Interpretation", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("2.1 Scope", 10, 30);
-    doc.text("These minimum requirements apply to the contractor for the duration of their engagement with the client, encompassing all contractors, subcontractors, and any parties performing work governed by applicable occupational health and safety legislation and regulations.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("2.2 References", 10, 60);
-    doc.text("- Occupational Health and Safety Act and its regulations (e.g., South Africa: Act 85 of 1993, or equivalent jurisdiction-specific laws).", 10, 70);
-    doc.text("- Construction Regulations (as applicable).", 10, 80);
-    doc.text("- Relevant codes of practice (e.g., SABS standards for scaffolding).", 10, 90);
-    doc.text("2.3 Definitions", 10, 110);
-    doc.text("- Client: The entity engaging the contractor for the project.", 10, 120);
-    doc.text("- Contractor: The entity responsible for executing the work as per the contract.", 10, 130);
-    doc.text("- OHS: Occupational Health and Safety.", 10, 140);
-    doc.text("- HIRA: Hazard Identification and Risk Assessment.", 10, 150);
+        // Adjust Layout
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        function adjustLayout() {
+            const headerHeight = document.querySelector('header').offsetHeight || 0;
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            if (sidebar && mainContent) {
+                sidebar.style.top = `${headerHeight}px`;
+                sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
+                mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
+                mainContent.style.paddingTop = `${headerHeight}px`;
+                mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+            }
+        }
+    </script>
 
-    // PAGE 5: Administrative Requirements (Partial)
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("3. Administrative Requirements", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("3.1 Reporting", 10, 30);
-    doc.text("The contractor must submit regular OHS reports as stipulated by the client, including incident reports, inspection findings, and compliance updates.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("3.4 Risk Management", 10, 60);
-    doc.text("3.4.1 Risk Assessments and Hazard Identification (HIRA)", 10, 70);
-    doc.text(`The contractor must conduct HIRA for all project activities, with specific emphasis on: ${activities.join(", ") || "None"} as identified in the project scope. Results must be documented and maintained on-site.`, 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("3.6 OHS Plan", 10, 100);
-    doc.text(`The contractor must submit an OHS plan prior to commencing work, tailored to the project: ${projectName} at ${location}. The plan must address all identified risks and comply with these specifications.`, 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
-
-    // PAGE 6: Physical Requirements (Partial)
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("5. Physical Requirements", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("5.5 Fall Protection", 10, 30);
-    if (activities.includes("Multi-Storey Construction")) {
-        doc.text("For projects involving Multi-Storey Construction, the contractor must implement fall protection measures, including guard rails per applicable standards (e.g., SABS 10085-1) and ensure workers are medically fit and trained.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    } else {
-        doc.text("No specific fall protection requirements identified based on selected activities.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    }
-    doc.text("5.11 Hazardous Chemical Substances", 10, 60);
-    if (activities.includes("Asbestos Removal")) {
-        doc.text("If Asbestos Removal is involved, the contractor must comply with regulations for handling hazardous substances, maintaining safety data sheets and training records on-site.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-    } else {
-        doc.text("No specific hazardous chemical substance requirements identified based on selected activities.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-    }
-
-    // PAGE 7: General Contract Requirements (Partial)
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("6. General Contract Requirements", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("6.1 Contractor as Employer", 10, 30);
-    doc.text(`The contractor is deemed an employer in their own right, responsible for complying with OHS legislation sections related to employee safety and third-party protection during the project: ${projectName}.`, 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("6.2 Indemnity Agreement", 10, 60);
-    doc.text(`The contractor indemnifies the client against losses or damages arising from their operations at ${location}.`, 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-
-    // PAGE 8: Acknowledgement
-    doc.addPage();
-    addHeaderFooter();
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Acknowledgement", 10, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("Thus done and signed by the respective parties as follows:", 10, 30);
-    doc.text("For: Contractor", 10, 40);
-    doc.text("Name: ____________________", 10, 50);
-    doc.text("Role: ____________________", 10, 60);
-    doc.text("Date: ____________________", 10, 70);
-    doc.text("Place: ____________________", 10, 80);
-    doc.text("For: Client", 10, 100);
-    doc.text("Name: ____________________", 10, 110);
-    doc.text("Role: ____________________", 10, 120);
-    doc.text("Date: ____________________", 10, 130);
-    doc.text("Place: ____________________", 10, 140);
-
-    // Save the PDF
-    doc.save(`${projectName}-OHS-Specifications.pdf`);
-
-    // Show cart
-    const cartContainer = document.getElementById('cart-container');
-    const cartItems = document.getElementById('cart-items');
-    if (cartContainer && cartItems) {
-        cartContainer.classList.remove('hidden');
-        cartItems.innerHTML = `<tr><td>OHS Specifications for ${projectName}</td><td>R0 (Promo)</td></tr>`;
-    } else {
-        console.error("Cart elements not found");
-    }
-});
-
-// Checkout logic
-document.getElementById('checkout-btn').addEventListener('click', () => {
-    const promoCode = document.getElementById('promo-code').value;
-    if (promoCode === "SAFETYFREE2025") {
-        alert("Checkout successful! Promo code applied - documents are free.");
-    } else {
-        alert("Invalid promo code. Please use SAFETYFREE2025.");
-    }
-});
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f6f5;
+            overflow-x: hidden;
+            flex-direction: row;
+        }
+        header {
+            background-color: #1a2526;
+            color: #fff;
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 90;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo-placeholder {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+            width: 250px;
+            height: 40px;
+            line-height: 20px;
+        }
+        .header-content {
+            flex: 1;
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        .nav-links a:hover {
+            color: #00aaff;
+        }
+        .search-bar form {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.9em;
+        }
+        .search-bar button {
+            padding: 6px 12px;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0088cc;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            background-color: #1a2526;
+            color: #ecf0f1;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-content {
+            padding: 20px;
+        }
+        .sidebar h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 1em;
+        }
+        .sidebar a .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .sidebar a:hover {
+            color: #00aaff;
+        }
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            background-color: #f5f6f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .intro {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 100px 30px 30px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        .intro h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .intro p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .role-selection {
+            margin-top: 20px;
+        }
+        .role-selection h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .role-btn {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .role-btn:hover {
+            background-color: #0088cc;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        #project-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 600;
+        }
+        #project-form input[type="text"],
+        #project-form input[type="number"],
+        #project-form select,
+        #project-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+        #project-form button {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #project-form button:hover {
+            background-color: #0088cc;
+        }
+        .hidden {
+            display: none;
+        }
+        .cart-container {
+            margin-top: 20px;
+        }
+        .cart-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        #cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        #cart-table th,
+        #cart-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #cart-table th {
+            background-color: #f5f6f5;
+        }
+        .checkout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #promo-code {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        #checkout-btn {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #checkout-btn:hover {
+            background-color: #0088cc;
+        }
+        footer {
+            background-color: #1a2526;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+        footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #00aaff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .newsletter {
+            margin-top: 20px;
+        }
+        .newsletter h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .newsletter form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.9em;
+            width: 200px;
+        }
+        .newsletter button {
+            padding: 8px 16px;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .newsletter button:hover {
+            background-color: #0088cc;
+        }
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .chat-toggle-btn {
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .chat-toggle-btn:hover {
+            background-color: #0088cc;
+        }
+        .chat-icon {
+            margin-right: 5px;
+            font-size: 20px;
+        }
+        #chat-window {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-hidden {
+            display: none;
+        }
+        #chat-output {
+            padding: 10px;
+            font-size: 14px;
+            flex: 1;
+        }
+        #chat-input {
+            width: 70%;
+            padding: 8px;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        #chat-send {
+            width: 30%;
+            padding: 8px;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #chat-send:hover {
+            background-color: #0088cc;
+        }
+        a:focus, button:focus, input:focus {
+            outline: 2px solid #00aaff;
+            outline-offset: 2px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            header {
+                position: relative;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-placeholder {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .intro {
+                margin: 20px;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
+                margin: 5px 10px;
+            }
+            .role-btn {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+            #project-form input,
+            #project-form select,
+            #project-form textarea {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>
