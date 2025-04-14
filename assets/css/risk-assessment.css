@@ -332,6 +332,20 @@ nav {
     text-decoration: underline;
 }
 
+/* Suggested Activities */
+.suggested {
+    background-color: #e6f3ff;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.suggested-label {
+    font-size: 0.8em;
+    color: #00aaff;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
 /* Footer */
 footer {
     background-color: #1a2526;
