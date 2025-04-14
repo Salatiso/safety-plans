@@ -68,63 +68,220 @@
                 <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
             </div>
 
-            <!-- Project Form (Hidden until H&S Professional selected) -->
+            <!-- OHS Specification Form (for H&S Professionals) -->
             <div id="project-form-container" class="form-container hidden">
                 <h3>Generate OHS Specification</h3>
                 <form id="project-form">
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
+                    <div class="form-group">
+                        <label for="project-name">Project Name:</label>
+                        <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
+                    </div>
                     
-                    <label for="client-name">Client Company Name:</label>
-                    <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
-
-                    <label for="contractor-name">Contractor Company Name:</label>
-                    <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name">
-
-                    <label for="site-address">Site Address:</label>
-                    <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address">
-
-                    <label for="type-of-work">Type of Work to be Done:</label>
-                    <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work">
-
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" required aria-label="Project Location">
-
-                    <label for="cost">Cost (R):</label>
-                    <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost">
-
-                    <label for="duration">Duration (Days):</label>
-                    <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration">
-
-                    <label>Activities Involved:</label>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> <label for="scaffolding">Scaffolding</label>
-                        <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction"> <label for="multi-storey">Multi-Storey Construction</label>
-                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal"> <label for="asbestos">Asbestos Removal</label>
+                    <div class="form-group">
+                        <label for="client-name">Client Company Name:</label>
+                        <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
                     </div>
 
-                    <label for="cidb-grade">CIDB Grading:</label>
-                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
-                        <option value="Not Applicable">Not Applicable</option>
-                        <option value="1">Grade 1</option>
-                        <option value="2">Grade 2</option>
-                        <option value="3">Grade 3</option>
-                        <option value="4">Grade 4</option>
-                        <option value="5">Grade 5</option>
-                        <option value="6">Grade 6</option>
-                        <option value="7">Grade 7</option>
-                        <option value="8">Grade 8</option>
-                        <option value="9">Grade 9</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="contractor-name">Contractor Company Name:</label>
+                        <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name">
+                    </div>
 
-                    <label for="scope-details">Scope Details:</label>
-                    <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details"></textarea>
+                    <div class="form-group">
+                        <label for="site-address">Site Address:</label>
+                        <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type-of-work">Type of Work to be Done:</label>
+                        <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required aria-label="Project Location">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cost">Cost (R):</label>
+                        <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration (Days):</label>
+                        <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Activities Involved:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding"> 
+                            <label for="scaffolding">Scaffolding</label>
+                            <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction"> 
+                            <label for="multi-storey">Multi-Storey Construction</label>
+                            <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal"> 
+                            <label for="asbestos">Asbestos Removal</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidb-grade">CIDB Grading:</label>
+                        <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading">
+                            <option value="Not Applicable">Not Applicable</option>
+                            <option value="1">Grade 1</option>
+                            <option value="2">Grade 2</option>
+                            <option value="3">Grade 3</option>
+                            <option value="4">Grade 4</option>
+                            <option value="5">Grade 5</option>
+                            <option value="6">Grade 6</option>
+                            <option value="7">Grade 7</option>
+                            <option value="8">Grade 8</option>
+                            <option value="9">Grade 9</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scope-details">Scope Details:</label>
+                        <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details"></textarea>
+                    </div>
 
                     <div id="dynamic-fields"></div>
 
                     <button type="submit">Generate Documents</button>
                 </form>
             </div>
+
+            <!-- Compliance Checklist Form (for Contractors) -->
+            <section id="compliance-form" class="hidden">
+                <h3>Compliance Checklist</h3>
+                <div id="step-1" class="step">
+                    <h4>Step 1: Select Checklist Type</h4>
+                    <form id="checklist-type-form">
+                        <div class="form-group">
+                            <label for="checklist-type">Checklist Type:</label>
+                            <select id="checklist-type" name="checklistType" required aria-label="Checklist Type">
+                                <option value="">Select Checklist Type</option>
+                                <option value="general">General Safety</option>
+                                <option value="scaffolding">Scaffolding Safety</option>
+                                <option value="electrical">Electrical Safety</option>
+                                <option value="excavation">Excavation Safety</option>
+                            </select>
+                        </div>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+
+                <div id="step-2" class="step hidden">
+                    <h4>Step 2: Select Requirements</h4>
+                    <form id="requirements-form">
+                        <div class="form-group">
+                            <label for="requirement-search">Search Requirements:</label>
+                            <input type="text" id="requirement-search" placeholder="Search..." aria-label="Search Requirements">
+                        </div>
+                        <div id="requirement-groups"></div>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+
+                <div id="step-3" class="step hidden">
+                    <h4>Step 3: Assign Status</h4>
+                    <form id="status-form">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Description</th>
+                                    <th>Legal Reference</th>
+                                    <th>Status</th>
+                                    <th>Evidence/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="status-table-body"></tbody>
+                        </table>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+
+                <div id="step-4" class="step hidden">
+                    <h4>Step 4: Review and Details</h4>
+                    <form id="review-form">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Description</th>
+                                    <th>Legal Reference</th>
+                                    <th>Status</th>
+                                    <th>Evidence/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="review-table-body"></tbody>
+                        </table>
+                        <div class="compliance-note hidden">
+                            <p><strong>Note:</strong> For projects over R40,000 or 180 days, ensure compliance with Construction Regulation 3 (Permit Requirements).</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-name">Site Name:</label>
+                            <input type="text" id="site-name" name="siteName" required aria-label="Site Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="site-address">Site Address:</label>
+                            <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address">
+                        </div>
+                        <div class="form-group">
+                            <label for="site-location">Location:</label>
+                            <input type="text" id="site-location" name="siteLocation" required aria-label="Site Location">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-name">Conducted By (Name):</label>
+                            <input type="text" id="conductor-name" name="conductorName" required aria-label="Conductor Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-role">Conductor Role:</label>
+                            <input type="text" id="conductor-role" name="conductorRole" required aria-label="Conductor Role">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-email">Conductor Email:</label>
+                            <input type="email" id="conductor-email" name="conductorEmail" required aria-label="Conductor Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-phone">Conductor Phone:</label>
+                            <input type="tel" id="conductor-phone" name="conductorPhone" required aria-label="Conductor Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="company-name">Company Name:</label>
+                            <input type="text" id="company-name" name="companyName" required aria-label="Company Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="company-contact">Company Contact Person:</label>
+                            <input type="text" id="company-contact" name="companyContact" required aria-label="Company Contact">
+                        </div>
+                        <div class="form-group">
+                            <label for="company-role">Company Contact Role:</label>
+                            <input type="text" id="company-role" name="companyRole" required aria-label="Company Contact Role">
+                        </div>
+                        <div class="form-group">
+                            <label for="company-details">Company Details:</label>
+                            <textarea id="company-details" name="companyDetails" rows="3" required aria-label="Company Details"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-notes">Additional Notes:</label>
+                            <textarea id="custom-notes" name="customNotes" rows="3" aria-label="Additional Notes"></textarea>
+                        </div>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit">Generate Checklist</button>
+                    </form>
+                </div>
+
+                <div id="step-5" class="step hidden">
+                    <h4>Step 5: Download & Next Steps</h4>
+                    <p>Your Compliance Checklist has been generated!</p>
+                    <button id="download-again">Download Again</button>
+                    <button id="start-new">Start New Checklist</button>
+                </div>
+            </section>
 
             <!-- Cart Section -->
             <div id="cart-container" class="cart-container hidden">
