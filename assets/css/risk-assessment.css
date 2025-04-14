@@ -1,12 +1,10 @@
 /* css/risk-assessment.css */
-
-/* Risk Assessment Form */
 .risk-assessment-form {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     margin: 100px 30px 30px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex: 1;
 }
 
@@ -176,7 +174,6 @@
     text-decoration: underline;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .risk-assessment-form {
         margin: 20px;
