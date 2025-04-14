@@ -66,36 +66,21 @@
             <!-- Project Form (Hidden until role selected) -->
             <div id="project-form-container" class="form-container hidden">
                 <h3>Start New Project</h3>
-                <form id="project-form">
-                    <label for="client-name">Client Name:</label>
+                <form id="project-form"> 
+                    <label for="project-name">Project Name:</label>
+                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
+                    
+                    <label for="client-name">Client Company Name:</label>
                     <input type="text" id="client-name" name="clientName" required aria-label="Client Name">
 
-                    <label for="contractor-name">Contractor Company Name:</label>
+                    <label for="clientcontact-name">Contact Person Name:</label>
                     <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name">
 
-                    <label for="site-address">Site Address:</label>
+                    <label for="client-address">Client Address:</label>
                     <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address">
-
-                    <label for="contracts-manager">Contracts Manager:</label>
-                    <input type="text" id="contracts-manager" name="contractsManager" required aria-label="Contracts Manager">
-
-                    <label for="managing-director">Managing Director:</label>
-                    <input type="text" id="managing-director" name="managingDirector" required aria-label="Managing Director">
 
                     <label for="type-of-work">Type of Work to be Done:</label>
                     <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work">
-
-                    <label for="work-area">Area in which Work will be Done:</label>
-                    <input type="text" id="work-area" name="workArea" required aria-label="Work Area">
-
-                    <label for="emergency-contact">24hr Emergency Contact No’s:</label>
-                    <input type="text" id="emergency-contact" name="emergencyContact" required aria-label="Emergency Contact">
-
-                    <label for="workmans-comp">Workman's Compensation No:</label>
-                    <input type="text" id="workmans-comp" name="workmansComp" required aria-label="Workman's Compensation No">
-
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name">
 
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" required aria-label="Project Location">
