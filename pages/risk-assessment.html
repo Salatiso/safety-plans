@@ -1,193 +1,230 @@
-/* css/risk-assessment.css */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conduct thorough risk assessments with Salatiso OHS Tools to ensure workplace safety.">
+    <meta name="keywords" content="OHS tools, risk assessment, occupational health and safety, safety plans, South Africa OHS, Salatiso">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title>Salatiso OHS Tools - Risk Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/risk-assessment.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <!-- Header, sidebar, etc. -->
+    <div class="main-content">
+        <section class="risk-assessment-form">
+            <h2>Risk Assessment</h2>
+            <p>Create a customized risk assessment by selecting your project type, activities, and assigning risk ratings.</p>
+            <!-- Step 1: Select Project Type -->
+            <div class="step" id="step-1">
+                <h3>Step 1: Select Project Type</h3>
+                <form id="project-type-form">
+                    <label for="project-type">What type of project are you working on?</label>
+                    <select id="project-type" name="project-type" required>
+                        <option value="" disabled selected>Select a project type</option>
+                        <option value="maintenance">Maintenance and Repair</option>
+                        <option value="small-construction">Small-Scale Construction</option>
+                        <option value="large-construction">Large-Scale Construction</option>
+                        <option value="electrical">Electrical Work</option>
+                        <option value="office">Office/Administrative</option>
+                        <option value="general">General/Other</option>
+                    </select>
+                    <button type="submit">Next: Select Activities</button>
+                </form>
+            </div>
+            <!-- Other steps (as in previous response) -->
+        </section>
+        <!-- Footer, chatbot -->
+    </div>
+    <script src="../js/risk-assessment.js"></script>
+    <!-- Firebase and chatbot scripts -->
+</body>
+    <header>
+        <div class="header-container">
+            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
+            <div class="header-content">
+                <h1>Salatiso OHS Tools</h1>
+                <nav role="navigation" aria-label="Main navigation">
+                    <div class="nav-links">
+                        <a href="/safety-plans/index.html">Home</a>
+                        <a href="/safety-plans/resources.html">Resources</a>
+                        <a href="/safety-plans/services.html">Services</a>
+                        <a href="/safety-plans/community.html">Community</a>
+                        <a href="/safety-plans/about.html">About</a>
+                        <a href="/safety-plans/contact.html">Contact</a>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search">
+                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                            <button type="submit" aria-label="Search">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-/* Risk Assessment Form */
-.risk-assessment-form {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    margin: 100px 30px 30px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    flex: 1;
-}
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>OHS Tools</h3>
+            <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
+            <a href="/safety-plans/pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
+            <a href="/safety-plans/pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
+            <a href="/safety-plans/pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
+            <a href="/safety-plans/pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="/safety-plans/pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
 
-.risk-assessment-form h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.6em;
-    margin-bottom: 10px;
-    color: #333;
-}
+    <div class="main-content">
+        <section class="risk-assessment-form">
+            <h2>Risk Assessment</h2>
+            <p>Create a customized risk assessment by selecting your project type, activities, and assigning risk ratings.</p>
+            
+            <!-- Step 1: Select Project Type -->
+            <div class="step" id="step-1">
+                <h3>Step 1: Select Project Type</h3>
+                <form id="project-type-form">
+                    <label for="project-type">What type of project are you working on?</label>
+                    <select id="project-type" name="project-type" required>
+                        <option value="" disabled selected>Select a project type</option>
+                        <option value="maintenance">Maintenance and Repair (e.g., plumbing, electrical fixes)</option>
+                        <option value="small-construction">Small-Scale Construction (e.g., renovations, single-storey)</option>
+                        <option value="large-construction">Large-Scale Construction (e.g., multi-storey, major contracts)</option>
+                        <option value="electrical">Electrical Work (e.g., low/high-voltage installations)</option>
+                        <option value="office">Office/Administrative (e.g., ergonomic assessments)</option>
+                        <option value="general">General/Other (e.g., mixed or unique projects)</option>
+                    </select>
+                    <button type="submit">Next: Select Activities</button>
+                </form>
+            </div>
 
-.risk-assessment-form p {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 20px;
-}
+            <!-- Step 2: Choose Activities -->
+            <div class="step hidden" id="step-2">
+                <h3>Step 2: Select Activities</h3>
+                <form id="activities-form">
+                    <p>Select the activities relevant to your project. Use the search bar to find specific tasks.</p>
+                    <input type="text" id="activity-search" placeholder="Search activities (e.g., scaffolding)" aria-label="Search activities">
+                    <div id="activity-groups"></div>
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit" disabled>Next: Assign Ratings</button>
+                </form>
+            </div>
 
-.step {
-    margin-bottom: 20px;
-}
+            <!-- Step 3: Assign Ratings -->
+            <div class="step hidden" id="step-3">
+                <h3>Step 3: Assign Risk Ratings</h3>
+                <form id="ratings-form">
+                    <p>Assign a risk rating (High, Medium, Low) for each selected activity. High = serious injury possible, Medium = moderate injury, Low = minimal risk.</p>
+                    <table class="ratings-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Hazard</th>
+                                <th>Risk</th>
+                                <th>Control Measures</th>
+                                <th>Legal Reference</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ratings-table-body"></tbody>
+                    </table>
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit" disabled>Next: Review</button>
+                </form>
+            </div>
 
-.step.hidden {
-    display: none;
-}
+            <!-- Step 4: Review and Customize -->
+            <div class="step hidden" id="step-4">
+                <h3>Step 4: Review and Customize</h3>
+                <form id="review-form">
+                    <p>Verify your selections and add project details. For large projects, ensure Department of Labour notification if required.</p>
+                    <h4>Project Details</h4>
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" name="project-name" placeholder="e.g., Office Renovation 2025">
+                    <label for="project-location">Location</label>
+                    <input type="text" id="project-location" name="project-location" placeholder="e.g., Cape Town CBD">
+                    <label for="contractor-name">Contractor Name</label>
+                    <input type="text" id="contractor-name" name="contractor-name" placeholder="e.g., ABC Construction">
+                    <label for="project-start">Start Date</label>
+                    <input type="date" id="project-start" name="project-start">
+                    <label for="project-duration">Duration</label>
+                    <input type="text" id="project-duration" name="project-duration" placeholder="e.g., 6 months">
+                    <label for="custom-notes">Custom Notes</label>
+                    <textarea id="custom-notes" name="custom-notes" placeholder="e.g., Check underground cables"></textarea>
+                    <h4>Selected Activities</h4>
+                    <table class="review-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Hazard</th>
+                                <th>Risk</th>
+                                <th>Control Measures</th>
+                                <th>Legal Reference</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="review-table-body"></tbody>
+                    </table>
+                    <p class="compliance-note hidden">Note: Projects over R40,000 or 180 days require Department of Labour notification (Construction Regulation 4).</p>
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit">Generate Document</button>
+                </form>
+            </div>
 
-.step h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    color: #1a2526;
-}
+            <!-- Step 5: Guidance (Post-Download) -->
+            <div class="step hidden" id="step-5">
+                <h3>Step 5: Next Steps</h3>
+                <p>Your risk assessment has been generated. Follow these steps to ensure safety:</p>
+                <ul>
+                    <li>Implement control measures (e.g., provide PPE, train workers).</li>
+                    <li>Conduct toolbox talks to brief staff on hazards.</li>
+                    <li>Review the assessment if the project scope changes (OHSA Section 8).</li>
+                    <li>For large projects, notify the Department of Labour if required.</li>
+                    <li>Contact us for support: <a href="/safety-plans/contact.html">Contact Page</a>.</li>
+                </ul>
+                <p><a href="#" id="download-again">Download Again</a> | <a href="#" id="start-new">Start New Assessment</a></p>
+            </div>
+        </section>
 
-.step form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        <footer>
+            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
+            <p>
+                <a href="/safety-plans/privacy.html">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html">Terms of Service</a> |
+                <a href="/safety-plans/contact.html">Contact Us</a>
+            </p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
+    </div>
 
-.step label {
-    font-size: 1em;
-    color: #333;
-}
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn">
+            <span class="chat-icon">⛑️</span> Ask Me
+        </button>
+        <div id="chat-window" class="chat-hidden">
+            <div id="chat-output"></div>
+            <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS">
+            <button id="chat-send" aria-label="Send message">Send</button>
+        </div>
+    </div>
 
-.step select,
-.step input[type="text"],
-.step input[type="date"],
-.step textarea {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 400px;
-}
-
-.step textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-.step button {
-    padding: 10px 20px;
-    background-color: #00aaff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    align-self: flex-start;
-}
-
-.step button:hover {
-    background-color: #0088cc;
-}
-
-.step button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.back-btn {
-    background-color: #666;
-}
-
-.back-btn:hover {
-    background-color: #555;
-}
-
-.activity-group {
-    margin: 15px 0;
-}
-
-.activity-group h4 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #1a2526;
-    cursor: pointer;
-}
-
-.activity-group ul {
-    list-style: none;
-    margin-left: 20px;
-    display: none;
-}
-
-.activity-group.open ul {
-    display: block;
-}
-
-.activity-group li {
-    margin: 5px 0;
-}
-
-.activity-group input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-#activity-search {
-    margin-bottom: 15px;
-}
-
-.ratings-table,
-.review-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-}
-
-.ratings-table th,
-.review-table th {
-    background-color: #1a2526;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.ratings-table td,
-.review-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    font-size: 0.9em;
-}
-
-.ratings-table select {
-    width: 100px;
-}
-
-.compliance-note {
-    color: #d32f2f;
-    font-size: 0.9em;
-    margin-top: 10px;
-}
-
-#step-5 ul {
-    list-style: disc;
-    margin-left: 20px;
-    color: #333;
-}
-
-#step-5 a {
-    color: #00aaff;
-    text-decoration: none;
-}
-
-#step-5 a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .risk-assessment-form {
-        margin: 20px;
-    }
-
-    .ratings-table,
-    .review-table {
-        font-size: 0.8em;
-    }
-
-    .step button {
-        width: 100%;
-    }
-}
+    <!-- Firebase Scripts and Chatbot Logic -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <!-- Risk Assessment Logic -->
+    <script src="../js/risk-assessment.js"></script>
+</body>
+</html>
