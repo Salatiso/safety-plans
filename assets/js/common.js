@@ -15,11 +15,14 @@ export function adjustLayout() {
     const sidebar = document.querySelector(".sidebar");
     const mainContent = document.querySelector(".main-content");
     if (sidebar && mainContent) {
+        const sidebarWidth = sidebar.offsetWidth || 200; // Match sidebar width in CSS
         sidebar.style.top = `${headerHeight}px`;
         sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-        mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
+        mainContent.style.marginLeft = `${sidebarWidth}px`;
         mainContent.style.paddingTop = `${headerHeight}px`;
         mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+    } else {
+        console.error("Sidebar or main content not found");
     }
 }
 
@@ -49,6 +52,7 @@ export function addHeaderFooter(doc, pageNum, projectName) {
 
 // Disable sidebar links
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Disabling sidebar links");
     document.querySelectorAll(".sidebar a.disabled").forEach(link => {
         link.addEventListener("click", e => {
             e.preventDefault();
