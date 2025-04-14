@@ -20,7 +20,7 @@ try {
     document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
 }
 
-// Baseline Risk Assessment Database (Full)
+// Baseline Risk Assessment Database (Full with Suggested Flags)
 const riskDatabase = [
     {
         group: "Site Preparation and Access",
@@ -30,21 +30,24 @@ const riskDatabase = [
                 hazard: "Unauthorized entry",
                 risk: "Delays, security threats, traffic/emergency interference",
                 controls: "Require positive ID, conduct site induction, provide designated parking with signage",
-                legal: "OHSA Section 8(2)(e), Construction Regulation 4"
+                legal: "OHSA Section 8(2)(e), Construction Regulation 4",
+                suggested: ["small-construction", "large-construction"]
             },
             {
                 activity: "Site Access",
                 hazard: "Lack of induction",
                 risk: "Safety violations, entering restricted areas",
                 controls: "Induct all workers on site rules, emergency plans, restricted zones",
-                legal: "OHSA Section 8(2)(f)"
+                legal: "OHSA Section 8(2)(f)",
+                suggested: ["small-construction", "large-construction"]
             },
             {
                 activity: "Site Clearing",
                 hazard: "Vegetation/debris",
                 risk: "Trips, cuts, biological exposure (insects)",
                 controls: "Clear debris, wear PPE (gloves, boots), use insect repellent",
-                legal: "OHSA Section 8(2)(a)"
+                legal: "OHSA Section 8(2)(a)",
+                suggested: ["small-construction"]
             },
             {
                 activity: "Site Clearing",
@@ -63,21 +66,24 @@ const riskDatabase = [
                 hazard: "Trench collapse",
                 risk: "Burial, suffocation",
                 controls: "Shore trenches >1.5m, appoint competent supervisor, inspect daily",
-                legal: "Construction Regulation 13"
+                legal: "Construction Regulation 13",
+                suggested: ["large-construction"]
             },
             {
                 activity: "Excavation",
                 hazard: "Underground services",
                 risk: "Electrocution, gas leaks",
                 controls: "Use utility plans, scan before digging, isolate services",
-                legal: "OHSA Section 10, Construction Regulation 5(1)(f)"
+                legal: "OHSA Section 10, Construction Regulation 5(1)(f)",
+                suggested: ["large-construction"]
             },
             {
                 activity: "Foundation: Concrete Pouring",
                 hazard: "Cement dust",
                 risk: "Respiratory issues, eye damage",
                 controls: "Use wet methods, wear masks/goggles",
-                legal: "OHSA HCS Regulations"
+                legal: "OHSA HCS Regulations",
+                suggested: ["small-construction", "large-construction"]
             },
             {
                 activity: "Foundation: Concrete Pouring",
@@ -98,21 +104,24 @@ const riskDatabase = [
                 hazard: "Structural failure",
                 risk: "Falls, collapse injuries",
                 controls: "Comply with SANS 10085, appoint competent supervisor, inspect weekly",
-                legal: "Construction Regulation 16"
+                legal: "Construction Regulation 16",
+                suggested: ["small-construction", "large-construction"]
             },
             {
                 activity: "Scaffolding",
                 hazard: "Improper use",
                 risk: "Falls from height",
                 controls: "Use trained erectors, wear harnesses, secure tools",
-                legal: "Construction Regulation 10"
+                legal: "Construction Regulation 10",
+                suggested: ["small-construction", "large-construction"]
             },
             {
                 activity: "Bricklaying/Wall Construction",
                 hazard: "Unstable structures",
                 risk: "Collapse, injuries",
                 controls: "Follow SANS 10400, use competent masons",
-                legal: "Construction Regulation 11"
+                legal: "Construction Regulation 11",
+                suggested: ["small-construction"]
             },
             {
                 activity: "Bricklaying/Wall Construction",
@@ -133,7 +142,8 @@ const riskDatabase = [
                 hazard: "Working at height",
                 risk: "Falls, head injuries",
                 controls: "Use fall protection (harnesses, guardrails), wear helmets",
-                legal: "Construction Regulation 10"
+                legal: "Construction Regulation 10",
+                suggested: ["large-construction"]
             },
             {
                 activity: "Roofing",
@@ -152,7 +162,8 @@ const riskDatabase = [
                 hazard: "Electrical tools",
                 risk: "Shocks, burns, fires",
                 controls: "Inspect tools, isolate circuits, use competent workers",
-                legal: "OHSA EIR Regulations"
+                legal: "OHSA EIR Regulations",
+                suggested: ["maintenance"]
             },
             {
                 activity: "Plumbing: Wall Chasing",
@@ -166,14 +177,16 @@ const riskDatabase = [
                 hazard: "Heavy appliances",
                 risk: "Back strain",
                 controls: "Lift in pairs, use lifting aids",
-                legal: "OHSA ERW Regulations"
+                legal: "OHSA ERW Regulations",
+                suggested: ["maintenance"]
             },
             {
                 activity: "Electrical Installation (Low Voltage)",
                 hazard: "Live circuits",
                 risk: "Shocks, burns",
                 controls: "Isolate circuits, use competent electricians, test installations",
-                legal: "OHSA EIR, SANS 10142"
+                legal: "OHSA EIR, SANS 10142",
+                suggested: ["electrical"]
             },
             {
                 activity: "Electrical Installation (Low Voltage)",
@@ -187,7 +200,8 @@ const riskDatabase = [
                 hazard: "High voltage",
                 risk: "Electrocution, arc flash",
                 controls: "Use certified HV electricians, lockout/tagout, wear arc-rated PPE",
-                legal: "OHSA EIR, SANS 10142"
+                legal: "OHSA EIR, SANS 10142",
+                suggested: ["electrical"]
             },
             {
                 activity: "Electrical: High Voltage Work",
@@ -220,7 +234,8 @@ const riskDatabase = [
                 hazard: "Cement dust",
                 risk: "Respiratory issues, eye damage",
                 controls: "Use wet methods, wear masks/goggles",
-                legal: "OHSA HCS Regulations"
+                legal: "OHSA HCS Regulations",
+                suggested: ["small-construction"]
             },
             {
                 activity: "Plastering",
@@ -241,7 +256,8 @@ const riskDatabase = [
                 hazard: "Adhesive dust",
                 risk: "Respiratory issues",
                 controls: "Use wet methods, wear masks",
-                legal: "OHSA HCS Regulations"
+                legal: "OHSA HCS Regulations",
+                suggested: ["small-construction"]
             },
             {
                 activity: "Tiling (Floor/Wall)",
@@ -262,7 +278,8 @@ const riskDatabase = [
                 hazard: "Paint fumes",
                 risk: "Asphyxiation, nausea",
                 controls: "Ensure ventilation, take breaks, use low-VOC paints",
-                legal: "OHSA HCS Regulations"
+                legal: "OHSA HCS Regulations",
+                suggested: ["small-construction"]
             },
             {
                 activity: "Painting",
@@ -330,21 +347,24 @@ const riskDatabase = [
                 hazard: "Leaking pipes",
                 risk: "Slips, water damage",
                 controls: "Isolate water supply, use absorbent mats, wear boots",
-                legal: "OHSA Section 8(2)(i)"
+                legal: "OHSA Section 8(2)(i)",
+                suggested: ["maintenance"]
             },
             {
                 activity: "Plumbing Maintenance",
                 hazard: "Confined spaces",
                 risk: "Asphyxiation",
                 controls: "Use permits, ventilate areas, monitor workers",
-                legal: "OHSA GSR 5"
+                legal: "OHSA GSR 5",
+                suggested: ["maintenance"]
             },
             {
                 activity: "Electrical Maintenance",
                 hazard: "Live circuits",
                 risk: "Shocks, burns",
                 controls: "Lockout/tagout, use competent electricians, test circuits",
-                legal: "OHSA EIR Regulations"
+                legal: "OHSA EIR Regulations",
+                suggested: ["maintenance"]
             },
             {
                 activity: "Electrical Maintenance",
@@ -358,7 +378,8 @@ const riskDatabase = [
                 hazard: "Hand tools",
                 risk: "Cuts, bruises",
                 controls: "Use well-maintained tools, wear gloves",
-                legal: "OHSA Section 8(2)(a)"
+                legal: "OHSA Section 8(2)(a)",
+                suggested: ["maintenance"]
             },
             {
                 activity: "General Repairs",
@@ -377,14 +398,16 @@ const riskDatabase = [
                 hazard: "Poor workstations",
                 risk: "Musculoskeletal disorders",
                 controls: "Use adjustable chairs/desks, train in posture, rotate tasks",
-                legal: "OHSA ERW Regulations"
+                legal: "OHSA ERW Regulations",
+                suggested: ["office"]
             },
             {
                 activity: "Office Ergonomics",
                 hazard: "Repetitive tasks",
                 risk: "Strain injuries",
                 controls: "Take breaks, use ergonomic tools (e.g., wrist rests)",
-                legal: "OHSA Section 8(2)(d)"
+                legal: "OHSA Section 8(2)(d)",
+                suggested: ["office"]
             },
             {
                 activity: "Document Handling",
@@ -405,7 +428,8 @@ const riskDatabase = [
                 hazard: "Electrical faults",
                 risk: "Shocks, fires",
                 controls: "Regular inspections, use surge protectors",
-                legal: "OHSA EIR Regulations"
+                legal: "OHSA EIR Regulations",
+                suggested: ["office"]
             },
             {
                 activity: "Office Equipment",
@@ -419,7 +443,8 @@ const riskDatabase = [
                 hazard: "Poor lighting",
                 risk: "Eye strain, headaches",
                 controls: "Ensure adequate lighting, adjust screens",
-                legal: "OHSA FSR Regulations"
+                legal: "OHSA FSR Regulations",
+                suggested: ["office"]
             },
             {
                 activity: "Office Environment",
@@ -438,21 +463,24 @@ const riskDatabase = [
                 hazard: "Asbestos fibers",
                 risk: "Lung diseases, cancer",
                 controls: "Use respiratory PPE, sealed containment, licensed disposal",
-                legal: "OHSA Asbestos Regulations"
+                legal: "OHSA Asbestos Regulations",
+                suggested: ["general"]
             },
             {
                 activity: "Asbestos Removal",
                 hazard: "Improper handling",
                 risk: "Environmental contamination",
                 controls: "Train workers, appoint coordinator",
-                legal: "Construction Regulation 7"
+                legal: "Construction Regulation 7",
+                suggested: ["general"]
             },
             {
                 activity: "Biological Agents",
                 hazard: "Bacteria, viruses",
                 risk: "Illness (diarrhea, fever)",
                 controls: "Provide sanitation, wear PPE (masks, gloves), clean regularly",
-                legal: "OHSA Section 8(2)(b)"
+                legal: "OHSA Section 8(2)(b)",
+                suggested: ["general"]
             },
             {
                 activity: "Hazardous Chemicals",
@@ -466,7 +494,8 @@ const riskDatabase = [
                 hazard: "Flammable materials",
                 risk: "Burns, property damage",
                 controls: "Install extinguishers, train staff, conduct drills",
-                legal: "OHSA GSR 4, SANS 10147"
+                legal: "OHSA GSR 4, SANS 10147",
+                suggested: ["large-construction", "general"]
             },
             {
                 activity: "Weather Conditions",
@@ -487,7 +516,8 @@ const riskDatabase = [
                 hazard: "Inadequate planning",
                 risk: "Delayed evacuation, injuries",
                 controls: "Develop ERP, train staff, display contact numbers",
-                legal: "OHSA GSR 3, Construction Regulation 5"
+                legal: "OHSA GSR 3, Construction Regulation 5",
+                suggested: ["large-construction", "general"]
             }
         ]
     }
@@ -556,10 +586,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h4>${group.group}</h4>
                 <ul>
                     ${group.activities.map(activity => `
-                        <li>
+                        <li class="${activity.suggested?.includes(projectType) ? 'suggested' : ''}">
                             <label>
-                                <input type="checkbox" name="activity" value="${activity.activity}" data-hazard="${activity.hazard}" data-risk="${activity.risk}" data-controls="${activity.controls}" data-legal="${activity.legal}">
+                                <input type="checkbox" name="activity" value="${activity.activity}" 
+                                    data-hazard="${activity.hazard}" 
+                                    data-risk="${activity.risk}" 
+                                    data-controls="${activity.controls}" 
+                                    data-legal="${activity.legal}"
+                                    ${activity.suggested?.includes(projectType) ? 'checked' : ''}>
                                 ${activity.activity} (${activity.hazard})
+                                ${activity.suggested?.includes(projectType) ? '<span class="suggested-label">Suggested</span>' : ''}
                             </label>
                         </li>
                     `).join("")}
@@ -576,13 +612,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Enable/disable next button
-        activitiesForm.querySelector("button[type='submit']").disabled = true;
+        const updateNextButton = () => {
+            const checked = document.querySelectorAll('input[name="activity"]:checked').length;
+            activitiesForm.querySelector("button[type='submit']").disabled = !checked;
+        };
         document.querySelectorAll('input[name="activity"]').forEach(checkbox => {
-            checkbox.addEventListener("change", () => {
-                const checked = document.querySelectorAll('input[name="activity"]:checked').length;
-                activitiesForm.querySelector("button[type='submit']").disabled = !checked;
-            });
+            checkbox.addEventListener("change", updateNextButton);
         });
+        updateNextButton(); // Initial check for pre-selected activities
     }
 
     // Search activities
@@ -756,7 +793,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Step 5: Guidance
-    document.getElementById("download-again").addEventListener("click", (e) => {
+    document.getElementById("download-again").addEventListener BARF("click", (e) => {
         e.preventDefault();
         generatePDF();
     });
