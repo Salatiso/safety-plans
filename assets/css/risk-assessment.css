@@ -201,6 +201,8 @@ nav {
 .step select,
 .step input[type="text"],
 .step input[type="date"],
+.step input[type="email"],
+.step input[type="tel"],
 .step textarea {
     padding: 8px;
     border: 1px solid #ddd;
