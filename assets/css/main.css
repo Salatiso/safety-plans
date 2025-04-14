@@ -15,29 +15,30 @@ body {
 
 /* Header */
 .header-container {
-    background-color: #1a2526;
+    background-color: #1a2526; /* Restored original dark background */
     color: white;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo-placeholder {
-    font-size: 14px;
+    font-size: 12px;
     font-style: italic;
 }
 
 .header-content h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 22px; /* Adjusted to a more compact size */
+    margin-bottom: 5px;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 8px;
+    font-size: 14px;
 }
 
 .nav-links a:hover {
@@ -45,22 +46,24 @@ body {
 }
 
 .search-bar {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .search-bar input {
-    padding: 5px;
+    padding: 4px;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
+    font-size: 14px;
 }
 
 .search-bar button {
-    padding: 5px 10px;
-    background-color: #ff6f61;
+    padding: 4px 8px;
+    background-color: #ff6f61; /* Coral color for buttons */
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .search-bar button:hover {
@@ -72,23 +75,24 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 250px;
-    background-color: #f4f4f4;
+    width: 200px; /* Adjusted to a more compact width */
+    background-color: #f4f4f4; /* Restored light background */
     border-right: 1px solid #ddd;
-    padding: 20px;
+    padding: 15px;
 }
 
 .sidebar-content h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .sidebar-content a {
     display: block;
-    padding: 10px 0;
+    padding: 8px 0;
     color: #1a2526;
     text-decoration: none;
+    font-size: 14px;
 }
 
 .sidebar-content a:hover {
@@ -106,40 +110,42 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-left: 250px;
-    padding: 20px;
+    margin-left: 200px; /* Adjusted to match sidebar width */
+    padding: 15px;
     min-height: 100vh;
 }
 
 .intro h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 8px;
 }
 
 .intro p {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
 /* Role Selection */
 .role-selection {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .role-selection h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .role-btn {
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #1a2526;
+    padding: 8px 16px;
+    margin-right: 8px;
+    background-color: #1a2526; /* Restored original button color */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .role-btn:hover {
@@ -148,53 +154,57 @@ body {
 
 /* Forms */
 .form-container, #compliance-form {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .form-container h3, #compliance-form h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .form-group label {
     display: block;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+    font-size: 14px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    max-width: 500px;
-    padding: 8px;
+    max-width: 400px; /* Adjusted for better form layout */
+    padding: 6px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 2px;
+    font-size: 14px;
 }
 
 .checkbox-group {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 .checkbox-group label {
     font-weight: normal;
+    font-size: 14px;
 }
 
 button[type="submit"],
 .back-btn {
-    padding: 10px 20px;
-    background-color: #ff6f61;
+    padding: 8px 16px;
+    background-color: #ff6f61; /* Restored coral button color */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 8px;
+    font-size: 14px;
 }
 
 button[type="submit"]:hover,
@@ -203,7 +213,7 @@ button[type="submit"]:hover,
 }
 
 .back-btn {
-    background-color: #666;
+    background-color: #666; /* Restored original back button color */
 }
 
 .back-btn:hover {
@@ -211,30 +221,32 @@ button[type="submit"]:hover,
 }
 
 .hidden {
-    display: none;
+    display: none !important; /* Added !important to ensure visibility toggling */
 }
 
 /* Compliance Checklist Steps */
 .step h4 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .requirement-group h4 {
     cursor: pointer;
     background-color: #e0e0e0;
-    padding: 5px 10px;
-    margin: 10px 0;
+    padding: 5px 8px;
+    margin: 8px 0;
+    font-size: 14px;
 }
 
 .requirement-group ul {
     list-style: none;
-    padding-left: 10px;
+    padding-left: 8px;
 }
 
 .requirement-group li {
     padding: 5px 0;
+    font-size: 14px;
 }
 
 .suggested-label {
@@ -246,14 +258,15 @@ button[type="submit"]:hover,
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 table th,
 table td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 6px;
     text-align: left;
+    font-size: 14px;
 }
 
 table th {
@@ -263,43 +276,49 @@ table th {
 
 .compliance-note {
     background-color: #fff3cd;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 15px 0;
+    padding: 8px;
+    border-radius: 3px;
+    margin: 10px 0;
+    font-size: 14px;
 }
 
 /* Cart */
 .cart-container {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .cart-container h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .checkout {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .checkout input {
-    padding: 8px;
-    margin-right: 10px;
+    padding: 6px;
+    margin-right: 8px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 2px;
+    font-size: 14px;
 }
 
 /* Footer */
 footer {
-    background-color: #1a2526;
+    background-color: #1a2526; /* Restored original dark background */
     color: white;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
 }
 
+footer p {
+    font-size: 14px;
+}
+
 footer a {
-    color: #ff6f61;
+    color: #ff6f61; /* Restored coral link color */
     text-decoration: none;
 }
 
@@ -308,29 +327,31 @@ footer a:hover {
 }
 
 .newsletter {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .newsletter h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
 .newsletter input {
-    padding: 8px;
+    padding: 6px;
     border: none;
-    border-radius: 3px;
-    margin-right: 10px;
+    border-radius: 2px;
+    margin-right: 8px;
+    font-size: 14px;
 }
 
 .newsletter button {
-    padding: 8px 15px;
+    padding: 6px 12px;
     background-color: #ff6f61;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .newsletter button:hover {
@@ -340,17 +361,18 @@ footer a:hover {
 /* Chatbot */
 .chatbot-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
 }
 
 .chat-toggle-btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background-color: #ff6f61;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .chat-toggle-btn:hover {
@@ -358,14 +380,14 @@ footer a:hover {
 }
 
 .chat-window {
-    width: 300px;
-    height: 400px;
+    width: 250px;
+    height: 350px;
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .chat-hidden {
@@ -374,23 +396,26 @@ footer a:hover {
 
 #chat-output {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     overflow-y: auto;
     border-bottom: 1px solid #ddd;
+    font-size: 14px;
 }
 
 #chat-input {
-    padding: 10px;
+    padding: 8px;
     border: none;
     border-top: 1px solid #ddd;
+    font-size: 14px;
 }
 
 #chat-send {
-    padding: 10px;
+    padding: 8px;
     background-color: #1a2526;
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 14px;
 }
 
 #chat-send:hover {
