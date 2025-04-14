@@ -21,7 +21,14 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
 
     // Capture form data
     const clientName = document.getElementById('client-name').value;
-    const contractorName = document.getElementById('contractor-name')?.value || "To be filled";
+    const contractorName = document.getElementById('contractor-name').value;
+    const siteAddress = document.getElementById('site-address').value;
+    const contractsManager = document.getElementById('contracts-manager').value;
+    const managingDirector = document.getElementById('managing-director').value;
+    const typeOfWork = document.getElementById('type-of-work').value;
+    const workArea = document.getElementById('work-area').value;
+    const emergencyContact = document.getElementById('emergency-contact').value;
+    const workmansComp = document.getElementById('workmans-comp').value;
     const projectName = document.getElementById('project-name').value;
     const location = document.getElementById('location').value;
     const scopeDetails = document.getElementById('scope-details').value;
@@ -38,9 +45,9 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
         return;
     }
 
-    // Initialize jsPDF
+    // Initialize jsPDF with explicit portrait orientation
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
     // Base64 image for background (replace with actual base64 string)
     const constructionImageBase64 = "data:image/jpeg;base64,/9j/..."; // Placeholder: Replace with actual base64 string
@@ -55,6 +62,7 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
         doc.setTextColor(26, 37, 38); // #1A2526 (dark blue)
         doc.text("OHS Specifications for Contractors", 105, 8, { align: "center" });
         doc.setFontSize(12);
+        doc.setFont("helvetica", "italic");
         doc.text(projectName, 105, 13, { align: "center" });
         doc.setDrawColor(255, 165, 0); // #FFA500 (orange)
         doc.setLineWidth(0.5);
@@ -79,51 +87,55 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
         doc.setFontSize(8);
         doc.setFont("helvetica", "normal");
         doc.setTextColor(51, 51, 51); // #333333 (dark gray)
-        doc.text("© 2025 SafetyFirst.help | Powered by Safety First Book Series: The Essentials of OHS Plans, Risk Management for Safer Sites, Emergency Preparedness Guide", 105, 292, { align: "center", maxWidth: 180 });
+        doc.text("© 2025 SafetyFirst.help | Powered by Safety First Book Series: The Essentials of OHS Plans, Risk Management for Safer Sites, Emergency Preparedness Guide", 105, 294, { align: "center", maxWidth: 170 });
         doc.setTextColor(255, 165, 0); // #FFA500 (orange)
-        doc.text("Contact: salatiso@safetyfirst.help | All rights reserved.", 105, 296, { align: "center", maxWidth: 180 });
+        doc.text("Contact: salatiso@safetyfirst.help | All rights reserved.", 105, 298, { align: "center", maxWidth: 170 });
         doc.setTextColor(0, 0, 0);
     }
 
-    // PAGE 1: Front Page (Site-Specific Details)
-    // Background Image (left half, with overlay)
+    // PAGE 1: Contractor Particulars
     doc.addImage(constructionImageBase64, 'JPEG', 0, 0, 105, 297, undefined, undefined, 0.2); // Left half, 20% opacity
     doc.setFillColor(0, 0, 0, 0.3); // Black overlay, 30% opacity
     doc.rect(0, 0, 105, 297, 'F');
-
-    // Right Side (Content)
     doc.setFillColor(255, 255, 255); // White background for right half
     doc.rect(105, 0, 105, 297, 'F');
+    doc.setDrawColor(211, 211, 211); // #D3D3D3 border
+    doc.setLineWidth(0.5);
+    doc.rect(105, 15, 105, 282, 'S'); // Border around content
     addHeaderFooter(1);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
-    doc.text("Site-Specific Contractor and Project Details", 110, 25);
+    doc.text("Contractor Particulars", 110, 25);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text(`Client Name: ${clientName}`, 110, 35);
-    doc.text(`Project Name: ${projectName}`, 110, 45);
-    doc.text(`Location: ${location}`, 110, 55);
-    doc.text(`Scope of Work: ${scopeDetails.substring(0, 100)}...`, 110, 65, { maxWidth: 90 });
-    doc.text(`Cost (R): ${cost}`, 110, 85);
-    doc.text(`Duration (Days): ${duration}`, 110, 95);
-    doc.text(`Activities Involved: ${activities.join(", ") || "None"}`, 110, 105, { maxWidth: 90 });
-    doc.text(`CIDB Grading: ${cidbGrade}`, 110, 125);
-    doc.text(`Contractor Name: ${contractorName}`, 110, 135);
-    doc.text(`Date Compiled: ${dateCompiled}`, 110, 145);
+    doc.text(`Contractor Company Name: ${contractorName}`, 110, 45);
+    doc.text(`Site Address: ${siteAddress}`, 110, 55);
+    doc.text(`Contracts Manager: ${contractsManager}`, 110, 65);
+    doc.text(`Managing Director: ${managingDirector}`, 110, 75);
+    doc.text(`Type of Work to be Done: ${typeOfWork}`, 110, 85, { maxWidth: 90 });
+    doc.text(`Area in which Work will be Done: ${workArea}`, 110, 95, { maxWidth: 90 });
+    doc.text(`24hr Emergency Contact No’s: ${emergencyContact}`, 110, 105);
+    doc.text(`Workman's Compensation No: ${workmansComp}`, 110, 115);
+    doc.text(`Project Name: ${projectName}`, 110, 125);
+    doc.text(`Location: ${location}`, 110, 135);
+    doc.text(`Scope of Work: ${scopeDetails.substring(0, 100)}...`, 110, 145, { maxWidth: 90 });
+    doc.text(`Cost (R): ${cost}`, 110, 155);
+    doc.text(`Duration (Days): ${duration}`, 110, 165);
+    doc.text(`Activities Involved: ${activities.join(", ") || "None"}`, 110, 175, { maxWidth: 90 });
+    doc.text(`CIDB Grading: ${cidbGrade}`, 110, 185);
+    doc.text(`Date Compiled: ${dateCompiled}`, 110, 195);
     // Legal Notice
+    doc.setFillColor(255, 245, 230); // #FFF5E6 (light orange fill)
+    doc.rect(110, 205, 90, 80, 'F');
     doc.setDrawColor(211, 211, 211); // #D3D3D3 (light gray border)
     doc.setLineWidth(0.5);
-    doc.rect(110, 155, 90, 90); // Notice box
+    doc.rect(110, 205, 90, 80); // Notice box
     doc.setFontSize(9);
     doc.setTextColor(0, 0, 0);
-    doc.text("Important Notice", 115, 162);
-    doc.text("This Occupational Health and Safety (OHS) Specifications document is generated by ", 115, 169, { maxWidth: 80 });
-    doc.setTextColor(255, 165, 0); // #FFA500
-    doc.text("SafetyFirst.help", 115, 176);
-    doc.setTextColor(0, 0, 0);
-    doc.text(", inspired by the Safety First book series by Salatiso Lonwabo Mdeni. Benefits: Our service provides a customizable, compliant template based on industry standards, designed to streamline your OHS planning. Limitations: The accuracy and completeness of this document depend on the quality and accuracy of the input data provided by the user. SafetyFirst.help strives to incorporate the most current regulations, but we cannot guarantee applicability to all jurisdictions or scenarios. User Responsibility: It is your responsibility to review, verify, and, if necessary, consult a qualified professional to ensure this document meets all relevant legal and project-specific requirements before use. Unauthorized reproduction or distribution is prohibited. © 2025 SafetyFirst.help. All rights reserved.", 115, 183, { maxWidth: 80, lineHeightFactor: 1.3 });
-
-    // PAGE 2: Contents
+    doc.text("Important Notice", 115, 212);
+    doc.text("This Occupational Health and Safety (OHS) Specifications document is generated by SafetyFirst.help, inspired by the Safety First book series by Salatiso Lonwabo Mdeni. Benefits: Our service provides a customizable, compliant template based on industry standards, designed to streamline your OHS planning. Limitations: The accuracy and completeness of this document depend on the quality and accuracy of the input data provided by the user. SafetyFirst.help strives to incorporate the most current regulations, but we cannot guarantee applicability to all jurisdictions or scenarios. User Responsibility: It is your responsibility to review, verify, and, if necessary, consult a qualified professional to ensure this document meets all relevant legal and project-specific requirements before use. Unauthorized reproduction or distribution is prohibited. © 2025 SafetyFirst.help. All rights reserved.", 115, 219, { maxWidth: 80, lineHeightFactor: 1.3 });
+        // PAGE 2: Contents
     doc.addPage();
     addHeaderFooter(2);
     doc.setFontSize(12);
@@ -139,10 +151,10 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
         "   2.3 Definitions",
         "3. Administrative Requirements",
         "   3.1 Reporting",
-        "   3.2 Registration with Compensation Authorities",
+        "   3.2 Registration with the Compensation Commissioner",
         "   3.3 Statutory Appointments",
         "   3.4 Risk Management",
-        "   3.5 Incidents and Accident Management",
+        "   3.5 Incident and Accident Management",
         "   3.6 OHS Plan",
         "   3.7 Audit and Inspection",
         "   3.8 Records",
@@ -166,20 +178,21 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
         "   5.1 Specific Physical Requirements",
         "   5.2 Edge Protection and Barricading",
         "   5.3 Vessels Under Pressure and Gas Bottles",
-        "   5.4 Lifting Machines, Tackle, and Operations",
-        "   5.5 Fall Protection",
+        "   5.4 Lifting Machines, Tackle, and Lifting Operations",
+        "   5.5 Fall Protection (Working in Elevated Positions)",
         "   5.6 Severe Weather Plan",
         "   5.7 Ladders",
-        "   5.8 Electrical Installations and Tools",
-        "   5.9 Lockout Procedures",
+        "   5.8 Electrical Installations and Portable Electrical Tools",
+        "   5.9 Lockout: Electrical & Mechanical",
         "   5.10 Waste Chutes",
         "   5.11 Hazardous Chemical Substances",
         "   5.12 Traffic Diversions",
         "6. General Contract Requirements",
-        "   6.1 Contractor as Employer",
+        "   6.1 Contractor an Employer in His Own Right",
         "   6.2 Indemnity Agreement",
-        "   6.3 No Usage of Client Equipment",
-        "   6.4 Duration of Agreement"
+        "   6.3 No Usage of Client’s Equipment",
+        "   6.4 Duration of Agreement",
+        "   6.5 Headings"
     ];
     contents.forEach((line, i) => doc.text(line, 10, 30 + i * 4));
 
@@ -191,10 +204,12 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
     doc.text("1. Purpose", 10, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text("The aim of these health and safety specifications is to outline the minimum requirements for compliance with occupational health and safety standards and ensure that the contractor’s activities do not negatively impact employees, visitors, clients, other stakeholders, or the surrounding environment during the contract period. These requirements align with applicable occupational health and safety legislation, obligating the client to safeguard not only their employees but also others affected by the contracted activities. They enable the contractor to manage OHS risks effectively throughout the project duration, as reflected in the OHS plan submitted prior to commencing work.", 10, 30, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("These specifications represent the minimum standards, and the contractor bears the responsibility to ensure full compliance with all relevant legislation. The client or their authorized agent may conduct scheduled or ad-hoc inspections and audits to verify compliance. This document serves as an annexure to the main contract and applicable service level agreements, carrying equal enforcement weight. Any perceived contradictions with the principal agreement must be reported to the client for resolution.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The aim of these minimum requirements is to ensure that the activities of the Principal Contractor do not impact negatively of the health and safety of ABSA employees, clients and other stakeholders as well as the surrounding environment for the duration of the construction work. These minimum requirements are in compliance with the requirements of the Construction Regulations of the OHS Act which stipulate that the client shall provide the prospective Principal Contractor with health and safety specifications to enable the Principal Contractor to cater for Occupational Health and Safety throughout the duration of the contract and upon appointment shall compile a Health and Safety plan addressing the requirements.", 10, 30, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("In compiling these minimum requirements other Occupational Health and Safety requirements as may be outlined in other relevant legislations and standards, both internal and external have been considered and have been incorporated into the document however both the regulatory and internal policy requirements shall supersede the contents of this document.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The requirements stated in this document are the absolute minimum and the onus is placed on The Principal Contractor to ensure compliance to the overall legislation. In order to ensure compliance, CRES or someone acting on their behalf shall conduct inspections and audits on the Principal Contractor as per schedule and on ad-hoc bases as may be required.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("This document is therefore to be read as an annexure to the main agreement and applicable service level agreements and will carry equal weight to the principal agreement as far as enforcement, compliance and breaching are concerned. Any provision that is, in the opinion of the Principal Contractor, contradictory to a provision in the principal agreement, shall be reported to the Corporate Real Estate Services, who will indicate which provision will enjoy preference.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
 
-    // PAGE 4: Interpretation
+    // PAGE 4: Interpretation (Scope and References)
     doc.addPage();
     addHeaderFooter(4);
     doc.setFontSize(12);
@@ -203,134 +218,601 @@ document.getElementById('project-form').addEventListener('submit', function(e) {
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text("2.1 Scope", 10, 30);
-    doc.text("These minimum requirements apply to the contractor for the duration of their engagement with the client, encompassing all contractors, subcontractors, and any parties performing work governed by applicable occupational health and safety legislation and regulations.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The scope of these minimum requirements shall apply to The Principal Contractor for the duration of their engagement with Corporate Real Estate Services. This includes all The Principal Contractor sub-contractors as well as any other contractor who undertakes to do construction work at any ABSA property or whose operations and activities are governed by the Occupational Health and Safety Act, Act 85 of 1993 and its regulations as well as other applicable health and safety statutes.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
     doc.text("2.2 References", 10, 60);
-    doc.text("- Occupational Health and Safety Act and its regulations (e.g., South Africa: Act 85 of 1993, or equivalent jurisdiction-specific laws).", 10, 70);
-    doc.text("- Construction Regulations (as applicable).", 10, 80);
-    doc.text("- Relevant codes of practice (e.g., SABS standards for scaffolding).", 10, 90);
-    doc.text("2.3 Definitions", 10, 110);
-    doc.text("- Client: The entity engaging the contractor for the project.", 10, 120);
-    doc.text("- Contractor: The entity responsible for executing the work as per the contract.", 10, 130);
-    doc.text("- OHS: Occupational Health and Safety.", 10, 140);
-    doc.text("- HIRA: Hazard Identification and Risk Assessment.", 10, 150);
+    doc.text("South African OHS Legislation as follows;", 10, 70);
+    doc.text("- Occupational Health and Safety Act 1993,", 10, 80);
+    doc.text("- Compensation for Occupational Injuries and Diseases Act, 1993", 10, 90);
+    doc.text("- Tobacco Products Control Act, 1993", 10, 100);
+    doc.text("- Applicable by laws", 10, 110);
+    doc.text("International and National Standards,", 10, 120);
+    doc.text("- ISO 14001:2004", 10, 130);
+    doc.text("- SANS Standards", 10, 140);
+    doc.text("ABSA Internal OHS policies and procedures", 10, 150);
+    doc.text("- Occupational Health and Safety Policy", 10, 160);
+    doc.text("- OHS Minimum Standards", 10, 170);
+    doc.text("- Emergency Response Plan", 10, 180);
+    doc.text("- Emergency Evacuation Plan Procedure", 10, 190);
 
-    // PAGE 5: Administrative Requirements (Partial)
+    // PAGE 5: Interpretation (Definitions)
     doc.addPage();
     addHeaderFooter(5);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("2. Interpretation (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("2.3 Definitions", 10, 30);
+    doc.text("Agent means any person who acts as a representative for a client in managing the overall construction work.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Client means any person for whom construction work is performed.", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("CRES means Corporate Real Estate division of ABSA herewith referred to as the client,", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Construction work means any work in connection with—", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The erection, maintenance, alteration, renovation, repair, demolition or dismantling of or addition to a building or any similar structure;", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The installation, erection, dismantling or maintenance of a fixed plant where such work includes the risk of a person falling;", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The construction, maintenance, demolition or dismantling of any bridge, dam, canal, road, railway, runway, sewer or water reticulation system or any similar civil engineering structure; or", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The moving of earth, clearing of land, the making of an excavation, piling, or any similar type of work;", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("COID Act means the compensation for Occupational Injuries and Diseases Act.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Principal Contractor means an employer, as defined in section 1 of the Act, who performs construction work and includes principal contractors.", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("CR mean Construction Regulations", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Employer means, subject to the provisions of subsection (2), any person who employs or provides work for any person and remunerates that person or expressly or tacitly undertakes to remunerate him, but excludes a labour broker as defined in section I (1) of the Labour Relations Act, 1956 (Act No. 28 of 1956);", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("HCS means Hazardous Chemical Substances.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Safety, Health and Environmental file means a file, or other record in permanent form, containing the information required as contemplated in these minimum requirements;", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Safety, Health and Environmental plan means a documented plan which addresses hazards identified and includes safe work procedures to mitigate, reduce or control the hazards identified", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("SLA refers to a Service Level Agreement.", 10, 200, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+        // PAGE 6: Definitions (Continued)
+    doc.addPage();
+    addHeaderFooter(6);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("2. Interpretation (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("2.3 Definitions (Continued)", 10, 30);
+    doc.text("Occupational Health and Safety Specification means a documented specification of all Occupational Health and Safety requirements pertaining to the associated works on a construction site or contract work, so as to ensure the health and safety of persons,", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Letter of good Standing is the Letter from the Compensation Commissioner which provides proof of registration and that payment are in order", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Principal Contractor means an employer, as defined in section 1 of the Act who performs construction work and is appointed by the client to be in overall control and management of a part of or the whole of a construction site;", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Project refers to the contract and has reference to the premises or any part thereof where the work which has been contracted for is to be performed.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Risk Assessment means a programme to determine any risk associated with any hazard at a construction site, in order to identify the steps needed to be taken to remove, reduce or control such hazard", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("OHS means Occupational Health and Safety.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 7: Administrative Requirements (3.1-3.3)
+    doc.addPage();
+    addHeaderFooter(7);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text("3. Administrative Requirements", 10, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text("3.1 Reporting", 10, 30);
-    doc.text("The contractor must submit regular OHS reports as stipulated by the client, including incident reports, inspection findings, and compliance updates.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("3.4 Risk Management", 10, 60);
-    doc.text("3.4.1 Risk Assessments and Hazard Identification (HIRA)", 10, 70);
-    doc.text(`The contractor must conduct HIRA for all project activities, with specific emphasis on: ${activities.join(", ") || "None"} as identified in the project scope. Results must be documented and maintained on-site.`, 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("3.6 OHS Plan", 10, 100);
-    doc.text(`The contractor must submit an OHS plan prior to commencing work, tailored to the project: ${projectName} at ${location}. The plan must address all identified risks and comply with these specifications.`, 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor and/or his designated person appointed in terms of Section 16(2) of the Occupational Health and Safety Act 85 of 1993 (\"the OHS Act\") shall report to the client as per communication channels provided prior to commencing the work at the premises.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Be responsible for notifying the client in advance, if for any reason it is to hand over to any other person and arrange for the person to be appointed in a like manner with the necessary approval and authorisation from the operations manager. Where applicable the notification to the Department of Labour for the construction work shall be the responsibility of the contractor.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Provide twenty-four (24) hour emergency contact numbers.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("3.2 Registration with the Compensation Commissioner", 10, 90);
+    doc.text("The Principal Contractor shall ensure that he holds a valid registration with the Compensation Commissioner or relevant insurance fund managers, as required in terms of the Section 89 of the Compensation for Occupational Injuries and Diseases Act 130 of 1993, and that all payments owing to the Commissioner are discharged. The Principal Contractor shall further ensure that the cover shall remain in force while any such employee is present on the premises.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall provide to the client, in writing, its compensation registration number and a copy of a recent (within a month of date of signing) letter of good standing with the Commission, this letter shall be kept valid for the duration of the contract.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Warrant that all its employees and sub-contractor employees are covered in terms of the provisions of the Compensation for Occupational Injuries and Diseases Act 1993 (COIDA), which cover shall remain in force whilst any such employees are present on the client premises; or which shall remain in force for the duration of the contractual relationship between the client and the Principal Contractor which ever period is the longest.", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("3.3 Statutory Appointments", 10, 160);
+    doc.text("The Principal Contractor shall appoint competent persons as per Section 16(2) of the OHS Act as well as the regulations under the act. The Principal Contractor must prepare an organogram, outlining the site OHS management structure and appoint competent persons. In cases where appointments have not been made, the organogram shall reflect the intended positions. The organogram must be updated when there are changes in the site OHS Management Structure, and dated accordingly.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall further ensure that all other legislative appointments are implemented and maintained for the duration of the Project or contract and that those employees appointed have the necessary training and experience to meet those requirements. Any such appointed person shall be trained on OHS system management matters and the legislative provisions pertinent to the work that is to be performed under his/ her responsibility. Copies of any appointments made by the Principal Contractor shall be provided to the client or its representative of upon request and must be kept on the site OHS file.", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
 
-    // PAGE 6: Physical Requirements (Partial)
+    // PAGE 8: Administrative Requirements (3.4-3.4.1)
     doc.addPage();
-    addHeaderFooter(6);
+    addHeaderFooter(8);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Administrative Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("3.4 Risk Management", 10, 30);
+    doc.text("3.4.1 Risk Assessments and Hazard Identification (HIRA)", 10, 40);
+    doc.text(`The Principal Contractor shall cause a hazard identification and risk assessment (HIRA) to be performed by a competent person, appointed in writing, on the functions, activities and tasks relating to the work to be done, before any of the contract work can commence on site and a copy of the document must be presented to the client. The documented HIRA shall form part of the OHS plan and must include all plans as may be applicable. The HIRA includes: ${activities.join(", ") || "None"} as identified in the project scope. Results must be documented and maintained on-site.`, 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The HIRA shall include, at least:", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The scope of all OHS hazards and risks as may be anticipated for the construction or Principal Contractor work,", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The identification of the risks and hazards to which persons/ property may be exposed to,", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The analysis and evaluation of the risks and hazards identified,", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A documented plan of safe work procedures to mitigate, reduce or control the risks and hazards that have been identified,", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A monitoring plan and", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A documented review plan", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Any Principal Contractor shall cause the relevant risk assessment to be reviewed:", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- where changes are brought to the design and construction work,", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- when an incident has occurred,", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- At intervals not exceeding one month.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Based on the Risk Assessments, the Principal Contractor must develop a set of site-specific OHS rules that will be applied to regulate the OHS aspects of the construction or Principal Contractor work. All Principal Contractor employees and sub-Principal Contractors must be advised of the risks they will be exposed to and must be trained in the methods or procedures to be used to mitigate these hazards or risks.", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 9: Administrative Requirements (3.4.2)
+    doc.addPage();
+    addHeaderFooter(9);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Administrative Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("3.4.2 Hazard & Risk Control", 10, 30);
+    doc.text("The Principal Contractor shall ensure that mitigation and control strategies for hazards and risks as per assessment are implemented. The implementation of any risk management strategies shall consider the hierarchy of controls as well the concept of reasonably practicable when prioritising suitable controls. In terms of the hierarchy of control the following the following needs to be considered during selection;", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Elimination", 10, 60);
+    doc.text("Elimination of a hazard results in elimination of the associated risk. While elimination is the most desirable it is often the least practical, but it’s not impossible.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Substitution", 10, 90);
+    doc.text("Substituting a more hazardous substance with a lesser one reduces the risk.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Engineering/Isolation", 10, 110);
+    doc.text("Modifying the engineering of the exposure source or interrupting the path between the employee and the exposure source will mitigate the risk.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Administrative", 10, 130);
+    doc.text("Administrative controls include reduction of exposure times through shift rotation, training, scheduling work at certain low risk times and other measures.", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Personal Protective Equipment (PPE)", 10, 150);
+    doc.text("Important to note that PPE is the least desirable option and should only be considered after all the above have been investigated or in conjunction with them. The Principal Contractor shall ensure that his responsible persons and employees are provided with adequate PPE for the work they may perform in accordance to the HIRA outcomes and in accordance with the requirements of General Safety Regulation (GSR) 2(1) of the OHS Act and the PPE is worn accordingly.", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Such personal protective equipment shall be maintained in a good working condition and users shall be trained in the reason for wearing and the correct use and care thereof. An employer or a user of machinery, as the case may be, shall take steps to ensure that no safety equipment or facility provided as required by this (GSR) or any other regulation is removed from a workplace or from premises where machinery is used, except for purposes of cleaning, repair, maintenance, modification, mending or replacement, and no person shall remove any such safety equipment or facility from a workplace or premises where machinery is used, except for the aforesaid purposes.", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+        // PAGE 10: Administrative Requirements (3.5)
+    doc.addPage();
+    addHeaderFooter(10);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Administrative Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("3.5 Incidents and Accident Management", 10, 30);
+    doc.text("The Principal Contractor shall ensure that its employees, as well as the employees of its agents, sub-contractors and service providers, co-operate fully with any accident or incident investigation involving injury to people, damage to property or impact to the environment. All serious accidents or incidents must be investigated by a competent multidisciplinary team within a specified period of occurrence preferable not longer than 7 days and records to such investigations shall be kept in the OHS File. The reporting and escalation of incidents to the client shall be in accordance with the agreed methodology in the OHS SLA.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall ensure that a suitable Accident and incident Procedure drawn up for the duration of the Project or Contract.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor will be responsible to inform the (relevant authorities’ i.e. DoL) of any Serious or Reportable Incidents which may occur in terms of the applicable legislation. All correspondence of the (Relevant Authorities) regarding these incidents must be copied and kept in the OHS File.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("All incidents referred to in Section 24 of the OHS Act shall be reported by the Principal Contractor to the Department of Labour/ Local Authority as may be applicable and to the client. The client further shall be provided with copies of any written documentation relating to any incident. The Principal Contractor shall as part of their commitment to OHS submit to the client at least once a month incident statistics/ reports inclusive of injuries (first aid; medical; disabling (lost day); and fatal) as well as other occupational safety and environmental incidents and near misses.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The client retains an interest in the reporting of any incident as described above as well as in any formal investigation and/or inquiry conducted in terms of Section 32 of the OHS Act into such incident.", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 11: Administrative Requirements (3.6-3.7)
+    doc.addPage();
+    addHeaderFooter(11);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Administrative Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("3.6 OHS Plan", 10, 30);
+    doc.text(`The Principal Contractor is required to develop an OHS Plan before work commences on site and to keep it up to date throughout the Construction Phase. The degree of detail required in the OHS Plan and the time and effort in preparing it should be in proportion to the nature, size and level of Health and Safety risks involved in the project: ${projectName} at ${location}. Projects involving minimal risks will call for simple, straightforward plans. Large projects or those involving significant risks will need more detail. The OHS plan must at least cover of the contents of this document as may be applicable to the Principal Contractor as well as HIRA outcomes.`, 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("3.7 Audit and Inspection", 10, 60);
+    doc.text("The client reserves the right to audit the requirements set out in the contract at any given time. Reasonable notification will be provided to the Principal Contractor in case of planned audits. In the event of construction work being performed compulsory monthly audits of the Principal Contractor’s OHS plan will be conducted by the client or an agent authorised thereto. The Principal Contractor is obligated to conduct monthly audits to his subcontractors and keep audit reports in the OHS file.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 12: Administrative Requirements (3.8)
+    doc.addPage();
+    addHeaderFooter(12);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Administrative Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("3.8 Records", 10, 30);
+    doc.text("The Principal Contractor must keep and maintain OHS records to demonstrate compliance with these minimum requirements, with the OHS Act 85/1993 and applicable regulations, Environmental Management legislation as well as other applicable legislation or standards. The Principal Contractor shall provide a register of all items to be covered in Induction training, together with a list of all standards, procedures, work instructions, health and safety plans etc. by the HIRA process carried out in 3.4 above.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Provide a register confirming that induction, specific training, and medical fitness assessment and declaration competency of employees and/or sub Principal Contractors has been completed before the contract work commences.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Ensure that a daily report (as applicable) is to be filled out to record all activities taking place on site and must include items such as inclement weather conditions, accident/ incidents details (including near misses), details of sub-contractors on site, hours worked, progress with contract work schedule, inspections carried out, quality checks, details of health and safety talks and issues, special instructions, etc, issued by the facilities manager, or other person. The Principal Contractor must ensure that every sub-contractor keeps its own OHS file, maintains the file and makes it available on request (the file must include the sub-contractor’s OHS plan).", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 13: Operational Requirements (4.1-4.1.1)
+    doc.addPage();
+    addHeaderFooter(13);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.1 Training", 10, 30);
+    doc.text("The Principal Contractor shall ensure that all his employees and subcontractors are adequately trained and experienced to perform their work and are further trained on the OHS aspects relating to the work including the hazards associated with such work being carried out on the premises.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.1.1 Induction", 10, 60);
+    doc.text("The Principal Contractor must ensure that all site personnel undergo a site-specific OHS induction training session before any worker starts work but no later than 7 days after coming on site. The induction must include the general duties of the employer and the employees, possible hazards and their associate risks that employees may be exposed to while on site as well as the control measures in place to mitigate the risks. A record of attendance shall be kept in the OHS file, as well as a copy of the contents of the said induction. The Principal Contractor will be required to induct all subcontractors’ employees with proof to this effect available.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor must also ensure that the tenants within the buildings have been informed of any information relating to OHS, this includes specific building emergency procedures and hazards. In case of visitors the Principal Contractor must ensure that all the relevant OHS information is displayed including evacuation, smoking and indemnity warnings in common areas, beyond that means to hold the person visited accountable must be implement.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 14: Operational Requirements (4.1.2-4.1.3)
+    doc.addPage();
+    addHeaderFooter(14);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.1.2 Awareness", 10, 30);
+    doc.text("The Principal Contractor must ensure that, on site, periodic toolbox OHS talks take place at least once every two weeks. These talks should deal with risks relevant to the construction work at hand. Records of attendance must be kept in the OHS file.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.1.3 Competence", 10, 60);
+    doc.text("Without derogating from the foregoing, the Principal Contractor shall, in particular, ensure that all his users or operators of any materials, machinery or plant equipment are properly trained and competent in the use of such materials, machinery or plant equipment. The Principal Contractor shall ensure that all its employees are in possession of valid licenses and/or certificates of the correct code where machinery, plant or equipment is utilised or where such accreditation is required. Proof of these licenses and/or certificates will be kept in the Principal Contractors OHS file. This must to be assessed on a regular basis e.g. training, evaluation, and periodic audits by the Client, progress meetings, etc. The Principal Contractor is responsible to ensure that competent subcontractors are appointed to carry out construction work.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 15: Operational Requirements (4.2-4.3)
+    doc.addPage();
+    addHeaderFooter(15);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.2 Supervision, Discipline, and Reporting", 10, 30);
+    doc.text("The Principal Contractor shall ensure that all work performed on the client premises is done under strict supervision by a trained and competent person appointed in writing and that no substandard OHS practices are permitted. Discipline regarding OHS matters shall be strictly enforced against any of his employees regarding non-compliance by such employee including employees of subcontractors, tenants and visitors with any OHS standard.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall further ensure that his employees, subcontractors and tenants report to him OHS deviations immediately after they become aware of the same and that he in turn assigns corrective measures including informing the client where applicable.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall ensure that all its agents, subcontractors, tenants, visitors and service providers assigned, or admitted to the client premises are fully apprised of the OHS and security rules as might be applicable to the client’s premises, as well as the provisions of the Act, and it shall obtain their written commitment to adhere to such rules and provisions in the pursuit of their activities.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor shall ensure that all its employees, agents, subcontractors, tenants, visitors and service providers assigned to its operations, conduct themselves appropriately at all times, and refrain from running, playing, or engaging in unsafe activities on the client’s premises. Where semi-skilled employees are employed, adequate supervision must be available to maintain standards of work and to ensure compliance with OHS standards on the project/ contract.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.3 OHS Committee", 10, 120);
+    doc.text("The Principal Contractor shall ensure that an adequate number of OHS representatives are appointed after consultation with the employees and trained, as per the requirements of the applicable legislation and/or Project/ contract requirements. As a guideline one OHS Representative should be appointed for every 50 employees. The Principal Contractor shall ensure that regular internal OHS meetings must be determined by the work activities performed along with the duration of the Project/ contract.", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor and its subcontractors shall keep records of these meetings in the OHS File along with the attendance records. The following topics must be tabled at meetings: management appointments; sub-contractor legal issues; injuries and incidents; hazards and risk assessments (present and foreseen); method statements; planned inspections and registers/record keeping, progress on closure of previous audit/ inspection findings etc. The committee chairperson must sign off minutes.", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Principal Contractor Supervisor and his OHS Representative will attend the main Project OHS meetings. Meetings must be chaired by the Contractor’s Responsible Person [CR 6(1) person]. All Contractors’ Responsible Persons and OHS Representatives must attend the Principal Contractor’s monthly health & safety meetings. The Principal Contractor appointed supervisors must attend OHS.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The client or his appointed agent may elect to attend the Principal Contractor’s OHS committee meetings as well as any of the subcontractor’s meetings thereof.", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+        // PAGE 16: Operational Requirements (4.4)
+    doc.addPage();
+    addHeaderFooter(16);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.4 Occupational Health", 10, 30);
+    doc.text("The Principal Contractor shall ensure compliance to all requirements relating to Occupational Health both in terms of preventative (Occupational Hygiene) and curative (Occupational Medicine).", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.4.1 Occupational Medicine/ Medical Surveillance", 10, 50);
+    doc.text("The Principal Contractor shall ensure that all his employees undergo routine medical examinations as per their risk profile and to shall ensure that they are medically fit for the purposes of the work they are to perform.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.4.2 Occupational Hygiene", 10, 80);
+    doc.text("The Principal Contractor shall take all reasonable steps as prescribed by the relevant regulations of the OHSA including Environmental Regulations for workplaces, HCS, HBS, Asbestos, Lead and Noise Induced Hearing loss regulations to minimize exposure of employees to Occupational Hygiene Hazards including physical, chemical, biological, ergonomically and physiological.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 17: Operational Requirements (4.5)
+    doc.addPage();
+    addHeaderFooter(17);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.5 Safety and Security", 10, 30);
+    doc.text("For the Contractor to discharge its obligations in terms of the Agreement, access to the client’s premises will be granted to the Contractor’s employees. The Principal Contractor shall ensure that all persons under his control shall comply with the operation’s security requirements, including stop and search procedures if required.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Contractor and his employees shall enter and leave the premises only through the main gate(s) and/or checkpoint(s) designated by the client. The Contractor shall ensure that employees and subcontractors observe the security rules of the client at all times and shall not permit any person who is not directly associated with the work from entering the premises.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Each of the Contractor’s employees must be issued with a company identification card which must be displayed on his / her person at all times whilst on duty, or on the premises. Should any employee of the Contractor:", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- tamper or otherwise interfere with CRES’s equipment, plant, or other assets;", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- steal, or otherwise engage in acts of dishonesty;", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- appears to be under the influence of alcohol or drugs;", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- ignore any security, safety or occupational health rule, or engage in unsafe conduct.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Then the Principal Contractor/ client shall have the right to immediately remove such a person or have him withdrawn from the premises, and, if appropriate, charged at law for such relevant offence/s.", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Contractor and his employees shall not enter any area of the premises that is not directly associated with the work.", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Contractor shall ensure that all materials, machinery plant or equipment brought by himself onto the premises are recorded at the main gate(s) and/or checkpoint(s). A failure to do this may result in a refusal by the client to allow the materials, machinery or equipment to be removed from the premises.", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Contractor acknowledges that its employees and vehicles may be subject to search at any time, and the Contractor shall ensure that its employees co-operate fully with such arrangements. The Contractor shall secure a written acknowledgement from each agent, subcontractor and service provider that its employees and vehicles will be subject to search at any time, and the Contractor shall ensure that its agents, sub-contractors and service providers co-operate fully with these arrangements.", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 18: Operational Requirements (4.6)
+    doc.addPage();
+    addHeaderFooter(18);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.6 Emergency Preparedness", 10, 30);
+    doc.text("The Principal Contractor shall ensure adequate supply of emergency equipment and facilities as follows;", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.6.1 First Aid", 10, 50);
+    doc.text("The Principal Contractor shall ensure that a sufficient number of trained first aiders as well as sufficient facilities are available on site for the duration of the Project or Contract. The number and level of training will be determined by legislative and project or contract requirements.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.6.2 Fire Equipment", 10, 80);
+    doc.text("The principal contractor shall ensure that an adequate and suitable supply of fire-protection including equipment, facilities and trained personnel are provided for the client’s premises", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall further ensure that all his employees and inhabitants of the specific premises are familiar with fire and emergency precautions at the premises, which include evacuation routes and assembly points, fire-alarm signals and emergency exits, and those precautions are adhered to.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.6.3 Emergency Plan", 10, 120);
+    doc.text("The principal contractor must develop a site Evacuation Plan detailing minimum requirements for the appropriate appointments for the fire fighting team, bulk first aid and the emergency coordinating team. In addition to which, mustering points must be identified and depicted by the use of appropriate symbolic signage (SANS approved). The Emergency Evacuation Plan must be approved by the principal contractor in consultation with the Client, or Clients Agents. Should the early warning fire alarm system not be integrated each zone/area must, by definition be accommodated in the site Evacuation Plan.", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor must conduct an emergency identification exercise and establish what emergencies could possibly develop. He/HSE must then develop a detailed contingency plan and emergency procedure, taking into account any emergency plans that may already be in place. The principal contractor must hold regular practice drills, at least once every 6 months of the contingency plans and emergency procedures to test them and to familiarize employees with them. The responsibility to draw up the schedules for each building/ premise shall rest with the Principal Contractor unless otherwise clear minimum requirements have been given by the client.", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor must appoint a competent person to act as Emergency Controller/Coordinator.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("A contact list of all emergency service providers (Fire Department, Ambulance, Police, Medical and Hospital, etc) must be maintained and available for site personnel. An emergency situation, which is likely to require outside emergency assistance, may attract mass circulation, written media or electronic media attention and be harmful to the Client’s reputation. No person may comment on the incident on site without prior approval from the Client.", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 19: Operational Requirements (4.7-4.8)
+    doc.addPage();
+    addHeaderFooter(19);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.7 Work Procedures", 10, 30);
+    doc.text("The principal contractor shall be entitled to utilise the procedures, guidelines and other documentation as used by the client for the purposes of ensuring a healthy and safe working environment as well as compliance to environmental management principles and standards. In instances where no such procedures or guidelines are available it is the principal contractor’s responsibility to develop in consultation with the client and implement such. The principal contractor shall then ensure that his responsible persons and employees are familiar with and utilise the documents.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall implement safe work practices as prescribed by the OHS Act and its Regulations as well as NEM Act and shall ensure that his responsible persons and employees are made conversant with and adhere to such safe and environmental responsible work practices.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall ensure that work for which a permit is required by legislation or client policy, not performed by his employees prior to the obtaining of such a permit.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.8 Welfare Facilities", 10, 90);
+    doc.text("The principal contractor must supply/ ensure availability of sufficient toilets (1 toilet per 30 workers), clean, lockable changing facilities, hand washing facilities, soap, toilet paper, hand drying material. Where there is a risk of exposure to HCS separate lockers shall be provided for clean and soiled/ contaminated clothing for each employee. Waste bins must be strategically placed around site and emptied regularly. Workers must not be exposed to hazardous materials/substances while eating and must be provided with adequate, sheltered eating areas complete with benches and tables. Stores may not double up a change rooms or mess areas. The principal contractor will not be entitled to permit its employees to live on the client’s property without written consent from the client.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 20: Operational Requirements (4.9-4.10)
+    doc.addPage();
+    addHeaderFooter(20);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.9 Cooperation", 10, 30);
+    doc.text("The principal contractor and/or his responsible persons and employees shall provide full co-operation and information if and when the client’s or its representative enquires into occupational OHS issues concerning the principal contractor. It is hereby recorded that the client and his representative shall at all times be entitled to make such inquiry.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Without derogating from the generality of the above, the principal contractor and his responsible persons shall make available to the client, his representative, on request, all and any checklists and inspection registers required to be kept by him in respect of any of his materials, machinery or equipment.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.10 Subcontractors", 10, 80);
+    doc.text("The principal contractor shall notify the client or delegated agent of any subcontractor he may wish to perform work on the client’s premises. It is hereby recorded that all the terms and provisions contained in this clause shall be equally binding upon the subcontractor prior to the subcontractor commencing with the work. Without derogating from the generality of this paragraph:", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall ensure that training as discussed under appointments and training, is provided prior to the subcontractor commencing work on the client’s premises.", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall ensure that work performed by the subcontractor is done under strict supervision and discipline, as stipulated under the section Supervision, discipline and reporting.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall inform the client or delegated agent of any OHS hazards and/or issue that the subcontractor may have brought to his attention.", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("To ensure compliance the principal contractor must audit each of its subcontractors on a monthly basis, with audit reports filed in the OHS file on site. The audit must include an administrative assessment as well as a physical inspection of the subcontractor’s site activities.", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall inform the client, its representatives of any difficulty encountered regarding compliance by the subcontractor with any OHS instruction, procedure and/or legal provision applicable to the work the subcontractor performs on the client’s premises.", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall not be entitled to cede, assign or sub-contract any of its rights or obligations in terms of hereof without the prior written consent from the client. For the purposes of this sub-clause a change in the shareholding of the principal contractor shall be deemed to be a cession of its rights hereunder.", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The client holds the right to refuse the use of subcontractors not approved by them.", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 21: Operational Requirements (4.11-4.15)
+    doc.addPage();
+    addHeaderFooter(21);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.11 Public and Site Visitor Health & Safety", 10, 30);
+    doc.text("Common areas and other areas under the principal contractor’s control must be kept clean and free of construction materials so as to prevent a negative impact on the public. Roadways and walkways will have to be cleaned on a regular basis – daily inspections to be conducted by the principal contractor with action to be taken without delay.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Site visitors must be briefed on the hazards they may be exposed to as well as what measures are in place or should be taken to control these hazards. As per the Construction Regulations, a record of these ‘inductions’ must be kept on site. It is advised that a visitor book with site rules leaflet be kept at the gate or at reception/site office and all visitors to be directed to such point where they must read through the site safety information and sign the visitor book.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.12 Access to Site", 10, 80);
+    doc.text("The principal contractor is required at all times to be aware of all subcontractors on site and ensure that they have means of identification and proof to verify their authorization to be on site. It is important to note that failure to produce such means of authorization for site work will result in the immediate eviction of the subcontractor from the site. Any costs incurred by the client whether due to the eviction process itself or otherwise shall be carried by the principal contractor and failure to produce results within the specified period as a consequence of eviction shall be subject to penalties.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Where any permits are necessary from the local authorities, this will be the principal contractor’s responsibility. Any road signage must be inspected by a designated person on a daily basis and the required cleaning and maintenance of signs will be the responsibility of this designated person. The road surface of all public and private roadways and pavements/pedestrian walkways must remain in a reasonably clean state, free of excessive sand, stone, water or other construction related materials.", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.13 Housekeeping", 10, 130);
+    doc.text("The principal contractor to ensure that:", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Housekeeping is continuously implemented", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Scrap, waste & debris are removed regularly", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Materials placed for use are placed safely and not allowed to accumulate or cause obstruction to free movement of pedestrian and vehicle traffic", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Waste & debris not to be removed by disposing from heights, but by chute or crane", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Where practicable, construction sites are fenced off to prevent access of unauthorised persons", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- An unimpeded work space is maintained for every employee", 10, 200, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Every workplace is kept clean, orderly and free of tools etc. that are not required for the work being done.", 10, 210, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- As far as is practicable, every floor, walkway, stair, passage and gangway is kept in good state of repair, slip and trip, skid-free and free of obstruction, waste and materials", 10, 220, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The walls and roof of every indoor workplace is sound and leak-free", 10, 230, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Openings in floors, hatchways, stairways and open sides of floors or buildings are barricaded, fences, boarded over or provided with protection to prevent persons from falling.", 10, 240, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("4.14 Intoxication", 10, 250);
+    doc.text("No intoxicating substance of any form shall be allowed on site. Any person who appears to be drunk or under the influence of drugs or any conditions which may render ,or be likely to render him incapable of taking care of himself or the persons under his charge or suspected of being intoxicated shall not be allowed on the client’s premises. Any person who is required to take medication which has the potential to impair their judgement or render them a potential OHS hazard shall notify the principal contractor. Any person suffering from any illness/condition that may have a negative effect on his/her /anyone else’s health or safety performance must report this to his/her superior.", 10, 260, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall ensure that no person under the principal contractor’s control, or the Principal Contractor, shall bring any intoxicating liquor or mind altering substance, onto the operation, or at any time be under the influence of intoxicating or mind altering substances. The client reserves the right to subject any person under the principal contractor's control, or the subcontractor, to testing for substance abuse. Any contractor refusing to undergo such a test will be denied access to the operation.", 10, 280, { maxWidth: 190, lineHeightFactor: 1.2 });
+    // Note: Due to space constraints, 4.15 will start on the next page
+
+    // PAGE 21 (Continued): Operational Requirements (4.15)
+    doc.addPage();
+    addHeaderFooter(21);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Operational Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("4.15 Environmental Impact and Nuisance", 10, 30);
+    doc.text("The principal contractor shall ensure that neither he nor his subcontractors undertake any activity that may cause environmental impairment or constitute any form of nuisance to the client and/or his surroundings. The principal contractor shall ensure compliance to all applicable environmental legislation and standards during the course of the project including (but not limited to) waste management, handling, transportation and disposal.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall ensure that no hindrance, hazard, annoyance or inconvenience is inflicted on the client, or its tenants or representative or another contractor. Where such situations are unavoidable, the principal contractor shall give prior notice to the client or delegated agent and relevant authority. In order to ensure compliance the following shall be adhered to;", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+        // PAGE 22: Physical Requirements (5.1)
+    doc.addPage();
+    addHeaderFooter(22);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text("5. Physical Requirements", 10, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text("5.5 Fall Protection", 10, 30);
-    if (activities.includes("Multi-Storey Construction")) {
-        doc.text("For projects involving Multi-Storey Construction, the contractor must implement fall protection measures, including guard rails per applicable standards (e.g., SABS 10085-1) and ensure workers are medically fit and trained.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    } else {
-        doc.text("No specific fall protection requirements identified based on selected activities.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
-    }
-    doc.text("5.11 Hazardous Chemical Substances", 10, 60);
-    if (activities.includes("Asbestos Removal")) {
-        doc.text("If Asbestos Removal is involved, the contractor must comply with regulations for handling hazardous substances, maintaining safety data sheets and training records on-site.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-    } else {
-        doc.text("No specific hazardous chemical substance requirements identified based on selected activities.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-    }
+    doc.text("5.1 Specific Physical Requirements", 10, 30);
+    doc.text("The principal contractor shall ensure that all physical requirements as outlined in the Construction Regulations shall be met and all the relevant plans, assessments and related documentation shall be part of the OHS plan. The following shall be included in the plan;", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Fall Protection,", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Structures,", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Formwork and Support,", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Excavation,", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Demolition,", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Tunneling,", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Scaffolding,", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Suspended platforms,", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Boatswain’s chair,", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Material Hoists,", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Batch Plants,", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Explosive Power tools,", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Construction vehicles and Mobile plant,", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Cranes,", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Electrical Installations and machinery,", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Use of flammable liquids,", 10, 200, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Water Environments,", 10, 210, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Stacking and Storage", 10, 220, { maxWidth: 190, lineHeightFactor: 1.2 });
 
-    // PAGE 7: General Contract Requirements (Completed)
+    // PAGE 23: Physical Requirements (5.2)
     doc.addPage();
-    addHeaderFooter(7);
+    addHeaderFooter(23);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.2 Edge Protection and Barricading", 10, 30);
+    doc.text("The principal contractor must ensure that all exposed edges and openings are guarded and demarcated at all times until permanent protection has been erected. The principal contractor has the following options when contemplating the protection of openings, slabs and edges:", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A physical barrier at the edge of the opening/slab, which must be strong enough to carry the weight of a person in the process of falling (wire will not be deemed sufficient).", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- External façade scaffold complete with a fully boarded platform at the same level as the slab with a handrail, could serve as a fall protection measure.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A visual barrier in the form of orange webbing, at a distance of at least one meter from the actual edge of such slab, opening.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Should none of the above be achieved, as a last resort, the principal contractor must endeavor to gain exemption from Construction Regulation 8(4)(a) obtainable in writing from the Department of Labour.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor’s fall protection plan must detail the following safety measures: Protection of decking edges; finished floor slab edges; stairways; floor penetrations; lift shafts; and all other openings and areas from where a person may fall. The placement of edge protection at deck edges must be coordinated so as to minimise the time that such edge protection is not in place (programming issue between principal contractor and Formwork/support work Contractor).", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The removal of edge protection from formwork decks and the subsequent replacement thereof at the finished floor edge must be systematically coordinated by the principal contractor.", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("During the erection of formwork and support work, edge protection may be wavered in lieu of fall arrest equipment. The principal contractors’ fall protection plans must include the strategies for management of edge protection and penetrations.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 24: Physical Requirements (5.3)
+    doc.addPage();
+    addHeaderFooter(24);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.3 Vessels Under Pressure and Gas Bottles", 10, 30);
+    doc.text("The principal contractor shall comply with the Vessels under Pressure Regulations, including:", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Providing competency and awareness training to the operators/users;", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Providing the relevant PPE and clothing;", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Inspect equipment regularly (every month) and keep records of inspections;", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Providing appropriate firefighting equipment (Fire Extinguishers) on hand;", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Oxygen and acetylene bottles must be secured in an upright position, must not show signs of corrosion or damage and must have flash back arrestors fitted.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 25: Physical Requirements (5.4)
+    doc.addPage();
+    addHeaderFooter(25);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.4 Lifting Machines, Tackle and Lifting Operations", 10, 30);
+    doc.text("The principal contractor shall ensure that lifting machinery and tackle are inspected before use and thereafter in accordance with the Driven Machinery Regulations and the Construction Regulations (Regulation 20).", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("There must be a competent lifting machines inspector (registered with the Department of Labour, Gazette number 27305) and a competent lifting tackle inspector who must inspect the equipment, taking into account that:", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- All lifting machinery and tackle has a safe working load clearly indicated;", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Regular inspection and servicing is carried out (3-monthly inspections and records for tackle and 6-monthly inspections and records for lifting machines);", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Records are kept of inspections and of service certificates;", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- There is proper supervision in terms of guiding the loads that includes a trained banks man to direct lifting operations and check lifting tackle and attachments daily;", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Rigging of loads to be done in accordance with acceptable safe work practices;", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Tower crane bases have been designed and finally approved by an engineer before loading such base;", 10, 110, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Annual load test certificates for lifting machines are in place;", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Tower cranes are fitted with wind speed meters and audible alarm/warning lights, crane hooters, and that the crane’s load chart is posted up in the crane cab;", 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The operators are certified to operate the specific machine (valid certificate to be on site);", 10, 140, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- The operators are physically and psychologically fit to work and in possession of a medical certificate of fitness to be available on site.", 10, 150, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor must ensure that safe lifting operations are adhered to. This must include the following:", 10, 160, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Pallets of bricks being lifted by a tower crane or mobile crane may only be lifted when secured in a brick cage or brick net, securing the entire load of bricks to the crane hook;", 10, 170, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Mortar bins, waste bins and any other receptacle must be deemed to be a lifting attachment and must be designed to carry the required load. Such attachments must be on register and inspected every 3 months by the competent lifting tackle inspector;", 10, 180, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Formwork may only be lifted by using purpose designed and manufactured lifting tackle – eight-gauge wire and the like is prohibited;", 10, 190, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- A competent banks man must be in control of all rigging, slinging and lifting operations and must wear a high visibility vest, be in possession of a two-way radio and make use of a whistle warning persons of overhead loads. The crane operator may only take commands and signals from the designated bank men;", 10, 200, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Guide ropes (tag lines) must be used when lifting large shutters, long bundles of re-bar and other similar loads. This must be detailed in the principal contractor’s fall prevention plans.", 10, 220, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("- Lifting operations must be re-evaluated once wind speeds reach 40 km/h unless otherwise specified by the lifting machine manufacturer.", 10, 230, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 26: Physical Requirements (5.5)
+    doc.addPage();
+    addHeaderFooter(26);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.5 Fall Protection (Working in Elevated Positions)", 10, 30);
+    doc.text("A pre-emptive Risk Assessment will be required for any work to be carried out above two meters from the ground or any floor level and will be classified as \"Work in Elevated Positions\".", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("As far as is practicable, any person working in an elevated position will work from a platform, ladder or other device that is at least as safe as if he/HSE is working at ground level and whilst working in this position be wearing and using a full body harness that will be worn to prevent the person falling from the platform, ladder or other device utilised. This safety harness will be, as far as is possible, secured to a point away from the edge over which the person might fall and the double lanyard must be of such a length that the person will not be able to move over the edge.", 10, 50, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("In addition any platform, slab, deck or surface forming an edge over which a person may fall must be fitted with guard rails at two different heights as prescribed in SABS 10085-1 Code of Practice for the Design, Erection, Use and Inspection of Access Scaffolding", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Workers working in elevated positions must be medically fit and trained to do this safely. Proof of medical fitness and training must be maintained on the principal contractor s site OHS file.", 10, 90, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The Risk Assessments shall place specific emphasis on the placing and handling of roofing materials such as IBR Sheeting or similar materials, (including contingency safety measures), which when exposed to windy conditions represents a serious safety hazard.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 27: Physical Requirements (5.6-5.7)
+    doc.addPage();
+    addHeaderFooter(27);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.6 Severe Weather Plan", 10, 30);
+    doc.text("When high wind creates a hazard to craftsmen or work being performed, i.e., instability in elevated areas, limited visibility due to dust or particles in the air, unmanageable materials, etc., supervision will stop work activities, re-assign work and area, properly store and secure material which might blow away, injure or damage, lower/tie down crane booms and obtain further instruction from Site Management.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("When rain creates a hazard to craftsmen on work being performed, i.e., un-stable footing conditions due to slippery structural steel, muddy and flooded work environments, unstable trenches or excavations, poor visibility due to rain or eye protection, supervision will stop specific work due to hazard, re-assign work duties and/or areas, and obtain further instructions from Project Management.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("All scaffolding equipment and lifting equipment to be inspected and proclaimed safe to use or rectified as to be safe to use after any inclement weather. Signage must be posted to indicate the status of the scaffolding.", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("5.7 Ladders", 10, 90);
+    doc.text("The principal contractor must ensure that all ladders are inspected daily with monthly records kept; in good safe working order; the correct height for the task; extend at least 1m above the landing; fastened and secured; and at a safe angle. Stepladders must be safe for use, must be the correct height for the task and the top two rungs may not be used. Records of inspections must be kept in a register on site.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 28: Physical Requirements (5.8-5.9)
+    doc.addPage();
+    addHeaderFooter(28);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.8 Electrical Installations and Portable Electrical Tools", 10, 30);
+    doc.text("The client will ensure as far as possible that the principal contractor is made aware of the positions of all electrical power lines. The principal contractor must notify the client should it not be sure of the location of any electrical power lines. The principal contractor must comply with the Electrical Installation Regulations, the Electrical Machinery Regulations and the Construction Regulations (CR 22).", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor must keep a copy of the Certificate of Compliance (CoC) for its electrical power supply. A revised CoC is required whenever the installation is altered or changed in any way. All temporary electrical installations must be inspected at least weekly by a competent person appointed in writing.", 10, 60, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Portable electrical tools and equipment must be visually inspected daily. Records of inspections must be kept on site (monthly inspection records to be kept after a competent inspector has carried out the monthly check).", 10, 80, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("5.9 Lockout: Electrical & Mechanical", 10, 90);
+    doc.text("A system of control shall be established in order that no unauthorized person can energize a circuit, open a valve, or activate a machine on which people are working or doing maintenance, even if equipment, plant or machinery is out of commission for any period, thus eliminating injuries and damage to people and equipment as far as is reasonably practicable.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Physical/mechanical lock-out systems shall be part of the safety system and included in training. Lockouts shall be tagged and the system tested before commencing with any work or repairs.", 10, 120, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 29: Physical Requirements (5.10-5.11)
+    doc.addPage();
+    addHeaderFooter(29);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.10 Waste Chutes", 10, 30);
+    doc.text("The disposal of rubble and other waste from elevated positions may only be conducted under controlled conditions. Waste chutes must be secured to a scaffold structure, which must in turn be secured to the main building. A person must be designated to take control of waste chute operations, which must include the inspection of the chute on a daily basis. Waste must discharge into an enclosed area (ready fence panels to be used), eliminating the risk of persons being struck by waste material.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("5.11 Hazardous Chemical Substances (HCS)", 10, 60);
+    doc.text(`The contractor must ensure that the use, transport, storage and disposal of HCS are carried out as prescribed in the HCS Regulations as well as applicable environmental legislation and SANS standards. The Contractor must ensure that all there is a master register kept for all hazardous chemicals on site and that they all have Material Safety Data Sheets (MSDS). The users must be made aware of the hazards and precautions that need to be taken when using the chemicals and a competent Hazardous Chemical Substance coordinator must be appointed. The First Aiders must be made aware of the MSDS’s and how to treat HCS incidents appropriately. Copies of the MSDS’s must be kept in the first aid box and in the store. All containers must be clearly labeled. ${activities.includes("Asbestos Removal") ? "For projects involving Asbestos Removal, the contractor must comply with regulations for handling hazardous substances, maintaining safety data sheets and training records on-site." : ""}`, 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Flammable substances must be stored separately, away from other materials, and in a well-ventilated area (appropriate cross ventilation). A competent person should be appointed to be in control of this portfolio. Fuel storage tanks must conform to the general environmental legislation and relevant by-laws. The necessary safety signage must to be posted up on the tanks – ‘no naked flames’, ‘no smoking’. Two 9kg DCP fire extinguishers must be placed near to fuel tanks, but not within 5m of the tanks. These extinguishers are over and above the minimum four required for the offices and stores.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 30: Physical Requirements (5.12)
+    doc.addPage();
+    addHeaderFooter(30);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Physical Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("5.12 Traffic Diversions", 10, 30);
+    doc.text("Provision by means of a method statement must be made for any traffic diversions to conduct your construction activities as well as any loading and off loading of materials and waste. The method statement must include a drawing indicating traffic signage and the like.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+        // PAGE 31: General Contract Requirements (6.1-6.2)
+    doc.addPage();
+    addHeaderFooter(31);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text("6. General Contract Requirements", 10, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text("6.1 Contractor as Employer", 10, 30);
-    doc.text(`The contractor is deemed an employer in their own right, responsible for complying with OHS legislation sections related to employee safety and third-party protection during the project: ${projectName}.`, 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("6.1 Contractor an Employer in His Own Right", 10, 30);
+    doc.text("The principal contractor is an employer in his own right and shall comply with all legislation pertaining to an employer as well as the provisions of this specification and the principal agreement between the client and the principal contractor.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
     doc.text("6.2 Indemnity Agreement", 10, 60);
-    doc.text(`The contractor indemnifies the client against losses or damages arising from their operations at ${location}.`, 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("6.3 No Usage of Client Equipment", 10, 90);
-    doc.text("The contractor shall not use any equipment, tools, or materials belonging to the client without prior written consent. Any such usage without permission will be at the contractor’s own risk.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
-    doc.text("6.4 Duration of Agreement", 10, 120);
-    doc.text(`This OHS agreement remains in effect for the duration of the project, specified as ${duration} days, unless terminated earlier by mutual consent or due to non-compliance with these specifications.`, 10, 130, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("The principal contractor shall sign an indemnity agreement (Section 37(2)) indemnifying the client against any liability that may arise out of the failure of the principal contractor to comply with the provisions of the Act and/or any other applicable legislation or standards. This agreement must be signed prior to the commencement of any work on the client’s premises.", 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
 
-    // PAGE 8: Acknowledgement
+    // PAGE 32: General Contract Requirements (6.3-6.5)
     doc.addPage();
-    addHeaderFooter(8);
+    addHeaderFooter(32);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("6. General Contract Requirements (Continued)", 10, 20);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("6.3 No Usage of Client’s Equipment", 10, 30);
+    doc.text("The principal contractor shall not utilise any equipment, machinery or tools belonging to the client without the prior written consent of the client or delegated agent. Where such permission has been granted the principal contractor shall ensure that such equipment, machinery or tools are suitable for the intended purpose, are in a good state of repair, are used in a safe manner and that the principal contractor’s employees using such equipment, machinery or tools have been trained in the safe use thereof.", 10, 40, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("6.4 Duration of Agreement", 10, 60);
+    doc.text(`These specifications shall apply for the duration of the project: ${projectName}, expected to last ${duration} days, unless terminated earlier by mutual agreement between the client and the principal contractor or as a result of a breach of the principal agreement or these specifications.`, 10, 70, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("6.5 Headings", 10, 90);
+    doc.text("The headings in this document are for reference purposes only and shall not affect the interpretation of any provision herein.", 10, 100, { maxWidth: 190, lineHeightFactor: 1.2 });
+
+    // PAGE 33: Acknowledgement
+    doc.addPage();
+    addHeaderFooter(33);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text("Acknowledgement", 10, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text("Thus done and signed by the respective parties as follows:", 10, 30);
-    doc.text("For: Contractor", 10, 40);
-    doc.text("Name: ____________________", 10, 50);
-    doc.text("Role: ____________________", 10, 60);
-    doc.text("Date: ____________________", 10, 70);
-    doc.text("Place: ____________________", 10, 80);
-    doc.text("For: Client", 10, 100);
-    doc.text("Name: ____________________", 10, 110);
-    doc.text("Role: ____________________", 10, 120);
-    doc.text("Date: ____________________", 10, 130);
-    doc.text("Place: ____________________", 10, 140);
+    doc.text("I/We, the undersigned, hereby acknowledge that I/we have received, read, and understood the contents of this Occupational Health and Safety Specifications document. I/We further undertake to comply with all the requirements herein and to ensure that all our employees, subcontractors, and agents comply with these specifications and all applicable Occupational Health and Safety legislation.", 10, 30, { maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Principal Contractor: ______________________________", 10, 60);
+    doc.text(`Name: ${contractorName}`, 10, 70);
+    doc.text("Signature: ______________________________", 10, 80);
+    doc.text("Date: ______________________________", 10, 90);
+    doc.text("Client Representative: ______________________________", 10, 110);
+    doc.text(`Name: ${clientName}`, 10, 120);
+    doc.text("Signature: ______________________________", 10, 130);
+    doc.text("Date: ______________________________", 10, 140);
 
-    // PAGE 9: Backpage (Promotional)
+    // PAGE 34: Backpage (Empowering Safety with SafetyFirst.help)
     doc.addPage();
-    doc.addImage(constructionImageBase64, 'JPEG', 0, 0, 210, 297, undefined, undefined, 0.1); // Full page, 10% opacity
-    addHeaderFooter(9);
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(26, 37, 38); // #1A2526
-    doc.text("Empowering Safety with SafetyFirst.help", 105, 40, { align: "center" });
+    addHeaderFooter(34);
     doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(0, 0, 0);
-    doc.text("At SafetyFirst.help, we provide cutting-edge OHS tools and templates to ensure your construction projects meet the highest safety standards. From risk assessments to emergency planning, our services streamline compliance and protect your workforce.", 105, 60, { align: "center", maxWidth: 180, lineHeightFactor: 1.2 });
+    doc.setFont("helvetica", "bold");
+    doc.text("Empowering Safety with SafetyFirst.help", 105, 50, { align: "center" });
     doc.setFontSize(10);
-    doc.text("Discover the Safety First Book Series by Salatiso Lonwabo Mdeni:", 105, 100, { align: "center" });
-    doc.text("- The Essentials of OHS Plans", 105, 110, { align: "center" });
-    doc.text("- Risk Management for Safer Sites", 105, 120, { align: "center" });
-    doc.text("- Emergency Preparedness Guide", 105, 130, { align: "center" });
-    doc.text("Learn more and enhance your safety practices today!", 105, 150, { align: "center" });
-    doc.setTextColor(255, 165, 0); // #FFA500
-    doc.text("Visit: www.safetyfirst.help", 105, 160, { align: "center" });
-    doc.text("Email: salatiso@safetyfirst.help", 105, 170, { align: "center" });
-    doc.setTextColor(0, 0, 0);
+    doc.setFont("helvetica", "normal");
+    doc.text("This document was generated using SafetyFirst.help, a platform inspired by the Safety First book series by Salatiso Lonwabo Mdeni. Our tools are designed to help contractors and clients meet Occupational Health and Safety requirements efficiently and effectively.", 105, 60, { align: "center", maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("Learn more at www.safetyfirst.help or contact us at salatiso@safetyfirst.help.", 105, 80, { align: "center", maxWidth: 190, lineHeightFactor: 1.2 });
+    doc.text("© 2025 SafetyFirst.help. All rights reserved.", 105, 100, { align: "center" });
 
     // Save the PDF
-    doc.save(`${projectName}-OHS-Specifications.pdf`);
+    doc.save(`OHS_Specifications_${projectName.replace(/\s+/g, "_")}.pdf`);
 
-    // Show cart
-    const cartContainer = document.getElementById('cart-container');
+    // Add to Cart
     const cartItems = document.getElementById('cart-items');
-    if (cartContainer && cartItems) {
-        cartContainer.classList.remove('hidden');
-        cartItems.innerHTML = `<tr><td>OHS Specifications for ${projectName}</td><td>R0 (Promo)</td></tr>`;
-    } else {
-        console.error("Cart elements not found");
-    }
+    const cartContainer = document.getElementById('cart-container');
+    cartContainer.classList.remove('hidden');
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>OHS Specifications - ${projectName}</td><td>R250</td>`;
+    cartItems.appendChild(row);
+
+    // Checkout Logic
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+        const promoCode = document.getElementById('promo-code').value;
+        if (promoCode === 'SAFETYFREE2025') {
+            alert('Promo code applied! Downloading your document for free.');
+            // Already saved via doc.save above
+        } else {
+            alert('Invalid promo code. Please proceed to payment (simulated).');
+            // Simulate payment gateway integration
+            setTimeout(() => {
+                alert('Payment successful! Document downloaded.');
+            }, 1000);
+        }
+    });
 });
 
-// Checkout logic
-document.getElementById('checkout-btn').addEventListener('click', () => {
-    const promoCode = document.getElementById('promo-code').value;
-    if (promoCode === "SAFETYFREE2025") {
-        alert("Checkout successful! Promo code applied - documents are free.");
-    } else {
-        alert("Invalid promo code. Please use SAFETYFREE2025.");
-    }
-});
+
+
+                                                         
