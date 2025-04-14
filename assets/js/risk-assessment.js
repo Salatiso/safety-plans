@@ -1,6 +1,26 @@
-// js/risk-assessment.js
+// assets/js/risk-assessment.js
 
-// Baseline Risk Assessment Database
+// Firebase Config
+const firebaseConfig = {
+    apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
+    authDomain: "safety-first-chatbot.firebaseapp.com",
+    projectId: "safety-first-chatbot",
+    storageBucket: "safety-first-chatbot.firebasestorage.app",
+    messagingSenderId: "741489856541",
+    appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
+    measurementId: "G-04Y1PQDYVD"
+};
+
+// Initialize Firebase
+try {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+} catch (error) {
+    console.error("Firebase initialization failed:", error);
+    document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
+}
+
+// Baseline Risk Assessment Database (Full)
 const riskDatabase = [
     {
         group: "Site Preparation and Access",
@@ -102,11 +122,25 @@ const riskDatabase = [
                 legal: "OHSA HCS Regulations"
             },
             {
+                activity: "Bricklaying/Wall Construction",
+                hazard: "Manual handling",
+                risk: "Ergonomic injuries",
+                controls: "Lift bricks in pairs, use proper techniques",
+                legal: "OHSA ERW Regulations"
+            },
+            {
                 activity: "Roofing",
                 hazard: "Working at height",
                 risk: "Falls, head injuries",
                 controls: "Use fall protection (harnesses, guardrails), wear helmets",
                 legal: "Construction Regulation 10"
+            },
+            {
+                activity: "Roofing",
+                hazard: "Falling materials",
+                risk: "Injuries, property damage",
+                controls: "Secure materials, use debris nets, wear PPE",
+                legal: "OHSA Section 8(2)(c)"
             }
         ]
     },
@@ -119,6 +153,13 @@ const riskDatabase = [
                 risk: "Shocks, burns, fires",
                 controls: "Inspect tools, isolate circuits, use competent workers",
                 legal: "OHSA EIR Regulations"
+            },
+            {
+                activity: "Plumbing: Wall Chasing",
+                hazard: "Dust",
+                risk: "Respiratory issues",
+                controls: "Use dust extraction, wear masks/goggles",
+                legal: "OHSA HCS Regulations"
             },
             {
                 activity: "Plumbing: Sanitary Installation",
@@ -135,6 +176,13 @@ const riskDatabase = [
                 legal: "OHSA EIR, SANS 10142"
             },
             {
+                activity: "Electrical Installation (Low Voltage)",
+                hazard: "Faulty wiring",
+                risk: "Fires, power trips",
+                controls: "Follow SANS 10142, keep fire extinguishers nearby",
+                legal: "Construction Regulation 24"
+            },
+            {
                 activity: "Electrical: High Voltage Work",
                 hazard: "High voltage",
                 risk: "Electrocution, arc flash",
@@ -142,11 +190,25 @@ const riskDatabase = [
                 legal: "OHSA EIR, SANS 10142"
             },
             {
+                activity: "Electrical: High Voltage Work",
+                hazard: "Electromagnetic fields",
+                risk: "Health effects (long-term)",
+                controls: "Limit exposure time, maintain safe distances",
+                legal: "OHSA Section 8(2)(b)"
+            },
+            {
                 activity: "HVAC Installation",
                 hazard: "Confined spaces",
                 risk: "Asphyxiation, heat stress",
                 controls: "Ventilate spaces, use confined space permits, monitor workers",
                 legal: "OHSA GSR 5"
+            },
+            {
+                activity: "HVAC Installation",
+                hazard: "Heavy units",
+                risk: "Ergonomic injuries",
+                controls: "Use cranes/lifting aids, work in teams",
+                legal: "Construction Regulation 22"
             }
         ]
     },
@@ -161,11 +223,39 @@ const riskDatabase = [
                 legal: "OHSA HCS Regulations"
             },
             {
+                activity: "Plastering",
+                hazard: "Skin contact",
+                risk: "Dermatitis",
+                controls: "Wear gloves, long sleeves",
+                legal: "OHSA Section 8(2)(d)"
+            },
+            {
+                activity: "Plastering",
+                hazard: "High walls",
+                risk: "Falls from height",
+                controls: "Use stable scaffolding, wear harnesses",
+                legal: "Construction Regulation 10"
+            },
+            {
                 activity: "Tiling (Floor/Wall)",
                 hazard: "Adhesive dust",
                 risk: "Respiratory issues",
                 controls: "Use wet methods, wear masks",
                 legal: "OHSA HCS Regulations"
+            },
+            {
+                activity: "Tiling (Floor/Wall)",
+                hazard: "Tile cutting",
+                risk: "Cuts, noise",
+                controls: "Use PPE (gloves, ear protection), competent workers",
+                legal: "OHSA NIR Regulations"
+            },
+            {
+                activity: "Tiling (Floor/Wall)",
+                hazard: "Heavy tiles",
+                risk: "Back strain",
+                controls: "Lift in pairs, use proper techniques",
+                legal: "OHSA ERW Regulations"
             },
             {
                 activity: "Painting",
@@ -175,11 +265,32 @@ const riskDatabase = [
                 legal: "OHSA HCS Regulations"
             },
             {
+                activity: "Painting",
+                hazard: "Flammable solvents",
+                risk: "Fires",
+                controls: "No smoking, store rags safely, follow manufacturer’s instructions",
+                legal: "OHSA GSR 4"
+            },
+            {
+                activity: "Painting",
+                hazard: "Slippery surfaces",
+                risk: "Slips, falls",
+                controls: "Clean spills immediately, demarcate wet areas",
+                legal: "OHSA FSR Regulations"
+            },
+            {
                 activity: "Ceiling Installation",
                 hazard: "Working at height",
                 risk: "Falls, head injuries",
                 controls: "Use scaffolding, wear helmets, work in pairs",
                 legal: "Construction Regulation 10"
+            },
+            {
+                activity: "Ceiling Installation",
+                hazard: "Falling debris",
+                risk: "Eye injuries",
+                controls: "Wear goggles, secure materials",
+                legal: "OHSA Section 8(2)(c)"
             },
             {
                 activity: "Window Installation",
@@ -189,11 +300,25 @@ const riskDatabase = [
                 legal: "OHSA Section 8(2)(a)"
             },
             {
+                activity: "Window Installation",
+                hazard: "Falling windows",
+                risk: "Injuries, property damage",
+                controls: "Work in pairs, secure during mounting",
+                legal: "Construction Regulation 7"
+            },
+            {
                 activity: "Door Installation",
                 hazard: "Falling doors",
                 risk: "Physical injuries",
                 controls: "Use three workers (two holding, one fitting), wear PPE",
                 legal: "OHSA Section 8(2)(c)"
+            },
+            {
+                activity: "Door Installation",
+                hazard: "Dust (sanding)",
+                risk: "Respiratory issues",
+                controls: "Wear masks, use dust extraction",
+                legal: "OHSA HCS Regulations"
             }
         ]
     },
@@ -208,6 +333,13 @@ const riskDatabase = [
                 legal: "OHSA Section 8(2)(i)"
             },
             {
+                activity: "Plumbing Maintenance",
+                hazard: "Confined spaces",
+                risk: "Asphyxiation",
+                controls: "Use permits, ventilate areas, monitor workers",
+                legal: "OHSA GSR 5"
+            },
+            {
                 activity: "Electrical Maintenance",
                 hazard: "Live circuits",
                 risk: "Shocks, burns",
@@ -215,11 +347,25 @@ const riskDatabase = [
                 legal: "OHSA EIR Regulations"
             },
             {
+                activity: "Electrical Maintenance",
+                hazard: "Faulty equipment",
+                risk: "Fires, injuries",
+                controls: "Inspect tools, maintain equipment logs",
+                legal: "OHSA Section 10"
+            },
+            {
                 activity: "General Repairs",
                 hazard: "Hand tools",
                 risk: "Cuts, bruises",
                 controls: "Use well-maintained tools, wear gloves",
                 legal: "OHSA Section 8(2)(a)"
+            },
+            {
+                activity: "General Repairs",
+                hazard: "Dust",
+                risk: "Respiratory issues",
+                controls: "Wear masks, use dust extraction",
+                legal: "OHSA HCS Regulations"
             }
         ]
     },
@@ -234,6 +380,13 @@ const riskDatabase = [
                 legal: "OHSA ERW Regulations"
             },
             {
+                activity: "Office Ergonomics",
+                hazard: "Repetitive tasks",
+                risk: "Strain injuries",
+                controls: "Take breaks, use ergonomic tools (e.g., wrist rests)",
+                legal: "OHSA Section 8(2)(d)"
+            },
+            {
                 activity: "Document Handling",
                 hazard: "Paper cuts",
                 risk: "Minor injuries",
@@ -241,11 +394,39 @@ const riskDatabase = [
                 legal: "OHSA Section 8(2)(a)"
             },
             {
+                activity: "Document Handling",
+                hazard: "Heavy files",
+                risk: "Back strain",
+                controls: "Use trolleys, limit lifting weight",
+                legal: "OHSA ERW Regulations"
+            },
+            {
                 activity: "Office Equipment",
                 hazard: "Electrical faults",
                 risk: "Shocks, fires",
                 controls: "Regular inspections, use surge protectors",
                 legal: "OHSA EIR Regulations"
+            },
+            {
+                activity: "Office Equipment",
+                hazard: "Noise (printers)",
+                risk: "Hearing discomfort",
+                controls: "Place equipment in separate rooms, use ear protection",
+                legal: "OHSA NIR Regulations"
+            },
+            {
+                activity: "Office Environment",
+                hazard: "Poor lighting",
+                risk: "Eye strain, headaches",
+                controls: "Ensure adequate lighting, adjust screens",
+                legal: "OHSA FSR Regulations"
+            },
+            {
+                activity: "Office Environment",
+                hazard: "Slips/trips",
+                risk: "Falls, injuries",
+                controls: "Keep floors clear, repair uneven surfaces",
+                legal: "OHSA FSR Regulations"
             }
         ]
     },
@@ -260,6 +441,13 @@ const riskDatabase = [
                 legal: "OHSA Asbestos Regulations"
             },
             {
+                activity: "Asbestos Removal",
+                hazard: "Improper handling",
+                risk: "Environmental contamination",
+                controls: "Train workers, appoint coordinator",
+                legal: "Construction Regulation 7"
+            },
+            {
                 activity: "Biological Agents",
                 hazard: "Bacteria, viruses",
                 risk: "Illness (diarrhea, fever)",
@@ -267,11 +455,39 @@ const riskDatabase = [
                 legal: "OHSA Section 8(2)(b)"
             },
             {
+                activity: "Hazardous Chemicals",
+                hazard: "Spills, exposure",
+                risk: "Burns, poisoning",
+                controls: "Store in labeled containers, use PPE, maintain MSDS",
+                legal: "OHSA HCS Regulations"
+            },
+            {
                 activity: "Fire Hazards",
                 hazard: "Flammable materials",
                 risk: "Burns, property damage",
                 controls: "Install extinguishers, train staff, conduct drills",
                 legal: "OHSA GSR 4, SANS 10147"
+            },
+            {
+                activity: "Weather Conditions",
+                hazard: "Heat stress",
+                risk: "Dehydration, collapse",
+                controls: "Provide water, schedule breaks, wear light clothing",
+                legal: "OHSA Section 8(2)(b)"
+            },
+            {
+                activity: "Weather Conditions",
+                hazard: "Storms/wind",
+                risk: "Falling objects, structural damage",
+                controls: "Secure materials, suspend work in extreme weather",
+                legal: "Construction Regulation 7"
+            },
+            {
+                activity: "Emergency Response",
+                hazard: "Inadequate planning",
+                risk: "Delayed evacuation, injuries",
+                controls: "Develop ERP, train staff, display contact numbers",
+                legal: "OHSA GSR 3, Construction Regulation 5"
             }
         ]
     }
@@ -297,6 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function showStep(stepId) {
         steps.forEach(step => step.classList.add("hidden"));
         document.getElementById(stepId).classList.remove("hidden");
+        window.scrollTo(0, 0);
     }
 
     // Step 1: Project Type
@@ -325,6 +542,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     (projectType === "office" && group.group === "Office/Administrative")
                 );
             });
+
+        if (!filteredGroups.length) {
+            activityGroups.innerHTML = "<p>No activities available for this project type.</p>";
+            activitiesForm.querySelector("button[type='submit']").disabled = true;
+            return;
+        }
 
         filteredGroups.forEach(group => {
             const groupDiv = document.createElement("div");
@@ -404,7 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${item.controls}</td>
                     <td>${item.legal}</td>
                     <td>
-                        <select name="rating-${index}" required>
+                        <select name="rating-${index}" required aria-label="Risk rating for ${item.activity}">
                             <option value="" disabled selected>Select rating</option>
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
@@ -457,6 +680,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Show compliance note for large construction
         if (document.getElementById("project-type").value === "large-construction") {
             complianceNote.classList.remove("hidden");
+        } else {
+            complianceNote.classList.add("hidden");
         }
     }
 
@@ -464,13 +689,17 @@ document.addEventListener("DOMContentLoaded", () => {
     reviewForm.addEventListener("submit", (e) => {
         e.preventDefault();
         projectDetails = {
-            name: document.getElementById("project-name").value,
-            location: document.getElementById("project-location").value,
-            contractor: document.getElementById("contractor-name").value,
+            name: document.getElementById("project-name").value.trim(),
+            location: document.getElementById("project-location").value.trim(),
+            contractor: document.getElementById("contractor-name").value.trim(),
             start: document.getElementById("project-start").value,
-            duration: document.getElementById("project-duration").value,
-            notes: document.getElementById("custom-notes").value
+            duration: document.getElementById("project-duration").value.trim(),
+            notes: document.getElementById("custom-notes").value.trim()
         };
+        if (!projectDetails.name) {
+            alert("Please enter a project name.");
+            return;
+        }
         generatePDF();
         showStep("step-5");
     });
@@ -480,20 +709,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Generate PDF
     function generatePDF() {
+        if (!window.jspdf?.jsPDF) {
+            alert("PDF generation failed. Please try again later.");
+            return;
+        }
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         doc.setFontSize(16);
         doc.text("Baseline Risk Assessment", 10, 10);
-        if (projectDetails.name) {
-            doc.setFontSize(12);
-            doc.text(`Project: ${projectDetails.name}`, 10, 20);
-            doc.text(`Location: ${projectDetails.location || "N/A"}`, 10, 28);
-            doc.text(`Contractor: ${projectDetails.contractor || "N/A"}`, 10, 36);
-            doc.text(`Start Date: ${projectDetails.start || "N/A"}`, 10, 44);
-            doc.text(`Duration: ${projectDetails.duration || "N/A"}`, 10, 52);
-        }
+        doc.setFontSize(12);
+        doc.text(`Project: ${projectDetails.name}`, 10, 20);
+        doc.text(`Location: ${projectDetails.location || "N/A"}`, 10, 28);
+        doc.text(`Contractor: ${projectDetails.contractor || "N/A"}`, 10, 36);
+        doc.text(`Start Date: ${projectDetails.start || "N/A"}`, 10, 44);
+        doc.text(`Duration: ${projectDetails.duration || "N/A"}`, 10, 52);
         doc.autoTable({
-            startY: projectDetails.name ? 60 : 20,
+            startY: 60,
             head: [["Activity", "Hazard", "Risk", "Control Measures", "Legal Reference", "Rating"]],
             body: selectedActivities.map(item => [
                 item.activity,
@@ -521,7 +752,7 @@ document.addEventListener("DOMContentLoaded", () => {
             doc.setFontSize(10);
             doc.text(projectDetails.notes, 10, 20, { maxWidth: 190 });
         }
-        doc.save(`Risk_Assessment_${projectDetails.name || "Document"}.pdf`);
+        doc.save(`Risk_Assessment_${projectDetails.name.replace(/\s+/g, "_")}.pdf`);
     }
 
     // Step 5: Guidance
@@ -547,22 +778,54 @@ document.addEventListener("DOMContentLoaded", () => {
         showStep("step-1");
     });
 
-    // Adjust layout (existing function)
+    // Chatbot Logic
+    document.getElementById('chat-toggle').addEventListener('click', () => {
+        document.getElementById('chat-window').classList.toggle('chat-hidden');
+    });
+
+    document.getElementById('chat-send').addEventListener('click', async () => {
+        const input = document.getElementById('chat-input').value.trim();
+        const output = document.getElementById('chat-output');
+        if (!input) return;
+
+        output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+        const query = input.toLowerCase();
+
+        try {
+            const snapshot = await db.collection('ohs-knowledge').get();
+            let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if (data.content && data.content.toLowerCase().includes(query)) {
+                    response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
+                }
+            });
+            output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
+        } catch (error) {
+            console.error("Firestore query failed:", error);
+            output.innerHTML += `<p><strong>Chatbot:</strong> Oops, something went wrong. Please try again!</p>`;
+        }
+
+        document.getElementById('chat-input').value = '';
+        output.scrollTop = output.scrollHeight;
+    });
+
+    // Layout Adjustment
+    function adjustLayout() {
+        const headerHeight = document.querySelector("header").offsetHeight || 0;
+        const sidebar = document.querySelector(".sidebar");
+        const mainContent = document.querySelector(".main-content");
+        if (sidebar && mainContent) {
+            sidebar.style.top = `${headerHeight}px`;
+            sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
+            mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
+            mainContent.style.paddingTop = `${headerHeight}px`;
+            mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+        }
+    }
+    window.addEventListener("load", adjustLayout);
+    window.addEventListener("resize", adjustLayout);
+
+    // Initial layout adjustment
     adjustLayout();
 });
-
-// Existing layout adjustment (moved from inline script)
-function adjustLayout() {
-    const headerHeight = document.querySelector("header").offsetHeight || 0;
-    const sidebar = document.querySelector(".sidebar");
-    const mainContent = document.querySelector(".main-content");
-    if (sidebar && mainContent) {
-        sidebar.style.top = `${headerHeight}px`;
-        sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-        mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
-        mainContent.style.paddingTop = `${headerHeight}px`;
-        mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
-    }
-}
-window.addEventListener("load", adjustLayout);
-window.addEventListener("resize", adjustLayout);
