@@ -24,14 +24,22 @@ try {
 
 document.getElementById('chat-toggle')?.addEventListener('click', () => {
     console.log("Toggling chatbot");
-    document.getElementById('chat-window').classList.toggle('chat-hidden');
+    const chatWindow = document.getElementById('chat-window');
+    if (chatWindow) {
+        chatWindow.classList.toggle('chat-hidden');
+    } else {
+        console.error("Chat window not found");
+    }
 });
 
 document.getElementById('chat-send')?.addEventListener('click', async () => {
     console.log("Chat send clicked");
     const input = document.getElementById('chat-input')?.value.trim();
     const output = document.getElementById('chat-output');
-    if (!input || !output) return;
+    if (!input || !output) {
+        console.error("Chat input or output not found");
+        return;
+    }
 
     output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
     const query = input.toLowerCase();
