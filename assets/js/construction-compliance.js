@@ -68,6 +68,44 @@ const complianceDatabase = [
     }
 ];
 
+// Simulated User Authentication (for demo purposes)
+let currentUser = null; // { id: string, role: string, email: string, projects: string[] }
+const loggedIn = () => !!currentUser;
+
+// Temporary Data Storage for Non-Logged-In Users
+const TEMP_STORAGE_KEY = "tempProjectData";
+const EXPIRY_DAYS = 7;
+const generateReferenceNumber = () => {
+    return Math.random().toString(36).substring(2, 10).toUpperCase();
+};
+const saveTempData = (data) => {
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + EXPIRY_DAYS);
+    const tempData = {
+        referenceNumber: generateReferenceNumber(),
+        data,
+        expiry: expiry.getTime(),
+        created: new Date().getTime()
+    };
+    localStorage.setItem(TEMP_STORAGE_KEY, JSON.stringify(tempData));
+    return tempData.referenceNumber;
+};
+const getTempData = (referenceNumber) => {
+    const stored = localStorage.getItem(TEMP_STORAGE_KEY);
+    if (!stored) return null;
+    const tempData = JSON.parse(stored);
+    if (tempData.referenceNumber !== referenceNumber) return null;
+    const now = new Date().getTime();
+    if (now > tempData.expiry) {
+        localStorage.removeItem(TEMP_STORAGE_KEY);
+        return null;
+    }
+    return tempData.data;
+};
+
+// Simulated Project Database (for logged-in users)
+const projectDatabase = new Map(); // Map<projectId, projectData>
+
 // Debug: Confirm script loading and DOM elements on page load
 document.addEventListener("DOMContentLoaded", () => {
     console.log("construction-compliance.js loaded");
@@ -78,21 +116,56 @@ document.addEventListener("DOMContentLoaded", () => {
         contractorBtn: document.getElementById("contractor-btn"),
         hnsProBtn: document.getElementById("hns-pro-btn")
     });
-    console.log("Compliance Form Steps:", document.querySelectorAll("#compliance-form .step"));
+
+    // Initialize Carousel
+    const items = document.querySelectorAll(".carousel-item");
+    let currentIndex = 0;
+    items[currentIndex].classList.add("active");
+    document.querySelector(".carousel-next").addEventListener("click", () => {
+        items[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % items.length;
+        items[currentIndex].classList.add("active");
+    });
+    document.querySelector(".carousel-prev").addEventListener("click", () => {
+        items[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        items[currentIndex].classList.add("active");
+    });
+
+    // Simulate Login
+    document.getElementById("login-link").addEventListener("click", (e) => {
+        e.preventDefault();
+        const email = prompt("Enter your email to login (for demo purposes):");
+        if (email) {
+            currentUser = { id: "user1", role: "client", email, projects: [] };
+            alert(`Logged in as ${email}`);
+            document.getElementById("login-link").textContent = "Logout";
+            document.getElementById("login-link").addEventListener("click", () => {
+                currentUser = null;
+                alert("Logged out");
+                document.getElementById("login-link").textContent = "Login";
+            });
+        }
+    });
 });
 
 // Role Selection
 document.getElementById("client-btn")?.addEventListener("click", () => {
     console.log("Client selected, redirecting to Risk Assessment");
+    document.getElementById("client-legal-note").classList.remove("hidden");
+    document.getElementById("contractor-legal-note").classList.add("hidden");
+    document.getElementById("hns-pro-legal-note").classList.add("hidden");
     window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline";
 });
 
 document.getElementById("contractor-btn")?.addEventListener("click", () => {
     console.log("Contractor selected, showing Compliance Checklist");
+    document.getElementById("client-legal-note").classList.add("hidden");
+    document.getElementById("contractor-legal-note").classList.remove("hidden");
+    document.getElementById("hns-pro-legal-note").classList.add("hidden");
     const complianceForm = document.getElementById("compliance-form");
     const projectFormContainer = document.getElementById("project-form-container");
     if (complianceForm && projectFormContainer) {
-        console.log("Toggling visibility: Showing compliance-form, hiding project-form-container");
         complianceForm.classList.remove("hidden");
         projectFormContainer.classList.add("hidden");
         showStep("step-1");
@@ -102,11 +175,13 @@ document.getElementById("contractor-btn")?.addEventListener("click", () => {
 });
 
 document.getElementById("hns-pro-btn")?.addEventListener("click", () => {
-    console.log("OHS Professional selected, showing OHS Specification form");
+    console.log("H&S Professional selected, showing OHS Specification form");
+    document.getElementById("client-legal-note").classList.add("hidden");
+    document.getElementById("contractor-legal-note").classList.add("hidden");
+    document.getElementById("hns-pro-legal-note").classList.remove("hidden");
     const projectFormContainer = document.getElementById("project-form-container");
     const complianceForm = document.getElementById("compliance-form");
     if (projectFormContainer && complianceForm) {
-        console.log("Toggling visibility: Showing project-form-container, hiding compliance-form");
         projectFormContainer.classList.remove("hidden");
         complianceForm.classList.add("hidden");
         showSpecForm("Health & Safety Professional");
@@ -115,29 +190,33 @@ document.getElementById("hns-pro-btn")?.addEventListener("click", () => {
     }
 });
 
-// OHS Specification Form Logic
+// OHS Specification Form Logic (Health & Safety Professional and Client)
 function showSpecForm(role) {
     console.log(`showSpecForm called with role: ${role}`);
     const formContainer = document.getElementById("project-form-container");
     const form = document.getElementById("project-form");
     const dynamicFields = document.getElementById("dynamic-fields");
-    if (!formContainer || !form || !dynamicFields) {
-        console.error("Form container, form, or dynamic fields element missing.");
+    const accreditationLevel = document.getElementById("accreditation-level");
+    const sacpcmpRegContainer = document.getElementById("sacpcmp-reg-container");
+    if (!formContainer || !form || !dynamicFields || !accreditationLevel || !sacpcmpRegContainer) {
+        console.error("Form elements missing.");
         return;
     }
     formContainer.classList.remove("hidden");
     dynamicFields.innerHTML = "";
 
-    // Role-specific fields
-    if (role === "Health & Safety Professional") {
-        console.log("Adding SACPCMP field for Health & Safety Professional");
-        dynamicFields.innerHTML += `
-            <div class="form-group">
-                <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
-                <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration">
-            </div>
-        `;
-    }
+    // Handle Accreditation Level
+    accreditationLevel.addEventListener("change", () => {
+        const level = accreditationLevel.value;
+        console.log(`Accreditation level changed to: ${level}`);
+        if (level === "sacpcmp-officer" || level === "sacpcmp-agent") {
+            sacpcmpRegContainer.classList.remove("hidden");
+            document.getElementById("sacpcmp-reg").required = true;
+        } else {
+            sacpcmpRegContainer.classList.add("hidden");
+            document.getElementById("sacpcmp-reg").required = false;
+        }
+    });
 
     // Activity-based fields
     const activityCheckboxes = document.querySelectorAll('input[name="activities"]');
@@ -145,8 +224,8 @@ function showSpecForm(role) {
     activityCheckboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
             console.log(`Activity checkbox changed: ${checkbox.value}, checked: ${checkbox.checked}`);
-            // Clear activity-specific fields
-            dynamicFields.innerHTML = dynamicFields.innerHTML.split('<div class="form-group"><label for="sacpcmp-reg">')[0];
+            const sacpcmpField = dynamicFields.querySelector('#sacpcmp-reg') ? dynamicFields.innerHTML.split('<div class="form-group"><label for="sacpcmp-reg">')[0] : "";
+            dynamicFields.innerHTML = sacpcmpField;
             if (document.getElementById("scaffolding")?.checked) {
                 console.log("Adding Scaffold Supervisor field");
                 dynamicFields.innerHTML += `
@@ -168,17 +247,64 @@ function showSpecForm(role) {
         });
     });
 
+    // H&S Professional Actions
+    document.getElementById("compile-bra-btn").addEventListener("click", () => {
+        console.log("Redirecting to compile Baseline Risk Assessment");
+        window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline";
+    });
+
+    document.getElementById("compile-hs-plan-btn").addEventListener("click", () => {
+        console.log("Showing H&S Plan compilation (redirecting to Compliance Checklist)");
+        const complianceForm = document.getElementById("compliance-form");
+        const projectFormContainer = document.getElementById("project-form-container");
+        if (complianceForm && projectFormContainer) {
+            complianceForm.classList.remove("hidden");
+            projectFormContainer.classList.add("hidden");
+            showStep("step-1");
+        }
+    });
+
+    document.getElementById("manage-hs-file-btn").addEventListener("click", () => {
+        console.log("Managing H&S File (showing Compliance Checklist)");
+        const complianceForm = document.getElementById("compliance-form");
+        const projectFormContainer = document.getElementById("project-form-container");
+        if (complianceForm && projectFormContainer) {
+            complianceForm.classList.remove("hidden");
+            projectFormContainer.classList.add("hidden");
+            showStep("step-1");
+        }
+    });
+
+    document.getElementById("conduct-hira-btn").addEventListener("click", () => {
+        console.log("Conducting HIRA (redirecting to Risk Assessment)");
+        window.location.href = "/safety-plans/pages/risk-assessment.html?type=hira";
+    });
+
+    document.getElementById("manage-appointments-btn").addEventListener("click", () => {
+        alert("Appointments management is under development. Please check back later.");
+    });
+
+    document.getElementById("manage-incidents-btn").addEventListener("click", () => {
+        alert("Incident management is under development. Please check back later.");
+    });
+
     console.log(`${role} form displayed`);
 }
 
 // Save OHS Specification Form Progress
 document.getElementById("project-form")?.addEventListener("input", () => {
-    console.log("OHS Specification form input detected, saving to localStorage");
+    console.log("OHS Specification form input detected, saving progress");
     const form = document.getElementById("project-form");
     if (form) {
         const formData = new FormData(form);
-        localStorage.setItem("projectForm", JSON.stringify(Object.fromEntries(formData)));
-        console.log("Form data saved:", Object.fromEntries(formData));
+        const data = Object.fromEntries(formData);
+        if (loggedIn()) {
+            projectDatabase.set(data.projectName, data);
+            console.log("Form data saved to project database:", data);
+        } else {
+            const refNumber = saveTempData(data);
+            console.log("Form data saved temporarily with ref number:", refNumber);
+        }
     } else {
         console.error("Project form not found for saving progress");
     }
@@ -187,27 +313,46 @@ document.getElementById("project-form")?.addEventListener("input", () => {
 // Load Saved OHS Specification Data
 window.addEventListener("load", () => {
     console.log("Window loaded, checking for saved OHS Specification data");
-    const saved = localStorage.getItem("projectForm");
-    if (saved) {
-        const data = JSON.parse(saved);
-        console.log("Loading saved form data:", data);
-        Object.entries(data).forEach(([key, value]) => {
-            const input = document.querySelector(`[name="${key}"]`);
-            if (input) {
-                if (input.type === "checkbox") {
-                    input.checked = value === "on";
-                } else {
-                    input.value = value;
+    if (loggedIn()) {
+        const projectName = prompt("Enter project name to load (for demo purposes):");
+        if (projectName && projectDatabase.has(projectName)) {
+            const data = projectDatabase.get(projectName);
+            Object.entries(data).forEach(([key, value]) => {
+                const input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    if (input.type === "checkbox") {
+                        input.checked = value === "on";
+                    } else {
+                        input.value = value;
+                    }
                 }
-            }
-        });
-        document.querySelectorAll('input[name="activities"]:checked').forEach((cb) => cb.dispatchEvent(new Event("change")));
+            });
+            document.querySelectorAll('input[name="activities"]:checked').forEach((cb) => cb.dispatchEvent(new Event("change")));
+        }
     } else {
-        console.log("No saved form data found");
+        const refNumber = prompt("Enter your reference number to retrieve your document (if not logged in):");
+        if (refNumber) {
+            const data = getTempData(refNumber);
+            if (data) {
+                Object.entries(data).forEach(([key, value]) => {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === "checkbox") {
+                            input.checked = value === "on";
+                        } else {
+                            input.value = value;
+                        }
+                    }
+                });
+                document.querySelectorAll('input[name="activities"]:checked').forEach((cb) => cb.dispatchEvent(new Event("change")));
+            } else {
+                alert("Reference number not found or document has expired.");
+            }
+        }
     }
 });
 
-// Generate OHS Specification PDF
+// Generate OHS Specification PDF (Editable with Notice and Disclaimer)
 function generateOHSSpecPDF(formData, isPreview = false) {
     console.log("Generating OHS Specification PDF with formData:", formData);
     if (!jsPDF) {
@@ -219,10 +364,28 @@ function generateOHSSpecPDF(formData, isPreview = false) {
     try {
         const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
+        // Add Notice and Disclaimer on Every Page
+        const addNoticeAndDisclaimer = () => {
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 0, 255);
+            doc.text("Compiled with safetyfirst.help", 105, 10, { align: "center" });
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "italic");
+            doc.setTextColor(0, 0, 0);
+            doc.text(
+                "Disclaimer: The tools provided by safetyfirst.help are intended to assist in compiling health and safety documentation. The person compiling the document remains accountable for the accuracy and compliance of the data provided.",
+                105,
+                285,
+                { align: "center", maxWidth: 190 }
+            );
+        };
+
         // Page 1: Cover
         doc.setFillColor(255, 255, 255);
         doc.rect(0, 0, 210, 297, "F");
         addHeaderFooter(doc, 1, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(20);
         doc.setFont("helvetica", "bold");
         doc.text(`OHS Specifications: ${formData.projectName}`, 105, 50, { align: "center" });
@@ -230,7 +393,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
             startY: 80,
             head: [["Field", "Details"]],
             body: [
-                ["Document No", "OHS-2025-001"],
+                ["Document No", { content: "OHS-2025-001", styles: { fillColor: [255, 255, 255], textColor: [0, 0, 0] } }],
                 ["Revision", "1.0"],
                 ["Date Issued", formData.dateCompiled],
                 ["Client Name", formData.clientName],
@@ -241,18 +404,11 @@ function generateOHSSpecPDF(formData, isPreview = false) {
             styles: { fontSize: 10, cellPadding: 3 },
             headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
         });
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "italic");
-        doc.text(
-            "This document complies with Construction Regulation 5(1)(b). Verify applicability with a qualified professional.",
-            105,
-            280,
-            { align: "center" }
-        );
 
         // Page 2: Client Details
         doc.addPage();
         addHeaderFooter(doc, 2, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("Client Details", 10, 20);
@@ -275,6 +431,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 3: Scope & Contractor Details
         doc.addPage();
         addHeaderFooter(doc, 3, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("Scope of Work & Contractor Details", 10, 20);
@@ -302,6 +459,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 4: Contents
         doc.addPage();
         addHeaderFooter(doc, 4, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("Contents", 10, 20);
@@ -370,6 +528,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 5: Purpose
         doc.addPage();
         addHeaderFooter(doc, 5, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("1. Purpose", 10, 20);
@@ -385,6 +544,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 6: Interpretation - Scope
         doc.addPage();
         addHeaderFooter(doc, 6, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("2. Interpretation", 10, 20);
@@ -401,6 +561,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 7: Interpretation - References
         doc.addPage();
         addHeaderFooter(doc, 7, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("2. Interpretation (Continued)", 10, 20);
@@ -424,6 +585,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 8: Interpretation - Definitions
         doc.addPage();
         addHeaderFooter(doc, 8, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("2. Interpretation (Continued)", 10, 20);
@@ -445,6 +607,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 9: Administrative Requirements - Notification and Permits
         doc.addPage();
         addHeaderFooter(doc, 9, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("3. Administrative Requirements", 10, 20);
@@ -461,6 +624,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 10: Administrative Requirements - Compensation Commissioner
         doc.addPage();
         addHeaderFooter(doc, 10, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.2 Registration with the Compensation Commissioner", 15, 30);
@@ -474,6 +638,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 11: Administrative Requirements - Statutory Appointments
         doc.addPage();
         addHeaderFooter(doc, 11, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.3 Statutory Appointments", 15, 30);
@@ -487,6 +652,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 12: Administrative Requirements - Risk Management
         doc.addPage();
         addHeaderFooter(doc, 12, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.4 Risk Management", 15, 30);
@@ -517,6 +683,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 13: Administrative Requirements - Risk Control
         doc.addPage();
         addHeaderFooter(doc, 13, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.4.3 Hazard & Risk Control", 20, 30);
@@ -530,6 +697,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 14: Administrative Requirements - Incident Management
         doc.addPage();
         addHeaderFooter(doc, 14, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.5 Incident and Accident Management", 15, 30);
@@ -543,6 +711,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 15: Administrative Requirements - Health and Safety Plan
         doc.addPage();
         addHeaderFooter(doc, 15, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.6 Health and Safety Plan", 15, 30);
@@ -556,6 +725,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 16: Administrative Requirements - Health and Safety File
         doc.addPage();
         addHeaderFooter(doc, 16, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.7 Health and Safety File", 15, 30);
@@ -569,6 +739,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 17: Administrative Requirements - Audit and Inspection
         doc.addPage();
         addHeaderFooter(doc, 17, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.8 Audit and Inspection", 15, 30);
@@ -582,6 +753,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 18: Administrative Requirements - Records
         doc.addPage();
         addHeaderFooter(doc, 18, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.9 Records", 15, 30);
@@ -595,6 +767,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 19: Administrative Requirements - Non-Compliance
         doc.addPage();
         addHeaderFooter(doc, 19, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("3.10 Non-Compliance and Penalties", 15, 30);
@@ -608,6 +781,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 20: Designer Responsibilities
         doc.addPage();
         addHeaderFooter(doc, 20, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("4. Designer Responsibilities", 10, 20);
@@ -623,6 +797,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 21: Operational Requirements - Training
         doc.addPage();
         addHeaderFooter(doc, 21, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("5. Operational Requirements", 10, 20);
@@ -654,6 +829,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 22: Operational Requirements - Supervision
         doc.addPage();
         addHeaderFooter(doc, 22, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.2 Supervision, Discipline, and Reporting", 15, 30);
@@ -667,6 +843,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 23: Operational Requirements - OHS Committee
         doc.addPage();
         addHeaderFooter(doc, 23, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.3 OHS Committee", 15, 30);
@@ -680,6 +857,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 24: Operational Requirements - Occupational Health
         doc.addPage();
         addHeaderFooter(doc, 24, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.4 Occupational Health", 15, 30);
@@ -708,6 +886,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 25: Operational Requirements - Safety and Security
         doc.addPage();
         addHeaderFooter(doc, 25, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.5 Safety and Security", 15, 30);
@@ -721,6 +900,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 26: Operational Requirements - Emergency Preparedness
         doc.addPage();
         addHeaderFooter(doc, 26, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.6 Emergency Preparedness", 15, 30);
@@ -749,6 +929,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 27: Operational Requirements - Work Procedures
         doc.addPage();
         addHeaderFooter(doc, 27, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.7 Work Procedures", 15, 30);
@@ -762,6 +943,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 28: Operational Requirements - Welfare Facilities
         doc.addPage();
         addHeaderFooter(doc, 28, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.8 Welfare Facilities", 15, 30);
@@ -775,6 +957,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 29: Operational Requirements - Cooperation
         doc.addPage();
         addHeaderFooter(doc, 29, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.9 Cooperation", 15, 30);
@@ -788,6 +971,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 30: Operational Requirements - Subcontractors
         doc.addPage();
         addHeaderFooter(doc, 30, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.10 Subcontractors", 15, 30);
@@ -801,6 +985,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 31: Operational Requirements - Public and Visitor Safety
         doc.addPage();
         addHeaderFooter(doc, 31, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.11 Public and Site Visitor Health & Safety", 15, 30);
@@ -814,6 +999,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 32: Operational Requirements - Access to Site
         doc.addPage();
         addHeaderFooter(doc, 32, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.12 Access to Site", 15, 30);
@@ -827,6 +1013,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 33: Operational Requirements - Housekeeping
         doc.addPage();
         addHeaderFooter(doc, 33, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.13 Housekeeping", 15, 30);
@@ -840,6 +1027,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 34: Operational Requirements - Intoxication
         doc.addPage();
         addHeaderFooter(doc, 34, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.14 Intoxication", 15, 30);
@@ -853,6 +1041,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 35: Operational Requirements - Environmental Impact
         doc.addPage();
         addHeaderFooter(doc, 35, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("5.15 Environmental Impact and Sustainability", 15, 30);
@@ -866,6 +1055,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 36: Physical Requirements
         doc.addPage();
         addHeaderFooter(doc, 36, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("6. Physical Requirements", 10, 20);
@@ -931,6 +1121,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 37: Physical Requirements (Continued)
         doc.addPage();
         addHeaderFooter(doc, 37, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
         doc.text("6.9 Lockout: Electrical & Mechanical", 15, 30);
@@ -979,6 +1170,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 38: General Contract Requirements
         doc.addPage();
         addHeaderFooter(doc, 38, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("7. General Contract Requirements", 10, 20);
@@ -1023,6 +1215,7 @@ function generateOHSSpecPDF(formData, isPreview = false) {
         // Page 39: Responsibilities Table
         doc.addPage();
         addHeaderFooter(doc, 39, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("8. Responsibilities Table", 10, 20);
@@ -1091,9 +1284,10 @@ function generateOHSSpecPDF(formData, isPreview = false) {
             headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
         });
 
-        // Page 40: Acknowledgement
+        // Page 40: Acknowledgement (Editable Fields)
         doc.addPage();
         addHeaderFooter(doc, 40, formData.projectName);
+        addNoticeAndDisclaimer();
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.text("9. Acknowledgement", 10, 20);
@@ -1143,7 +1337,16 @@ document.getElementById("project-form")?.addEventListener("submit", function (e)
     const duration = parseInt(document.getElementById("duration")?.value || "0", 10);
     const scopeDetails = document.getElementById("scope-details")?.value || "";
     const emergencyContact = document.getElementById("emergency-contact")?.value || "";
+    const accreditationLevel = document.getElementById("accreditation-level")?.value || "";
+    const sacpcmpReg = document.getElementById("sacpcmp-reg")?.value || "";
 
+    if (accreditationLevel === "sacpcmp-officer" || accreditationLevel === "sacpcmp-agent") {
+        if (!sacpcmpReg) {
+            console.log("Validation failed: SACPCMP registration number required");
+            alert("Please enter your SACPCMP registration number.");
+            return;
+        }
+    }
     if (!emergencyContact.match(/^\+?\d{10,}$/)) {
         console.log("Validation failed: Invalid emergency contact");
         alert("Please enter a valid phone number for emergency contact (e.g., +27123456789).");
@@ -1171,7 +1374,7 @@ document.getElementById("project-form")?.addEventListener("submit", function (e)
         contractorName: document.getElementById("contractor-name")?.value || "Unknown Contractor",
         siteAddress: document.getElementById("site-address")?.value || "N/A",
         contractsManager: document.getElementById("contracts-manager")?.value || "N/A",
-        managingDirector: document.getElementById("managing-director")?.value || "N/A",
+        managingDirector: document.getElementById("managing-director")?.
         typeOfWork: document.getElementById("type-of-work")?.value || "N/A",
         workArea: document.getElementById("work-area")?.value || "N/A",
         emergencyContact,
@@ -1183,10 +1386,11 @@ document.getElementById("project-form")?.addEventListener("submit", function (e)
         duration,
         activities: Array.from(document.querySelectorAll('input[name="activities"]:checked')).map((input) => input.value),
         cidbGrade: document.getElementById("cidb-grade")?.value || "Not Applicable",
-        dateCompiled: "April 14, 2025",
-        sacpcmpReg: document.getElementById("sacpcmp-reg")?.value || "",
+        dateCompiled: "May 05, 2025",
+        sacpcmpReg,
         scaffoldSupervisor: document.getElementById("scaffold-supervisor")?.value || "",
         asbestosCoordinator: document.getElementById("asbestos-coordinator")?.value || "",
+        accreditationLevel
     };
     console.log("Form data prepared for PDF generation:", formData);
 
@@ -1201,13 +1405,21 @@ document.getElementById("project-form")?.addEventListener("submit", function (e)
             const row = document.createElement("tr");
             row.innerHTML = `<td>OHS Specifications - ${formData.projectName}</td><td>R250</td>`;
             cartItems.appendChild(row);
+            // Scroll to cart
+            cartContainer.scrollIntoView({ behavior: "smooth" });
         } else {
             console.error("Cart items or container not found");
         }
     }
+
+    // Save reference number for non-logged-in users
+    if (!loggedIn()) {
+        const refNumber = saveTempData(formData);
+        alert(`Your document has been generated. Reference Number: ${refNumber}\nUse this number to retrieve your document within 7 days if not logged in.`);
+    }
 });
 
-// Compliance Checklist Logic (for Contractors)
+// Contractor Compliance Checklist Logic (Section 5.3 - Part of H&S File Management)
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM loaded, initializing Compliance Checklist");
 
@@ -1377,27 +1589,24 @@ document.addEventListener("DOMContentLoaded", () => {
                             <option value="Pending">Pending</option>
                         </select>
                     </td>
-                    <td>
-                        <input type="text" name="notes-${index}" placeholder="Add evidence/notes" aria-label="Evidence or notes for ${item.requirement}">
-                    </td>
+                    <td><input type="text" name="notes-${index}" placeholder="Add evidence/notes" aria-label="Evidence/Notes for ${item.requirement}"></td>
                 </tr>
             `;
         });
 
         // Enable/disable Next button
-        const updateStatusButton = () => {
-            const selects = document.querySelectorAll('select[name^="status-"]');
-            const allSelected = Array.from(selects).every(select => select.value);
-            console.log(`Update Status Next button: All statuses selected: ${allSelected}`);
+        const updateNextButton = () => {
+            const allSelected = Array.from(document.querySelectorAll('select[name^="status-"]')).every(select => select.value);
+            console.log(`Update Next button: All statuses selected: ${allSelected}`);
             statusForm.querySelector("button[type='submit']").disabled = !allSelected;
         };
         document.querySelectorAll('select[name^="status-"]').forEach(select => {
-            select.addEventListener("change", updateStatusButton);
+            select.addEventListener("change", updateNextButton);
         });
-        updateStatusButton();
+        updateNextButton();
     }
 
-    // Step 3: Status
+    // Step 3: Assign Status
     if (statusForm) {
         statusForm.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -1406,7 +1615,7 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedRequirements.forEach((item, index) => {
                 statuses[item.requirement] = {
                     status: document.querySelector(`select[name="status-${index}"]`).value,
-                    notes: document.querySelector(`input[name="notes-${index}"]`).value || "N/A"
+                    notes: document.querySelector(`input[name="notes-${index}"]`).value
                 };
             });
             console.log("Statuses:", statuses);
@@ -1441,39 +1650,63 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         });
 
-        // Show compliance note for large projects
-        const cost = parseFloat(document.getElementById("cost")?.value || "0");
-        const duration = parseInt(document.getElementById("duration")?.value || "0", 10);
-        if (cost > 40000 || duration > 180) {
-            console.log("Showing compliance note for large project");
+        // Show compliance note based on cost and duration
+        if (checklistDetails.cost > 40000 || checklistDetails.duration > 180) {
+            console.log("Showing compliance note for high cost/duration project");
             complianceNote.classList.remove("hidden");
         }
     }
 
-    // Step 4: Review and Generate
+    // Step 4: Review and Details
     if (reviewForm) {
         reviewForm.addEventListener("submit", (e) => {
             e.preventDefault();
             console.log("Review form submitted");
-            checklistDetails = {
-                ...checklistDetails,
-                siteName: document.getElementById("site-name")?.value || "Unnamed Site",
-                siteAddress: document.getElementById("site-address")?.value || "N/A",
-                siteLocation: document.getElementById("site-location")?.value || "N/A",
-                conductorName: document.getElementById("conductor-name")?.value || "N/A",
-                conductorRole: document.getElementById("conductor-role")?.value || "N/A",
-                conductorEmail: document.getElementById("conductor-email")?.value || "N/A",
-                conductorPhone: document.getElementById("conductor-phone")?.value || "N/A",
-                companyName: document.getElementById("company-name")?.value || "N/A",
-                companyContact: document.getElementById("company-contact")?.value || "N/A",
-                companyRole: document.getElementById("company-role")?.value || "N/A",
-                companyDetails: document.getElementById("company-details")?.value || "N/A",
-                customNotes: document.getElementById("custom-notes")?.value || "N/A",
-                dateCompiled: "April 14, 2025"
+            const reviewData = {
+                siteName: document.getElementById("site-name").value,
+                siteAddress: document.getElementById("site-address").value,
+                siteLocation: document.getElementById("site-location").value,
+                conductorName: document.getElementById("conductor-name").value,
+                conductorRole: document.getElementById("conductor-role").value,
+                conductorEmail: document.getElementById("conductor-email").value,
+                conductorPhone: document.getElementById("conductor-phone").value,
+                companyName: document.getElementById("company-name").value,
+                companyContact: document.getElementById("company-contact").value,
+                companyRole: document.getElementById("company-role").value,
+                companyDetails: document.getElementById("company-details").value,
+                customNotes: document.getElementById("custom-notes").value,
+                checklistType: checklistDetails.checklistType,
+                requirements: selectedRequirements.map(item => ({
+                    ...item,
+                    status: statuses[item.requirement].status,
+                    notes: statuses[item.requirement].notes
+                })),
+                dateCompiled: "May 05, 2025"
             };
-            console.log("Checklist details prepared:", checklistDetails);
-            generateCompliancePDF();
-            showStep("step-5");
+            console.log("Review data:", reviewData);
+
+            // Generate PDF
+            const doc = generateComplianceChecklistPDF(reviewData);
+            if (doc) {
+                const cartItems = document.getElementById("cart-items");
+                const cartContainer = document.getElementById("cart-container");
+                if (cartItems && cartContainer) {
+                    console.log("Adding Compliance Checklist to cart");
+                    cartContainer.classList.remove("hidden");
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>Compliance Checklist - ${reviewData.siteName}</td><td>R150</td>`;
+                    cartItems.appendChild(row);
+                } else {
+                    console.error("Cart items or container not found");
+                }
+
+                // Save reference number for non-logged-in users
+                if (!loggedIn()) {
+                    const refNumber = saveTempData(reviewData);
+                    document.getElementById("ref-number").textContent = refNumber;
+                }
+                showStep("step-5");
+            }
         });
 
         reviewForm.querySelector(".back-btn")?.addEventListener("click", () => {
@@ -1484,160 +1717,168 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Review form not found");
     }
 
-    // Generate Compliance Checklist PDF
-    function generateCompliancePDF() {
-        console.log("Generating Compliance Checklist PDF");
-        if (!jsPDF) {
-            alert("PDF generation failed: Required library not loaded.");
-            console.error("jsPDF unavailable for Compliance Checklist.");
-            return;
-        }
-
-        try {
-            const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-
-            // Page 1: Cover
-            doc.setFillColor(255, 255, 255);
-            doc.rect(0, 0, 210, 297, "F");
-            addHeaderFooter(doc, 1, checklistDetails.siteName);
-            doc.setFontSize(20);
-            doc.setFont("helvetica", "bold");
-            doc.text(`Compliance Checklist: ${checklistDetails.siteName}`, 105, 50, { align: "center" });
-            doc.autoTable({
-                startY: 80,
-                head: [["Field", "Details"]],
-                body: [
-                    ["Document No", "CMP-2025-001"],
-                    ["Revision", "1.0"],
-                    ["Date Issued", checklistDetails.dateCompiled],
-                    ["Site Name", checklistDetails.siteName],
-                    ["Checklist Type", checklistDetails.checklistType.charAt(0).toUpperCase() + checklistDetails.checklistType.slice(1)],
-                    ["Conducted By", checklistDetails.conductorName],
-                    ["Company", checklistDetails.companyName],
-                ],
-                theme: "grid",
-                styles: { fontSize: 10, cellPadding: 3 },
-                headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
-            });
-            doc.setFontSize(8);
-            doc.setFont("helvetica", "italic");
-            doc.text(
-                "This checklist ensures compliance with OHSA and Construction Regulations.",
-                105,
-                280,
-                { align: "center" }
-            );
-
-            // Page 2: Details
-            doc.addPage();
-            addHeaderFooter(doc, 2, checklistDetails.siteName);
-            doc.setFontSize(12);
-            doc.setFont("helvetica", "bold");
-            doc.text("Checklist Details", 10, 20);
-            doc.autoTable({
-                startY: 30,
-                head: [["Field", "Details"]],
-                body: [
-                    ["Site Address", checklistDetails.siteAddress],
-                    ["Location", checklistDetails.siteLocation],
-                    ["Conductor Role", checklistDetails.conductorRole],
-                    ["Conductor Email", checklistDetails.conductorEmail],
-                    ["Conductor Phone", checklistDetails.conductorPhone],
-                    ["Company Contact", checklistDetails.companyContact],
-                    ["Company Role", checklistDetails.companyRole],
-                    ["Company Details", checklistDetails.companyDetails],
-                    ["Custom Notes", checklistDetails.customNotes],
-                ],
-                theme: "grid",
-                styles: { fontSize: 10, cellPadding: 3 },
-            });
-
-            // Page 3: Compliance Status
-            doc.addPage();
-            addHeaderFooter(doc, 3, checklistDetails.siteName);
-            doc.setFontSize(12);
-            doc.setFont("helvetica", "bold");
-            doc.text("Compliance Status", 10, 20);
-            doc.autoTable({
-                startY: 30,
-                head: [["Requirement", "Description", "Legal Reference", "Status", "Evidence/Notes"]],
-                body: selectedRequirements.map(item => [
-                    item.requirement,
-                    item.description,
-                    item.legal,
-                    statuses[item.requirement].status,
-                    statuses[item.requirement].notes
-                ]),
-                theme: "grid",
-                styles: { fontSize: 8, cellPadding: 2 },
-                headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
-                columnStyles: {
-                    0: { cellWidth: 30 },
-                    1: { cellWidth: 50 },
-                    2: { cellWidth: 40 },
-                    3: { cellWidth: 30 },
-                    4: { cellWidth: 40 },
-                },
-            });
-
-            // Save PDF
-            console.log("Saving Compliance Checklist PDF");
-            doc.save(`Compliance_Checklist_${checklistDetails.siteName.replace(/\s+/g, "_")}.pdf`);
-
-            // Update Cart
-            const cartItems = document.getElementById("cart-items");
-            const cartContainer = document.getElementById("cart-container");
-            if (cartItems && cartContainer) {
-                console.log("Adding Compliance Checklist to cart");
-                cartContainer.classList.remove("hidden");
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>Compliance Checklist - ${checklistDetails.siteName}</td><td>R150</td>`;
-                cartItems.appendChild(row);
-            } else {
-                console.error("Cart items or container not found for Compliance Checklist");
-            }
-        } catch (error) {
-            console.error("Compliance PDF generation error:", error);
-            alert("Failed to generate Compliance Checklist PDF. Please try again.");
-        }
-    }
-
-    // Step 5: Guidance Actions
-    document.getElementById("download-again")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("Download Again button clicked");
-        generateCompliancePDF();
+    // Step 5: Download & Next Steps
+    document.getElementById("download-again")?.addEventListener("click", () => {
+        console.log("Download again clicked");
+        const reviewData = {
+            siteName: document.getElementById("site-name").value,
+            siteAddress: document.getElementById("site-address").value,
+            siteLocation: document.getElementById("site-location").value,
+            conductorName: document.getElementById("conductor-name").value,
+            conductorRole: document.getElementById("conductor-role").value,
+            conductorEmail: document.getElementById("conductor-email").value,
+            conductorPhone: document.getElementById("conductor-phone").value,
+            companyName: document.getElementById("company-name").value,
+            companyContact: document.getElementById("company-contact").value,
+            companyRole: document.getElementById("company-role").value,
+            companyDetails: document.getElementById("company-details").value,
+            customNotes: document.getElementById("custom-notes").value,
+            checklistType: checklistDetails.checklistType,
+            requirements: selectedRequirements.map(item => ({
+                ...item,
+                status: statuses[item.requirement].status,
+                notes: statuses[item.requirement].notes
+            })),
+            dateCompiled: "May 05, 2025"
+        };
+        generateComplianceChecklistPDF(reviewData);
     });
 
-    document.getElementById("start-new")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("Start New Checklist button clicked");
+    document.getElementById("start-new")?.addEventListener("click", () => {
+        console.log("Start new checklist clicked");
         selectedRequirements = [];
         statuses = {};
         checklistDetails = {};
-        reviewTableBody.innerHTML = "";
-        statusTableBody.innerHTML = "";
-        requirementGroups.innerHTML = "";
-        requirementsForm.querySelector("button[type='submit']").disabled = true;
-        statusForm.querySelector("button[type='submit']").disabled = true;
-        complianceNote.classList.add("hidden");
-        document.getElementById("checklist-type").value = "";
-        document.getElementById("requirement-search").value = "";
-        reviewForm.reset();
         showStep("step-1");
+    });
+
+    document.getElementById("checkout-btn")?.addEventListener("click", () => {
+        console.log("Proceed to checkout clicked");
+        const cartContainer = document.getElementById("cart-container");
+        if (cartContainer) {
+            cartContainer.classList.remove("hidden");
+            cartContainer.scrollIntoView({ behavior: "smooth" });
+        }
     });
 });
 
-// Checkout
+// Generate Compliance Checklist PDF (Editable with Notice and Disclaimer)
+function generateComplianceChecklistPDF(data) {
+    console.log("Generating Compliance Checklist PDF with data:", data);
+    if (!jsPDF) {
+        alert("PDF generation failed: Required library not loaded. Please try again or contact support.");
+        return;
+    }
+
+    try {
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+        // Add Notice and Disclaimer on Every Page
+        const addNoticeAndDisclaimer = () => {
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 0, 255);
+            doc.text("Compiled with safetyfirst.help", 105, 10, { align: "center" });
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "italic");
+            doc.setTextColor(0, 0, 0);
+            doc.text(
+                "Disclaimer: The tools provided by safetyfirst.help are intended to assist in compiling health and safety documentation. The person compiling the document remains accountable for the accuracy and compliance of the data provided.",
+                105,
+                285,
+                { align: "center", maxWidth: 190 }
+            );
+        };
+
+        // Page 1: Cover
+        doc.setFillColor(255, 255, 255);
+        doc.rect(0, 0, 210, 297, "F");
+        addHeaderFooter(doc, 1, data.siteName);
+        addNoticeAndDisclaimer();
+        doc.setFontSize(20);
+        doc.setFont("helvetica", "bold");
+        doc.text(`Compliance Checklist: ${data.siteName}`, 105, 50, { align: "center" });
+        doc.autoTable({
+            startY: 80,
+            head: [["Field", "Details"]],
+            body: [
+                ["Site Name", data.siteName],
+                ["Checklist Type", data.checklistType],
+                ["Date Compiled", data.dateCompiled],
+                ["Conducted By", data.conductorName],
+                ["Company Name", data.companyName],
+            ],
+            theme: "grid",
+            styles: { fontSize: 10, cellPadding: 3 },
+            headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
+        });
+
+        // Page 2: Checklist Details
+        doc.addPage();
+        addHeaderFooter(doc, 2, data.siteName);
+        addNoticeAndDisclaimer();
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("Checklist Details", 10, 20);
+        doc.autoTable({
+            startY: 30,
+            head: [["Requirement", "Description", "Legal Reference", "Status", "Evidence/Notes"]],
+            body: data.requirements.map(req => [
+                req.requirement,
+                req.description,
+                req.legal,
+                req.status,
+                req.notes
+            ]),
+            theme: "grid",
+            styles: { fontSize: 8, cellPadding: 2 },
+            headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
+        });
+
+        // Page 3: Additional Details (Editable Fields)
+        doc.addPage();
+        addHeaderFooter(doc, 3, data.siteName);
+        addNoticeAndDisclaimer();
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("Additional Details", 10, 20);
+        doc.autoTable({
+            startY: 30,
+            head: [["Field", "Details"]],
+            body: [
+                ["Site Address", data.siteAddress],
+                ["Location", data.siteLocation],
+                ["Conductor Role", data.conductorRole],
+                ["Conductor Email", data.conductorEmail],
+                ["Conductor Phone", data.conductorPhone],
+                ["Company Contact", data.companyContact],
+                ["Company Role", data.companyRole],
+                ["Company Details", data.companyDetails],
+                ["Additional Notes", data.customNotes],
+            ],
+            theme: "grid",
+            styles: { fontSize: 10, cellPadding: 3 },
+            headStyles: { fillColor: [26, 37, 38], textColor: [255, 255, 255] },
+        });
+
+        // Save PDF
+        doc.save(`Compliance_Checklist_${data.siteName.replace(/\s+/g, "_")}.pdf`);
+        return doc;
+    } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to generate PDF. Please check your inputs and try again.");
+    }
+}
+
+// Cart Checkout Logic
 document.getElementById("checkout-btn")?.addEventListener("click", () => {
     console.log("Checkout button clicked");
-    const promoCode = document.getElementById("promo-code")?.value;
-    if (promoCode === "SAFETYFREE2025") {
-        console.log("Valid promo code applied");
-        alert("Promo code applied! Document downloaded.");
+    const promoCode = document.getElementById("promo-code").value.trim();
+    if (promoCode === "SAFETYFIRST25") {
+        alert("Promo code applied! Your documents have been downloaded for free.");
+        document.getElementById("cart-items").innerHTML = "";
+        document.getElementById("cart-container").classList.add("hidden");
     } else {
-        console.log("Invalid promo code, proceeding to payment");
-        alert("Invalid promo code. Proceed to payment.");
-        setTimeout(() => alert("Payment successful!"), 1000);
+        alert("Invalid promo code. Please try again or proceed with payment (to be implemented).");
     }
 });
