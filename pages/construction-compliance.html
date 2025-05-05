@@ -49,541 +49,388 @@
             <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
             <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
             <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> Legal Appointments</a>
-            <aickness: 0px;
-            margin-left: 200px;
-            padding: 15px;
-            min-height: 100vh;
-        }
-
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .intro p {
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        /* Legal Carousel */
-        .legal-carousel {
-            margin: 10px 0;
-            position: relative;
-        }
-
-        .legal-carousel h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .carousel-items {
-            overflow: hidden;
-            position: relative;
-            height: 200px;
-        }
-
-        .carousel-item {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-        }
-
-        .carousel-item h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .carousel-item p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .carousel-prev, .carousel-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .carousel-prev {
-            left: 0;
-        }
-
-        .carousel-next {
-            right: 0;
-        }
-
-        .carousel-prev:hover, .carousel-next:hover {
-            background-color: #e65a50;
-        }
-
-        /* Role Selection */
-        .role-selection {
-            margin: 10px 0;
-        }
-
-        .role-selection h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .legal-note {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-            padding: 6px;
-            background-color: #e0f7fa;
-            border-radius: 3px;
-        }
-
-        .legal-note strong {
-            color: #ff6f61;
-        }
-
-        .role-btn {
-            padding: 6px 12px;
-            margin-right: 8px;
-            background-color: #1a2526;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .role-btn:hover {
-            background-color: #2a3536;
-        }
-
-        /* Forms */
-        .form-container,
-        #compliance-form {
-            margin: 10px 0;
-        }
-
-        .form-container h3,
-        #compliance-form h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 8px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 3px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            max-width: 300px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .checkbox-group label {
-            font-weight: normal;
-            display: inline;
-            margin-left: 5px;
-            font-size: 14px;
-        }
-
-        button[type="submit"],
-        .back-btn,
-        #compile-bra-btn,
-        #compile-hs-plan-btn,
-        #manage-hs-file-btn,
-        #conduct-hira-btn,
-        #manage-appointments-btn,
-        #manage-incidents-btn {
-            padding: 6px 12px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-top: 8px;
-            margin-right: 8px;
-            font-size: 14px;
-        }
-
-        button[type="submit"]:hover,
-        .back-btn:hover,
-        #compile-bra-btn:hover,
-        #compile-hs-plan-btn:hover,
-        #manage-hs-file-btn:hover,
-        #conduct-hira-btn:hover,
-        #manage-appointments-btn:hover,
-        #manage-incidents-btn:hover {
-            background-color: #e65a50;
-        }
-
-        .back-btn {
-            background-color: #666;
-        }
-
-        .back-btn:hover {
-            background-color: #555;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Compliance Checklist Steps */
-        .step h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .requirement-group h4 {
-            cursor: pointer;
-            background-color: #e0e0e0;
-            padding: 4px 8px;
-            margin: 6px 0;
-            font-size: 14px;
-            border-radius: 3px;
-        }
-
-        .requirement-group ul {
-            list-style: none;
-            padding-left: 8px;
-        }
-
-        .requirement-group li {
-            padding: 4px 0;
-            font-size: 14px;
-        }
-
-        .suggested-label {
-            color: #ff6f61;
-            font-style: italic;
-            margin-left: 5px;
-        }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-        }
-
-        table th,
-        table td {
-            border: 1px solid #ddd;
-            padding: 5px;
-            text-align: left;
-            font-size: 12px;
-        }
-
-        table th {
-            background-color: #1a2526;
-            color: white;
-        }
-
-        .compliance-note {
-            background-color: #fff3cd;
-            padding: 6px;
-            border-radius: 3px;
-            margin: 8px 0;
-            font-size: 14px;
-        }
-
-        /* Cart */
-        .cart-container {
-            margin: 10px 0;
-        }
-
-        .cart-container h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .checkout {
-            margin-top: 8px;
-        }
-
-        .checkout input {
-            padding: 5px;
-            margin-right: 8px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        #checkout-btn {
-            padding: 6px 12px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #checkout-btn:hover {
-            background-color: #e65a50;
-        }
-
-        /* Resources Section */
-        .resources {
-            margin: 10px 0;
-        }
-
-        .resources h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .resources ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .resources li {
-            padding: 6px 0;
-            font-size: 14px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .resources li:last-child {
-            border-bottom: none;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        footer p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #ff6f61;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .newsletter {
-            margin-top: 8px;
-        }
-
-        .newsletter h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .newsletter input {
-            padding: 5px;
-            border: none;
-            border-radius: 2px;
-            margin-right: 8px;
-            font-size: 14px;
-            width: 150px;
-        }
-
-        .newsletter button {
-            padding: 5px 10px;
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .newsletter button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Chatbot */
-        .chatbot-container {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            z-index: 1000;
-        }
-
-        .chat-toggle-btn {
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-toggle-btn:hover {
-            background-color: #e65a50;
-        }
-
-        .chat-icon {
-            margin-right: 5px;
-            font-size: 16px;
-        }
-
-        #chat-window {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            width: 250px;
-            max-height: 350px;
-            overflow-y: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            margin-top: 8px;
-        }
-
-        .chat-hidden {
-            display: none;
-        }
-
-        #chat-output {
-            padding: 8px;
-            font-size: 14px;
-            flex: 1;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #chat-input {
-            width: 70%;
-            padding: 8px;
-            border: none;
-            border-top: 1px solid #ddd;
-            font-size: 14px;
-        }
-
-        #chat-send {
-            width: 30%;
-            padding: 8px;
-            background-color: #1a2526;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #chat-send:hover {
-            background-color: #2a3536;
-        }
-
-        /* Accessibility Focus Styles */
-        a:focus, button:focus, input:focus, select:focus, textarea:focus {
-            outline: 2px solid #ff6f61;
-            outline-offset: 2px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            header {
-                position: relative;
-            }
-
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .logo-placeholder {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .intro {
-                margin: 10px;
-            }
-
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-links a {
-                margin: 5px 8px;
-            }
-
-            .role-btn {
-                display: block;
-                width: 100%;
-                margin: 5px 0;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                max-width: 100%;
-            }
-
-            .chat-window {
-                width: 90%;
-                right: 5%;
-            }
-        }
-    </style>
+            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> Incident Management</a>
+            <a href="/safety-plans/pages/general-induction.html" class="disabled" title="Coming Soon"><span class="icon">🎓</span> General Induction</a>
+            <a href="/safety-plans/pages/inspections-audits.html" class="disabled" title="Coming Soon"><span class="icon">🔍</span> Inspections & Audits</a>
+            <a href="/safety-plans/pages/toolbox-talks.html" class="disabled" title="Coming Soon"><span class="icon">🛠️</span> Toolbox Talks</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <section class="intro">
+            <h2>Construction Health and Safety</h2>
+            <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
+            <p>Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
+
+            <!-- Legal Obligations Carousel -->
+            <div class="legal-carousel">
+                <h3>Legal Obligations</h3>
+                <div class="carousel-items">
+                    <div class="carousel-item">
+                        <h4>Client Obligations</h4>
+                        <p><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
+                        <p><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
+                        <p><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h4>Contractor Obligations</h4>
+                        <p><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
+                        <p><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
+                        <p><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h4>H&S Professional Obligations</h4>
+                        <p><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
+                        <p><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
+                        <p><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
+                    </div>
+                </div>
+                <button class="carousel-prev" aria-label="Previous carousel item">Previous</button>
+                <button class="carousel-next" aria-label="Next carousel item">Next</button>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="role-selection">
+                <h3>Select Your Role</h3>
+                <p class="legal-note hidden" id="client-legal-note"><strong>Legal Note:</strong> As a Client, you are responsible for initiating the H&S process, including preparing a Baseline Risk Assessment and H&S Specification (Construction Regulation 5).</p>
+                <p class="legal-note hidden" id="contractor-legal-note"><strong>Legal Note:</strong> Contractors must develop a Health & Safety Plan and maintain an H&S File on-site (Construction Regulation 7).</p>
+                <p class="legal-note hidden" id="hns-pro-legal-note"><strong>Legal Note:</strong> H&S Professionals support compliance on behalf of Clients or Contractors, often requiring SACPCMP registration (Construction Regulation 8(5)).</p>
+                <button id="client-btn" class="role-btn">Client</button>
+                <button id="contractor-btn" class="role-btn">Contractor</button>
+                <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
+            </div>
+
+            <!-- OHS Specification Form (for H&S Professionals and Clients) -->
+            <div id="project-form-container" class="form-container hidden">
+                <h3>Generate OHS Specification</h3>
+                <p class="legal-note"><strong>Legal Note:</strong> The H&S Specification outlines project-specific requirements, per Construction Regulation 5(1)(b). Ensure all details are accurate.</p>
+                <form id="project-form">
+                    <div class="form-group">
+                        <label for="accreditation-level">Accreditation Level:</label>
+                        <select id="accreditation-level" name="accreditationLevel" required aria-label="Accreditation Level" aria-describedby="accreditation-level-error">
+                            <option value="none">None</option>
+                            <option value="trainee">Trainee</option>
+                            <option value="ohs-rep">OHS Representative</option>
+                            <option value="sacpcmp-officer">SACPCMP Officer (CHSO)</option>
+                            <option value="sacpcmp-agent">SACPCMP Agent (PrCHSA)</option>
+                        </select>
+                        <p id="accreditation-level-error" class="error hidden">Please select an accreditation level.</p>
+                    </div>
+                    <div class="form-group hidden" id="sacpcmp-reg-container">
+                        <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
+                        <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration" aria-describedby="sacpcmp-reg-error">
+                        <p id="sacpcmp-reg-error" class="error hidden">SACPCMP Registration Number is required for Officer or Agent roles.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-name">Project Name:</label>
+                        <input type="text" id="project-name" name="projectName" required aria-label="Project Name" aria-describedby="project-name-error">
+                        <p id="project-name-error" class="error hidden">Please enter a project name.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-name">Client Company Name:</label>
+                        <input type="text" id="client-name" name="clientName" required aria-label="Client Name" aria-describedby="client-name-error">
+                        <p id="client-name-error" class="error hidden">Please enter a client company name.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="contractor-name">Contractor Company Name:</label>
+                        <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name" aria-describedby="contractor-name-error">
+                        <p id="contractor-name-error" class="error hidden">Please enter a contractor company name.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="site-address">Site Address:</label>
+                        <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address" aria-describedby="site-address-error">
+                        <p id="site-address-error" class="error hidden">Please enter a site address.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="type-of-work">Type of Work to be Done:</label>
+                        <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work" aria-describedby="type-of-work-error">
+                        <p id="type-of-work-error" class="error hidden">Please enter the type of work.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required aria-label="Project Location" aria-describedby="location-error">
+                        <p id="location-error" class="error hidden">Please enter a location.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="cost">Cost (R):</label>
+                        <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost" aria-describedby="cost-error">
+                        <p id="cost-error" class="error hidden">Please enter a valid project cost (R).</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration (Days):</label>
+                        <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration" aria-describedby="duration-error">
+                        <p id="duration-error" class="error hidden">Please enter a valid duration (days).</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="emergency-contact">Emergency Contact:</label>
+                        <input type="tel" id="emergency-contact" name="emergencyContact" required aria-label="Emergency Contact" pattern="\+?[0-9\s\-()]{10,}" aria-describedby="emergency-contact-error">
+                        <p id="emergency-contact-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="workmans-comp">COIDA Registration Number:</label>
+                        <input type="text" id="workmans-comp" name="workmansComp" required aria-label="COIDA Registration Number" aria-describedby="workmans-comp-error">
+                        <p id="workmans-comp-error" class="error hidden">Please enter a COIDA registration number.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Activities Involved:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding">
+                            <label for="scaffolding">Scaffolding</label>
+                            <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction">
+                            <label for="multi-storey">Multi-Storey Construction</label>
+                            <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
+                            <label for="asbestos">Asbestos Removal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidb-grade">CIDB Grading:</label>
+                        <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading" aria-describedby="cidb-grade-error">
+                            <option value="Not Applicable">Not Applicable</option>
+                            <option value="1">Grade 1</option>
+                            <option value="2">Grade 2</option>
+                            <option value="3">Grade 3</option>
+                            <option value="4">Grade 4</option>
+                            <option value="5">Grade 5</option>
+                            <option value="6">Grade 6</option>
+                            <option value="7">Grade 7</option>
+                            <option value="8">Grade 8</option>
+                            <option value="9">Grade 9</option>
+                        </select>
+                        <p id="cidb-grade-error" class="error hidden">Please select a CIDB grading.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="scope-details">Scope Details:</label>
+                        <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details" aria-describedby="scope-details-error"></textarea>
+                        <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
+                    </div>
+                    <div id="dynamic-fields"></div>
+                    <button type="submit">Generate Documents</button>
+                    <button type="button" id="compile-bra-btn">Compile Baseline Risk Assessment</button>
+                    <button type="button" id="compile-hs-plan-btn">Compile Health & Safety Plan</button>
+                    <button type="button" id="manage-hs-file-btn">Manage Health & Safety File</button>
+                    <button type="button" id="conduct-hira-btn">Conduct HIRA</button>
+                    <button type="button" id="manage-appointments-btn">Manage Appointments</button>
+                    <button type="button" id="manage-incidents-btn">Manage Incidents</button>
+                </form>
+            </div>
+
+            <!-- Compliance Checklist Form (for Contractors) -->
+            <section id="compliance-form" class="hidden">
+                <h3>Compliance Checklist</h3>
+                <p class="legal-note"><strong>Legal Note:</strong> Contractors must maintain a Health & Safety File with a checklist of compliance items, per Construction Regulation 7(1)(b).</p>
+                <div id="step-1" class="step">
+                    <h4>Step 1: Select Checklist Type</h4>
+                    <form id="checklist-type-form">
+                        <div class="form-group">
+                            <label for="checklist-type">Checklist Type:</label>
+                            <select id="checklist-type" name="checklistType" required aria-label="Checklist Type" aria-describedby="checklist-type-error">
+                                <option value="">Select Checklist Type</option>
+                                <option value="general">General Safety</option>
+                                <option value="scaffolding">Scaffolding Safety</option>
+                                <option value="electrical">Electrical Safety</option>
+                                <option value="excavation">Excavation Safety</option>
+                            </select>
+                            <p id="checklist-type-error" class="error hidden">Please select a checklist type.</p>
+                        </div>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+
+                <div id="step-2" class="step hidden">
+                    <h4>Step 2: Select Requirements</h4>
+                    <p class="legal-note"><strong>Legal Note:</strong> Identify applicable requirements to include in your H&S File, ensuring compliance with site-specific hazards (Construction Regulation 9).</p>
+                    <form id="requirements-form">
+                        <div class="form-group">
+                            <label for="requirement-search">Search Requirements:</label>
+                            <input type="text" id="requirement-search" placeholder="Search..." aria-label="Search Requirements" aria-describedby="requirement-search-error">
+                            <p id="requirement-search-error" class="error hidden">Please select at least one requirement.</p>
+                        </div>
+                        <div id="requirement-groups"></div>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit" disabled>Next</button>
+                    </form>
+                </div>
+
+                <div id="step-3" class="step hidden">
+                    <h4>Step 3: Assign Status</h4>
+                    <p class="legal-note"><strong>Legal Note:</strong> Assigning status helps track compliance and informs audits (Construction Regulation 7(1)(c)(v)).</p>
+                    <form id="status-form">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Description</th>
+                                    <th>Legal Reference</th>
+                                    <th>Status</th>
+                                    <th>Evidence/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="status-table-body"></tbody>
+                        </table>
+                        <p id="status-error" class="error hidden">Please assign a status to all requirements.</p>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit" disabled>Next</button>
+                    </form>
+                </div>
+
+                <div id="step-4" class="step hidden">
+                    <h4>Step 4: Review and Details</h4>
+                    <p class="legal-note"><strong>Legal Note:</strong> Ensure all project details are accurate for inclusion in the H&S File (Construction Regulation 7(1)(b)).</p>
+                    <form id="review-form">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Description</th>
+                                    <th>Legal Reference</th>
+                                    <th>Status</th>
+                                    <th>Evidence/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="review-table-body"></tbody>
+                        </table>
+                        <div class="compliance-note hidden">
+                            <p><strong>Note:</strong> For projects over R40,000 or 180 days, ensure compliance with Construction Regulation 3 (Permit Requirements).</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-name">Site Name:</label>
+                            <input type="text" id="site-name" name="siteName" required aria-label="Site Name" aria-describedby="site-name-error">
+                            <p id="site-name-error" class="error hidden">Please enter a site name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-address">Site Address:</label>
+                            <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address" aria-describedby="site-address-error">
+                            <p id="site-address-error" class="error hidden">Please enter a site address.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-location">Location:</label>
+                            <input type="text" id="site-location" name="siteLocation" required aria-label="Site Location" aria-describedby="site-location-error">
+                            <p id="site-location-error" class="error hidden">Please enter a location.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-name">Conducted By (Name):</label>
+                            <input type="text" id="conductor-name" name="conductorName" required aria-label="Conductor Name" aria-describedby="conductor-name-error">
+                            <p id="conductor-name-error" class="error hidden">Please enter a conductor name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-role">Conductor Role:</label>
+                            <input type="text" id="conductor-role" name="conductorRole" required aria-label="Conductor Role" aria-describedby="conductor-role-error">
+                            <p id="conductor-role-error" class="error hidden">Please enter a conductor role.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-email">Conductor Email:</label>
+                            <input type="email" id="conductor-email" name="conductorEmail" required aria-label="Conductor Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-describedby="conductor-email-error">
+                            <p id="conductor-email-error" class="error hidden">Please enter a valid email address.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="conductor-phone">Conductor Phone:</label>
+                            <input type="tel" id="conductor-phone" name="conductorPhone" required aria-label="Conductor Phone" pattern="\+?[0-9\s\-()]{10,}" aria-describedby="conductor-phone-error">
+                            <p id="conductor-phone-error" class="error hidden">Please enter a valid phone number.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-name">Company Name:</label>
+                            <input type="text" id="company-name" name="companyName" required aria-label="Company Name" aria-describedby="company-name-error">
+                            <p id="company-name-error" class="error hidden">Please enter a company name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-contact">Company Contact Person:</label>
+                            <input type="text" id="company-contact" name="companyContact" required aria-label="Company Contact" aria-describedby="company-contact-error">
+                            <p id="company-contact-error" class="error hidden">Please enter a company contact person.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-role">Company Contact Role:</label>
+                            <input type="text" id="company-role" name="companyRole" required aria-label="Company Contact Role" aria-describedby="company-role-error">
+                            <p id="company-role-error" class="error hidden">Please enter a company contact role.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-details">Company Details:</label>
+                            <textarea id="company-details" name="companyDetails" rows="3" required aria-label="Company Details" aria-describedby="company-details-error"></textarea>
+                            <p id="company-details-error" class="error hidden">Please enter company details.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-notes">Additional Notes:</label>
+                            <textarea id="custom-notes" name="customNotes" rows="3" aria-label="Additional Notes"></textarea>
+                        </div>
+                        <button type="button" class="back-btn">Back</button>
+                        <button type="submit">Generate Checklist</button>
+                    </form>
+                </div>
+
+                <div id="step-5" class="step hidden">
+                    <h4>Step 5: Download & Next Steps</h4>
+                    <p>Your Compliance Checklist has been generated!</p>
+                    <p id="reference-number">Reference Number: <span id="ref-number"></span> (Use this to retrieve your document within 7 days if not logged in)</p>
+                    <p>
+                        <a href="#" id="download-again">Download Again</a> |
+                        <a href="#" id="start-new">Start New Checklist</a> |
+                        <a href="#" id="add-to-cart">Add to Cart</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Cart Section -->
+            <div id="cart-container" class="cart-container hidden">
+                <h3>Your Cart</h3>
+                <table id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+                <div class="checkout">
+                    <label for="promo-code">Promo Code:</label>
+                    <input type="text" id="promo-code" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code">
+                    <button id="checkout-btn">Checkout</button>
+                </div>
+            </div>
+
+            <!-- Resource Database -->
+            <section class="resources">
+                <h3>Contact Accredited H&S Professionals</h3>
+                <p>Need expert assistance? Reach out to accredited professionals for your project needs.</p>
+                <ul>
+                    <li><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: jane.doe@example.com</li>
+                    <li><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: john.smith@example.com</li>
+                    <li><strong>Emily Brown, OHS Representative</strong> - Contact: emily.brown@example.com</li>
+                </ul>
+            </section>
+        </section>
+
+        <footer>
+            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
+            <p>
+                <a href="/safety-plans/privacy.html">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html">Terms of Service</a> |
+                <a href="/safety-plans/contact.html">Contact Us</a>
+            </p>
+            <div class="newsletter">
+                <h3>Stay Updated</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn">
+            <span class="chat-icon">⛑️</span> Ask Me
+        </button>
+        <div id="chat-window" class="chat-hidden">
+            <div id="chat-output"></div>
+            <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS">
+            <button id="chat-send" aria-label="Send message">Send</button>
+        </div>
+    </div>
+
+    <script src="/safety-plans/assets/js/common.js"></script>
+    <script src="/safety-plans/assets/js/chatbot.js"></script>
+    <script src="/safety-plans/assets/js/ohs-data.js"></script>
+    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
+</body>
+</html>
