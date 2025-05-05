@@ -1,6 +1,6 @@
 /**
  * Construction Compliance JavaScript
- * Handles OHS Specification form, Compliance Checklist, role selection, and PDF generation.
+ * Handles OHS Specification form, role selection, and PDF generation.
  * Implements temporary data storage and cart functionality.
  */
 
@@ -29,66 +29,6 @@ if (!jsPDF) {
     console.error("jsPDF not loaded. Please check script inclusion.");
     alert("PDF generation library (jsPDF) not loaded. Please contact support.");
 }
-
-// Sample Compliance Database
-const complianceDatabase = [
-    {
-        group: "General Site Safety",
-        requirements: [
-            {
-                requirement: "PPE Provision",
-                description: "All workers have appropriate PPE (hard hats, safety boots, gloves, etc.)",
-                legal: "OHSA Section 8, Construction Regulation 5",
-                suggested: ["general"]
-            },
-            {
-                requirement: "Site Induction",
-                description: "All personnel trained on site-specific hazards and safety procedures",
-                legal: "Construction Regulation 7",
-                suggested: ["general"]
-            }
-        ]
-    },
-    {
-        group: "Scaffolding Safety",
-        requirements: [
-            {
-                requirement: "Scaffold Inspection",
-                description: "Weekly inspections by a competent person",
-                legal: "Construction Regulation 16, SANS 10085",
-                suggested: ["scaffolding"]
-            },
-            {
-                requirement: "Guardrails",
-                description: "Guardrails installed at heights above 2 meters",
-                legal: "Construction Regulation 16",
-                suggested: ["scaffolding"]
-            }
-        ]
-    },
-    {
-        group: "Electrical Safety",
-        requirements: [
-            {
-                requirement: "Electrical Inspections",
-                description: "Regular checks of electrical installations",
-                legal: "Construction Regulation 24",
-                suggested: ["electrical"]
-            }
-        ]
-    },
-    {
-        group: "Excavation Safety",
-        requirements: [
-            {
-                requirement: "Shoring Systems",
-                description: "Proper shoring to prevent collapses",
-                legal: "Construction Regulation 13",
-                suggested: ["excavation"]
-            }
-        ]
-    }
-];
 
 // Simulated User Authentication
 let currentUser = null; // { id: string, role: string, email: string, projects: string[] }
@@ -239,10 +179,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const contractorBtn = document.getElementById("contractor-btn");
     const hnsProBtn = document.getElementById("hns-pro-btn");
     const projectFormContainer = document.getElementById("project-form-container");
-    const complianceForm = document.getElementById("compliance-form");
+    const formTitle = document.getElementById("form-title");
 
-    if (!projectFormContainer || !complianceForm) {
-        console.error("Form containers not found: #project-form-container or #compliance-form missing.");
+    if (!projectFormContainer || !formTitle) {
+        console.error("Form container or title not found: #project-form-container or #form-title missing.");
         return;
     }
 
@@ -256,8 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.add("hidden");
                 hnsProNote.classList.add("hidden");
             }
+            formTitle.textContent = "Generate OHS Specification (Client)";
             projectFormContainer.classList.remove("hidden");
-            complianceForm.classList.add("hidden");
         });
     }
 
@@ -271,9 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.remove("hidden");
                 hnsProNote.classList.add("hidden");
             }
-            projectFormContainer.classList.add("hidden");
-            complianceForm.classList.remove("hidden");
-            showStep("step-1");
+            formTitle.textContent = "Generate OHS Specification (Contractor)";
+            projectFormContainer.classList.remove("hidden");
         });
     }
 
@@ -287,14 +226,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.add("hidden");
                 hnsProNote.classList.remove("hidden");
             }
+            formTitle.textContent = "Generate OHS Specification (H&S Professional)";
             projectFormContainer.classList.remove("hidden");
-            complianceForm.classList.add("hidden");
         });
     }
 
-    // OHS Specification Form
+    // OHS Specification Form (Available to All Roles)
     const projectForm = document.getElementById("project-form");
     if (projectForm) {
+        // Update Scope Details with Selected Activities
+        const activitiesInputs = projectForm.querySelectorAll('input[name="activities"]');
+        const scopeDetails = document.getElementById("scope-details");
+        activitiesInputs.forEach(input => {
+            input.addEventListener("change", () => {
+                const selectedActivities = Array.from(activitiesInputs)
+                    .filter(input => input.checked)
+                    .map(input => input.value);
+                const activitiesText = selectedActivities.length > 0 ? `Key Activities: ${selectedActivities.join(", ")}` : "";
+                scopeDetails.value = activitiesText;
+            });
+        });
+
         projectForm.addEventListener("submit", function (e) {
             e.preventDefault();
             const formData = new FormData(projectForm);
@@ -359,274 +311,23 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Project form not found.");
     }
 
-    // Compliance Checklist Form
-    let selectedRequirements = [];
-    let checklistData = {};
+    // Placeholder Functionality for Additional Buttons
+    const actionButtons = [
+        { id: "compile-bra-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline" },
+        { id: "compile-hs-spec-btn", action: () => projectForm.dispatchEvent(new Event("submit")) }, // Same as Generate Documents
+        { id: "compile-hs-file-btn", action: () => alert("Health & Safety File compilation coming soon!") },
+        { id: "manage-hs-plan-btn", action: () => alert("Health & Safety Plan management coming soon!") },
+        { id: "manage-appointments-btn", action: () => alert("Appointment management coming soon!") },
+        { id: "conduct-training-btn", action: () => alert("Training conduction coming soon!") },
+        { id: "conduct-hira-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=issue-based" }
+    ];
 
-    // Step 1: Select Checklist Type
-    const checklistTypeForm = document.getElementById("checklist-type-form");
-    if (checklistTypeForm) {
-        checklistTypeForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const checklistType = document.getElementById("checklist-type").value;
-            const error = document.getElementById("checklist-type-error");
-            if (!checklistType) {
-                error.classList.remove("hidden");
-                return;
-            }
-            error.classList.add("hidden");
-            checklistData.checklistType = checklistType;
-            populateRequirements(checklistType);
-            showStep("step-2");
-        });
-    } else {
-        console.error("Checklist type form not found.");
-    }
-
-    // Step 2: Select Requirements
-    function populateRequirements(checklistType) {
-        const requirementGroups = document.getElementById("requirement-groups");
-        if (!requirementGroups) {
-            console.error("Requirement groups container not found.");
-            return;
+    actionButtons.forEach(btn => {
+        const element = document.getElementById(btn.id);
+        if (element) {
+            element.addEventListener("click", btn.action);
         }
-        requirementGroups.innerHTML = '';
-
-        complianceDatabase.forEach(group => {
-            const groupDiv = document.createElement("div");
-            groupDiv.className = "requirement-group";
-            groupDiv.innerHTML = `<h4>${group.group}</h4>`;
-            const ul = document.createElement("ul");
-            group.requirements.forEach(req => {
-                if (req.suggested.includes(checklistType)) {
-                    const li = document.createElement("li");
-                    li.innerHTML = `
-                        <input type="checkbox" name="requirements" value="${req.requirement}" data-description="${req.description}" data-legal="${req.legal}">
-                        ${req.requirement} <span class="suggested-label">(Suggested)</span>
-                    `;
-                    ul.appendChild(li);
-                }
-            });
-            groupDiv.appendChild(ul);
-            requirementGroups.appendChild(groupDiv);
-        });
-
-        // Search Requirements
-        const requirementSearch = document.getElementById("requirement-search");
-        if (requirementSearch) {
-            requirementSearch.addEventListener("input", () => {
-                const searchTerm = requirementSearch.value.toLowerCase();
-                document.querySelectorAll(".requirement-group li").forEach(li => {
-                    const text = li.textContent.toLowerCase();
-                    li.style.display = text.includes(searchTerm) ? "block" : "none";
-                });
-            });
-        }
-    }
-
-    // Step 2: Submit Requirements
-    const requirementsForm = document.getElementById("requirements-form");
-    if (requirementsForm) {
-        requirementsForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            selectedRequirements = [];
-            requirementsForm.querySelectorAll('input[name="requirements"]:checked').forEach(input => {
-                selectedRequirements.push({
-                    requirement: input.value,
-                    description: input.dataset.description,
-                    legal: input.dataset.legal,
-                    status: "Not Started",
-                    evidence: ""
-                });
-            });
-            if (selectedRequirements.length === 0) {
-                document.getElementById("requirement-search-error").classList.remove("hidden");
-                return;
-            }
-            document.getElementById("requirement-search-error").classList.add("hidden");
-            populateStatusTable();
-            showStep("step-3");
-        });
-
-        // Back Button
-        requirementsForm.querySelector(".back-btn").addEventListener("click", () => {
-            showStep("step-1");
-        });
-    } else {
-        console.error("Requirements form not found.");
-    }
-
-    // Step 3: Assign Status
-    function populateStatusTable() {
-        const statusTableBody = document.getElementById("status-table-body");
-        if (!statusTableBody) {
-            console.error("Status table body not found.");
-            return;
-        }
-        statusTableBody.innerHTML = '';
-
-        selectedRequirements.forEach(req => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${req.requirement}</td>
-                <td>${req.description}</td>
-                <td>${req.legal}</td>
-                <td>
-                    <select name="status" data-requirement="${req.requirement}">
-                        <option value="Not Started" ${req.status === "Not Started" ? "selected" : ""}>Not Started</option>
-                        <option value="In Progress" ${req.status === "In Progress" ? "selected" : ""}>In Progress</option>
-                        <option value="Completed" ${req.status === "Completed" ? "selected" : ""}>Completed</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="evidence" value="${req.evidence}" data-requirement="${req.requirement}" placeholder="Enter evidence/notes">
-                </td>
-            `;
-            statusTableBody.appendChild(row);
-        });
-
-        const statusForm = document.getElementById("status-form");
-        if (statusForm) {
-            statusForm.querySelector("button[type='submit']").disabled = true;
-            statusForm.addEventListener("change", () => {
-                const allAssigned = Array.from(statusForm.querySelectorAll("select")).every(select => select.value);
-                statusForm.querySelector("button[type='submit']").disabled = !allAssigned;
-                const statusError = document.getElementById("status-error");
-                if (statusError) {
-                    statusError.classList.toggle("hidden", allAssigned);
-                }
-            });
-        }
-    }
-
-    const statusForm = document.getElementById("status-form");
-    if (statusForm) {
-        statusForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            selectedRequirements.forEach(req => {
-                const statusSelect = statusForm.querySelector(`select[data-requirement="${req.requirement}"]`);
-                const evidenceInput = statusForm.querySelector(`input[data-requirement="${req.requirement}"]`);
-                req.status = statusSelect.value;
-                req.evidence = evidenceInput.value;
-            });
-            populateReviewTable();
-            showStep("step-4");
-        });
-
-        statusForm.querySelector(".back-btn").addEventListener("click", () => {
-            showStep("step-2");
-        });
-    } else {
-        console.error("Status form not found.");
-    }
-
-    // Step 4: Review and Details
-    function populateReviewTable() {
-        const reviewTableBody = document.getElementById("review-table-body");
-        if (!reviewTableBody) {
-            console.error("Review table body not found.");
-            return;
-        }
-        reviewTableBody.innerHTML = '';
-
-        selectedRequirements.forEach(req => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${req.requirement}</td>
-                <td>${req.description}</td>
-                <td>${req.legal}</td>
-                <td>${req.status}</td>
-                <td>${req.evidence}</td>
-            `;
-            reviewTableBody.appendChild(row);
-        });
-    }
-
-    const reviewForm = document.getElementById("review-form");
-    if (reviewForm) {
-        reviewForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = new FormData(reviewForm);
-            checklistData.details = Object.fromEntries(formData);
-
-            // Validation
-            let valid = true;
-            const validations = [
-                { id: "site-name", value: checklistData.details.siteName, error: "site-name-error", message: "Please enter a site name." },
-                { id: "site-address", value: checklistData.details.siteAddress, error: "site-address-error", message: "Please enter a site address." },
-                { id: "site-location", value: checklistData.details.siteLocation, error: "site-location-error", message: "Please enter a location." },
-                { id: "conductor-name", value: checklistData.details.conductorName, error: "conductor-name-error", message: "Please enter a conductor name." },
-                { id: "conductor-role", value: checklistData.details.conductorRole, error: "conductor-role-error", message: "Please enter a conductor role." },
-                { id: "conductor-email", value: checklistData.details.conductorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: "conductor-email-error", message: "Please enter a valid email address." },
-                { id: "conductor-phone", value: checklistData.details.conductorPhone, pattern: /\+?[0-9\s\-()]{10,}/, error: "conductor-phone-error", message: "Please enter a valid phone number." },
-                { id: "company-name", value: checklistData.details.companyName, error: "company-name-error", message: "Please enter a company name." },
-                { id: "company-contact", value: checklistData.details.companyContact, error: "company-contact-error", message: "Please enter a company contact person." },
-                { id: "company-role", value: checklistData.details.companyRole, error: "company-role-error", message: "Please enter a company contact role." },
-                { id: "company-details", value: checklistData.details.companyDetails, error: "company-details-error", message: "Please enter company details." }
-            ];
-
-            validations.forEach(v => {
-                const errorEl = document.getElementById(v.error);
-                if (!errorEl) return;
-                if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                    errorEl.classList.remove("hidden");
-                    errorEl.textContent = v.message;
-                    valid = false;
-                } else {
-                    errorEl.classList.add("hidden");
-                }
-            });
-
-            if (!valid) return;
-
-            // Generate PDF
-            generateComplianceChecklistPDF(checklistData, selectedRequirements);
-
-            // Save Data
-            const referenceNumber = saveTempData({ checklistData, selectedRequirements });
-            const refNumberSpan = document.getElementById("ref-number");
-            if (refNumberSpan) {
-                refNumberSpan.textContent = referenceNumber;
-            }
-            showStep("step-5");
-            addToCart("Compliance Checklist", 30.00); // Example price
-        });
-
-        reviewForm.querySelector(".back-btn").addEventListener("click", () => {
-            showStep("step-3");
-        });
-    } else {
-        console.error("Review form not found.");
-    }
-
-    // Step 5: Download & Next Steps
-    const downloadAgainBtn = document.getElementById("download-again");
-    if (downloadAgainBtn) {
-        downloadAgainBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            generateComplianceChecklistPDF(checklistData, selectedRequirements);
-        });
-    }
-
-    const startNewBtn = document.getElementById("start-new");
-    if (startNewBtn) {
-        startNewBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            checklistData = {};
-            selectedRequirements = [];
-            reviewForm.reset();
-            showStep("step-1");
-        });
-    }
-
-    const addToCartBtn = document.getElementById("add-to-cart");
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            addToCart("Compliance Checklist", 30.00);
-            alert("Compliance Checklist added to cart!");
-        });
-    }
+    });
 
     // Checkout
     const checkoutBtn = document.getElementById("checkout-btn");
@@ -642,23 +343,6 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCartDisplay();
         });
     }
-
-    // Placeholder Functionality for Additional Buttons
-    const actionButtons = [
-        { id: "compile-bra-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline" },
-        { id: "compile-hs-plan-btn", action: () => alert("Health & Safety Plan compilation coming soon!") },
-        { id: "manage-hs-file-btn", action: () => alert("Health & Safety File management coming soon!") },
-        { id: "conduct-hira-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=hira" },
-        { id: "manage-appointments-btn", action: () => alert("Appointment management coming soon!") },
-        { id: "manage-incidents-btn", action: () => alert("Incident management coming soon!") }
-    ];
-
-    actionButtons.forEach(btn => {
-        const element = document.getElementById(btn.id);
-        if (element) {
-            element.addEventListener("click", btn.action);
-        }
-    });
 
     // Chatbot Placeholder
     const chatToggle = document.getElementById("chat-toggle");
@@ -684,8 +368,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let response = "This is a placeholder response. Ask about OHS compliance!";
             if (query.includes("ohs specification")) {
                 response = "An OHS Specification outlines project-specific requirements per Construction Regulation 5(1)(b). Fill out the form with project details to generate one.";
-            } else if (query.includes("compliance checklist")) {
-                response = "A Compliance Checklist helps Contractors maintain an H&S File (Construction Regulation 7(1)(b)). Select a checklist type and follow the steps to generate it.";
+            } else if (query.includes("risk assessment")) {
+                response = "Risk Assessments identify hazards and risks. Use the 'Compile Baseline Risk Assessment' or 'Conduct HIRA' buttons to start one.";
             }
             chatOutput.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
             chatInput.value = "";
@@ -732,44 +416,6 @@ function generateOHSSpecPDF(data) {
         }
 
         doc.save("OHS_Specification.pdf");
-    } catch (error) {
-        console.error("PDF generation error:", error);
-        alert("Failed to generate PDF. Please try again.");
-    }
-}
-
-// Generate Compliance Checklist PDF
-function generateComplianceChecklistPDF(checklistData, requirements) {
-    if (!jsPDF) return;
-    try {
-        const doc = new jsPDF();
-        addHeaderFooter(doc, "Compliance Checklist");
-
-        doc.setFontSize(12);
-        doc.text(`Checklist Type: ${checklistData.checklistType}`, 10, 30);
-        doc.text(`Site Name: ${checklistData.details.siteName}`, 10, 40);
-        doc.text(`Site Address: ${checklistData.details.siteAddress}`, 10, 50);
-        doc.text(`Conducted By: ${checklistData.details.conductorName}`, 10, 60);
-        doc.text(`Company: ${checklistData.details.companyName}`, 10, 70);
-
-        const tableData = requirements.map(req => [
-            req.requirement,
-            req.description,
-            req.legal,
-            req.status,
-            req.evidence
-        ]);
-
-        doc.autoTable({
-            startY: 80,
-            head: [['Requirement', 'Description', 'Legal Reference', 'Status', 'Evidence/Notes']],
-            body: tableData,
-            theme: 'grid',
-            styles: { fontSize: 10 },
-            columnStyles: { 0: { cellWidth: 30 }, 1: { cellWidth: 50 }, 2: { cellWidth: 30 }, 3: { cellWidth: 20 }, 4: { cellWidth: 50 } }
-        });
-
-        doc.save("Compliance_Checklist.pdf");
     } catch (error) {
         console.error("PDF generation error:", error);
         alert("Failed to generate PDF. Please try again.");
