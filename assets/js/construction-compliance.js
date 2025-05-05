@@ -6,8 +6,13 @@
 
 // Mock common.js functions (replace with actual imports if common.js is available)
 function showStep(stepId) {
-    document.querySelectorAll('.step').forEach(step => step.classList.add('hidden'));
-    document.getElementById(stepId).classList.remove('hidden');
+    const step = document.getElementById(stepId);
+    if (!step) {
+        console.error(`Step element #${stepId} not found.`);
+        return;
+    }
+    document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+    step.classList.remove('hidden');
 }
 
 function addHeaderFooter(doc, title) {
@@ -135,7 +140,10 @@ const addToCart = (documentName, price) => {
 const updateCartDisplay = () => {
     const cartItems = document.getElementById('cart-items');
     const cartContainer = document.getElementById('cart-container');
-    if (!cartItems || !cartContainer) return;
+    if (!cartItems || !cartContainer) {
+        console.error("Cart elements not found.");
+        return;
+    }
     
     cartItems.innerHTML = '';
     cart.forEach(item => {
@@ -180,6 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
             currentIndex = (currentIndex + 1) % items.length;
             items[currentIndex].classList.add("active");
         }, 5000);
+    } else {
+        console.warn("No carousel items found.");
     }
 
     // Simulate Login
@@ -200,6 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+    } else {
+        console.error("Login link not found.");
     }
 
     // Role Selection
@@ -208,6 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const hnsProBtn = document.getElementById("hns-pro-btn");
     const projectFormContainer = document.getElementById("project-form-container");
     const complianceForm = document.getElementById("compliance-form");
+
+    if (!projectFormContainer || !complianceForm) {
+        console.error("Form containers not found.");
+        return;
+    }
 
     if (clientBtn) {
         clientBtn.addEventListener("click", () => {
@@ -249,18 +266,41 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = Object.fromEntries(formData);
             
             // Validation
-            if (!data.projectName || !data.clientName || !data.contractorName || !data.siteAddress) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-            if (!data.emergencyContact.match(/^\+?[0-9\s\-()]{10,}$/)) {
-                alert("Please enter a valid phone number for emergency contact (e.g., +27123456789).");
-                return;
-            }
-            if ((data.accreditationLevel === "sacpcmp-officer" || data.accreditationLevel === "sacpcmp-agent") && !data.sacpcmpReg) {
-                alert("SACPCMP Registration Number is required for Officer or Agent roles.");
-                return;
-            }
+            let valid = true;
+            const validations = [
+                { id: "accreditation-level", value: data.accreditationLevel, error: "accreditation-level-error", message: "Please select an accreditation level." },
+                { id: "project-name", value: data.projectName, error: "project-name-error", message: "Please enter a project name." },
+                { id: "client-name", value: data.clientName, error: "client-name-error", message: "Please enter a client company name." },
+                { id: "contractor-name", value: data.contractorName, error: "contractor-name-error", message: "Please enter a contractor company name." },
+                { id: "site-address", value: data.siteAddress, error: "site-address-error", message: "Please enter a site address." },
+                { id: "type-of-work", value: data.typeOfWork, error: "type-of-work-error", message: "Please enter the type of work." },
+                { id: "location", value: data.location, error: "location-error", message: "Please enter a location." },
+                { id: "cost", value: data.cost, error: "cost-error", message: "Please enter a valid project cost (R)." },
+                { id: "duration", value: data.duration, error: "duration-error", message: "Please enter a valid duration (days)." },
+                { id: "emergency-contact", value: data.emergencyContact, pattern: /^\+?[0-9\s\-()]{10,}$/, error: "emergency-contact-error", message: "Please enter a valid phone number (e.g., +27123456789)." },
+                { id: "workmans-comp", value: data.workmansComp, error: "workmans-comp-error", message: "Please enter a COIDA registration number." },
+                { id: "cidb-grade", value: data.cidbGrade, error: "cidb-grade-error", message: "Please select a CIDB grading." },
+                { id: "scope-details", value: data.scopeDetails, error: "scope-details-error", message: "Please enter scope details." },
+                { id: "sacpcmp-reg", value: data.sacpcmpReg, error: "sacpcmp-reg-error", message: "SACPCMP Registration Number is required for Officer or Agent roles.", condition: () => data.accreditationLevel === "sacpcmp-officer" || data.accreditationLevel === "sacpcmp-agent" }
+            ];
+
+            validations.forEach(v => {
+                const errorEl = document.getElementById(v.error);
+                if (!errorEl) return;
+                if (v.condition && !v.condition()) {
+                    errorEl.classList.add("hidden");
+                    return;
+                }
+                if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                    errorEl.classList.remove("hidden");
+                    errorEl.textContent = v.message;
+                    valid = false;
+                } else {
+                    errorEl.classList.add("hidden");
+                }
+            });
+
+            if (!valid) return;
 
             // Generate PDF
             generateOHSSpecPDF(data);
@@ -280,6 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 sacpcmpRegContainer.classList.toggle("hidden", !showReg);
             });
         }
+    } else {
+        console.error("Project form not found.");
     }
 
     // Compliance Checklist Form
@@ -292,20 +334,27 @@ document.addEventListener("DOMContentLoaded", () => {
         checklistTypeForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const checklistType = document.getElementById("checklist-type").value;
+            const error = document.getElementById("checklist-type-error");
             if (!checklistType) {
-                alert("Please select a checklist type.");
+                error.classList.remove("hidden");
                 return;
             }
+            error.classList.add("hidden");
             checklistData.checklistType = checklistType;
             populateRequirements(checklistType);
             showStep("step-2");
         });
+    } else {
+        console.error("Checklist type form not found.");
     }
 
     // Step 2: Select Requirements
     function populateRequirements(checklistType) {
         const requirementGroups = document.getElementById("requirement-groups");
-        if (!requirementGroups) return;
+        if (!requirementGroups) {
+            console.error("Requirement groups container not found.");
+            return;
+        }
         requirementGroups.innerHTML = '';
 
         complianceDatabase.forEach(group => {
@@ -356,9 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
             if (selectedRequirements.length === 0) {
-                alert("Please select at least one requirement.");
+                document.getElementById("requirement-search-error").classList.remove("hidden");
                 return;
             }
+            document.getElementById("requirement-search-error").classList.add("hidden");
             populateStatusTable();
             showStep("step-3");
         });
@@ -367,12 +417,17 @@ document.addEventListener("DOMContentLoaded", () => {
         requirementsForm.querySelector(".back-btn").addEventListener("click", () => {
             showStep("step-1");
         });
+    } else {
+        console.error("Requirements form not found.");
     }
 
     // Step 3: Assign Status
     function populateStatusTable() {
         const statusTableBody = document.getElementById("status-table-body");
-        if (!statusTableBody) return;
+        if (!statusTableBody) {
+            console.error("Status table body not found.");
+            return;
+        }
         statusTableBody.innerHTML = '';
 
         selectedRequirements.forEach(req => {
@@ -394,6 +449,16 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             statusTableBody.appendChild(row);
         });
+
+        const statusForm = document.getElementById("status-form");
+        if (statusForm) {
+            statusForm.querySelector("button[type='submit']").disabled = true;
+            statusForm.addEventListener("change", () => {
+                const allAssigned = Array.from(statusForm.querySelectorAll("select")).every(select => select.value);
+                statusForm.querySelector("button[type='submit']").disabled = !allAssigned;
+                document.getElementById("status-error").classList.toggle("hidden", allAssigned);
+            });
+        }
     }
 
     const statusForm = document.getElementById("status-form");
@@ -413,12 +478,17 @@ document.addEventListener("DOMContentLoaded", () => {
         statusForm.querySelector(".back-btn").addEventListener("click", () => {
             showStep("step-2");
         });
+    } else {
+        console.error("Status form not found.");
     }
 
     // Step 4: Review and Details
     function populateReviewTable() {
         const reviewTableBody = document.getElementById("review-table-body");
-        if (!reviewTableBody) return;
+        if (!reviewTableBody) {
+            console.error("Review table body not found.");
+            return;
+        }
         reviewTableBody.innerHTML = '';
 
         selectedRequirements.forEach(req => {
@@ -442,10 +512,34 @@ document.addEventListener("DOMContentLoaded", () => {
             checklistData.details = Object.fromEntries(formData);
 
             // Validation
-            if (!checklistData.details.siteName || !checklistData.details.siteAddress || !checklistData.details.conductorName) {
-                alert("Please fill in all required fields.");
-                return;
-            }
+            let valid = true;
+            const validations = [
+                { id: "site-name", value: checklistData.details.siteName, error: "site-name-error", message: "Please enter a site name." },
+                { id: "site-address", value: checklistData.details.siteAddress, error: "site-address-error", message: "Please enter a site address." },
+                { id: "site-location", value: checklistData.details.siteLocation, error: "site-location-error", message: "Please enter a location." },
+                { id: "conductor-name", value: checklistData.details.conductorName, error: "conductor-name-error", message: "Please enter a conductor name." },
+                { id: "conductor-role", value: checklistData.details.conductorRole, error: "conductor-role-error", message: "Please enter a conductor role." },
+                { id: "conductor-email", value: checklistData.details.conductorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: "conductor-email-error", message: "Please enter a valid email address." },
+                { id: "conductor-phone", value: checklistData.details.conductorPhone, pattern: /\+?[0-9\s\-()]{10,}/, error: "conductor-phone-error", message: "Please enter a valid phone number." },
+                { id: "company-name", value: checklistData.details.companyName, error: "company-name-error", message: "Please enter a company name." },
+                { id: "company-contact", value: checklistData.details.companyContact, error: "company-contact-error", message: "Please enter a company contact person." },
+                { id: "company-role", value: checklistData.details.companyRole, error: "company-role-error", message: "Please enter a company contact role." },
+                { id: "company-details", value: checklistData.details.companyDetails, error: "company-details-error", message: "Please enter company details." }
+            ];
+
+            validations.forEach(v => {
+                const errorEl = document.getElementById(v.error);
+                if (!errorEl) return;
+                if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                    errorEl.classList.remove("hidden");
+                    errorEl.textContent = v.message;
+                    valid = false;
+                } else {
+                    errorEl.classList.add("hidden");
+                }
+            });
+
+            if (!valid) return;
 
             // Generate PDF
             generateComplianceChecklistPDF(checklistData, selectedRequirements);
@@ -460,23 +554,36 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewForm.querySelector(".back-btn").addEventListener("click", () => {
             showStep("step-3");
         });
+    } else {
+        console.error("Review form not found.");
     }
 
     // Step 5: Download & Next Steps
     const downloadAgainBtn = document.getElementById("download-again");
     if (downloadAgainBtn) {
-        downloadAgainBtn.addEventListener("click", () => {
+        downloadAgainBtn.addEventListener("click", (e) => {
+            e.preventDefault();
             generateComplianceChecklistPDF(checklistData, selectedRequirements);
         });
     }
 
     const startNewBtn = document.getElementById("start-new");
     if (startNewBtn) {
-        startNewBtn.addEventListener("click", () => {
+        startNewBtn.addEventListener("click", (e) => {
+            e.preventDefault();
             checklistData = {};
             selectedRequirements = [];
             reviewForm.reset();
             showStep("step-1");
+        });
+    }
+
+    const addToCartBtn = document.getElementById("add-to-cart");
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            addToCart("Compliance Checklist", 30.00);
+            alert("Compliance Checklist added to cart!");
         });
     }
 
@@ -530,7 +637,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const message = chatInput.value.trim();
             if (!message) return;
             chatOutput.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-            chatOutput.innerHTML += `<p><strong>Bot:</strong> This is a placeholder response. Ask about OHS compliance!</p>`;
+            const query = message.toLowerCase();
+            let response = "This is a placeholder response. Ask about OHS compliance!";
+            if (query.includes("ohs specification")) {
+                response = "An OHS Specification outlines project-specific requirements per Construction Regulation 5(1)(b). Fill out the form with project details to generate one.";
+            } else if (query.includes("compliance checklist")) {
+                response = "A Compliance Checklist helps Contractors maintain an H&S File (Construction Regulation 7(1)(b)). Select a checklist type and follow the steps to generate it.";
+            }
+            chatOutput.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
             chatInput.value = "";
             chatOutput.scrollTop = chatOutput.scrollHeight;
         });
