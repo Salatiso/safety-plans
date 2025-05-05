@@ -134,13 +134,10 @@ header {
     margin-right: 5px;
 }
 
-/* Style for the active sidebar link */
 .sidebar-content a.active {
-    color: #ff6f61; /* Example: Use your primary color */
-    font-weight: bold; /* Example: Make the text bold */
-    /* You can add other styles as needed, like background-color or text-decoration */
+    color: #ff6f61;
+    font-weight: bold;
 }
-
 
 /* Main Content */
 .main-content {
@@ -161,6 +158,70 @@ header {
     font-size: 14px;
 }
 
+/* Legal Carousel */
+.legal-carousel {
+    margin: 10px 0;
+    position: relative;
+}
+
+.legal-carousel h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.carousel-items {
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+}
+
+.carousel-item {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item.active {
+    opacity: 1;
+}
+
+.carousel-item h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.carousel-item p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background-color: #e65a50;
+}
+
 /* Role Selection */
 .role-selection {
     margin: 10px 0;
@@ -170,6 +231,19 @@ header {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     margin-bottom: 8px;
+}
+
+.legal-note {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+    padding: 6px;
+    background-color: #e0f7fa;
+    border-radius: 3px;
+}
+
+.legal-note strong {
+    color: #ff6f61;
 }
 
 .role-btn {
@@ -222,18 +296,34 @@ header {
     font-size: 14px;
 }
 
+.form-group .error {
+    color: #ff6f61;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
 .checkbox-group {
     display: flex;
     gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .checkbox-group label {
     font-weight: normal;
+    display: inline;
+    margin-left: 5px;
     font-size: 14px;
 }
 
 button[type="submit"],
-.back-btn {
+.back-btn,
+#compile-bra-btn,
+#compile-hs-plan-btn,
+#manage-hs-file-btn,
+#conduct-hira-btn,
+#manage-appointments-btn,
+#manage-incidents-btn {
     padding: 6px 12px;
     background-color: #ff6f61;
     color: white;
@@ -241,11 +331,18 @@ button[type="submit"],
     border-radius: 3px;
     cursor: pointer;
     margin-top: 8px;
+    margin-right: 8px;
     font-size: 14px;
 }
 
 button[type="submit"]:hover,
-.back-btn:hover {
+.back-btn:hover,
+#compile-bra-btn:hover,
+#compile-hs-plan-btn:hover,
+#manage-hs-file-btn:hover,
+#conduct-hira-btn:hover,
+#manage-appointments-btn:hover,
+#manage-incidents-btn:hover {
     background-color: #e65a50;
 }
 
@@ -274,6 +371,7 @@ button[type="submit"]:hover,
     padding: 4px 8px;
     margin: 6px 0;
     font-size: 14px;
+    border-radius: 3px;
 }
 
 .requirement-group ul {
@@ -292,6 +390,7 @@ button[type="submit"]:hover,
     margin-left: 5px;
 }
 
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -342,15 +441,57 @@ table th {
     font-size: 14px;
 }
 
+#checkout-btn {
+    padding: 6px 12px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#checkout-btn:hover {
+    background-color: #e65a50;
+}
+
+/* Resources Section */
+.resources {
+    margin: 10px 0;
+}
+
+.resources h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.resources ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resources li {
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+.resources li:last-child {
+    border-bottom: none;
+}
+
 /* Footer */
 footer {
     background-color: #1a2526;
-    color: white;
+    color: #fff;
     padding: 10px;
     text-align: center;
+    margin-top: auto;
 }
 
 footer p {
+    margin: 5px 0;
     font-size: 14px;
 }
 
@@ -373,18 +514,25 @@ footer a:hover {
     margin-bottom: 6px;
 }
 
+.newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .newsletter input {
     padding: 5px;
     border: none;
     border-radius: 2px;
     margin-right: 8px;
     font-size: 14px;
+    width: 150px;
 }
 
 .newsletter button {
     padding: 5px 10px;
     background-color: #ff6f61;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -404,25 +552,35 @@ footer a:hover {
 }
 
 .chat-toggle-btn {
-    padding: 6px 12px;
     background-color: #ff6f61;
-    color: white;
+    color: #fff;
     border: none;
+    padding: 6px 12px;
     border-radius: 3px;
     cursor: pointer;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .chat-toggle-btn:hover {
     background-color: #e65a50;
 }
 
-.chat-window {
-    width: 250px;
-    height: 350px;
-    background-color: white;
+.chat-icon {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+#chat-window {
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 3px;
+    width: 250px;
+    max-height: 350px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     margin-top: 8px;
@@ -433,14 +591,15 @@ footer a:hover {
 }
 
 #chat-output {
-    flex: 1;
     padding: 8px;
+    font-size: 14px;
+    flex: 1;
     overflow-y: auto;
     border-bottom: 1px solid #ddd;
-    font-size: 14px;
 }
 
 #chat-input {
+    width: 70%;
     padding: 8px;
     border: none;
     border-top: 1px solid #ddd;
@@ -448,9 +607,10 @@ footer a:hover {
 }
 
 #chat-send {
+    width: 30%;
     padding: 8px;
     background-color: #1a2526;
-    color: white;
+    color: #fff;
     border: none;
     cursor: pointer;
     font-size: 14px;
@@ -461,9 +621,7 @@ footer a:hover {
 }
 
 /* Accessibility Focus Styles */
-a:focus,
-button:focus,
-input:focus {
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
     outline: 2px solid #ff6f61;
     outline-offset: 2px;
 }
@@ -482,7 +640,6 @@ input:focus {
     }
 
     header {
-        left: 0;
         position: relative;
     }
 
@@ -497,7 +654,7 @@ input:focus {
     }
 
     .intro {
-        margin: 20px;
+        margin: 10px;
     }
 
     .nav-links {
@@ -507,7 +664,7 @@ input:focus {
     }
 
     .nav-links a {
-        margin: 5px 10px;
+        margin: 5px 8px;
     }
 
     .role-btn {
@@ -519,6 +676,11 @@ input:focus {
     .form-group input,
     .form-group select,
     .form-group textarea {
-        width: 100%;
+        max-width: 100%;
+    }
+
+    .chat-window {
+        width: 90%;
+        right: 5%;
     }
 }
