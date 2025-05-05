@@ -13,6 +13,37 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+    <!-- Fallback styles in case external CSS fails to load -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f6f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header-container, .sidebar, .main-content {
+            display: block;
+        }
+        header {
+            background-color: #1a2526;
+            color: white;
+            padding: 10px 15px;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+        .main-content {
+            flex: 1;
+            padding: 15px;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <header>
