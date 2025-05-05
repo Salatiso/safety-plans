@@ -32,6 +32,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo-placeholder {
@@ -94,13 +96,14 @@ header {
 .sidebar {
     position: fixed;
     left: 0;
-    top: 80px;
+    top: 60px;
     width: 200px;
     background-color: #f4f4f4;
     border-right: 1px solid #ddd;
     padding: 10px;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 60px);
     overflow-y: auto;
+    z-index: 80;
 }
 
 .sidebar-content .logo-placeholder {
@@ -114,7 +117,8 @@ header {
 }
 
 .sidebar-content a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 6px 0;
     color: #1a2526;
     text-decoration: none;
@@ -143,8 +147,9 @@ header {
 .main-content {
     flex: 1;
     margin-left: 200px;
-    padding: 15px;
+    padding: 80px 15px 15px 15px;
     min-height: 100vh;
+    max-width: 1200px;
 }
 
 .intro h2 {
@@ -160,20 +165,21 @@ header {
 
 /* Legal Carousel */
 .legal-carousel {
-    margin: 10px 0;
+    margin: 20px 0;
     position: relative;
 }
 
 .legal-carousel h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .carousel-items {
     overflow: hidden;
     position: relative;
-    height: 200px;
+    height: auto;
+    min-height: 150px;
 }
 
 .carousel-item {
@@ -181,10 +187,12 @@ header {
     width: 100%;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    padding: 10px;
 }
 
 .carousel-item.active {
     opacity: 1;
+    position: relative;
 }
 
 .carousel-item h4 {
@@ -224,13 +232,13 @@ header {
 
 /* Role Selection */
 .role-selection {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .role-selection h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .legal-note {
@@ -249,6 +257,7 @@ header {
 .role-btn {
     padding: 6px 12px;
     margin-right: 8px;
+    margin-bottom: 8px;
     background-color: #1a2526;
     color: white;
     border: none;
@@ -264,18 +273,18 @@ header {
 /* Forms */
 .form-container,
 #compliance-form {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .form-container h3,
 #compliance-form h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .form-group {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
@@ -420,13 +429,13 @@ table th {
 
 /* Cart */
 .cart-container {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .cart-container h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .checkout {
@@ -457,13 +466,13 @@ table th {
 
 /* Resources Section */
 .resources {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .resources h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .resources ul {
@@ -488,6 +497,7 @@ footer {
     padding: 10px;
     text-align: center;
     margin-top: auto;
+    width: 100%;
 }
 
 footer p {
@@ -637,6 +647,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
     .main-content {
         margin-left: 0;
+        padding-top: 120px;
     }
 
     header {
