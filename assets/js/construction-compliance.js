@@ -169,32 +169,44 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Initialize Carousel
+    // Initialize Carousel with Dynamic Height Adjustment
     const items = document.querySelectorAll(".carousel-item");
-    if (items.length > 0) {
+    const carouselItems = document.querySelector(".carousel-items");
+    if (items.length > 0 && carouselItems) {
         let currentIndex = 0;
-        items[currentIndex].classList.add("active");
+
+        // Function to adjust carousel height based on active item
+        const adjustCarouselHeight = () => {
+            const activeItem = items[currentIndex];
+            activeItem.classList.add("active");
+            const height = activeItem.offsetHeight;
+            carouselItems.style.height = `${height}px`;
+        };
+
+        // Initial adjustment
+        adjustCarouselHeight();
+
         const nextBtn = document.querySelector(".carousel-next");
         const prevBtn = document.querySelector(".carousel-prev");
         if (nextBtn) {
             nextBtn.addEventListener("click", () => {
                 items[currentIndex].classList.remove("active");
                 currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add("active");
+                adjustCarouselHeight();
             });
         }
         if (prevBtn) {
             prevBtn.addEventListener("click", () => {
                 items[currentIndex].classList.remove("active");
                 currentIndex = (currentIndex - 1 + items.length) % items.length;
-                items[currentIndex].classList.add("active");
+                adjustCarouselHeight();
             });
         }
         // Auto-rotate every 5 seconds
         setInterval(() => {
             items[currentIndex].classList.remove("active");
             currentIndex = (currentIndex + 1) % items.length;
-            items[currentIndex].classList.add("active");
+            adjustCarouselHeight();
         }, 5000);
     } else {
         console.warn("No carousel items found.");
