@@ -37,14 +37,14 @@ header {
 .logo-placeholder {
     font-size: 12px;
     font-style: italic;
-    background-color: #fff; /* Added to match Contact page */
-    color: #333; /* Added to match Contact page */
-    padding: 10px; /* Added to match Contact page */
-    border-radius: 4px; /* Added to match Contact page */
-    text-align: center; /* Added to match Contact page */
-    width: 180px; /* Adjusted to fit sidebar width (200px - 10px padding on each side) */
-    height: 40px; /* Added to match Contact page */
-    line-height: 20px; /* Added to match Contact page */
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    width: 180px;
+    height: 40px;
+    line-height: 20px;
 }
 
 .header-content h1 {
@@ -133,6 +133,14 @@ header {
 .sidebar-content .icon {
     margin-right: 5px;
 }
+
+/* Style for the active sidebar link */
+.sidebar-content a.active {
+    color: #ff6f61; /* Example: Use your primary color */
+    font-weight: bold; /* Example: Make the text bold */
+    /* You can add other styles as needed, like background-color or text-decoration */
+}
+
 
 /* Main Content */
 .main-content {
