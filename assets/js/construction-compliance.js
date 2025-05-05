@@ -141,7 +141,7 @@ const updateCartDisplay = () => {
     const cartItems = document.getElementById('cart-items');
     const cartContainer = document.getElementById('cart-container');
     if (!cartItems || !cartContainer) {
-        console.error("Cart elements not found.");
+        console.error("Cart elements not found. Ensure #cart-items and #cart-container exist in the DOM.");
         return;
     }
     
@@ -160,6 +160,14 @@ const updateCartDisplay = () => {
 // Initialize on Page Load
 document.addEventListener("DOMContentLoaded", () => {
     console.log("construction-compliance.js loaded");
+
+    // Check if critical layout elements exist
+    const sidebar = document.querySelector(".sidebar");
+    const mainContent = document.querySelector(".main-content");
+    if (!sidebar || !mainContent) {
+        console.error("Critical layout elements missing: .sidebar or .main-content not found.");
+        return;
+    }
 
     // Initialize Carousel
     const items = document.querySelectorAll(".carousel-item");
@@ -222,15 +230,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const complianceForm = document.getElementById("compliance-form");
 
     if (!projectFormContainer || !complianceForm) {
-        console.error("Form containers not found.");
+        console.error("Form containers not found: #project-form-container or #compliance-form missing.");
         return;
     }
 
     if (clientBtn) {
         clientBtn.addEventListener("click", () => {
-            document.getElementById("client-legal-note").classList.remove("hidden");
-            document.getElementById("contractor-legal-note").classList.add("hidden");
-            document.getElementById("hns-pro-legal-note").classList.add("hidden");
+            const clientNote = document.getElementById("client-legal-note");
+            const contractorNote = document.getElementById("contractor-legal-note");
+            const hnsProNote = document.getElementById("hns-pro-legal-note");
+            if (clientNote && contractorNote && hnsProNote) {
+                clientNote.classList.remove("hidden");
+                contractorNote.classList.add("hidden");
+                hnsProNote.classList.add("hidden");
+            }
             projectFormContainer.classList.remove("hidden");
             complianceForm.classList.add("hidden");
         });
@@ -238,9 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (contractorBtn) {
         contractorBtn.addEventListener("click", () => {
-            document.getElementById("client-legal-note").classList.add("hidden");
-            document.getElementById("contractor-legal-note").classList.remove("hidden");
-            document.getElementById("hns-pro-legal-note").classList.add("hidden");
+            const clientNote = document.getElementById("client-legal-note");
+            const contractorNote = document.getElementById("contractor-legal-note");
+            const hnsProNote = document.getElementById("hns-pro-legal-note");
+            if (clientNote && contractorNote && hnsProNote) {
+                clientNote.classList.add("hidden");
+                contractorNote.classList.remove("hidden");
+                hnsProNote.classList.add("hidden");
+            }
             projectFormContainer.classList.add("hidden");
             complianceForm.classList.remove("hidden");
             showStep("step-1");
@@ -249,9 +267,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (hnsProBtn) {
         hnsProBtn.addEventListener("click", () => {
-            document.getElementById("client-legal-note").classList.add("hidden");
-            document.getElementById("contractor-legal-note").classList.add("hidden");
-            document.getElementById("hns-pro-legal-note").classList.remove("hidden");
+            const clientNote = document.getElementById("client-legal-note");
+            const contractorNote = document.getElementById("contractor-legal-note");
+            const hnsProNote = document.getElementById("hns-pro-legal-note");
+            if (clientNote && contractorNote && hnsProNote) {
+                clientNote.classList.add("hidden");
+                contractorNote.classList.add("hidden");
+                hnsProNote.classList.remove("hidden");
+            }
             projectFormContainer.classList.remove("hidden");
             complianceForm.classList.add("hidden");
         });
@@ -456,7 +479,10 @@ document.addEventListener("DOMContentLoaded", () => {
             statusForm.addEventListener("change", () => {
                 const allAssigned = Array.from(statusForm.querySelectorAll("select")).every(select => select.value);
                 statusForm.querySelector("button[type='submit']").disabled = !allAssigned;
-                document.getElementById("status-error").classList.toggle("hidden", allAssigned);
+                const statusError = document.getElementById("status-error");
+                if (statusError) {
+                    statusError.classList.toggle("hidden", allAssigned);
+                }
             });
         }
     }
@@ -546,7 +572,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Save Data
             const referenceNumber = saveTempData({ checklistData, selectedRequirements });
-            document.getElementById("ref-number").textContent = referenceNumber;
+            const refNumberSpan = document.getElementById("ref-number");
+            if (refNumberSpan) {
+                refNumberSpan.textContent = referenceNumber;
+            }
             showStep("step-5");
             addToCart("Compliance Checklist", 30.00); // Example price
         });
@@ -630,6 +659,8 @@ document.addEventListener("DOMContentLoaded", () => {
         chatToggle.addEventListener("click", () => {
             chatWindow.classList.toggle("chat-hidden");
         });
+    } else {
+        console.error("Chatbot elements not found.");
     }
 
     if (chatSend && chatInput && chatOutput) {
@@ -648,6 +679,8 @@ document.addEventListener("DOMContentLoaded", () => {
             chatInput.value = "";
             chatOutput.scrollTop = chatOutput.scrollHeight;
         });
+    } else {
+        console.error("Chatbot input/output elements not found.");
     }
 
     // Initialize Cart Display
