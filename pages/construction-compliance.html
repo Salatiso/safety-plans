@@ -8,7 +8,6 @@
     <meta name="author" content="Salatiso Lonwabo Mdeni">
     <title>Salatiso OHS Tools - Construction Health and Safety</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/safety-plans/assets/css/styles.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -42,10 +41,9 @@
 
     <div class="sidebar">
         <div class="sidebar-content">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
             <h3>OHS Tools</h3>
-            <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="/safety-plans/pages/emergency-response-plan.html" class="disabled" title="Coming Soon"><span class="icon">🚨</span> Emergency Response Planning</a>
+            <a href="/safety-plans/pages/construction-compliance.html" class="active"><span class="icon">🏗️</span> Construction Health and Safety</a>
+            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
             <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
             <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> Legal Appointments</a>
             <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> Incident Management</a>
@@ -332,5 +330,399 @@
     <script src="/safety-plans/assets/js/chatbot.js"></script>
     <script src="/safety-plans/assets/js/ohs-data.js"></script>
     <script src="/safety-plans/assets/js/construction-compliance.js"></script>
-</body>
-</html>
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f6f5;
+            overflow-x: hidden;
+            flex-direction: row; /* Ensure sidebar and main content align */
+        }
+
+        /* Header */
+        header {
+            background-color: #1a2526;
+            color: #fff;
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 90;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo-placeholder {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+            width: 250px; /* Match sidebar width */
+            height: 40px;
+            line-height: 20px;
+        }
+        .header-content {
+            flex: 1;
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        .nav-links a:hover {
+            color: #00aaff;
+        }
+        .search-bar form {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.9em;
+        }
+        .search-bar button {
+            padding: 6px 12px;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0088cc;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            background-color: #1a2526;
+            color: #ecf0f1;
+            overflow-y: auto;
+            z-index: 100;
+            padding-top: 80px; /* Add space for header */
+        }
+        .sidebar-content {
+            padding: 20px;
+        }
+        .sidebar h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 1em;
+        }
+        .sidebar a .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .sidebar a:hover {
+            color: #00aaff;
+        }
+        .sidebar a.active {
+            color: #00aaff;
+            font-weight: bold;
+        }
+        .sidebar a.disabled {
+            color: #607d8b;
+            cursor: not-allowed;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            background-color: #f5f6f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure it takes full height */
+            padding-top: 80px; /* Add space for header */
+        }
+
+        /* Intro Section */
+        .intro {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1; /* Allow it to grow */
+        }
+        .intro h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .intro p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .intro a {
+            color: #00aaff;
+            text-decoration: none;
+        }
+        .intro a:hover {
+            text-decoration: underline;
+        }
+
+        /* Role Selection */
+        .role-selection {
+            margin: 20px 0;
+        }
+        .role-selection h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .role-btn {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .role-btn:hover {
+            background-color: #0088cc;
+        }
+
+        /* Forms */
+        .form-container,
+        #compliance-form {
+            margin: 20px 0;
+        }
+        .form-container h3,
+        #compliance-form h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+            display: inline;
+            margin-left: 5px;
+        }
+        button[type="submit"],
+        .back-btn {
+            padding: 10px 15px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover,
+        .back-btn:hover {
+            background-color: #0088cc;
+        }
+        .back-btn {
+            background-color: #607d8b;
+            margin-right: 10px;
+        }
+        .back-btn:hover {
+            background-color: #546e7a;
+        }
+
+        /* Hidden Elements */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Compliance Checklist Steps */
+        .step h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .requirement-group h4 {
+            cursor: pointer;
+            background-color: #e0e0e0;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1em;
+            border-radius: 4px;
+        }
+        .requirement-group ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        .requirement-group li {
+            padding: 8px 0;
+            font-size: 0.9em;
+        }
+        .suggested-label {
+            color: #00aaff;
+            font-style: italic;
+            margin-left: 5px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        table th {
+            background-color: #1a2526;
+            color: white;
+        }
+        .compliance-note {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        /* Cart */
+        .cart-container {
+            margin: 20px 0;
+        }
+        .cart-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .checkout {
+            margin-top: 15px;
+        }
+        .checkout input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        #checkout-btn {
+            padding: 8px 15px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #checkout-btn:hover {
+            background-color: #0088cc;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a2526;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            margin-top: auto; /* Push to bottom when content is short */
+        }
+        footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #00aaff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .newsletter {
+            margin-top: 20px;
+        }
+        .newsletter h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .newsletter form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.9em;
+            width: 200px;
+        }
+        .newsletter button {
+            padding: 8px 16px;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
