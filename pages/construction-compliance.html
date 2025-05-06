@@ -338,13 +338,15 @@
         }
 
         button[type="submit"],
-        #compile-bra-btn,
         #compile-hs-spec-btn,
-        #compile-hs-file-btn,
-        #manage-hs-plan-btn,
-        #manage-appointments-btn,
+        #compile-hs-plan-btn,
+        #compile-bra-btn,
         #conduct-training-btn,
-        #conduct-hira-btn {
+        #make-legal-appointments-btn,
+        #conduct-inspections-audits-btn,
+        #manage-incidents-btn,
+        #compile-reports-btn,
+        #compile-hs-file-btn {
             padding: 8px 16px;
             background-color: #ff6f61;
             color: white;
@@ -358,13 +360,15 @@
         }
 
         button[type="submit"]:hover,
-        #compile-bra-btn:hover,
         #compile-hs-spec-btn:hover,
-        #compile-hs-file-btn:hover,
-        #manage-hs-plan-btn:hover,
-        #manage-appointments-btn:hover,
+        #compile-hs-plan-btn:hover,
+        #compile-bra-btn:hover,
         #conduct-training-btn:hover,
-        #conduct-hira-btn:hover {
+        #make-legal-appointments-btn:hover,
+        #conduct-inspections-audits-btn:hover,
+        #manage-incidents-btn:hover,
+        #compile-reports-btn:hover,
+        #compile-hs-file-btn:hover {
             background-color: #e65a50;
         }
 
@@ -669,14 +673,15 @@
                 grid-template-columns: 1fr;
             }
 
-            button[type="submit"],
-            #compile-bra-btn,
             #compile-hs-spec-btn,
-            #compile-hs-file-btn,
-            #manage-hs-plan-btn,
-            #manage-appointments-btn,
+            #compile-hs-plan-btn,
+            #compile-bra-btn,
             #conduct-training-btn,
-            #conduct-hira-btn {
+            #make-legal-appointments-btn,
+            #conduct-inspections-audits-btn,
+            #manage-incidents-btn,
+            #compile-reports-btn,
+            #compile-hs-file-btn {
                 width: 100%;
                 margin: 5px 0;
             }
@@ -1000,14 +1005,16 @@
                         <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
                     </div>
                     <div id="dynamic-fields"></div>
-                    <button type="submit">Generate Documents</button>
-                    <button type="button" id="compile-bra-btn">Compile Baseline Risk Assessment</button>
-                    <button type="button" id="compile-hs-spec-btn">Compile Health & Safety Specification</button>
-                    <button type="button" id="compile-hs-file-btn">Compile Health & Safety File</button>
-                    <button type="button" id="manage-hs-plan-btn">Manage Health & Safety Plan</button>
-                    <button type="button" id="manage-appointments-btn">Manage Appointments</button>
+                    <!-- Reordered Buttons -->
+                    <button type="button" id="compile-hs-spec-btn">Compile Health and Safety Specification</button>
+                    <button type="button" id="compile-hs-plan-btn">Compile Health and Safety Plan</button>
+                    <button type="button" id="compile-bra-btn">Compile Risk Assessment</button>
                     <button type="button" id="conduct-training-btn">Conduct Training</button>
-                    <button type="button" id="conduct-hira-btn">Conduct HIRA</button>
+                    <button type="button" id="make-legal-appointments-btn">Make Legal Appointments</button>
+                    <button type="button" id="conduct-inspections-audits-btn">Conduct Inspections/Audits</button>
+                    <button type="button" id="manage-incidents-btn">Manage Incidents</button>
+                    <button type="button" id="compile-reports-btn">Compile Reports</button>
+                    <button type="button" id="compile-hs-file-btn">Compile Health and Safety File</button>
                 </form>
             </div>
 
