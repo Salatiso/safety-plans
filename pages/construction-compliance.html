@@ -211,49 +211,8 @@
             margin-bottom: 8px;
         }
 
-        /* Role Selection */
-        .role-selection {
-            margin: 20px 0;
-        }
-
-        .role-selection h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
-
-        .legal-note {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 15px;
-            padding: 8px;
-            background-color: #e0f7fa;
-            border-radius: 3px;
-        }
-
-        .legal-note strong {
-            color: #ff6f61;
-        }
-
-        .role-btn {
-            padding: 8px 16px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            background-color: #1a2526;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        .role-btn:hover {
-            background-color: #2a3536;
-        }
-
-        /* Forms */
-        .form-container {
+        /* Wizard Steps */
+        .wizard-step {
             margin: 20px 0;
             background-color: #fff;
             padding: 20px;
@@ -262,10 +221,25 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .form-container h3 {
+        .wizard-step h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 15px;
+            color: #1a2526;
+        }
+
+        .progress-bar {
+            margin-bottom: 20px;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #34C759;
+            transition: width 0.3s ease;
         }
 
         .form-group {
@@ -294,6 +268,18 @@
             color: #ff6f61;
             font-size: 12px;
             margin-top: 3px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            margin-left: 5px;
+            font-size: 14px;
         }
 
         /* Activities Categories */
@@ -337,43 +323,81 @@
             font-size: 14px;
         }
 
-        button[type="submit"],
-        #compile-hs-spec-btn,
-        #compile-hs-plan-btn,
-        #compile-bra-btn,
-        #conduct-training-btn,
-        #make-legal-appointments-btn,
-        #conduct-inspections-audits-btn,
-        #manage-incidents-btn,
-        #compile-reports-btn,
-        #compile-hs-file-btn {
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .nav-buttons button {
             padding: 8px 16px;
-            background-color: #ff6f61;
-            color: white;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            margin-top: 10px;
-            margin-right: 10px;
             font-size: 14px;
             transition: background-color 0.2s ease;
         }
 
-        button[type="submit"]:hover,
-        #compile-hs-spec-btn:hover,
-        #compile-hs-plan-btn:hover,
-        #compile-bra-btn:hover,
-        #conduct-training-btn:hover,
-        #make-legal-appointments-btn:hover,
-        #conduct-inspections-audits-btn:hover,
-        #manage-incidents-btn:hover,
-        #compile-reports-btn:hover,
-        #compile-hs-file-btn:hover {
+        #back-btn {
+            background-color: #666;
+            color: white;
+        }
+
+        #back-btn:hover {
+            background-color: #555;
+        }
+
+        #next-btn {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        #next-btn:hover {
             background-color: #e65a50;
         }
 
-        .hidden {
-            display: none !important;
+        /* Information Bubble */
+        .info-bubble {
+            position: relative;
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .info-bubble::after {
+            content: "ℹ️";
+            font-size: 16px;
+            color: #FFD700;
+        }
+
+        .info-bubble:hover .info-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .info-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: -10px;
+            left: 25px;
+            background-color: #FFD700;
+            color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            width: 250px;
+            z-index: 100;
+            font-size: 12px;
+            line-height: 1.4;
+            transition: opacity 0.2s ease;
+        }
+
+        .fun-fact {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
         }
 
         /* Cart */
@@ -651,19 +675,13 @@
                 min-width: 100%;
             }
 
-            .role-btn {
-                display: block;
-                width: 100%;
-                margin: 5px 0;
-            }
-
             .form-group input,
             .form-group select,
             .form-group textarea {
                 max-width: 100%;
             }
 
-            .form-container,
+            .wizard-step,
             .cart-container,
             .resources {
                 padding: 15px;
@@ -684,6 +702,20 @@
             #compile-hs-file-btn {
                 width: 100%;
                 margin: 5px 0;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-buttons button {
+                width: 100%;
+            }
+
+            .info-tooltip {
+                width: 200px;
+                left: 0;
+                top: 25px;
             }
 
             .chat-window {
@@ -767,260 +799,533 @@
                 </div>
             </div>
 
-            <!-- Role Selection -->
-            <div class="role-selection">
-                <h3>Select Your Role</h3>
-                <p class="legal-note hidden" id="client-legal-note"><strong>Legal Note:</strong> As a Client, you are responsible for initiating the H&S process, including preparing a Baseline Risk Assessment and H&S Specification (Construction Regulation 5).</p>
-                <p class="legal-note hidden" id="contractor-legal-note"><strong>Legal Note:</strong> Contractors must develop a Health & Safety Plan and maintain an H&S File on-site (Construction Regulation 7). Principal Contractors may also compile H&S Specifications for subcontractors.</p>
-                <p class="legal-note hidden" id="hns-pro-legal-note"><strong>Legal Note:</strong> H&S Professionals support compliance on behalf of Clients or Contractors, often requiring SACPCMP registration (Construction Regulation 8(5)).</p>
-                <button id="client-btn" class="role-btn">Client</button>
-                <button id="contractor-btn" class="role-btn">Contractor</button>
-                <button id="hns-pro-btn" class="role-btn">Health & Safety Professional</button>
-            </div>
-
-            <!-- OHS Specification Form (for All Roles) -->
-            <div id="project-form-container" class="form-container hidden">
-                <h3 id="form-title">Generate OHS Specification</h3>
-                <p class="legal-note"><strong>Legal Note:</strong> The H&S Specification outlines project-specific requirements, per Construction Regulation 5(1)(b). Ensure all details are accurate.</p>
-                <form id="project-form">
-                    <div class="form-group">
-                        <label for="accreditation-level">Accreditation Level:</label>
-                        <select id="accreditation-level" name="accreditationLevel" required aria-label="Accreditation Level" aria-describedby="accreditation-level-error">
-                            <option value="none">None</option>
-                            <option value="trainee">Trainee</option>
-                            <option value="ohs-rep">OHS Representative</option>
-                            <option value="sacpcmp-officer">SACPCMP Officer (CHSO)</option>
-                            <option value="sacpcmp-agent">SACPCMP Agent (PrCHSA)</option>
-                        </select>
-                        <p id="accreditation-level-error" class="error hidden">Please select an accreditation level.</p>
-                    </div>
-                    <div class="form-group hidden" id="sacpcmp-reg-container">
-                        <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
-                        <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration" aria-describedby="sacpcmp-reg-error">
-                        <p id="sacpcmp-reg-error" class="error hidden">SACPCMP Registration Number is required for Officer or Agent roles.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="project-name">Project Name:</label>
-                        <input type="text" id="project-name" name="projectName" required aria-label="Project Name" aria-describedby="project-name-error">
-                        <p id="project-name-error" class="error hidden">Please enter a project name.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="client-name">Client Company Name:</label>
-                        <input type="text" id="client-name" name="clientName" required aria-label="Client Name" aria-describedby="client-name-error">
-                        <p id="client-name-error" class="error hidden">Please enter a client company name.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="contractor-name">Contractor Company Name:</label>
-                        <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name" aria-describedby="contractor-name-error">
-                        <p id="contractor-name-error" class="error hidden">Please enter a contractor company name.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-address">Site Address:</label>
-                        <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address" aria-describedby="site-address-error">
-                        <p id="site-address-error" class="error hidden">Please enter a site address.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="type-of-work">Type of Work to be Done:</label>
-                        <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work" aria-describedby="type-of-work-error">
-                        <p id="type-of-work-error" class="error hidden">Please enter the type of work.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location:</label>
-                        <input type="text" id="location" name="location" required aria-label="Project Location" aria-describedby="location-error">
-                        <p id="location-error" class="error hidden">Please enter a location.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="cost">Cost (R):</label>
-                        <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost" aria-describedby="cost-error">
-                        <p id="cost-error" class="error hidden">Please enter a valid project cost (R).</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="duration">Duration (Days):</label>
-                        <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration" aria-describedby="duration-error">
-                        <p id="duration-error" class="error hidden">Please enter a valid duration (days).</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="emergency-contact">Emergency Contact:</label>
-                        <input type="tel" id="emergency-contact" name="emergencyContact" required aria-label="Emergency Contact" pattern="\+?[0-9\s\-()]{10,}" aria-describedby="emergency-contact-error">
-                        <p id="emergency-contact-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="workmans-comp">COIDA Registration Number:</label>
-                        <input type="text" id="workmans-comp" name="workmansComp" required aria-label="COIDA Registration Number" aria-describedby="workmans-comp-error">
-                        <p id="workmans-comp-error" class="error hidden">Please enter a COIDA registration number.</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Activities Involved (Select all that apply):</label>
-                        <div class="activities-categories">
-                            <details>
-                                <summary>Security Guards</summary>
-                                <div class="category-content">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="night-work" name="activities" value="Night Work">
-                                        <label for="night-work">Night Work</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="moving-traffic" name="activities" value="Working in Moving Traffic">
-                                        <label for="moving-traffic">Working in Moving Traffic</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="vibration-exposure" name="activities" value="Vibration Exposure">
-                                        <label for="vibration-exposure">Vibration Exposure</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="noise-exposure" name="activities" value="Noise Exposure">
-                                        <label for="noise-exposure">Noise Exposure</label>
-                                    </div>
-                                </div>
-                            </details>
-                            <details>
-                                <summary>Welders</summary>
-                                <div class="category-content">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="welding" name="activities" value="Welding">
-                                        <label for="welding">Welding</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="hot-work" name="activities" value="Hot Work (e.g., Cutting, Grinding)">
-                                        <label for="hot-work">Hot Work (e.g., Cutting, Grinding)</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="combustible-materials" name="activities" value="Combustible Materials">
-                                        <label for="combustible-materials">Combustible Materials</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="hazardous-substances" name="activities" value="Handling Hazardous Substances">
-                                        <label for="hazardous-substances">Handling Hazardous Substances</label>
-                                    </div>
-                                </div>
-                            </details>
-                            <details>
-                                <summary>Office Fit-Out</summary>
-                                <div class="category-content">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="sensitive-it-equipment" name="activities" value="Sensitive IT Equipment">
-                                        <label for="sensitive-it-equipment">Sensitive IT Equipment</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="manual-handling" name="activities" value="Manual Handling">
-                                        <label for="manual-handling">Manual Handling</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="working-electricity" name="activities" value="Working with Electricity">
-                                        <label for="working-electricity">Working with Electricity</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="dust-exposure" name="activities" value="Dust Exposure">
-                                        <label for="dust-exposure">Dust Exposure</label>
-                                    </div>
-                                </div>
-                            </details>
-                            <details>
-                                <summary>Civil Contractors</summary>
-                                <div class="category-content">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="excavation" name="activities" value="Excavation">
-                                        <label for="excavation">Excavation</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="crane-operations" name="activities" value="Crane Operations">
-                                        <label for="crane-operations">Crane Operations</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="working-near-water" name="activities" value="Working Near Water">
-                                        <label for="working-near-water">Working Near Water</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="pile-driving" name="activities" value="Pile Driving">
-                                        <label for="pile-driving">Pile Driving</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="working-tunnels" name="activities" value="Working in Tunnels">
-                                        <label for="working-tunnels">Working in Tunnels</label>
-                                    </div>
-                                </div>
-                            </details>
-                            <details>
-                                <summary>General Construction</summary>
-                                <div class="category-content">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="working-from-heights" name="activities" value="Working from Heights">
-                                        <label for="working-from-heights">Working from Heights</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding">
-                                        <label for="scaffolding">Scaffolding</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction">
-                                        <label for="multi-storey">Multi-Storey Construction</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
-                                        <label for="asbestos">Asbestos Removal</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="confined-space" name="activities" value="Confined Space Entry">
-                                        <label for="confined-space">Confined Space Entry</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="demolition" name="activities" value="Demolition">
-                                        <label for="demolition">Demolition</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="roof-work" name="activities" value="Roof Work">
-                                        <label for="roof-work">Roof Work</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="temporary-works" name="activities" value="Temporary Works">
-                                        <label for="temporary-works">Temporary Works</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="live-voltage" name="activities" value="Working with Live Voltage">
-                                        <label for="live-voltage">Working with Live Voltage</label>
-                                    </div>
-                                </div>
-                            </details>
+            <!-- Wizard Steps -->
+            <div id="wizard-step-1" class="wizard-step">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 11%;"></div>
+                </div>
+                <h3>Step 1 of 9: What Would You Like to Do?</h3>
+                <div class="form-group">
+                    <label for="document-types">Select Documents to Compile (Select all that apply):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hs-spec" name="documentTypes" value="hs-spec">
+                            <label for="hs-spec">Compile Health and Safety Specification</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Construction Regulation 5(1)(b) requires a Health and Safety Specification for all projects.<br><span class="fun-fact">Did you know? A well-prepared H&S Specification can reduce workplace accidents by up to 30%!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hs-plan" name="documentTypes" value="hs-plan">
+                            <label for="hs-plan">Compile Health and Safety Plan</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Construction Regulation 7(1)(a) mandates a Health and Safety Plan for contractors.<br><span class="fun-fact">Did you know? Proper planning can improve project safety by 25%!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="risk-assessment" name="documentTypes" value="risk-assessment">
+                            <label for="risk-assessment">Compile Risk Assessment</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Construction Regulation 9 requires task-specific risk assessments (HIRAs).<br><span class="fun-fact">Did you know? Risk assessments can identify 80% of potential hazards!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="training" name="documentTypes" value="training">
+                            <label for="training">Conduct Training</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Training ensures workers are aware of site-specific hazards.<br><span class="fun-fact">Did you know? Proper training reduces accidents by 40%!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="appointments" name="documentTypes" value="appointments">
+                            <label for="appointments">Make Legal Appointments</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Legal appointments ensure accountability under the OHS Act.<br><span class="fun-fact">Did you know? Clear roles improve compliance efficiency!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="inspections" name="documentTypes" value="inspections">
+                            <label for="inspections">Conduct Inspections/Audits</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Regular inspections are required to maintain safety standards.<br><span class="fun-fact">Did you know? Audits can uncover hidden risks!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="incidents" name="documentTypes" value="incidents">
+                            <label for="incidents">Manage Incidents</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Incident management ensures quick response to emergencies.<br><span class="fun-fact">Did you know? Fast reporting can save lives!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="reports" name="documentTypes" value="reports">
+                            <label for="reports">Compile Reports</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Reports document compliance efforts for audits.<br><span class="fun-fact">Did you know? Good records can reduce legal risks!</span></span>
+                            </span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hs-file" name="documentTypes" value="hs-file">
+                            <label for="hs-file">Compile Health and Safety File</label>
+                            <span class="info-bubble">
+                                <span class="info-tooltip">Construction Regulation 7(1)(b) requires an H&S File for all projects.<br><span class="fun-fact">Did you know? A complete H&S File can streamline audits!</span></span>
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cidb-grade">CIDB Grading:</label>
-                        <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading" aria-describedby="cidb-grade-error">
-                            <option value="Not Applicable">Not Applicable</option>
-                            <option value="1">Grade 1</option>
-                            <option value="2">Grade 2</option>
-                            <option value="3">Grade 3</option>
-                            <option value="4">Grade 4</option>
-                            <option value="5">Grade 5</option>
-                            <option value="6">Grade 6</option>
-                            <option value="7">Grade 7</option>
-                            <option value="8">Grade 8</option>
-                            <option value="9">Grade 9</option>
-                        </select>
-                        <p id="cidb-grade-error" class="error hidden">Please select a CIDB grading.</p>
+                    <p id="document-types-error" class="error hidden">Please select at least one document to compile.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn" disabled>Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-2" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 22%;"></div>
+                </div>
+                <h3>Step 2 of 9: Client Details</h3>
+                <div class="form-group">
+                    <label for="client-name">Client Company Name:</label>
+                    <input type="text" id="client-name" name="clientName" required aria-label="Client Company Name" aria-describedby="client-name-error">
+                    <p id="client-name-error" class="error hidden">Please enter a client company name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-address">Client Address:</label>
+                    <input type="text" id="client-address" name="clientAddress" required aria-label="Client Address" aria-describedby="client-address-error">
+                    <p id="client-address-error" class="error hidden">Please enter a client address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-contact-person">Client Contact Person:</label>
+                    <input type="text" id="client-contact-person" name="clientContactPerson" required aria-label="Client Contact Person" aria-describedby="client-contact-person-error">
+                    <p id="client-contact-person-error" class="error hidden">Please enter a client contact person.</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-contact-role">Client Contact Role:</label>
+                    <input type="text" id="client-contact-role" name="clientContactRole" required aria-label="Client Contact Role" aria-describedby="client-contact-role-error">
+                    <p id="client-contact-role-error" class="error hidden">Please enter a client contact role.</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-contact-number">Client Contact Number:</label>
+                    <input type="tel" id="client-contact-number" name="clientContactNumber" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Client Contact Number" aria-describedby="client-contact-number-error">
+                    <p id="client-contact-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Client Email:</label>
+                    <input type="email" id="client-email" name="clientEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Client Email" aria-describedby="client-email-error">
+                    <p id="client-email-error" class="error hidden">Please enter a valid email address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="client-coida">COIDA Registration Number:</label>
+                    <input type="text" id="client-coida" name="clientCoida" required aria-label="COIDA Registration Number" aria-describedby="client-coida-error">
+                    <p id="client-coida-error" class="error hidden">Please enter a COIDA registration number.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">Per Construction Regulation 5, the Client is responsible for initiating the H&S process.<br><span class="fun-fact">Did you know? COIDA ensures compensation for workplace injuries—make sure your registration is up to date!</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-3" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33%;"></div>
+                </div>
+                <h3>Step 3 of 9: Has a Contractor Been Appointed?</h3>
+                <div class="form-group">
+                    <label for="contractor-appointed">Contractor Appointed:</label>
+                    <select id="contractor-appointed" name="contractorAppointed" required aria-label="Contractor Appointed" aria-describedby="contractor-appointed-error">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="not-applicable">Not Applicable</option>
+                    </select>
+                    <p id="contractor-appointed-error" class="error hidden">Please select an option.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">Construction Regulation 7 requires contractors to develop an H&S Plan.<br><span class="fun-fact">Did you know? Appointing a contractor early can streamline compliance!</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-4" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 44%;"></div>
+                </div>
+                <h3>Step 4 of 9: Contractor Details</h3>
+                <div class="form-group">
+                    <label for="contractor-name">Contractor Company Name:</label>
+                    <input type="text" id="contractor-name" name="contractorName" required aria-label="Contractor Company Name" aria-describedby="contractor-name-error">
+                    <p id="contractor-name-error" class="error hidden">Please enter a contractor company name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-address">Contractor Address:</label>
+                    <input type="text" id="contractor-address" name="contractorAddress" required aria-label="Contractor Address" aria-describedby="contractor-address-error">
+                    <p id="contractor-address-error" class="error hidden">Please enter a contractor address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-contact-person">Contractor Contact Person:</label>
+                    <input type="text" id="contractor-contact-person" name="contractorContactPerson" required aria-label="Contractor Contact Person" aria-describedby="contractor-contact-person-error">
+                    <p id="contractor-contact-person-error" class="error hidden">Please enter a contractor contact person.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-contact-role">Contractor Contact Role:</label>
+                    <input type="text" id="contractor-contact-role" name="contractorContactRole" required aria-label="Contractor Contact Role" aria-describedby="contractor-contact-role-error">
+                    <p id="contractor-contact-role-error" class="error hidden">Please enter a contractor contact role.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-contact-number">Contractor Contact Number:</label>
+                    <input type="tel" id="contractor-contact-number" name="contractorContactNumber" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Contractor Contact Number" aria-describedby="contractor-contact-number-error">
+                    <p id="contractor-contact-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-email">Contractor Email:</label>
+                    <input type="email" id="contractor-email" name="contractorEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Contractor Email" aria-describedby="contractor-email-error">
+                    <p id="contractor-email-error" class="error hidden">Please enter a valid email address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contractor-coida">COIDA Registration Number:</label>
+                    <input type="text" id="contractor-coida" name="contractorCoida" required aria-label="COIDA Registration Number" aria-describedby="contractor-coida-error">
+                    <p id="contractor-coida-error" class="error hidden">Please enter a COIDA registration number.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">Contractors must maintain a COIDA registration for compliance.<br><span class="fun-fact">Did you know? COIDA protects workers from financial loss due to injuries!</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-5" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 55%;"></div>
+                </div>
+                <h3>Step 5 of 9: Project Details</h3>
+                <div class="form-group">
+                    <label for="project-reference">Project Reference Number:</label>
+                    <input type="text" id="project-reference" name="projectReference" readonly aria-label="Project Reference Number">
+                </div>
+                <div class="form-group">
+                    <label for="project-name">Project Name:</label>
+                    <input type="text" id="project-name" name="projectName" required aria-label="Project Name" aria-describedby="project-name-error">
+                    <p id="project-name-error" class="error hidden">Please enter a project name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="site-address">Site Address:</label>
+                    <input type="text" id="site-address" name="siteAddress" required aria-label="Site Address" aria-describedby="site-address-error">
+                    <p id="site-address-error" class="error hidden">Please enter a site address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="site-supervisor-name">Site Supervisor Name:</label>
+                    <input type="text" id="site-supervisor-name" name="siteSupervisorName" required aria-label="Site Supervisor Name" aria-describedby="site-supervisor-name-error">
+                    <p id="site-supervisor-name-error" class="error hidden">Please enter a site supervisor name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="site-supervisor-number">Site Supervisor Contact Number:</label>
+                    <input type="tel" id="site-supervisor-number" name="siteSupervisorNumber" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Site Supervisor Contact Number" aria-describedby="site-supervisor-number-error">
+                    <p id="site-supervisor-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
+                </div>
+                <div class="form-group">
+                    <label for="site-supervisor-email">Site Supervisor Email:</label>
+                    <input type="email" id="site-supervisor-email" name="siteSupervisorEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Site Supervisor Email" aria-describedby="site-supervisor-email-error">
+                    <p id="site-supervisor-email-error" class="error hidden">Please enter a valid email address.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">A clear project name and site address ensure compliance with Construction Regulation 3(1).<br><span class="fun-fact">Did you know? Accurate site details help emergency services respond faster!</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-6" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 66%;"></div>
+                </div>
+                <h3>Step 6 of 9: Scope of the Project</h3>
+                <div class="form-group">
+                    <label for="type-of-work">Type of Work to be Done:</label>
+                    <input type="text" id="type-of-work" name="typeOfWork" required aria-label="Type of Work" aria-describedby="type-of-work-error">
+                    <p id="type-of-work-error" class="error hidden">Please enter the type of work.</p>
+                </div>
+                <div class="form-group">
+                    <label for="cidb-grade">CIDB Grading:</label>
+                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading" aria-describedby="cidb-grade-error">
+                        <option value="Not Applicable">Not Applicable</option>
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6">Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                    </select>
+                    <p id="cidb-grade-error" class="error hidden">Please select a CIDB grading.</p>
+                </div>
+                <div class="form-group">
+                    <label for="cost">Cost (R):</label>
+                    <input type="number" id="cost" name="cost" min="0" step="1" required aria-label="Project Cost" aria-describedby="cost-error">
+                    <p id="cost-error" class="error hidden">Please enter a valid project cost (R).</p>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (Days):</label>
+                    <input type="number" id="duration" name="duration" min="1" step="1" required aria-label="Project Duration" aria-describedby="duration-error">
+                    <p id="duration-error" class="error hidden">Please enter a valid duration (days).</p>
+                </div>
+                <div class="form-group">
+                    <label>Activities Involved (Select all that apply):</label>
+                    <div class="activities-categories">
+                        <details>
+                            <summary>Security Guards</summary>
+                            <div class="category-content">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="night-work" name="activities" value="Night Work">
+                                    <label for="night-work">Night Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="moving-traffic" name="activities" value="Working in Moving Traffic">
+                                    <label for="moving-traffic">Working in Moving Traffic</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="vibration-exposure" name="activities" value="Vibration Exposure">
+                                    <label for="vibration-exposure">Vibration Exposure</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="noise-exposure" name="activities" value="Noise Exposure">
+                                    <label for="noise-exposure">Noise Exposure</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Welders</summary>
+                            <div class="category-content">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="welding" name="activities" value="Welding">
+                                    <label for="welding">Welding</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="hot-work" name="activities" value="Hot Work (e.g., Cutting, Grinding)">
+                                    <label for="hot-work">Hot Work (e.g., Cutting, Grinding)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="combustible-materials" name="activities" value="Combustible Materials">
+                                    <label for="combustible-materials">Combustible Materials</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="hazardous-substances" name="activities" value="Handling Hazardous Substances">
+                                    <label for="hazardous-substances">Handling Hazardous Substances</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Office Fit-Out</summary>
+                            <div class="category-content">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="sensitive-it-equipment" name="activities" value="Sensitive IT Equipment">
+                                    <label for="sensitive-it-equipment">Sensitive IT Equipment</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="manual-handling" name="activities" value="Manual Handling">
+                                    <label for="manual-handling">Manual Handling</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-electricity" name="activities" value="Working with Electricity">
+                                    <label for="working-electricity">Working with Electricity</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="dust-exposure" name="activities" value="Dust Exposure">
+                                    <label for="dust-exposure">Dust Exposure</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Civil Contractors</summary>
+                            <div class="category-content">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="excavation" name="activities" value="Excavation">
+                                    <label for="excavation">Excavation</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="crane-operations" name="activities" value="Crane Operations">
+                                    <label for="crane-operations">Crane Operations</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-near-water" name="activities" value="Working Near Water">
+                                    <label for="working-near-water">Working Near Water</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pile-driving" name="activities" value="Pile Driving">
+                                    <label for="pile-driving">Pile Driving</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-tunnels" name="activities" value="Working in Tunnels">
+                                    <label for="working-tunnels">Working in Tunnels</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>General Construction</summary>
+                            <div class="category-content">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-from-heights" name="activities" value="Working from Heights">
+                                    <label for="working-from-heights">Working from Heights</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding">
+                                    <label for="scaffolding">Scaffolding</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction">
+                                    <label for="multi-storey">Multi-Storey Construction</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
+                                    <label for="asbestos">Asbestos Removal</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="confined-space" name="activities" value="Confined Space Entry">
+                                    <label for="confined-space">Confined Space Entry</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="demolition" name="activities" value="Demolition">
+                                    <label for="demolition">Demolition</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="roof-work" name="activities" value="Roof Work">
+                                    <label for="roof-work">Roof Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="temporary-works" name="activities" value="Temporary Works">
+                                    <label for="temporary-works">Temporary Works</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="live-voltage" name="activities" value="Working with Live Voltage">
+                                    <label for="live-voltage">Working with Live Voltage</label>
+                                </div>
+                            </div>
+                        </details>
                     </div>
-                    <div class="form-group">
-                        <label for="scope-details">Scope Details:</label>
-                        <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details" aria-describedby="scope-details-error"></textarea>
-                        <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
-                    </div>
-                    <div id="dynamic-fields"></div>
-                    <!-- Reordered Buttons -->
-                    <button type="button" id="compile-hs-spec-btn">Compile Health and Safety Specification</button>
-                    <button type="button" id="compile-hs-plan-btn">Compile Health and Safety Plan</button>
-                    <button type="button" id="compile-bra-btn">Compile Risk Assessment</button>
-                    <button type="button" id="conduct-training-btn">Conduct Training</button>
-                    <button type="button" id="make-legal-appointments-btn">Make Legal Appointments</button>
-                    <button type="button" id="conduct-inspections-audits-btn">Conduct Inspections/Audits</button>
-                    <button type="button" id="manage-incidents-btn">Manage Incidents</button>
-                    <button type="button" id="compile-reports-btn">Compile Reports</button>
-                    <button type="button" id="compile-hs-file-btn">Compile Health and Safety File</button>
-                </form>
+                </div>
+                <div class="form-group">
+                    <label for="scope-details">Scope Details:</label>
+                    <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details" aria-describedby="scope-details-error"></textarea>
+                    <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">Construction Regulation 3(1) requires a permit for projects over R40,000 or 180 days.<br><span class="fun-fact">Did you know? Identifying activities early can reduce risks by 25%!</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-7" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 77%;"></div>
+                </div>
+                <h3>Step 7 of 9: Compiled By</h3>
+                <div class="form-group">
+                    <label for="compiled-by-name">Name:</label>
+                    <input type="text" id="compiled-by-name" name="compiledByName" required aria-label="Compiled By Name" aria-describedby="compiled-by-name-error">
+                    <p id="compiled-by-name-error" class="error hidden">Please enter your name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="compiled-by-number">Contact Number:</label>
+                    <input type="tel" id="compiled-by-number" name="compiledByNumber" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Compiled By Contact Number" aria-describedby="compiled-by-number-error">
+                    <p id="compiled-by-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
+                </div>
+                <div class="form-group">
+                    <label for="compiled-by-email">Email:</label>
+                    <input type="email" id="compiled-by-email" name="compiledByEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Compiled By Email" aria-describedby="compiled-by-email-error">
+                    <p id="compiled-by-email-error" class="error hidden">Please enter a valid email address.</p>
+                </div>
+                <div class="form-group">
+                    <label for="compiled-by-role">Role:</label>
+                    <select id="compiled-by-role" name="compiledByRole" required aria-label="Compiled By Role" aria-describedby="compiled-by-role-error">
+                        <option value="trainee">OHS Trainee</option>
+                        <option value="ohs-rep">OHS Representative</option>
+                        <option value="sacpcmp-officer">SACPCMP Officer (CHSO)</option>
+                        <option value="sacpcmp-agent">SACPCMP Agent (PrCHSA)</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <p id="compiled-by-role-error" class="error hidden">Please select a role.</p>
+                </div>
+                <div class="form-group hidden" id="sacpcmp-reg-container">
+                    <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
+                    <input type="text" id="sacpcmp-reg" name="sacpcmpReg" aria-label="SACPCMP Registration Number" aria-describedby="sacpcmp-reg-error">
+                    <p id="sacpcmp-reg-error" class="error hidden">Please enter a SACPCMP registration number.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">SACPCMP professionals ensure compliance with industry standards.<br><span class="fun-fact">Did you know? Registered professionals can reduce legal risks significantly!</span></span>
+                    </span>
+                </div>
+                <div class="form-group hidden" id="compiled-by-role-other-container">
+                    <label for="compiled-by-role-other">Specify Role:</label>
+                    <input type="text" id="compiled-by-role-other" name="compiledByRoleOther" aria-label="Specify Role" aria-describedby="compiled-by-role-other-error">
+                    <p id="compiled-by-role-other-error" class="error hidden">Please specify your role.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-8" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 88%;"></div>
+                </div>
+                <h3>Step 8 of 9: Compiled For</h3>
+                <div class="form-group">
+                    <label for="compiled-for">Compiled For:</label>
+                    <select id="compiled-for" name="compiledFor" required aria-label="Compiled For" aria-describedby="compiled-for-error">
+                        <option value="client">Client</option>
+                        <option value="contractor">Contractor</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <p id="compiled-for-error" class="error hidden">Please select an option.</p>
+                </div>
+                <div class="form-group hidden" id="compiled-for-other-container">
+                    <label for="compiled-for-other">Specify:</label>
+                    <input type="text" id="compiled-for-other" name="compiledForOther" aria-label="Specify Compiled For" aria-describedby="compiled-for-other-error">
+                    <p id="compiled-for-other-error" class="error hidden">Please specify who the document is compiled for.</p>
+                    <span class="info-bubble">
+                        <span class="info-tooltip">Clearly defining who the document is compiled for ensures accountability.<br><span class="fun-fact">Did you know? Proper documentation can improve project transparency?</span></span>
+                    </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="wizard-step-9" class="wizard-step hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;"></div>
+                </div>
+                <h3>Step 9 of 9: Review and Add to Cart</h3>
+                <p>Review your selections and add the documents to your cart for checkout.</p>
+                <div class="form-group">
+                    <label>Selected Documents:</label>
+                    <ul id="selected-documents"></ul>
+                </div>
+                <div class="nav-buttons">
+                    <button id="back-btn">Back</button>
+                    <button id="next-btn">Add to Cart</button>
+                </div>
             </div>
 
             <!-- Cart Section -->
             <div id="cart-container" class="cart-container hidden">
                 <h3>Your Cart</h3>
+                <p id="invoice-reference" class="hidden">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
                 <table id="cart-table">
                     <thead>
                         <tr>
