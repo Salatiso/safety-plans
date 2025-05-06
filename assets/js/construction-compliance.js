@@ -1,6 +1,6 @@
 /**
  * Construction Compliance JavaScript
- * Handles OHS Specification form, role selection, and PDF generation.
+ * Handles OHS Specification form, role selection, and cart-based document generation.
  * Implements temporary data storage and cart functionality.
  */
 
@@ -71,10 +71,11 @@ const getTempData = (referenceNumber) => {
 // Cart Management
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-const addToCart = (documentName, price) => {
-    cart.push({ documentName, price });
+const addToCart = (documentName, price, type, data) => {
+    cart.push({ documentName, price, type, data });
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
+    alert(`${documentName} added to cart!`);
 };
 
 const updateCartDisplay = () => {
@@ -107,49 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!sidebar || !mainContent) {
         console.error("Critical layout elements missing: .sidebar or .main-content not found.");
         return;
-    }
-
-    // Initialize Carousel with Dynamic Height Adjustment
-    const items = document.querySelectorAll(".carousel-item");
-    const carouselItems = document.querySelector(".carousel-items");
-    if (items.length > 0 && carouselItems) {
-        let currentIndex = 0;
-
-        // Function to adjust carousel height based on active item
-        const adjustCarouselHeight = () => {
-            const activeItem = items[currentIndex];
-            activeItem.classList.add("active");
-            const height = activeItem.offsetHeight;
-            carouselItems.style.height = `${height}px`;
-        };
-
-        // Initial adjustment
-        adjustCarouselHeight();
-
-        const nextBtn = document.querySelector(".carousel-next");
-        const prevBtn = document.querySelector(".carousel-prev");
-        if (nextBtn) {
-            nextBtn.addEventListener("click", () => {
-                items[currentIndex].classList.remove("active");
-                currentIndex = (currentIndex + 1) % items.length;
-                adjustCarouselHeight();
-            });
-        }
-        if (prevBtn) {
-            prevBtn.addEventListener("click", () => {
-                items[currentIndex].classList.remove("active");
-                currentIndex = (currentIndex - 1 + items.length) % items.length;
-                adjustCarouselHeight();
-            });
-        }
-        // Auto-rotate every 5 seconds
-        setInterval(() => {
-            items[currentIndex].classList.remove("active");
-            currentIndex = (currentIndex + 1) % items.length;
-            adjustCarouselHeight();
-        }, 5000);
-    } else {
-        console.warn("No carousel items found.");
     }
 
     // Simulate Login
@@ -196,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.add("hidden");
                 hnsProNote.classList.add("hidden");
             }
-            formTitle.textContent = "Generate OHS Specification (Client)";
+            formTitle.textContent = "OHS Actions (Client)";
             projectFormContainer.classList.remove("hidden");
         });
     }
@@ -211,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.remove("hidden");
                 hnsProNote.classList.add("hidden");
             }
-            formTitle.textContent = "Generate OHS Specification (Contractor)";
+            formTitle.textContent = "OHS Actions (Contractor)";
             projectFormContainer.classList.remove("hidden");
         });
     }
@@ -226,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contractorNote.classList.add("hidden");
                 hnsProNote.classList.remove("hidden");
             }
-            formTitle.textContent = "Generate OHS Specification (H&S Professional)";
+            formTitle.textContent = "OHS Actions (H&S Professional)";
             projectFormContainer.classList.remove("hidden");
         });
     }
@@ -247,8 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        projectForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+        // Validate Form and Add to Cart
+        const validateAndAddToCart = (documentName, price, type) => {
             const formData = new FormData(projectForm);
             const data = Object.fromEntries(formData);
             
@@ -287,16 +245,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-            if (!valid) return;
+            if (!valid) return null;
 
-            // Generate PDF
-            generateOHSSpecPDF(data);
-
-            // Save Data
-            const referenceNumber = saveTempData(data);
-            alert(`OHS Specification generated! Reference Number: ${referenceNumber} (valid for 7 days)`);
-            addToCart("OHS Specification", 50.00); // Example price
-        });
+            // Add to cart
+            addToCart(documentName, price, type, data);
+            return data;
+        };
 
         // SACPCMP Registration Field Visibility
         const accreditationLevel = document.getElementById("accreditation-level");
@@ -307,27 +261,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 sacpcmpRegContainer.classList.toggle("hidden", !showReg);
             });
         }
+
+        // Button Actions
+        const actionButtons = [
+            { id: "compile-hs-spec-btn", action: () => validateAndAddToCart("Health and Safety Specification", 50.00, "hs-spec") },
+            { id: "compile-hs-plan-btn", action: () => validateAndAddToCart("Health and Safety Plan", 50.00, "hs-plan") },
+            { id: "compile-bra-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline" },
+            { id: "conduct-training-btn", action: () => window.location.href = "https://salatiso.github.io/safety-plans/pages/general-induction.html" },
+            { id: "make-legal-appointments-btn", action: () => window.location.href = "https://salatiso.github.io/safety-plans/pages/legal-appointments.html" },
+            { id: "conduct-inspections-audits-btn", action: () => window.location.href = "https://salatiso.github.io/safety-plans/pages/inspections-audits.html" },
+            { id: "manage-incidents-btn", action: () => window.location.href = "https://salatiso.github.io/safety-plans/pages/incident-management.html" },
+            { id: "compile-reports-btn", action: () => alert("Report compilation coming soon!") },
+            { id: "compile-hs-file-btn", action: () => validateAndAddToCart("Health and Safety File", 100.00, "hs-file") }
+        ];
+
+        actionButtons.forEach(btn => {
+            const element = document.getElementById(btn.id);
+            if (element) {
+                element.addEventListener("click", btn.action);
+            }
+        });
     } else {
         console.error("Project form not found.");
     }
-
-    // Placeholder Functionality for Additional Buttons
-    const actionButtons = [
-        { id: "compile-bra-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline" },
-        { id: "compile-hs-spec-btn", action: () => projectForm.dispatchEvent(new Event("submit")) }, // Same as Generate Documents
-        { id: "compile-hs-file-btn", action: () => alert("Health & Safety File compilation coming soon!") },
-        { id: "manage-hs-plan-btn", action: () => alert("Health & Safety Plan management coming soon!") },
-        { id: "manage-appointments-btn", action: () => alert("Appointment management coming soon!") },
-        { id: "conduct-training-btn", action: () => alert("Training conduction coming soon!") },
-        { id: "conduct-hira-btn", action: () => window.location.href = "/safety-plans/pages/risk-assessment.html?type=issue-based" }
-    ];
-
-    actionButtons.forEach(btn => {
-        const element = document.getElementById(btn.id);
-        if (element) {
-            element.addEventListener("click", btn.action);
-        }
-    });
 
     // Checkout
     const checkoutBtn = document.getElementById("checkout-btn");
@@ -337,7 +293,19 @@ document.addEventListener("DOMContentLoaded", () => {
             if (promoCode === "SAFETYFIRST25") {
                 alert("Promo code applied! 25% discount (mock implementation).");
             }
-            alert("Checkout complete! Documents will be emailed to you (mock implementation).");
+
+            // Generate PDFs for all items in the cart
+            cart.forEach(item => {
+                if (item.type === "hs-spec") {
+                    generateOHSSpecPDF(item.data);
+                } else if (item.type === "hs-plan") {
+                    generateHSPlanPDF(item.data);
+                } else if (item.type === "hs-file") {
+                    generateHSFilePDF(item.data);
+                }
+            });
+
+            alert("Checkout complete! Documents have been generated and downloaded.");
             cart = [];
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
@@ -367,9 +335,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const query = message.toLowerCase();
             let response = "This is a placeholder response. Ask about OHS compliance!";
             if (query.includes("ohs specification")) {
-                response = "An OHS Specification outlines project-specific requirements per Construction Regulation 5(1)(b). Fill out the form with project details to generate one.";
+                response = "An OHS Specification outlines project-specific requirements per Construction Regulation 5(1)(b). Use the 'Compile Health and Safety Specification' button to add it to your cart.";
             } else if (query.includes("risk assessment")) {
-                response = "Risk Assessments identify hazards and risks. Use the 'Compile Baseline Risk Assessment' or 'Conduct HIRA' buttons to start one.";
+                response = "Risk Assessments identify hazards and risks. Use the 'Compile Risk Assessment' button to start one.";
             }
             chatOutput.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
             chatInput.value = "";
@@ -416,6 +384,62 @@ function generateOHSSpecPDF(data) {
         }
 
         doc.save("OHS_Specification.pdf");
+    } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to generate PDF. Please try again.");
+    }
+}
+
+// Generate Health and Safety Plan PDF
+function generateHSPlanPDF(data) {
+    if (!jsPDF) return;
+    try {
+        const doc = new jsPDF();
+        addHeaderFooter(doc, "Health and Safety Plan");
+
+        let y = 30;
+        doc.setFontSize(12);
+        doc.text(`Project Name: ${data.projectName}`, 10, y); y += 10;
+        doc.text(`Client: ${data.clientName}`, 10, y); y += 10;
+        doc.text(`Contractor: ${data.contractorName}`, 10, y); y += 10;
+        doc.text(`Site Address: ${data.siteAddress}`, 10, y); y += 10;
+        doc.text(`Type of Work: ${data.typeOfWork}`, 10, y); y += 10;
+        doc.text(`Location: ${data.location}`, 10, y); y += 10;
+        doc.text(`Cost: R ${data.cost}`, 10, y); y += 10;
+        doc.text(`Duration: ${data.duration} days`, 10, y); y += 10;
+        doc.text(`Emergency Contact: ${data.emergencyContact}`, 10, y); y += 10;
+        doc.text(`COIDA Registration: ${data.workmansComp}`, 10, y); y += 10;
+        doc.text(`CIDB Grading: ${data.cidbGrade}`, 10, y); y += 10;
+        doc.text(`Scope Details: ${data.scopeDetails}`, 10, y, { maxWidth: 180 }); y += 20;
+
+        const activities = data.activities ? (Array.isArray(data.activities) ? data.activities.join(", ") : data.activities) : "None";
+        doc.text(`Activities: ${activities}`, 10, y); y += 10;
+
+        doc.save("Health_and_Safety_Plan.pdf");
+    } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to generate PDF. Please try again.");
+    }
+}
+
+// Generate Health and Safety File PDF (Placeholder)
+function generateHSFilePDF(data) {
+    if (!jsPDF) return;
+    try {
+        const doc = new jsPDF();
+        addHeaderFooter(doc, "Health and Safety File");
+
+        let y = 30;
+        doc.setFontSize(12);
+        doc.text(`Project Name: ${data.projectName}`, 10, y); y += 10;
+        doc.text(`Client: ${data.clientName}`, 10, y); y += 10;
+        doc.text(`Contractor: ${data.contractorName}`, 10, y); y += 10;
+        doc.text(`Site Address: ${data.siteAddress}`, 10, y); y += 10;
+        doc.text(`Type of Work: ${data.typeOfWork}`, 10, y); y += 10;
+        doc.text(`Location: ${data.location}`, 10, y); y += 10;
+        doc.text(`Note: This is a placeholder Health and Safety File.`, 10, y); y += 10;
+
+        doc.save("Health_and_Safety_File.pdf");
     } catch (error) {
         console.error("PDF generation error:", error);
         alert("Failed to generate PDF. Please try again.");
