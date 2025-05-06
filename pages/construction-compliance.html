@@ -174,75 +174,41 @@
             font-size: 14px;
         }
 
-        /* Legal Carousel */
-        .legal-carousel {
+        /* Legal Obligations (Fixed Cards) */
+        .legal-obligations {
             margin: 20px 0;
-            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .legal-card {
+            flex: 1;
+            min-width: 300px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .legal-carousel h3 {
+        .legal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .legal-card h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 16px;
             margin-bottom: 12px;
+            color: #1a2526;
         }
 
-        .carousel-items {
-            overflow: hidden;
-            position: relative;
-            height: auto;
-            min-height: 150px;
-        }
-
-        .carousel-item {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            padding: 10px 0;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-            position: relative;
-        }
-
-        .carousel-item h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .carousel-item p {
+        .legal-card p {
             font-size: 14px;
             color: #666;
-            margin-bottom: 5px;
-        }
-
-        .carousel-prev, .carousel-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .carousel-prev {
-            left: 0;
-        }
-
-        .carousel-next {
-            right: 0;
-        }
-
-        .carousel-prev:hover, .carousel-next:hover {
-            background-color: #e65a50;
+            margin-bottom: 8px;
         }
 
         /* Role Selection */
@@ -279,6 +245,7 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.2s ease;
         }
 
         .role-btn:hover {
@@ -286,17 +253,16 @@
         }
 
         /* Forms */
-        .form-container,
-        #compliance-form {
+        .form-container {
             margin: 20px 0;
             background-color: #fff;
             padding: 20px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .form-container h3,
-        #compliance-form h3 {
+        .form-container h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 16px;
             margin-bottom: 15px;
@@ -330,22 +296,48 @@
             margin-top: 3px;
         }
 
-        .checkbox-group {
+        /* Activities Categories */
+        .activities-categories details {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+
+        .activities-categories summary {
+            padding: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.2s ease;
+        }
+
+        .activities-categories summary:hover {
+            background-color: #e0e0e0;
+        }
+
+        .activities-categories .category-content {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .activities-categories .checkbox-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
             align-items: center;
         }
 
-        .checkbox-group label {
+        .activities-categories .checkbox-item label {
             font-weight: normal;
-            display: inline;
             margin-left: 5px;
             font-size: 14px;
         }
 
         button[type="submit"],
-        .back-btn,
         #compile-bra-btn,
         #compile-hs-spec-btn,
         #compile-hs-file-btn,
@@ -362,10 +354,10 @@
             margin-top: 10px;
             margin-right: 10px;
             font-size: 14px;
+            transition: background-color 0.2s ease;
         }
 
         button[type="submit"]:hover,
-        .back-btn:hover,
         #compile-bra-btn:hover,
         #compile-hs-spec-btn:hover,
         #compile-hs-file-btn:hover,
@@ -376,76 +368,8 @@
             background-color: #e65a50;
         }
 
-        .back-btn {
-            background-color: #666;
-        }
-
-        .back-btn:hover {
-            background-color: #555;
-        }
-
         .hidden {
             display: none !important;
-        }
-
-        /* Compliance Checklist Steps */
-        .step h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .requirement-group h4 {
-            cursor: pointer;
-            background-color: #e0e0e0;
-            padding: 6px 10px;
-            margin: 8px 0;
-            font-size: 14px;
-            border-radius: 3px;
-        }
-
-        .requirement-group ul {
-            list-style: none;
-            padding-left: 10px;
-        }
-
-        .requirement-group li {
-            padding: 6px 0;
-            font-size: 14px;
-        }
-
-        .suggested-label {
-            color: #ff6f61;
-            font-style: italic;
-            margin-left: 5px;
-        }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-
-        table th,
-        table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            font-size: 12px;
-        }
-
-        table th {
-            background-color: #1a2526;
-            color: white;
-        }
-
-        .compliance-note {
-            background-color: #fff3cd;
-            padding: 8px;
-            border-radius: 3px;
-            margin: 10px 0;
-            font-size: 14px;
         }
 
         /* Cart */
@@ -455,6 +379,7 @@
             padding: 20px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .cart-container h3 {
@@ -483,6 +408,7 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.2s ease;
         }
 
         #checkout-btn:hover {
@@ -496,6 +422,7 @@
             padding: 20px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .resources h3 {
@@ -576,6 +503,7 @@
             border-radius: 2px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.2s ease;
         }
 
         .newsletter button:hover {
@@ -601,6 +529,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 0.2s ease;
         }
 
         .chat-toggle-btn:hover {
@@ -653,6 +582,7 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.2s ease;
         }
 
         #chat-send:hover {
@@ -677,6 +607,8 @@
             .main-content {
                 margin-left: 0;
                 padding-top: 120px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
 
             header {
@@ -694,7 +626,7 @@
             }
 
             .intro {
-                margin: 10px;
+                margin: 10px 0;
             }
 
             .nav-links {
@@ -707,6 +639,14 @@
                 margin: 5px 8px;
             }
 
+            .legal-obligations {
+                flex-direction: column;
+            }
+
+            .legal-card {
+                min-width: 100%;
+            }
+
             .role-btn {
                 display: block;
                 width: 100%;
@@ -717,6 +657,28 @@
             .form-group select,
             .form-group textarea {
                 max-width: 100%;
+            }
+
+            .form-container,
+            .cart-container,
+            .resources {
+                padding: 15px;
+            }
+
+            .activities-categories .category-content {
+                grid-template-columns: 1fr;
+            }
+
+            button[type="submit"],
+            #compile-bra-btn,
+            #compile-hs-spec-btn,
+            #compile-hs-file-btn,
+            #manage-hs-plan-btn,
+            #manage-appointments-btn,
+            #conduct-training-btn,
+            #conduct-hira-btn {
+                width: 100%;
+                margin: 5px 0;
             }
 
             .chat-window {
@@ -778,31 +740,26 @@
             <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
             <p>Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
 
-            <!-- Legal Obligations Carousel -->
-            <div class="legal-carousel">
-                <h3>Legal Obligations</h3>
-                <div class="carousel-items">
-                    <div class="carousel-item">
-                        <h4>Client Obligations</h4>
-                        <p><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
-                        <p><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
-                        <p><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
-                    </div>
-                    <div class="carousel-item">
-                        <h4>Contractor Obligations</h4>
-                        <p><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
-                        <p><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
-                        <p><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
-                    </div>
-                    <div class="carousel-item">
-                        <h4>H&S Professional Obligations</h4>
-                        <p><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
-                        <p><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
-                        <p><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
-                    </div>
+            <!-- Legal Obligations (Fixed Cards) -->
+            <div class="legal-obligations">
+                <div class="legal-card">
+                    <h3>Client Obligations</h3>
+                    <p><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
+                    <p><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
+                    <p><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
                 </div>
-                <button class="carousel-prev" aria-label="Previous carousel item">Previous</button>
-                <button class="carousel-next" aria-label="Next carousel item">Next</button>
+                <div class="legal-card">
+                    <h3>Contractor Obligations</h3>
+                    <p><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
+                    <p><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
+                    <p><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
+                </div>
+                <div class="legal-card">
+                    <h3>H&S Professional Obligations</h3>
+                    <p><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
+                    <p><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
+                    <p><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
+                </div>
             </div>
 
             <!-- Role Selection -->
@@ -889,59 +846,136 @@
                     </div>
                     <div class="form-group">
                         <label>Activities Involved (Select all that apply):</label>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="working-from-heights" name="activities" value="Working from Heights">
-                            <label for="working-from-heights">Working from Heights</label>
-                            <input type="checkbox" id="sensitive-it-equipment" name="activities" value="Sensitive IT Equipment">
-                            <label for="sensitive-it-equipment">Sensitive IT Equipment</label>
-                            <input type="checkbox" id="combustible-materials" name="activities" value="Combustible Materials">
-                            <label for="combustible-materials">Combustible Materials</label>
-                            <input type="checkbox" id="moving-traffic" name="activities" value="Working in Moving Traffic">
-                            <label for="moving-traffic">Working in Moving Traffic</label>
-                            <input type="checkbox" id="live-voltage" name="activities" value="Working with Live Voltage">
-                            <label for="live-voltage">Working with Live Voltage</label>
-                            <input type="checkbox" id="working-electricity" name="activities" value="Working with Electricity">
-                            <label for="working-electricity">Working with Electricity</label>
-                            <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding">
-                            <label for="scaffolding">Scaffolding</label>
-                            <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction">
-                            <label for="multi-storey">Multi-Storey Construction</label>
-                            <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
-                            <label for="asbestos">Asbestos Removal</label>
-                            <input type="checkbox" id="excavation" name="activities" value="Excavation">
-                            <label for="excavation">Excavation</label>
-                            <input type="checkbox" id="confined-space" name="activities" value="Confined Space Entry">
-                            <label for="confined-space">Confined Space Entry</label>
-                            <input type="checkbox" id="welding" name="activities" value="Welding">
-                            <label for="welding">Welding</label>
-                            <input type="checkbox" id="crane-operations" name="activities" value="Crane Operations">
-                            <label for="crane-operations">Crane Operations</label>
-                            <input type="checkbox" id="demolition" name="activities" value="Demolition">
-                            <label for="demolition">Demolition</label>
-                            <input type="checkbox" id="hazardous-substances" name="activities" value="Handling Hazardous Substances">
-                            <label for="hazardous-substances">Handling Hazardous Substances</label>
-                            <input type="checkbox" id="roof-work" name="activities" value="Roof Work">
-                            <label for="roof-work">Roof Work</label>
-                            <input type="checkbox" id="manual-handling" name="activities" value="Manual Handling">
-                            <label for="manual-handling">Manual Handling</label>
-                            <input type="checkbox" id="temporary-works" name="activities" value="Temporary Works">
-                            <label for="temporary-works">Temporary Works</label>
-                            <input type="checkbox" id="night-work" name="activities" value="Night Work">
-                            <label for="night-work">Night Work</label>
-                            <input type="checkbox" id="hot-work" name="activities" value="Hot Work (e.g., Cutting, Grinding)">
-                            <label for="hot-work">Hot Work (e.g., Cutting, Grinding)</label>
-                            <input type="checkbox" id="pile-driving" name="activities" value="Pile Driving">
-                            <label for="pile-driving">Pile Driving</label>
-                            <input type="checkbox" id="working-near-water" name="activities" value="Working Near Water">
-                            <label for="working-near-water">Working Near Water</label>
-                            <input type="checkbox" id="vibration-exposure" name="activities" value="Vibration Exposure">
-                            <label for="vibration-exposure">Vibration Exposure</label>
-                            <input type="checkbox" id="noise-exposure" name="activities" value="Noise Exposure">
-                            <label for="noise-exposure">Noise Exposure</label>
-                            <input type="checkbox" id="dust-exposure" name="activities" value="Dust Exposure">
-                            <label for="dust-exposure">Dust Exposure</label>
-                            <input type="checkbox" id="working-tunnels" name="activities" value="Working in Tunnels">
-                            <label for="working-tunnels">Working in Tunnels</label>
+                        <div class="activities-categories">
+                            <details>
+                                <summary>Security Guards</summary>
+                                <div class="category-content">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="night-work" name="activities" value="Night Work">
+                                        <label for="night-work">Night Work</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="moving-traffic" name="activities" value="Working in Moving Traffic">
+                                        <label for="moving-traffic">Working in Moving Traffic</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="vibration-exposure" name="activities" value="Vibration Exposure">
+                                        <label for="vibration-exposure">Vibration Exposure</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="noise-exposure" name="activities" value="Noise Exposure">
+                                        <label for="noise-exposure">Noise Exposure</label>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Welders</summary>
+                                <div class="category-content">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="welding" name="activities" value="Welding">
+                                        <label for="welding">Welding</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="hot-work" name="activities" value="Hot Work (e.g., Cutting, Grinding)">
+                                        <label for="hot-work">Hot Work (e.g., Cutting, Grinding)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="combustible-materials" name="activities" value="Combustible Materials">
+                                        <label for="combustible-materials">Combustible Materials</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="hazardous-substances" name="activities" value="Handling Hazardous Substances">
+                                        <label for="hazardous-substances">Handling Hazardous Substances</label>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Office Fit-Out</summary>
+                                <div class="category-content">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sensitive-it-equipment" name="activities" value="Sensitive IT Equipment">
+                                        <label for="sensitive-it-equipment">Sensitive IT Equipment</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="manual-handling" name="activities" value="Manual Handling">
+                                        <label for="manual-handling">Manual Handling</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="working-electricity" name="activities" value="Working with Electricity">
+                                        <label for="working-electricity">Working with Electricity</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="dust-exposure" name="activities" value="Dust Exposure">
+                                        <label for="dust-exposure">Dust Exposure</label>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Civil Contractors</summary>
+                                <div class="category-content">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="excavation" name="activities" value="Excavation">
+                                        <label for="excavation">Excavation</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="crane-operations" name="activities" value="Crane Operations">
+                                        <label for="crane-operations">Crane Operations</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="working-near-water" name="activities" value="Working Near Water">
+                                        <label for="working-near-water">Working Near Water</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="pile-driving" name="activities" value="Pile Driving">
+                                        <label for="pile-driving">Pile Driving</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="working-tunnels" name="activities" value="Working in Tunnels">
+                                        <label for="working-tunnels">Working in Tunnels</label>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>General Construction</summary>
+                                <div class="category-content">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="working-from-heights" name="activities" value="Working from Heights">
+                                        <label for="working-from-heights">Working from Heights</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding">
+                                        <label for="scaffolding">Scaffolding</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction">
+                                        <label for="multi-storey">Multi-Storey Construction</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal">
+                                        <label for="asbestos">Asbestos Removal</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="confined-space" name="activities" value="Confined Space Entry">
+                                        <label for="confined-space">Confined Space Entry</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="demolition" name="activities" value="Demolition">
+                                        <label for="demolition">Demolition</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="roof-work" name="activities" value="Roof Work">
+                                        <label for="roof-work">Roof Work</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="temporary-works" name="activities" value="Temporary Works">
+                                        <label for="temporary-works">Temporary Works</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="live-voltage" name="activities" value="Working with Live Voltage">
+                                        <label for="live-voltage">Working with Live Voltage</label>
+                                    </div>
+                                </div>
+                            </details>
                         </div>
                     </div>
                     <div class="form-group">
