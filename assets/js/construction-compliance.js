@@ -99,7 +99,7 @@ const updateCartDisplay = () => {
 };
 
 // Wizard State
-let currentStep = 1;
+let currentStep = 0; // Start at 0 (wizard hidden)
 let formData = {
     documentTypes: [],
     client: {},
@@ -580,23 +580,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Wizard State
-    let currentStep = 1;
-    let formData = {
-        documentTypes: [],
-        client: {},
-        contractorAppointed: '',
-        contractor: {},
-        project: {},
-        scope: {},
-        compiledBy: {},
-        compiledFor: {},
-        additionalSignatories: []
-    };
-
     const wizardContainer = document.getElementById('wizard-container');
 
     // Step Definitions
     const steps = [
+        // Step 0: Hidden State (Initial State)
+        () => `
+            <p>Please select an action to begin the process.</p>
+        `,
+
         // Step 1: Document Selection
         () => `
             <div class="progress-bar">
@@ -1103,12 +1095,12 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="form-group" id="sacpcmp-reg-container">
                 <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
-                <input type="text" id="sacpcmp-reg" name="sacpcmpReg" value="${formData.compiledBy.sacpcmpReg || ''}" aria-label="SACPCMP Registration Number" aria-describedby="sacpcmp-reg-error">
+                <input type="text" id="sacpcmp-reg" name="sacpcmpReg" value="${formData.compiledBy.sacpcmpReg || 'N/A'}" aria-label="SACPCMP Registration Number" aria-describedby="sacpcmp-reg-error">
                 <p id="sacpcmp-reg-error" class="error hidden">Please enter a SACPCMP registration number.</p>
             </div>
             <div class="form-group" id="compiled-by-role-other-container">
                 <label for="compiled-by-role-other">Specify Role:</label>
-                <input type="text" id="compiled-by-role-other" name="compiledByRoleOther" value="${formData.compiledBy.specifiedRole || ''}" aria-label="Specify Role" aria-describedby="compiled-by-role-other-error">
+                <input type="text" id="compiled-by-role-other" name="compiledByRoleOther" value="${formData.compiledBy.specifiedRole || 'N/A'}" aria-label="Specify Role" aria-describedby="compiled-by-role-other-error">
                 <p id="compiled-by-role-other-error" class="error hidden">Please specify your role.</p>
                 <span class="info-bubble">
                     <span class="info-tooltip">SACPCMP professionals ensure compliance with industry standards.<br><span class="fun-fact">Did you know? Registered professionals can reduce legal risks significantly!</span></span>
@@ -1131,13 +1123,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <select id="compiled-for" name="compiledFor" required aria-label="Compiled For" aria-describedby="compiled-for-error">
                     <option value="client" ${formData.compiledFor.role === "client" ? "selected" : ""}>Client</option>
                     <option value="contractor" ${formData.compiledFor.role === "contractor" ? "selected" : ""}>Contractor</option>
-                    <option value="other" ${formData.compiledFor.role && formData.compiledFor.role !== "client" && formData.compiledFor.role !== "contractor" ? "selected" : ""}>Other</option>
+                    <option value="other" ${formData.compiledFor.role && formData.compiledBy.role !== "client" && formData.compiledBy.role !== "contractor" ? "selected" : ""}>Other</option>
                 </select>
                 <p id="compiled-for-error" class="error hidden">Please select an option.</p>
             </div>
             <div class="form-group" id="compiled-for-other-container">
                 <label for="compiled-for-other">Specify:</label>
-                <input type="text" id="compiled-for-other" name="compiledForOther" value="${formData.compiledFor.specify || ''}" aria-label="Specify Compiled For" aria-describedby="compiled-for-other-error">
+                <input type="text" id="compiled-for-other" name="compiledForOther" value="${formData.compiledFor.specify || 'N/A'}" aria-label="Specify Compiled For" aria-describedby="compiled-for-other-error">
                 <p id="compiled-for-other-error" class="error hidden">Please specify who the document is compiled for.</p>
                 <span class="info-bubble">
                     <span class="info-tooltip">Clearly defining who the document is compiled for ensures accountability.<br><span class="fun-fact">Did you know? Proper documentation can improve project transparency?</span></span>
@@ -1183,857 +1175,383 @@ document.addEventListener("DOMContentLoaded", () => {
         `
     ];
 
+    // Function to Start the Wizard with a Pre-Selected Document
+    window.startWizard = (documentType) => {
+        formData.documentTypes = [documentType]; // Pre-select the document
+        renderStep(1); // Start the wizard at Step 1
+    };
+
     // Render Step
     const renderStep = (stepNumber) => {
         currentStep = stepNumber;
-        wizardContainer.innerHTML = steps[stepNumber - 1]();
+        wizardContainer.innerHTML = steps[stepNumber]();
 
         // Attach event listeners for the current step
         const backBtn = document.getElementById('back-btn');
         const nextBtn = document.getElementById('next-btn');
 
-        backBtn.addEventListener('click', () => {
-            if (currentStep === 5 && formData.contractorAppointed !== "yes") {
-                renderStep(currentStep - 2); // Skip Step 4
-            } else {
-                renderStep(currentStep - 1);
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentStep === 1) {
-                // Step 1: Document Selection
-                const documentTypes = Array.from(document.querySelectorAll('input[name="documentTypes"]:checked'))
-                    .map(input => input.value);
-                const error = document.getElementById('document-types-error');
-                if (documentTypes.length === 0) {
-                    error.classList.remove('hidden');
-                    return;
-                }
-                error.classList.add('hidden');
-                formData.documentTypes = documentTypes;
-                renderStep(currentStep + 1);
-            } else if (currentStep === 2) {
-                // Step 2: Client Details
-                const clientName = document.getElementById('client-name').value;
-                const clientAddress = document.getElementById('client-address').value;
-                const clientContactPerson = document.getElementById('client-contact-person').value;
-                const clientContactRole = document.getElementById('client-contact-role').value;
-                const clientContactNumber = document.getElementById('client-contact-number').value;
-                const clientEmail = document.getElementById('client-email').value;
-                const clientCoida = document.getElementById('client-coida').value;
-
-                const validations = [
-                    { id: 'client-name', value: clientName, error: 'client-name-error', message: "Please enter a client company name." },
-                    { id: 'client-address', value: clientAddress, error: 'client-address-error', message: "Please enter a client address." },
-                    { id: 'client-contact-person', value: clientContactPerson, error: 'client-contact-person-error', message: "Please enter a client contact person." },
-                    { id: 'client-contact-role', value: clientContactRole, error: 'client-contact-role-error', message: "Please enter a client contact role." },
-                    { id: 'client-contact-number', value: clientContactNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'client-contact-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
-                    { id: 'client-email', value: clientEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'client-email-error', message: "Please enter a valid email address." },
-                    { id: 'client-coida', value: clientCoida, error: 'client-coida-error', message: "Please enter a COIDA registration number." }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                });
-
-                if (!valid) return;
-
-                formData.client = {
-                    clientName,
-                    clientAddress,
-                    clientContactPerson,
-                    clientContactRole,
-                    clientContactNumber,
-                    clientEmail,
-                    clientCoida
-                };
-                formData.client.referenceNumber = saveWithExpiry(CLIENT_STORAGE_KEY, formData.client);
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 3) {
-                // Step 3: Contractor Appointed
-                const contractorAppointed = document.getElementById('contractor-appointed').value;
-                formData.contractorAppointed = contractorAppointed;
-
-                if (contractorAppointed === "yes") {
-                    renderStep(currentStep + 1);
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                if (currentStep === 1) {
+                    renderStep(0); // Return to hidden state
+                } else if (currentStep === 5 && formData.contractorAppointed !== "yes") {
+                    renderStep(currentStep - 2); // Skip Step 4
                 } else {
-                    renderStep(currentStep + 2); // Skip Step 4
+                    renderStep(currentStep - 1);
                 }
-            } else if (currentStep === 4) {
-                // Step 4: Contractor Details
-            () => `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 44%;"></div>
-                </div>
-                <h3>Step 4 of 9: Contractor Details</h3>
-                <div class="form-group">
-                    <label for="contractor-name">Contractor Company Name:</label>
-                    <input type="text" id="contractor-name" name="contractorName" value="${formData.contractor.contractorName || ''}" required aria-label="Contractor Company Name" aria-describedby="contractor-name-error">
-                    <p id="contractor-name-error" class="error hidden">Please enter a contractor company name.</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-address">Contractor Address:</label>
-                    <input type="text" id="contractor-address" name="contractorAddress" value="${formData.contractor.contractorAddress || ''}" required aria-label="Contractor Address" aria-describedby="contractor-address-error">
-                    <p id="contractor-address-error" class="error hidden">Please enter a contractor address.</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-contact-person">Contractor Contact Person:</label>
-                    <input type="text" id="contractor-contact-person" name="contractorContactPerson" value="${formData.contractor.contractorContactPerson || ''}" required aria-label="Contractor Contact Person" aria-describedby="contractor-contact-person-error">
-                    <p id="contractor-contact-person-error" class="error hidden">Please enter a contractor contact person.</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-contact-role">Contractor Contact Role:</label>
-                    <input type="text" id="contractor-contact-role" name="contractorContactRole" value="${formData.contractor.contractorContactRole || ''}" required aria-label="Contractor Contact Role" aria-describedby="contractor-contact-role-error">
-                    <p id="contractor-contact-role-error" class="error hidden">Please enter a contractor contact role.</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-contact-number">Contractor Contact Number:</label>
-                    <input type="tel" id="contractor-contact-number" name="contractorContactNumber" value="${formData.contractor.contractorContactNumber || ''}" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Contractor Contact Number" aria-describedby="contractor-contact-number-error">
-                    <p id="contractor-contact-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-email">Contractor Email:</label>
-                    <input type="email" id="contractor-email" name="contractorEmail" value="${formData.contractor.contractorEmail || ''}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Contractor Email" aria-describedby="contractor-email-error">
-                    <p id="contractor-email-error" class="error hidden">Please enter a valid email address.</p>
-                </div>
-                <div class="form-group">
-                    <label for="contractor-coida">COIDA Registration Number:</label>
-                    <input type="text" id="contractor-coida" name="contractorCoida" value="${formData.contractor.contractorCoida || ''}" required aria-label="COIDA Registration Number" aria-describedby="contractor-coida-error">
-                    <p id="contractor-coida-error" class="error hidden">Please enter a COIDA registration number.</p>
-                    <span class="info-bubble">
-                        <span class="info-tooltip">Contractors must maintain a COIDA registration for compliance.<br><span class="fun-fact">Did you know? COIDA protects workers from financial loss due to injuries!</span></span>
-                    </span>
-                </div>
-                <div class="nav-buttons">
-                    <button id="back-btn">Back</button>
-                    <button id="next-btn">Next</button>
-                </div>
-            `,
+            });
+        }
 
-            // Step 5: Project Details
-            () => {
-                // Generate project reference number in the format: client/projectname/16date/09month/82year/
-                const now = new Date();
-                const date = String(now.getDate()).padStart(2, '0');
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const year = String(now.getFullYear()).slice(-2);
-                const clientName = (formData.client.clientName || '').replace(/[^a-zA-Z0-9]/g, '');
-                const projectName = (formData.project.projectName || '').replace(/[^a-zA-Z0-9]/g, '');
-                formData.project.referenceNumber = `${clientName}/${projectName}/${date}date/${month}month/${year}year/`;
-
-                return `
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 55%;"></div>
-                    </div>
-                    <h3>Step 5 of 9: Project Details</h3>
-                    <div class="form-group">
-                        <label for="project-reference">Project Reference Number:</label>
-                        <input type="text" id="project-reference" name="projectReference" value="${formData.project.referenceNumber}" readonly aria-label="Project Reference Number">
-                    </div>
-                    <div class="form-group">
-                        <label for="project-name">Project Name:</label>
-                        <input type="text" id="project-name" name="projectName" value="${formData.project.projectName || ''}" required aria-label="Project Name" aria-describedby="project-name-error">
-                        <p id="project-name-error" class="error hidden">Please enter a project name.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-address">Site Address:</label>
-                        <input type="text" id="site-address" name="siteAddress" value="${formData.project.siteAddress || ''}" required aria-label="Site Address" aria-describedby="site-address-error">
-                        <p id="site-address-error" class="error hidden">Please enter a site address.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-supervisor-name">Site Supervisor Name:</label>
-                        <input type="text" id="site-supervisor-name" name="siteSupervisorName" value="${formData.project.siteSupervisorName || ''}" required aria-label="Site Supervisor Name" aria-describedby="site-supervisor-name-error">
-                        <p id="site-supervisor-name-error" class="error hidden">Please enter a site supervisor name.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-supervisor-number">Site Supervisor Contact Number:</label>
-                        <input type="tel" id="site-supervisor-number" name="siteSupervisorNumber" value="${formData.project.siteSupervisorNumber || ''}" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Site Supervisor Contact Number" aria-describedby="site-supervisor-number-error">
-                        <p id="site-supervisor-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-supervisor-email">Site Supervisor Email:</label>
-                        <input type="email" id="site-supervisor-email" name="siteSupervisorEmail" value="${formData.project.siteSupervisorEmail || ''}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Site Supervisor Email" aria-describedby="site-supervisor-email-error">
-                        <p id="site-supervisor-email-error" class="error hidden">Please enter a valid email address.</p>
-                        <span class="info-bubble">
-                            <span class="info-tooltip">A clear project name and site address ensure compliance with Construction Regulation 3(1).<br><span class="fun-fact">Did you know? Accurate site details help emergency services respond faster!</span></span>
-                        </span>
-                    </div>
-                    <div class="nav-buttons">
-                        <button id="back-btn">Back</button>
-                        <button id="next-btn">Next</button>
-                    </div>
-                `;
-            },
-
-            // Step 6: Scope of the Project
-            () => `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 66%;"></div>
-                </div>
-                <h3>Step 6 of 9: Scope of the Project</h3>
-                <div class="form-group">
-                    <label for="type-of-work">Type of Work to be Done:</label>
-                    <input type="text" id="type-of-work" name="typeOfWork" value="${formData.scope.typeOfWork || ''}" required aria-label="Type of Work" aria-describedby="type-of-work-error">
-                    <p id="type-of-work-error" class="error hidden">Please enter the type of work.</p>
-                </div>
-                <div class="form-group">
-                    <label for="cidb-grade">CIDB Grading:</label>
-                    <select id="cidb-grade" name="cidbGrade" required aria-label="CIDB Grading" aria-describedby="cidb-grade-error">
-                        <option value="Not Applicable" ${formData.scope.cidbGrade === "Not Applicable" ? "selected" : ""}>Not Applicable</option>
-                        <option value="1" ${formData.scope.cidbGrade === "1" ? "selected" : ""}>Grade 1</option>
-                        <option value="2" ${formData.scope.cidbGrade === "2" ? "selected" : ""}>Grade 2</option>
-                        <option value="3" ${formData.scope.cidbGrade === "3" ? "selected" : ""}>Grade 3</option>
-                        <option value="4" ${formData.scope.cidbGrade === "4" ? "selected" : ""}>Grade 4</option>
-                        <option value="5" ${formData.scope.cidbGrade === "5" ? "selected" : ""}>Grade 5</option>
-                        <option value="6" ${formData.scope.cidbGrade === "6" ? "selected" : ""}>Grade 6</option>
-                        <option value="7" ${formData.scope.cidbGrade === "7" ? "selected" : ""}>Grade 7</option>
-                        <option value="8" ${formData.scope.cidbGrade === "8" ? "selected" : ""}>Grade 8</option>
-                        <option value="9" ${formData.scope.cidbGrade === "9" ? "selected" : ""}>Grade 9</option>
-                    </select>
-                    <p id="cidb-grade-error" class="error hidden">Please select a CIDB grading.</p>
-                </div>
-                <div class="form-group">
-                    <label for="cost">Cost (R):</label>
-                    <input type="number" id="cost" name="cost" value="${formData.scope.cost || ''}" min="0" step="1" required aria-label="Project Cost" aria-describedby="cost-error">
-                    <p id="cost-error" class="error hidden">Please enter a valid project cost (R).</p>
-                </div>
-                <div class="form-group">
-                    <label for="duration">Duration (Days):</label>
-                    <input type="number" id="duration" name="duration" value="${formData.scope.duration || ''}" min="1" step="1" required aria-label="Project Duration" aria-describedby="duration-error">
-                    <p id="duration-error" class="error hidden">Please enter a valid duration (days).</p>
-                </div>
-                <div class="form-group">
-                    <label>Activities Involved (Select all that apply):</label>
-                    <div class="activities-categories">
-                        <details>
-                            <summary>Security Guards</summary>
-                            <div class="category-content">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="night-work" name="activities" value="Night Work" ${formData.scope.activities && formData.scope.activities.includes('Night Work') ? 'checked' : ''}>
-                                    <label for="night-work">Night Work</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="moving-traffic" name="activities" value="Working in Moving Traffic" ${formData.scope.activities && formData.scope.activities.includes('Working in Moving Traffic') ? 'checked' : ''}>
-                                    <label for="moving-traffic">Working in Moving Traffic</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="vibration-exposure" name="activities" value="Vibration Exposure" ${formData.scope.activities && formData.scope.activities.includes('Vibration Exposure') ? 'checked' : ''}>
-                                    <label for="vibration-exposure">Vibration Exposure</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="noise-exposure" name="activities" value="Noise Exposure" ${formData.scope.activities && formData.scope.activities.includes('Noise Exposure') ? 'checked' : ''}>
-                                    <label for="noise-exposure">Noise Exposure</label>
-                                </div>
-                            </div>
-                        </details>
-                        <details>
-                            <summary>Welders</summary>
-                            <div class="category-content">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="welding" name="activities" value="Welding" ${formData.scope.activities && formData.scope.activities.includes('Welding') ? 'checked' : ''}>
-                                    <label for="welding">Welding</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="hot-work" name="activities" value="Hot Work (e.g., Cutting, Grinding)" ${formData.scope.activities && formData.scope.activities.includes('Hot Work (e.g., Cutting, Grinding)') ? 'checked' : ''}>
-                                    <label for="hot-work">Hot Work (e.g., Cutting, Grinding)</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="combustible-materials" name="activities" value="Combustible Materials" ${formData.scope.activities && formData.scope.activities.includes('Combustible Materials') ? 'checked' : ''}>
-                                    <label for="combustible-materials">Combustible Materials</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="hazardous-substances" name="activities" value="Handling Hazardous Substances" ${formData.scope.activities && formData.scope.activities.includes('Handling Hazardous Substances') ? 'checked' : ''}>
-                                    <label for="hazardous-substances">Handling Hazardous Substances</label>
-                                </div>
-                            </div>
-                        </details>
-                        <details>
-                            <summary>Office Fit-Out</summary>
-                            <div class="category-content">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="sensitive-it-equipment" name="activities" value="Sensitive IT Equipment" ${formData.scope.activities && formData.scope.activities.includes('Sensitive IT Equipment') ? 'checked' : ''}>
-                                    <label for="sensitive-it-equipment">Sensitive IT Equipment</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="manual-handling" name="activities" value="Manual Handling" ${formData.scope.activities && formData.scope.activities.includes('Manual Handling') ? 'checked' : ''}>
-                                    <label for="manual-handling">Manual Handling</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="working-electricity" name="activities" value="Working with Electricity" ${formData.scope.activities && formData.scope.activities.includes('Working with Electricity') ? 'checked' : ''}>
-                                    <label for="working-electricity">Working with Electricity</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="dust-exposure" name="activities" value="Dust Exposure" ${formData.scope.activities && formData.scope.activities.includes('Dust Exposure') ? 'checked' : ''}>
-                                    <label for="dust-exposure">Dust Exposure</label>
-                                </div>
-                            </div>
-                        </details>
-                        <details>
-                            <summary>Civil Contractors</summary>
-                            <div class="category-content">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="excavation" name="activities" value="Excavation" ${formData.scope.activities && formData.scope.activities.includes('Excavation') ? 'checked' : ''}>
-                                    <label for="excavation">Excavation</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="crane-operations" name="activities" value="Crane Operations" ${formData.scope.activities && formData.scope.activities.includes('Crane Operations') ? 'checked' : ''}>
-                                    <label for="crane-operations">Crane Operations</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="working-near-water" name="activities" value="Working Near Water" ${formData.scope.activities && formData.scope.activities.includes('Working Near Water') ? 'checked' : ''}>
-                                    <label for="working-near-water">Working Near Water</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="pile-driving" name="activities" value="Pile Driving" ${formData.scope.activities && formData.scope.activities.includes('Pile Driving') ? 'checked' : ''}>
-                                    <label for="pile-driving">Pile Driving</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="working-tunnels" name="activities" value="Working in Tunnels" ${formData.scope.activities && formData.scope.activities.includes('Working in Tunnels') ? 'checked' : ''}>
-                                    <label for="working-tunnels">Working in Tunnels</label>
-                                </div>
-                            </div>
-                        </details>
-                        <details>
-                            <summary>General Construction</summary>
-                            <div class="category-content">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="working-from-heights" name="activities" value="Working from Heights" ${formData.scope.activities && formData.scope.activities.includes('Working from Heights') ? 'checked' : ''}>
-                                    <label for="working-from-heights">Working from Heights</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="scaffolding" name="activities" value="Scaffolding" ${formData.scope.activities && formData.scope.activities.includes('Scaffolding') ? 'checked' : ''}>
-                                    <label for="scaffolding">Scaffolding</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="multi-storey" name="activities" value="Multi-Storey Construction" ${formData.scope.activities && formData.scope.activities.includes('Multi-Storey Construction') ? 'checked' : ''}>
-                                    <label for="multi-storey">Multi-Storey Construction</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="asbestos" name="activities" value="Asbestos Removal" ${formData.scope.activities && formData.scope.activities.includes('Asbestos Removal') ? 'checked' : ''}>
-                                    <label for="asbestos">Asbestos Removal</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="confined-space" name="activities" value="Confined Space Entry" ${formData.scope.activities && formData.scope.activities.includes('Confined Space Entry') ? 'checked' : ''}>
-                                    <label for="confined-space">Confined Space Entry</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="demolition" name="activities" value="Demolition" ${formData.scope.activities && formData.scope.activities.includes('Demolition') ? 'checked' : ''}>
-                                    <label for="demolition">Demolition</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="roof-work" name="activities" value="Roof Work" ${formData.scope.activities && formData.scope.activities.includes('Roof Work') ? 'checked' : ''}>
-                                    <label for="roof-work">Roof Work</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="temporary-works" name="activities" value="Temporary Works" ${formData.scope.activities && formData.scope.activities.includes('Temporary Works') ? 'checked' : ''}>
-                                    <label for="temporary-works">Temporary Works</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="live-voltage" name="activities" value="Working with Live Voltage" ${formData.scope.activities && formData.scope.activities.includes('Working with Live Voltage') ? 'checked' : ''}>
-                                    <label for="live-voltage">Working with Live Voltage</label>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="scope-details">Scope Details:</label>
-                    <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details" aria-describedby="scope-details-error">${formData.scope.scopeDetails || ''}</textarea>
-                    <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
-                    <span class="info-bubble">
-                        <span class="info-tooltip">Construction Regulation 3(1) requires a permit for projects over R40,000 or 180 days.<br><span class="fun-fact">Did you know? Identifying activities early can reduce risks by 25%!</span></span>
-                    </span>
-                </div>
-                <div class="nav-buttons">
-                    <button id="back-btn">Back</button>
-                    <button id="next-btn">Next</button>
-                </div>
-            `,
-
-            // Step 7: Compiled By
-            () => `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 77%;"></div>
-                </div>
-                <h3>Step 7 of 9: Compiled By</h3>
-                <div class="form-group">
-                    <label for="compiled-by-name">Name:</label>
-                    <input type="text" id="compiled-by-name" name="compiledByName" value="${formData.compiledBy.name || ''}" required aria-label="Compiled By Name" aria-describedby="compiled-by-name-error">
-                    <p id="compiled-by-name-error" class="error hidden">Please enter your name.</p>
-                </div>
-                <div class="form-group">
-                    <label for="compiled-by-number">Contact Number:</label>
-                    <input type="tel" id="compiled-by-number" name="compiledByNumber" value="${formData.compiledBy.number || ''}" required pattern="\+?[0-9\s\-()]{10,}" aria-label="Compiled By Contact Number" aria-describedby="compiled-by-number-error">
-                    <p id="compiled-by-number-error" class="error hidden">Please enter a valid phone number (e.g., +27123456789).</p>
-                </div>
-                <div class="form-group">
-                    <label for="compiled-by-email">Email:</label>
-                    <input type="email" id="compiled-by-email" name="compiledByEmail" value="${formData.compiledBy.email || ''}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Compiled By Email" aria-describedby="compiled-by-email-error">
-                    <p id="compiled-by-email-error" class="error hidden">Please enter a valid email address.</p>
-                </div>
-                <div class="form-group">
-                    <label for="compiled-by-role">Role:</label>
-                    <select id="compiled-by-role" name="compiledByRole" required aria-label="Compiled By Role" aria-describedby="compiled-by-role-error">
-                        <option value="trainee" ${formData.compiledBy.role === "trainee" ? "selected" : ""}>OHS Trainee</option>
-                        <option value="ohs-rep" ${formData.compiledBy.role === "ohs-rep" ? "selected" : ""}>OHS Representative</option>
-                        <option value="sacpcmp-officer" ${formData.compiledBy.role === "sacpcmp-officer" ? "selected" : ""}>SACPCMP Officer (CHSO)</option>
-                        <option value="sacpcmp-agent" ${formData.compiledBy.role === "sacpcmp-agent" ? "selected" : ""}>SACPCMP Agent (PrCHSA)</option>
-                        <option value="other" ${formData.compiledBy.role && formData.compiledBy.role !== "trainee" && formData.compiledBy.role !== "ohs-rep" && formData.compiledBy.role !== "sacpcmp-officer" && formData.compiledBy.role !== "sacpcmp-agent" ? "selected" : ""}>Other</option>
-                    </select>
-                    <p id="compiled-by-role-error" class="error hidden">Please select a role.</p>
-                </div>
-                <div class="form-group" id="sacpcmp-reg-container">
-                    <label for="sacpcmp-reg">SACPCMP Registration Number:</label>
-                    <input type="text" id="sacpcmp-reg" name="sacpcmpReg" value="${formData.compiledBy.sacpcmpReg || 'N/A'}" aria-label="SACPCMP Registration Number" aria-describedby="sacpcmp-reg-error">
-                    <p id="sacpcmp-reg-error" class="error hidden">Please enter a SACPCMP registration number.</p>
-                </div>
-                <div class="form-group" id="compiled-by-role-other-container">
-                    <label for="compiled-by-role-other">Specify Role:</label>
-                    <input type="text" id="compiled-by-role-other" name="compiledByRoleOther" value="${formData.compiledBy.specifiedRole || 'N/A'}" aria-label="Specify Role" aria-describedby="compiled-by-role-other-error">
-                    <p id="compiled-by-role-other-error" class="error hidden">Please specify your role.</p>
-                    <span class="info-bubble">
-                        <span class="info-tooltip">SACPCMP professionals ensure compliance with industry standards.<br><span class="fun-fact">Did you know? Registered professionals can reduce legal risks significantly!</span></span>
-                    </span>
-                </div>
-                <div class="nav-buttons">
-                    <button id="back-btn">Back</button>
-                    <button id="next-btn">Next</button>
-                </div>
-            `,
-
-            // Step 8: Compiled For
-            () => `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 88%;"></div>
-                </div>
-                <h3>Step 8 of 9: Compiled For</h3>
-                <div class="form-group">
-                    <label for="compiled-for">Compiled For:</label>
-                    <select id="compiled-for" name="compiledFor" required aria-label="Compiled For" aria-describedby="compiled-for-error">
-                        <option value="client" ${formData.compiledFor.role === "client" ? "selected" : ""}>Client</option>
-                        <option value="contractor" ${formData.compiledFor.role === "contractor" ? "selected" : ""}>Contractor</option>
-                        <option value="other" ${formData.compiledFor.role && formData.compiledBy.role !== "client" && formData.compiledBy.role !== "contractor" ? "selected" : ""}>Other</option>
-                    </select>
-                    <p id="compiled-for-error" class="error hidden">Please select an option.</p>
-                </div>
-                <div class="form-group" id="compiled-for-other-container">
-                    <label for="compiled-for-other">Specify:</label>
-                    <input type="text" id="compiled-for-other" name="compiledForOther" value="${formData.compiledFor.specify || 'N/A'}" aria-label="Specify Compiled For" aria-describedby="compiled-for-other-error">
-                    <p id="compiled-for-other-error" class="error hidden">Please specify who the document is compiled for.</p>
-                    <span class="info-bubble">
-                        <span class="info-tooltip">Clearly defining who the document is compiled for ensures accountability.<br><span class="fun-fact">Did you know? Proper documentation can improve project transparency?</span></span>
-                    </span>
-                </div>
-                <div class="nav-buttons">
-                    <button id="back-btn">Back</button>
-                    <button id="next-btn">Next</button>
-                </div>
-            `,
-
-            // Step 9: Review and Add to Cart
-            () => `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 100%;"></div>
-                </div>
-                <h3>Step 9 of 9: Review and Add to Cart</h3>
-                <p>Review your selections and add the documents to your cart for checkout.</p>
-                <div class="form-group">
-                    <label>Selected Documents:</label>
-                    <ul id="selected-documents">
-                        ${formData.documentTypes.map(type => `
-                            <li>${
-                                {
-                                    'hs-spec': 'Health and Safety Specification',
-                                    'hs-plan': 'Health and Safety Plan',
-                                    'risk-assessment': 'Risk Assessment',
-                                    'training': 'Conduct Training',
-                                    'appointments': 'Legal Appointments',
-                                    'inspections': 'Inspections/Audits',
-                                    'incidents': 'Incident Management',
-                                    'reports': 'Compliance Reports',
-                                    'hs-file': 'Health and Safety File'
-                                }[type]
-                            }</li>
-                        `).join('')}
-                    </ul>
-                </div>
-                <div class="nav-buttons">
-                    <button id="back-btn">Back</button>
-                    <button id="next-btn">Add to Cart</button>
-                </div>
-            `
-        ];
-
-    // Render Step
-    const renderStep = (stepNumber) => {
-        currentStep = stepNumber;
-        wizardContainer.innerHTML = steps[stepNumber - 1]();
-
-        // Attach event listeners for the current step
-        const backBtn = document.getElementById('back-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        backBtn.addEventListener('click', () => {
-            if (currentStep === 5 && formData.contractorAppointed !== "yes") {
-                renderStep(currentStep - 2); // Skip Step 4
-            } else {
-                renderStep(currentStep - 1);
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentStep === 1) {
-                // Step 1: Document Selection
-                const documentTypes = Array.from(document.querySelectorAll('input[name="documentTypes"]:checked'))
-                    .map(input => input.value);
-                const error = document.getElementById('document-types-error');
-                if (documentTypes.length === 0) {
-                    error.classList.remove('hidden');
-                    return;
-                }
-                error.classList.add('hidden');
-                formData.documentTypes = documentTypes;
-                renderStep(currentStep + 1);
-            } else if (currentStep === 2) {
-                // Step 2: Client Details
-                const clientName = document.getElementById('client-name').value;
-                const clientAddress = document.getElementById('client-address').value;
-                const clientContactPerson = document.getElementById('client-contact-person').value;
-                const clientContactRole = document.getElementById('client-contact-role').value;
-                const clientContactNumber = document.getElementById('client-contact-number').value;
-                const clientEmail = document.getElementById('client-email').value;
-                const clientCoida = document.getElementById('client-coida').value;
-
-                const validations = [
-                    { id: 'client-name', value: clientName, error: 'client-name-error', message: "Please enter a client company name." },
-                    { id: 'client-address', value: clientAddress, error: 'client-address-error', message: "Please enter a client address." },
-                    { id: 'client-contact-person', value: clientContactPerson, error: 'client-contact-person-error', message: "Please enter a client contact person." },
-                    { id: 'client-contact-role', value: clientContactRole, error: 'client-contact-role-error', message: "Please enter a client contact role." },
-                    { id: 'client-contact-number', value: clientContactNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'client-contact-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
-                    { id: 'client-email', value: clientEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'client-email-error', message: "Please enter a valid email address." },
-                    { id: 'client-coida', value: clientCoida, error: 'client-coida-error', message: "Please enter a COIDA registration number." }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                });
-
-                if (!valid) return;
-
-                formData.client = {
-                    clientName,
-                    clientAddress,
-                    clientContactPerson,
-                    clientContactRole,
-                    clientContactNumber,
-                    clientEmail,
-                    clientCoida
-                };
-                formData.client.referenceNumber = saveWithExpiry(CLIENT_STORAGE_KEY, formData.client);
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 3) {
-                // Step 3: Contractor Appointed
-                const contractorAppointed = document.getElementById('contractor-appointed').value;
-                formData.contractorAppointed = contractorAppointed;
-
-                if (contractorAppointed === "yes") {
-                    renderStep(currentStep + 1);
-                } else {
-                    renderStep(currentStep + 2); // Skip Step 4
-                }
-            } else if (currentStep === 4) {
-                // Step 4: Contractor Details
-                const contractorName = document.getElementById('contractor-name').value;
-                const contractorAddress = document.getElementById('contractor-address').value;
-                const contractorContactPerson = document.getElementById('contractor-contact-person').value;
-                const contractorContactRole = document.getElementById('contractor-contact-role').value;
-                const contractorContactNumber = document.getElementById('contractor-contact-number').value;
-                const contractorEmail = document.getElementById('contractor-email').value;
-                const contractorCoida = document.getElementById('contractor-coida').value;
-
-                const validations = [
-                    { id: 'contractor-name', value: contractorName, error: 'contractor-name-error', message: "Please enter a contractor company name." },
-                    { id: 'contractor-address', value: contractorAddress, error: 'contractor-address-error', message: "Please enter a contractor address." },
-                    { id: 'contractor-contact-person', value: contractorContactPerson, error: 'contractor-contact-person-error', message: "Please enter a contractor contact person." },
-                    { id: 'contractor-contact-role', value: contractorContactRole, error: 'contractor-contact-role-error', message: "Please enter a contractor contact role." },
-                    { id: 'contractor-contact-number', value: contractorContactNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'contractor-contact-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
-                    { id: 'contractor-email', value: contractorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'contractor-email-error', message: "Please enter a valid email address." },
-                    { id: 'contractor-coida', value: contractorCoida, error: 'contractor-coida-error', message: "Please enter a COIDA registration number." }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                });
-
-                if (!valid) return;
-
-                formData.contractor = {
-                    contractorName,
-                    contractorAddress,
-                    contractorContactPerson,
-                    contractorContactRole,
-                    contractorContactNumber,
-                    contractorEmail,
-                    contractorCoida
-                };
-                formData.contractor.referenceNumber = saveWithExpiry(CONTRACTOR_STORAGE_KEY, formData.contractor);
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 5) {
-                // Step 5: Project Details
-                const projectName = document.getElementById('project-name').value;
-                const siteAddress = document.getElementById('site-address').value;
-                const siteSupervisorName = document.getElementById('site-supervisor-name').value;
-                const siteSupervisorNumber = document.getElementById('site-supervisor-number').value;
-                const siteSupervisorEmail = document.getElementById('site-supervisor-email').value;
-
-                const validations = [
-                    { id: 'project-name', value: projectName, error: 'project-name-error', message: "Please enter a project name." },
-                    { id: 'site-address', value: siteAddress, error: 'site-address-error', message: "Please enter a site address." },
-                    { id: 'site-supervisor-name', value: siteSupervisorName, error: 'site-supervisor-name-error', message: "Please enter a site supervisor name." },
-                    { id: 'site-supervisor-number', value: siteSupervisorNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'site-supervisor-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
-                    { id: 'site-supervisor-email', value: siteSupervisorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'site-supervisor-email-error', message: "Please enter a valid email address." }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                });
-
-                if (!valid) return;
-
-                formData.project = {
-                    projectName,
-                    siteAddress,
-                    siteSupervisorName,
-                    siteSupervisorNumber,
-                    siteSupervisorEmail,
-                    clientRef: formData.client.referenceNumber,
-                    contractorRef: formData.contractorAppointed === "yes" ? formData.contractor.referenceNumber : null
-                };
-                formData.project.referenceNumber = `${formData.client.clientName.replace(/[^a-zA-Z0-9]/g, '')}/${projectName.replace(/[^a-zA-Z0-9]/g, '')}/${date}date/${month}month/${year}year/`;
-                saveWithExpiry(PROJECT_STORAGE_KEY, formData.project);
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 6) {
-                // Step 6: Scope of the Project
-                const typeOfWork = document.getElementById('type-of-work').value;
-                const cidbGrade = document.getElementById('cidb-grade').value;
-                const cost = document.getElementById('cost').value;
-                const duration = document.getElementById('duration').value;
-                const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked'))
-                    .map(input => input.value);
-                const scopeDetails = document.getElementById('scope-details').value;
-
-                const validations = [
-                    { id: 'type-of-work', value: typeOfWork, error: 'type-of-work-error', message: "Please enter the type of work." },
-                    { id: 'cidb-grade', value: cidbGrade, error: 'cidb-grade-error', message: "Please select a CIDB grading." },
-                    { id: 'cost', value: cost, error: 'cost-error', message: "Please enter a valid project cost (R)." },
-                    { id: 'duration', value: duration, error: 'duration-error', message: "Please enter a valid duration (days)." },
-                    { id: 'scope-details', value: scopeDetails, error: 'scope-details-error', message: "Please enter scope details." }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (!v.value) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                });
-
-                if (!valid) return;
-
-                formData.scope = {
-                    typeOfWork,
-                    cidbGrade,
-                    cost,
-                    duration,
-                    activities,
-                    scopeDetails
-                };
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 7) {
-                // Step 7: Compiled By
-                const compiledByName = document.getElementById('compiled-by-name').value;
-                const compiledByNumber = document.getElementById('compiled-by-number').value;
-                const compiledByEmail = document.getElementById('compiled-by-email').value;
-                const compiledByRole = document.getElementById('compiled-by-role').value;
-                const sacpcmpReg = document.getElementById('sacpcmp-reg').value;
-                const compiledByRoleOther = document.getElementById('compiled-by-role-other').value;
-
-                const validations = [
-                    { id: 'compiled-by-name', value: compiledByName, error: 'compiled-by-name-error', message: "Please enter your name." },
-                    { id: 'compiled-by-number', value: compiledByNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'compiled-by-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
-                    { id: 'compiled-by-email', value: compiledByEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'compiled-by-email-error', message: "Please enter a valid email address." },
-                    { id: 'compiled-by-role', value: compiledByRole, error: 'compiled-by-role-error', message: "Please select a role." },
-                    { id: 'sacpcmp-reg', value: sacpcmpReg, error: 'sacpcmp-reg-error', message: "Please enter a SACPCMP registration number.", condition: () => (compiledByRole === "sacpcmp-officer" || compiledByRole === "sacpcmp-agent") && sacpcmpReg === "N/A" },
-                    { id: 'compiled-by-role-other', value: compiledByRoleOther, error: 'compiled-by-role-other-error', message: "Please specify your role.", condition: () => compiledByRole === "other" && compiledByRoleOther === "N/A" }
-                ];
-
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (v.condition && !v.condition()) {
-                        errorEl.classList.add('hidden');
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentStep === 1) {
+                    // Step 1: Document Selection
+                    const documentTypes = Array.from(document.querySelectorAll('input[name="documentTypes"]:checked'))
+                        .map(input => input.value);
+                    const error = document.getElementById('document-types-error');
+                    if (documentTypes.length === 0) {
+                        error.classList.remove('hidden');
                         return;
                     }
-                    if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
+                    error.classList.add('hidden');
+                    formData.documentTypes = documentTypes;
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 2) {
+                    // Step 2: Client Details
+                    const clientName = document.getElementById('client-name').value;
+                    const clientAddress = document.getElementById('client-address').value;
+                    const clientContactPerson = document.getElementById('client-contact-person').value;
+                    const clientContactRole = document.getElementById('client-contact-role').value;
+                    const clientContactNumber = document.getElementById('client-contact-number').value;
+                    const clientEmail = document.getElementById('client-email').value;
+                    const clientCoida = document.getElementById('client-coida').value;
+
+                    const validations = [
+                        { id: 'client-name', value: clientName, error: 'client-name-error', message: "Please enter a client company name." },
+                        { id: 'client-address', value: clientAddress, error: 'client-address-error', message: "Please enter a client address." },
+                        { id: 'client-contact-person', value: clientContactPerson, error: 'client-contact-person-error', message: "Please enter a client contact person." },
+                        { id: 'client-contact-role', value: clientContactRole, error: 'client-contact-role-error', message: "Please enter a client contact role." },
+                        { id: 'client-contact-number', value: clientContactNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'client-contact-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
+                        { id: 'client-email', value: clientEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'client-email-error', message: "Please enter a valid email address." },
+                        { id: 'client-coida', value: clientCoida, error: 'client-coida-error', message: "Please enter a COIDA registration number." }
+                    ];
+
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
+
+                    if (!valid) return;
+
+                    formData.client = {
+                        clientName,
+                        clientAddress,
+                        clientContactPerson,
+                        clientContactRole,
+                        clientContactNumber,
+                        clientEmail,
+                        clientCoida
+                    };
+                    formData.client.referenceNumber = saveWithExpiry(CLIENT_STORAGE_KEY, formData.client);
+
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 3) {
+                    // Step 3: Contractor Appointed
+                    const contractorAppointed = document.getElementById('contractor-appointed').value;
+                    formData.contractorAppointed = contractorAppointed;
+
+                    if (contractorAppointed === "yes") {
+                        renderStep(currentStep + 1);
                     } else {
-                        errorEl.classList.add('hidden');
+                        renderStep(currentStep + 2); // Skip Step 4
                     }
-                });
+                } else if (currentStep === 4) {
+                    // Step 4: Contractor Details
+                    const contractorName = document.getElementById('contractor-name').value;
+                    const contractorAddress = document.getElementById('contractor-address').value;
+                    const contractorContactPerson = document.getElementById('contractor-contact-person').value;
+                    const contractorContactRole = document.getElementById('contractor-contact-role').value;
+                    const contractorContactNumber = document.getElementById('contractor-contact-number').value;
+                    const contractorEmail = document.getElementById('contractor-email').value;
+                    const contractorCoida = document.getElementById('contractor-coida').value;
 
-                if (!valid) return;
+                    const validations = [
+                        { id: 'contractor-name', value: contractorName, error: 'contractor-name-error', message: "Please enter a contractor company name." },
+                        { id: 'contractor-address', value: contractorAddress, error: 'contractor-address-error', message: "Please enter a contractor address." },
+                        { id: 'contractor-contact-person', value: contractorContactPerson, error: 'contractor-contact-person-error', message: "Please enter a contractor contact person." },
+                        { id: 'contractor-contact-role', value: contractorContactRole, error: 'contractor-contact-role-error', message: "Please enter a contractor contact role." },
+                        { id: 'contractor-contact-number', value: contractorContactNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'contractor-contact-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
+                        { id: 'contractor-email', value: contractorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'contractor-email-error', message: "Please enter a valid email address." },
+                        { id: 'contractor-coida', value: contractorCoida, error: 'contractor-coida-error', message: "Please enter a COIDA registration number." }
+                    ];
 
-                formData.compiledBy = {
-                    name: compiledByName,
-                    number: compiledByNumber,
-                    email: compiledByEmail,
-                    role: compiledByRole,
-                    sacpcmpReg: (compiledByRole === "sacpcmp-officer" || compiledByRole === "sacpcmp-agent") ? sacpcmpReg : "N/A",
-                    specifiedRole: compiledByRole === "other" ? compiledByRoleOther : "N/A"
-                };
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
 
-                renderStep(currentStep + 1);
-            } else if (currentStep === 8) {
-                // Step 8: Compiled For
-                const compiledFor = document.getElementById('compiled-for').value;
-                const compiledForOther = document.getElementById('compiled-for-other').value;
+                    if (!valid) return;
 
-                const validations = [
-                    { id: 'compiled-for', value: compiledFor, error: 'compiled-for-error', message: "Please select an option." },
-                    { id: 'compiled-for-other', value: compiledForOther, error: 'compiled-for-other-error', message: "Please specify who the document is compiled for.", condition: () => compiledFor === "other" && compiledForOther === "N/A" }
-                ];
+                    formData.contractor = {
+                        contractorName,
+                        contractorAddress,
+                        contractorContactPerson,
+                        contractorContactRole,
+                        contractorContactNumber,
+                        contractorEmail,
+                        contractorCoida
+                    };
+                    formData.contractor.referenceNumber = saveWithExpiry(CONTRACTOR_STORAGE_KEY, formData.contractor);
 
-                let valid = true;
-                validations.forEach(v => {
-                    const errorEl = document.getElementById(v.error);
-                    if (v.condition && !v.condition()) {
-                        errorEl.classList.add('hidden');
-                        return;
-                    }
-                    if (!v.value) {
-                        errorEl.classList.remove('hidden');
-                        errorEl.textContent = v.message;
-                        valid = false;
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 5) {
+                    // Step 5: Project Details
+                    const projectName = document.getElementById('project-name').value;
+                    const siteAddress = document.getElementById('site-address').value;
+                    const siteSupervisorName = document.getElementById('site-supervisor-name').value;
+                    const siteSupervisorNumber = document.getElementById('site-supervisor-number').value;
+                    const siteSupervisorEmail = document.getElementById('site-supervisor-email').value;
+
+                    const validations = [
+                        { id: 'project-name', value: projectName, error: 'project-name-error', message: "Please enter a project name." },
+                        { id: 'site-address', value: siteAddress, error: 'site-address-error', message: "Please enter a site address." },
+                        { id: 'site-supervisor-name', value: siteSupervisorName, error: 'site-supervisor-name-error', message: "Please enter a site supervisor name." },
+                        { id: 'site-supervisor-number', value: siteSupervisorNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'site-supervisor-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
+                        { id: 'site-supervisor-email', value: siteSupervisorEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'site-supervisor-email-error', message: "Please enter a valid email address." }
+                    ];
+
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
+
+                    if (!valid) return;
+
+                    formData.project = {
+                        projectName,
+                        siteAddress,
+                        siteSupervisorName,
+                        siteSupervisorNumber,
+                        siteSupervisorEmail,
+                        clientRef: formData.client.referenceNumber,
+                        contractorRef: formData.contractorAppointed === "yes" ? formData.contractor.referenceNumber : null
+                    };
+                    const now = new Date();
+                    const date = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = String(now.getFullYear()).slice(-2);
+                    const clientName = (formData.client.clientName || '').replace(/[^a-zA-Z0-9]/g, '');
+                    formData.project.referenceNumber = `${clientName}/${projectName.replace(/[^a-zA-Z0-9]/g, '')}/${date}date/${month}month/${year}year/`;
+                    saveWithExpiry(PROJECT_STORAGE_KEY, formData.project);
+
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 6) {
+                    // Step 6: Scope of the Project
+                    const typeOfWork = document.getElementById('type-of-work').value;
+                    const cidbGrade = document.getElementById('cidb-grade').value;
+                    const cost = document.getElementById('cost').value;
+                    const duration = document.getElementById('duration').value;
+                    const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked'))
+                        .map(input => input.value);
+                    const scopeDetails = document.getElementById('scope-details').value;
+
+                    const validations = [
+                        { id: 'type-of-work', value: typeOfWork, error: 'type-of-work-error', message: "Please enter the type of work." },
+                        { id: 'cidb-grade', value: cidbGrade, error: 'cidb-grade-error', message: "Please select a CIDB grading." },
+                        { id: 'cost', value: cost, error: 'cost-error', message: "Please enter a valid project cost (R)." },
+                        { id: 'duration', value: duration, error: 'duration-error', message: "Please enter a valid duration (days)." },
+                        { id: 'scope-details', value: scopeDetails, error: 'scope-details-error', message: "Please enter scope details." }
+                    ];
+
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (!v.value) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
+
+                    if (!valid) return;
+
+                    formData.scope = {
+                        typeOfWork,
+                        cidbGrade,
+                        cost,
+                        duration,
+                        activities,
+                        scopeDetails
+                    };
+
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 7) {
+                    // Step 7: Compiled By
+                    const compiledByName = document.getElementById('compiled-by-name').value;
+                    const compiledByNumber = document.getElementById('compiled-by-number').value;
+                    const compiledByEmail = document.getElementById('compiled-by-email').value;
+                    const compiledByRole = document.getElementById('compiled-by-role').value;
+                    const sacpcmpReg = document.getElementById('sacpcmp-reg').value;
+                    const compiledByRoleOther = document.getElementById('compiled-by-role-other').value;
+
+                    const validations = [
+                        { id: 'compiled-by-name', value: compiledByName, error: 'compiled-by-name-error', message: "Please enter your name." },
+                        { id: 'compiled-by-number', value: compiledByNumber, pattern: /^\+?[0-9\s\-()]{10,}$/, error: 'compiled-by-number-error', message: "Please enter a valid phone number (e.g., +27123456789)." },
+                        { id: 'compiled-by-email', value: compiledByEmail, pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, error: 'compiled-by-email-error', message: "Please enter a valid email address." },
+                        { id: 'compiled-by-role', value: compiledByRole, error: 'compiled-by-role-error', message: "Please select a role." },
+                        { id: 'sacpcmp-reg', value: sacpcmpReg, error: 'sacpcmp-reg-error', message: "Please enter a SACPCMP registration number.", condition: () => (compiledByRole === "sacpcmp-officer" || compiledByRole === "sacpcmp-agent") && sacpcmpReg === "N/A" },
+                        { id: 'compiled-by-role-other', value: compiledByRoleOther, error: 'compiled-by-role-other-error', message: "Please specify your role.", condition: () => compiledByRole === "other" && compiledByRoleOther === "N/A" }
+                    ];
+
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (v.condition && !v.condition()) {
+                            errorEl.classList.add('hidden');
+                            return;
+                        }
+                        if (!v.value || (v.pattern && !v.pattern.test(v.value))) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
+
+                    if (!valid) return;
+
+                    formData.compiledBy = {
+                        name: compiledByName,
+                        number: compiledByNumber,
+                        email: compiledByEmail,
+                        role: compiledByRole,
+                        sacpcmpReg: (compiledByRole === "sacpcmp-officer" || compiledByRole === "sacpcmp-agent") ? sacpcmpReg : "N/A",
+                        specifiedRole: compiledByRole === "other" ? compiledByRoleOther : "N/A"
+                    };
+
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 8) {
+                    // Step 8: Compiled For
+                    const compiledFor = document.getElementById('compiled-for').value;
+                    const compiledForOther = document.getElementById('compiled-for-other').value;
+
+                    const validations = [
+                        { id: 'compiled-for', value: compiledFor, error: 'compiled-for-error', message: "Please select an option." },
+                        { id: 'compiled-for-other', value: compiledForOther, error: 'compiled-for-other-error', message: "Please specify who the document is compiled for.", condition: () => compiledFor === "other" && compiledForOther === "N/A" }
+                    ];
+
+                    let valid = true;
+                    validations.forEach(v => {
+                        const errorEl = document.getElementById(v.error);
+                        if (v.condition && !v.condition()) {
+                            errorEl.classList.add('hidden');
+                            return;
+                        }
+                        if (!v.value) {
+                            errorEl.classList.remove('hidden');
+                            errorEl.textContent = v.message;
+                            valid = false;
+                        } else {
+                            errorEl.classList.add('hidden');
+                        }
+                    });
+
+                    if (!valid) return;
+
+                    let compiledForData = {};
+                    if (compiledFor === "client") {
+                        compiledForData = {
+                            name: formData.client.clientName,
+                            role: "Client",
+                            number: formData.client.clientContactNumber,
+                            email: formData.client.clientEmail,
+                            specify: "N/A"
+                        };
+                    } else if (compiledFor === "contractor" && formData.contractorAppointed === "yes") {
+                        compiledForData = {
+                            name: formData.contractor.contractorName,
+                            role: "Contractor",
+                            number: formData.contractor.contractorContactNumber,
+                            email: formData.contractor.contractorEmail,
+                            specify: "N/A"
+                        };
                     } else {
-                        errorEl.classList.add('hidden');
+                        compiledForData = {
+                            name: compiledForOther,
+                            role: compiledForOther,
+                            number: formData.compiledBy.number, // Fallback to compiled by
+                            email: formData.compiledBy.email,
+                            specify: compiledForOther
+                        };
                     }
-                });
 
-                if (!valid) return;
+                    formData.compiledFor = compiledForData;
 
-                let compiledForData = {};
-                if (compiledFor === "client") {
-                    compiledForData = {
-                        name: formData.client.clientName,
-                        role: "Client",
-                        number: formData.client.clientContactNumber,
-                        email: formData.client.clientEmail,
-                        specify: "N/A"
+                    renderStep(currentStep + 1);
+                } else if (currentStep === 9) {
+                    // Step 9: Add to Cart
+                    formData.documentTypes.forEach(type => {
+                        if (type === "hs-spec") {
+                            addToCart("Health and Safety Specification", 50.00, "hs-spec", formData);
+                        } else if (type === "hs-plan") {
+                            addToCart("Health and Safety Plan", 50.00, "hs-plan", formData);
+                        } else if (type === "hs-file") {
+                            addToCart("Health and Safety File", 100.00, "hs-file", formData);
+                        } else if (type === "risk-assessment") {
+                            window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline";
+                        } else if (type === "training") {
+                            window.location.href = "https://salatiso.github.io/safety-plans/pages/general-induction.html";
+                        } else if (type === "appointments") {
+                            window.location.href = "https://salatiso.github.io/safety-plans/pages/legal-appointments.html";
+                        } else if (type === "inspections") {
+                            window.location.href = "https://salatiso.github.io/safety-plans/pages/inspections-audits.html";
+                        } else if (type === "incidents") {
+                            window.location.href = "https://salatiso.github.io/safety-plans/pages/incident-management.html";
+                        } else if (type === "reports") {
+                            alert("Report compilation coming soon!");
+                        }
+                    });
+
+                    // Reset form data
+                    formData = {
+                        documentTypes: [],
+                        client: {},
+                        contractorAppointed: '',
+                        contractor: {},
+                        project: {},
+                        scope: {},
+                        compiledBy: {},
+                        compiledFor: {},
+                        additionalSignatories: []
                     };
-                } else if (compiledFor === "contractor" && formData.contractorAppointed === "yes") {
-                    compiledForData = {
-                        name: formData.contractor.contractorName,
-                        role: "Contractor",
-                        number: formData.contractor.contractorContactNumber,
-                        email: formData.contractor.contractorEmail,
-                        specify: "N/A"
-                    };
-                } else {
-                    compiledForData = {
-                        name: compiledForOther,
-                        role: compiledForOther,
-                        number: formData.compiledBy.number, // Fallback to compiled by
-                        email: formData.compiledBy.email,
-                        specify: compiledForOther
-                    };
+                    renderStep(0); // Return to hidden state
                 }
-
-                formData.compiledFor = compiledForData;
-
-                renderStep(currentStep + 1);
-            } else if (currentStep === 9) {
-                // Step 9: Add to Cart
-                formData.documentTypes.forEach(type => {
-                    if (type === "hs-spec") {
-                        addToCart("Health and Safety Specification", 50.00, "hs-spec", formData);
-                    } else if (type === "hs-plan") {
-                        addToCart("Health and Safety Plan", 50.00, "hs-plan", formData);
-                    } else if (type === "hs-file") {
-                        addToCart("Health and Safety File", 100.00, "hs-file", formData);
-                    } else if (type === "risk-assessment") {
-                        window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline";
-                    } else if (type === "training") {
-                        window.location.href = "https://salatiso.github.io/safety-plans/pages/general-induction.html";
-                    } else if (type === "appointments") {
-                        window.location.href = "https://salatiso.github.io/safety-plans/pages/legal-appointments.html";
-                    } else if (type === "inspections") {
-                        window.location.href = "https://salatiso.github.io/safety-plans/pages/inspections-audits.html";
-                    } else if (type === "incidents") {
-                        window.location.href = "https://salatiso.github.io/safety-plans/pages/incident-management.html";
-                    } else if (type === "reports") {
-                        alert("Report compilation coming soon!");
-                    }
-                });
-
-                // Reset form data
-                formData = {
-                    documentTypes: [],
-                    client: {},
-                    contractorAppointed: '',
-                    contractor: {},
-                    project: {},
-                    scope: {},
-                    compiledBy: {},
-                    compiledFor: {},
-                    additionalSignatories: []
-                };
-                renderStep(1);
-            }
-        });
+            });
+        }
 
         // Step 3: Contractor Appointed - Update form data on change
         const contractorAppointedSelect = document.getElementById('contractor-appointed');
@@ -2101,8 +1619,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Initial Render
-    renderStep(1);
+    // Initial Render (Hidden State)
+    renderStep(0);
 
     // Checkout
     const checkoutBtn = document.getElementById("checkout-btn");
