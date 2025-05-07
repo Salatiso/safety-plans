@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard | Salatiso Safety Plans</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/member-dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
+                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
+                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
+                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
+                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
+                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
+                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
+                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
+                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Dashboard..." data-i18n="[placeholder]header.search.placeholder">
+                <button data-i18n="header.search.button">Search</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Main Content -->
+    <main>
+        <section class="dashboard">
+            <h2>[Placeholder: Member Dashboard]</h2>
+            <p>[Placeholder: Welcome, [User Name]! Manage your OHS compliance, RMPs, supplier reviews, and community reports here.]</p>
+
+            <div class="dashboard-section">
+                <h3>[Placeholder: Company Profile]</h3>
+                <p>[Placeholder: Company Name: [User Input]]</p>
+                <p>[Placeholder: Industry: [User Input]]</p>
+                <p>[Placeholder: Location: [User Input]]</p>
+                <button onclick="editProfile()">[Placeholder: Edit Profile]</button>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>[Placeholder: Saved RMPs]</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>[Placeholder: Date]</th>
+                            <th>[Placeholder: Title]</th>
+                            <th>[Placeholder: Actions]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[Placeholder: 2025-05-07]</td>
+                            <td>[Placeholder: Construction RMP]</td>
+                            <td><button>[Placeholder: View]</button> <button>[Placeholder: Edit]</button></td>
+                        </tr>
+                        <!-- More rows populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>[Placeholder: Supplier Reviews]</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>[Placeholder: Supplier]</th>
+                            <th>[Placeholder: Rating]</th>
+                            <th>[Placeholder: Review]</th>
+                            <th>[Placeholder: Actions]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[Placeholder: ALCO-Safe]</td>
+                            <td>[Placeholder: 4.5/5]</td>
+                            <td>[Placeholder: Great service!]</td>
+                            <td><button>[Placeholder: Edit]</button></td>
+                        </tr>
+                        <!-- More rows populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>[Placeholder: Community Reports]</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>[Placeholder: Date]</th>
+                            <th>[Placeholder: Setting]</th>
+                            <th>[Placeholder: Issue]</th>
+                            <th>[Placeholder: Status]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[Placeholder: 2025-05-07]</td>
+                            <td>[Placeholder: Spaza Shop]</td>
+                            <td>[Placeholder: No Fire Extinguisher]</td>
+                            <td>[Placeholder: Submitted]</td>
+                        </tr>
+                        <!-- More rows populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
+            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
+            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+        </div>
+        <div class="newsletter">
+            <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
+            <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter.placeholder">
+            <button data-i18n="footer.newsletter.button">Subscribe</button>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button data-i18n="chatbot.button">Ask Me</button>
+        <div class="chatbot-content" style="display: none;">
+            <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
+            <button data-i18n="chatbot.send">Send</button>
+            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/member-dashboard.js"></script>
+</body>
+</html>
