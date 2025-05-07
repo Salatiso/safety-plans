@@ -61,14 +61,7 @@ const addToCart = (documentName, price, type, data) => {
     cart.push({ documentName, price, type, data });
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     updateCartDisplay();
-    alert(`${documentName} added to cart!`);
-
-    // Generate and store invoice reference number
-    const invoiceData = {
-        referenceNumber: generateReferenceNumber(),
-        cart
-    };
-    saveWithExpiry(INVOICE_STORAGE_KEY, invoiceData);
+    // Do not alert here to avoid interrupting the flow
 };
 
 const updateCartDisplay = () => {
@@ -580,7 +573,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Wizard State
-    const wizardContainer = document.getElementById('wizard-container');
+    const wizardContainer = document.getElementById('wizard-content');
+    const wizardSidebar = document.getElementById('wizard-sidebar');
+
+    // Sidebar Content for Each Step
+    const sidebarContent = [
+        // Step 0: Hidden State
+        `
+            <h4>📜 OHS Compliance</h4>
+            <p>Start by selecting a service to ensure compliance with the Occupational Health and Safety Act.</p>
+            <p class="fun-fact">⚡ Fun Fact: Did you know that proper OHS documentation can cut workplace incidents by up to 30%? Let’s get started!</p>
+        `,
+        // Step 1: Document Selection
+        `
+            <h4>📋 Legislation</h4>
+            <p>Construction Regulation 5(1)(b) requires a Health and Safety Specification for all projects, while 7(1)(b) mandates an H&S File.</p>
+            <p class="fun-fact">🛡️ Fun Fact: A solid H&S Spec can reduce accidents by 30%! It’s like a safety shield for your project.</p>
+        `,
+        // Step 2: Client Details
+        `
+            <h4>📋 Legislation</h4>
+            <p>Construction Regulation 5: Clients must provide a Health & Safety Specification and ensure contractors comply.</p>
+            <p class="fun-fact">💼 Fun Fact: Clients who stay on top of COIDA registration can avoid hefty fines—keep that number handy!</p>
+        `,
+        // Step 3: Contractor Appointed
+        `
+            <h4>📜 Legislation</h4>
+            <p>Construction Regulation 7(1)(a): Contractors must develop a Health & Safety Plan based on the client’s specification.</p>
+            <p class="fun-fact">🤝 Fun Fact: Appointing a contractor early can speed up compliance—teamwork makes the safety dream work!</p>
+        `,
+        // Step 4: Contractor Details
+        `
+            <h4>📋 Legislation</h4>
+            <p>Construction Regulation 7(1)(b): Contractors must maintain an on-site Health & Safety File with all required documents.</p>
+            <p class="fun-fact">📞 Fun Fact: Having a contractor’s contact details ready can save the day during an emergency—stay connected!</p>
+        `,
+        // Step 5: Project Details
+        `
+            <h4>📜 Legislation</h4>
+            <p>Construction Regulation 3(1): A permit is required for projects over R40,000 or lasting more than 180 days.</p>
+            <p class="fun-fact">🚧 Fun Fact: Clear site addresses help emergency crews find you faster—don’t let a typo slow down help!</p>
+        `,
+        // Step 6: Scope of the Project
+        `
+            <h4>📋 Legislation</h4>
+            <p>Construction Regulation 9: Task-specific Hazard Identification and Risk Assessments (HIRAs) are mandatory for all activities.</p>
+            <p class="fun-fact">🔍 Fun Fact: Spotting high-risk activities early can cut risks by 25%—it’s like giving your project a safety superpower!</p>
+        `,
+        // Step 7: Compiled By
+        `
+            <h4>📜 Legislation</h4>
+            <p>SACPCMP Guidelines: CHSOs and PrCHSAs must maintain registration and CPD to ensure compliance.</p>
+            <p class="fun-fact">🧑‍💼 Fun Fact: A registered SACPCMP pro can slash legal risks—your project’s safety MVP!</p>
+        `,
+        // Step 8: Compiled For
+        `
+            <h4>📋 Legislation</h4>
+            <p>Construction Regulation 5(1)(l): Clients must approve the contractor’s H&S Plan before work begins.</p>
+            <p class="fun-fact">📝 Fun Fact: Clear accountability in docs can boost project transparency—everyone knows their role!</p>
+        `,
+        // Step 9: Review and Add to Cart
+        `
+            <h4>📜 Legislation</h4>
+            <p>Occupational Health and Safety Act: Proper documentation ensures compliance and protects all stakeholders.</p>
+            <p class="fun-fact">🛒 Fun Fact: Your cart is your safety toolkit—each doc you add makes your project safer!</p>
+        `
+    ];
 
     // Step Definitions
     const steps = [
@@ -608,83 +666,47 @@ document.addEventListener("DOMContentLoaded", () => {
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td class="document-name"><span class="emoji">📋</span> Health and Safety Specification
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Construction Regulation 5(1)(b) requires a Health and Safety Specification for all projects.<br><span class="fun-fact">Did you know? A well-prepared H&S Specification can reduce workplace accidents by up to 30%!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">📋</span> Health and Safety Specification</td>
                             <td><input type="checkbox" id="hs-spec" name="documentTypes" value="hs-spec" ${formData.documentTypes.includes('hs-spec') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td class="document-name"><span class="emoji">🛡️</span> Health and Safety Plan
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Construction Regulation 7(1)(a) mandates a Health and Safety Plan for contractors.<br><span class="fun-fact">Did you know? Proper planning can improve project safety by 25%!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">🛡️</span> Health and Safety Plan</td>
                             <td><input type="checkbox" id="hs-plan" name="documentTypes" value="hs-plan" ${formData.documentTypes.includes('hs-plan') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td class="document-name"><span class="emoji">⚠️</span> Risk Assessment
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Construction Regulation 9 requires task-specific risk assessments (HIRAs).<br><span class="fun-fact">Did you know? Risk assessments can identify 80% of potential hazards!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">⚠️</span> Risk Assessment</td>
                             <td><input type="checkbox" id="risk-assessment" name="documentTypes" value="risk-assessment" ${formData.documentTypes.includes('risk-assessment') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td class="document-name"><span class="emoji">🎓</span> Conduct Training
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Training ensures workers are aware of site-specific hazards.<br><span class="fun-fact">Did you know? Proper training reduces accidents by 40%!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">🎓</span> Conduct Training</td>
                             <td><input type="checkbox" id="training" name="documentTypes" value="training" ${formData.documentTypes.includes('training') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td class="document-name"><span class="emoji">📜</span> Make Legal Appointments
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Legal appointments ensure accountability under the OHS Act.<br><span class="fun-fact">Did you know? Clear roles improve compliance efficiency!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">📜</span> Make Legal Appointments</td>
                             <td><input type="checkbox" id="appointments" name="documentTypes" value="appointments" ${formData.documentTypes.includes('appointments') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>6</td>
-                            <td class="document-name"><span class="emoji">🔍</span> Conduct Inspections/Audits
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Regular inspections are required to maintain safety standards.<br><span class="fun-fact">Did you know? Audits can uncover hidden risks!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">🔍</span> Conduct Inspections/Audits</td>
                             <td><input type="checkbox" id="inspections" name="documentTypes" value="inspections" ${formData.documentTypes.includes('inspections') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td class="document-name"><span class="emoji">🚑</span> Manage Incidents
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Incident management ensures quick response to emergencies.<br><span class="fun-fact">Did you know? Fast reporting can save lives!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">🚑</span> Manage Incidents</td>
                             <td><input type="checkbox" id="incidents" name="documentTypes" value="incidents" ${formData.documentTypes.includes('incidents') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>8</td>
-                            <td class="document-name"><span class="emoji">📊</span> Compile Reports
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Reports document compliance efforts for audits.<br><span class="fun-fact">Did you know? Good records can reduce legal risks!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">📊</span> Compile Reports</td>
                             <td><input type="checkbox" id="reports" name="documentTypes" value="reports" ${formData.documentTypes.includes('reports') ? 'checked' : ''}></td>
                         </tr>
                         <tr>
                             <td>9</td>
-                            <td class="document-name"><span class="emoji">📁</span> Health and Safety File
-                                <span class="info-bubble">
-                                    <span class="info-tooltip">Construction Regulation 7(1)(b) requires an H&S File for all projects.<br><span class="fun-fact">Did you know? A complete H&S File can streamline audits!</span></span>
-                                </span>
-                            </td>
+                            <td class="document-name"><span class="emoji">📁</span> Health and Safety File</td>
                             <td><input type="checkbox" id="hs-file" name="documentTypes" value="hs-file" ${formData.documentTypes.includes('hs-file') ? 'checked' : ''}></td>
                         </tr>
                     </tbody>
@@ -737,9 +759,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="client-coida">COIDA Registration Number:</label>
                 <input type="text" id="client-coida" name="clientCoida" value="${formData.client.clientCoida || ''}" required aria-label="COIDA Registration Number" aria-describedby="client-coida-error">
                 <p id="client-coida-error" class="error hidden">Please enter a COIDA registration number.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">Per Construction Regulation 5, the Client is responsible for initiating the H&S process.<br><span class="fun-fact">Did you know? COIDA ensures compensation for workplace injuries—make sure your registration is up to date!</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -761,9 +780,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="not-applicable" ${formData.contractorAppointed === "not-applicable" ? "selected" : ""}>Not Applicable</option>
                 </select>
                 <p id="contractor-appointed-error" class="error hidden">Please select an option.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">Construction Regulation 7 requires contractors to develop an H&S Plan.<br><span class="fun-fact">Did you know? Appointing a contractor early can streamline compliance!</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -811,9 +827,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="contractor-coida">COIDA Registration Number:</label>
                 <input type="text" id="contractor-coida" name="contractorCoida" value="${formData.contractor.contractorCoida || ''}" required aria-label="COIDA Registration Number" aria-describedby="contractor-coida-error">
                 <p id="contractor-coida-error" class="error hidden">Please enter a COIDA registration number.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">Contractors must maintain a COIDA registration for compliance.<br><span class="fun-fact">Did you know? COIDA protects workers from financial loss due to injuries!</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -865,9 +878,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="site-supervisor-email">Site Supervisor Email:</label>
                     <input type="email" id="site-supervisor-email" name="siteSupervisorEmail" value="${formData.project.siteSupervisorEmail || ''}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Site Supervisor Email" aria-describedby="site-supervisor-email-error">
                     <p id="site-supervisor-email-error" class="error hidden">Please enter a valid email address.</p>
-                    <span class="info-bubble">
-                        <span class="info-tooltip">A clear project name and site address ensure compliance with Construction Regulation 3(1).<br><span class="fun-fact">Did you know? Accurate site details help emergency services respond faster!</span></span>
-                    </span>
                 </div>
                 <div class="nav-buttons">
                     <button id="back-btn">Back</button>
@@ -1051,9 +1061,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="scope-details">Scope Details:</label>
                 <textarea id="scope-details" name="scopeDetails" rows="4" required aria-label="Scope Details" aria-describedby="scope-details-error">${formData.scope.scopeDetails || ''}</textarea>
                 <p id="scope-details-error" class="error hidden">Please enter scope details.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">Construction Regulation 3(1) requires a permit for projects over R40,000 or 180 days.<br><span class="fun-fact">Did you know? Identifying activities early can reduce risks by 25%!</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -1102,9 +1109,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="compiled-by-role-other">Specify Role:</label>
                 <input type="text" id="compiled-by-role-other" name="compiledByRoleOther" value="${formData.compiledBy.specifiedRole || 'N/A'}" aria-label="Specify Role" aria-describedby="compiled-by-role-other-error">
                 <p id="compiled-by-role-other-error" class="error hidden">Please specify your role.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">SACPCMP professionals ensure compliance with industry standards.<br><span class="fun-fact">Did you know? Registered professionals can reduce legal risks significantly!</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -1131,9 +1135,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="compiled-for-other">Specify:</label>
                 <input type="text" id="compiled-for-other" name="compiledForOther" value="${formData.compiledFor.specify || 'N/A'}" aria-label="Specify Compiled For" aria-describedby="compiled-for-other-error">
                 <p id="compiled-for-other-error" class="error hidden">Please specify who the document is compiled for.</p>
-                <span class="info-bubble">
-                    <span class="info-tooltip">Clearly defining who the document is compiled for ensures accountability.<br><span class="fun-fact">Did you know? Proper documentation can improve project transparency?</span></span>
-                </span>
             </div>
             <div class="nav-buttons">
                 <button id="back-btn">Back</button>
@@ -1177,7 +1178,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to Start the Wizard with a Pre-Selected Document
     window.startWizard = (documentType) => {
-        formData.documentTypes = [documentType]; // Pre-select the document
+        // Reset form data to start fresh
+        formData = {
+            documentTypes: [documentType], // Pre-select the document
+            client: {},
+            contractorAppointed: '',
+            contractor: {},
+            project: {},
+            scope: {},
+            compiledBy: {},
+            compiledFor: {},
+            additionalSignatories: []
+        };
         renderStep(1); // Start the wizard at Step 1
     };
 
@@ -1185,6 +1197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderStep = (stepNumber) => {
         currentStep = stepNumber;
         wizardContainer.innerHTML = steps[stepNumber]();
+        wizardSidebar.innerHTML = sidebarContent[stepNumber];
 
         // Attach event listeners for the current step
         const backBtn = document.getElementById('back-btn');
@@ -1194,6 +1207,9 @@ document.addEventListener("DOMContentLoaded", () => {
             backBtn.addEventListener('click', () => {
                 if (currentStep === 1) {
                     renderStep(0); // Return to hidden state
+                    cart = []; // Clear the cart when going back to start
+                    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+                    updateCartDisplay();
                 } else if (currentStep === 5 && formData.contractorAppointed !== "yes") {
                     renderStep(currentStep - 2); // Skip Step 4
                 } else {
@@ -1215,6 +1231,31 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     error.classList.add('hidden');
                     formData.documentTypes = documentTypes;
+
+                    // Clear cart and add selected documents
+                    cart = [];
+                    documentTypes.forEach(type => {
+                        if (type === "hs-spec") {
+                            addToCart("Health and Safety Specification", 50.00, "hs-spec", formData);
+                        } else if (type === "hs-plan") {
+                            addToCart("Health and Safety Plan", 50.00, "hs-plan", formData);
+                        } else if (type === "hs-file") {
+                            addToCart("Health and Safety File", 100.00, "hs-file", formData);
+                        } else if (type === "risk-assessment") {
+                            addToCart("Risk Assessment", 0.00, "risk-assessment", formData);
+                        } else if (type === "training") {
+                            addToCart("Conduct Training", 0.00, "training", formData);
+                        } else if (type === "appointments") {
+                            addToCart("Legal Appointments", 0.00, "appointments", formData);
+                        } else if (type === "inspections") {
+                            addToCart("Inspections/Audits", 0.00, "inspections", formData);
+                        } else if (type === "incidents") {
+                            addToCart("Incident Management", 0.00, "incidents", formData);
+                        } else if (type === "reports") {
+                            addToCart("Compliance Reports", 0.00, "reports", formData);
+                        }
+                    });
+
                     renderStep(currentStep + 1);
                 } else if (currentStep === 2) {
                     // Step 2: Client Details
@@ -1513,15 +1554,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     renderStep(currentStep + 1);
                 } else if (currentStep === 9) {
-                    // Step 9: Add to Cart
+                    // Step 9: Review and Add to Cart
+                    // Documents are already in the cart from Step 1
+                    // Proceed to checkout or redirect for non-PDF documents
                     formData.documentTypes.forEach(type => {
-                        if (type === "hs-spec") {
-                            addToCart("Health and Safety Specification", 50.00, "hs-spec", formData);
-                        } else if (type === "hs-plan") {
-                            addToCart("Health and Safety Plan", 50.00, "hs-plan", formData);
-                        } else if (type === "hs-file") {
-                            addToCart("Health and Safety File", 100.00, "hs-file", formData);
-                        } else if (type === "risk-assessment") {
+                        if (type === "risk-assessment") {
                             window.location.href = "/safety-plans/pages/risk-assessment.html?type=baseline";
                         } else if (type === "training") {
                             window.location.href = "https://salatiso.github.io/safety-plans/pages/general-induction.html";
@@ -1536,18 +1573,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     });
 
-                    // Reset form data
-                    formData = {
-                        documentTypes: [],
-                        client: {},
-                        contractorAppointed: '',
-                        contractor: {},
-                        project: {},
-                        scope: {},
-                        compiledBy: {},
-                        compiledFor: {},
-                        additionalSignatories: []
-                    };
                     renderStep(0); // Return to hidden state
                 }
             });
