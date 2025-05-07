@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OHS Legal Universe & Risk Management | Salatiso Safety Plans</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/legislation.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
+                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
+                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
+                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
+                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
+                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
+                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
+                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
+                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search OHS Legislation..." data-i18n="[placeholder]header.search.placeholder">
+                <button data-i18n="header.search.button">Search</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
+        <ul>
+            <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
+            <li><a href="legislation.html" class="active" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
+            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+        </ul>
+        <div class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Legal Universe & RMP]</h3>
+            <p data-i18n="sidebar.step_0.description">[Placeholder: Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.]</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!]</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <section class="intro">
+            <h2 data-i18n="legislation.title">[Placeholder: OHS Legal Universe & Risk Management]</h2>
+            <p data-i18n="legislation.description">[Placeholder: Generate a tailored OHS legal universe and risk management plan for your business. Enter your company details, activities, and risks to receive a comprehensive compliance report covering South African legislation, bylaws, and international standards.]</p>
+        </section>
+
+        <section class="wizard">
+            <h3>[Placeholder: Generate Your RMP]</h3>
+            <form id="legislation-wizard">
+                <!-- Step 1: Company Details -->
+                <div class="step" id="step-1">
+                    <h4>[Placeholder: Step 1 of 4: Company Details]</h4>
+                    <label>[Placeholder: Company Name:]</label>
+                    <input type="text" id="company-name" required>
+                    <label>[Placeholder: Industry:]</label>
+                    <select id="industry" required>
+                        <option value="">Select Industry</option>
+                        <option value="construction">Construction</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="education">Education</option>
+                        <!-- Add more industries -->
+                    </select>
+                    <label>[Placeholder: Location (Province):]</label>
+                    <select id="location" required>
+                        <option value="">Select Province</option>
+                        <option value="Gauteng">Gauteng</option>
+                        <option value="KZN">KwaZulu-Natal</option>
+                        <option value="WC">Western Cape</option>
+                        <!-- Add more provinces -->
+                    </select>
+                    <button type="button" onclick="nextStep(1)">[Placeholder: Next]</button>
+                </div>
+
+                <!-- Step 2: Activities -->
+                <div class="step" id="step-2" style="display: none;">
+                    <h4>[Placeholder: Step 2 of 4: Activities]</h4>
+                    <label>[Placeholder: Select Activities (Check all that apply):]</label>
+                    <input type="checkbox" id="excavation"> Excavation<br>
+                    <input type="checkbox" id="working-at-heights"> Working at Heights<br>
+                    <input type="checkbox" id="fire-risk"> Fire Risk Activities<br>
+                    <!-- Add more activities -->
+                    <button type="button" onclick="prevStep(2)">[Placeholder: Back]</button>
+                    <button type="button" onclick="nextStep(2)">[Placeholder: Next]</button>
+                </div>
+
+                <!-- Step 3: Risks -->
+                <div class="step" id="step-3" style="display: none;">
+                    <h4>[Placeholder: Step 3 of 4: Risks]</h4>
+                    <label>[Placeholder: Select Risks (Check all that apply):]</label>
+                    <input type="checkbox" id="falls"> Falls from Heights<br>
+                    <input type="checkbox" id="chemical-exposure"> Chemical Exposure<br>
+                    <input type="checkbox" id="fire-hazard"> Fire Hazard<br>
+                    <!-- Add more risks -->
+                    <button type="button" onclick="prevStep(3)">[Placeholder: Back]</button>
+                    <button type="button" onclick="nextStep(3)">[Placeholder: Next]</button>
+                </div>
+
+                <!-- Step 4: Review and Generate -->
+                <div class="step" id="step-4" style="display: none;">
+                    <h4>[Placeholder: Step 4 of 4: Review and Generate]</h4>
+                    <p>[Placeholder: Review your inputs and generate your RMP. You can add additional legislation if needed.]</p>
+                    <label>[Placeholder: Add Additional Legislation (Optional):]</label>
+                    <textarea id="additional-legislation"></textarea>
+                    <button type="button" onclick="prevStep(4)">[Placeholder: Back]</button>
+                    <button type="submit">[Placeholder: Generate RMP]</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="checkout" id="checkout" style="display: none;">
+            <h3>[Placeholder: Checkout]</h3>
+            <p>[Placeholder: Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).]</p>
+            <label>[Placeholder: Voucher Code:]</label>
+            <input type="text" id="voucher-code" placeholder="FREERMP2025">
+            <button onclick="applyVoucher()">[Placeholder: Apply Voucher]</button>
+            <p>[Placeholder: Price: R200 (Free with Voucher)]</p>
+            <button onclick="downloadRMP()">[Placeholder: Download RMP]</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
+            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
+            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+        </div>
+        <div class="newsletter">
+            <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
+            <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter.placeholder">
+            <button data-i18n="footer.newsletter.button">Subscribe</button>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button data-i18n="chatbot.button">Ask Me</button>
+        <div class="chatbot-content" style="display: none;">
+            <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
+            <button data-i18n="chatbot.send">Send</button>
+            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/legislation.js"></script>
+</body>
+</html>
