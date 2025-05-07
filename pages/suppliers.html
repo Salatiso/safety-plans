@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OHS Suppliers Directory | Salatiso Safety Plans</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/suppliers.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
+                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
+                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
+                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
+                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
+                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
+                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
+                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
+                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search OHS Suppliers..." data-i18n="[placeholder]header.search.placeholder">
+                <button data-i18n="header.search.button">Search</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
+        <ul>
+            <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="suppliers.html" class="active" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
+            <li><a href="legislation.html" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
+            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+        </ul>
+        <div class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Suppliers Directory]</h3>
+            <p data-i18n="sidebar.step_0.description">[Placeholder: Browse and rank OHS suppliers in South Africa. Filter by location, services, and accreditations. Submit your reviews to help others choose the best suppliers.]</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Choosing accredited suppliers can reduce workplace incidents by up to 20%!]</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <section class="intro">
+            <h2 data-i18n="suppliers.title">[Placeholder: OHS Suppliers Directory]</h2>
+            <p data-i18n="suppliers.description">[Placeholder: Find and rank OHS suppliers in South Africa. Browse by location, services, and accreditations. Submit reviews to help others make informed decisions.]</p>
+        </section>
+
+        <section class="supplier-list">
+            <h3>[Placeholder: Supplier List]</h3>
+            <div class="filters">
+                <label>[Placeholder: Filter by Province:]</label>
+                <select id="province-filter">
+                    <option value="">All Provinces</option>
+                    <option value="Gauteng">Gauteng</option>
+                    <option value="KZN">KwaZulu-Natal</option>
+                    <option value="WC">Western Cape</option>
+                    <!-- Add more provinces -->
+                </select>
+                <label>[Placeholder: Filter by Service:]</label>
+                <select id="service-filter">
+                    <option value="">All Services</option>
+                    <option value="PPE">PPE</option>
+                    <option value="Training">Training</option>
+                    <option value="Consulting">Consulting</option>
+                    <!-- Add more services -->
+                </select>
+                <label>[Placeholder: Sort by:]</label>
+                <select id="sort-by">
+                    <option value="ranking">Ranking</option>
+                    <option value="name">Name</option>
+                    <option value="established">Years Established</option>
+                </select>
+            </div>
+            <div id="supplier-table">
+                <!-- Placeholder: Table of suppliers populated dynamically -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Location</th>
+                            <th>Services</th>
+                            <th>Contact</th>
+                            <th>Ranking</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example row -->
+                        <tr>
+                            <td>ALCO-Safe (Pty) Ltd</td>
+                            <td>Gauteng, Pretoria</td>
+                            <td>Alcohol & Drug Testing, Training</td>
+                            <td>+27 12 343 8114</td>
+                            <td>4.5/5 (Based on 50 reviews)</td>
+                            <td><button onclick="submitReview('ALCO-Safe')">Submit Review</button></td>
+                        </tr>
+                        <!-- More rows populated from suppliers.json -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="review-form" id="review-form" style="display: none;">
+            <h3>[Placeholder: Submit a Review]</h3>
+            <form id="supplier-review-form">
+                <label>[Placeholder: Supplier:]</label>
+                <input type="text" id="review-supplier" readonly>
+                <label>[Placeholder: Rating (1-5):]</label>
+                <select id="review-rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label>[Placeholder: Review:]</label>
+                <textarea id="review-text" required></textarea>
+                <button type="submit">[Placeholder: Submit Review]</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
+            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
+            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+        </div>
+        <div class="newsletter">
+            <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
+            <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter.placeholder">
+            <button data-i18n="footer.newsletter.button">Subscribe</button>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button data-i18n="chatbot.button">Ask Me</button>
+        <div class="chatbot-content" style="display: none;">
+            <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
+            <button data-i18n="chatbot.send">Send</button>
+            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/suppliers.js"></script>
+</body>
+</html>
