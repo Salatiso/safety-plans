@@ -6,28 +6,131 @@
     <meta name="description" content="Discover the OHS services offered by Salatiso OHS Tools to enhance workplace safety.">
     <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS, Salatiso, services">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Salatiso OHS Tools - Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>Salatiso OHS Tools - Services</title> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles can be added here if needed, complementing Tailwind */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, .service-card h3 {
+             font-family: 'Montserrat', sans-serif;
+        }
+        /* Adjustments for fixed header and sidebar */
+        body {
+            padding-top: 80px; /* Adjust based on actual header height */
+            display: flex;
+        }
+        .sidebar {
+            position: fixed;
+            top: 80px; /* Match body padding-top */
+            left: 0;
+            bottom: 0;
+            width: 250px; /* Fixed sidebar width */
+            overflow-y: auto;
+            z-index: 40; /* Below header */
+        }
+        .main-content {
+            margin-left: 250px; /* Same as sidebar width */
+            flex-grow: 1; /* Take remaining space */
+            padding: 1.5rem; /* Equivalent to p-6 */
+            min-height: calc(100vh - 80px); /* Full height minus header */
+            display: flex;
+            flex-direction: column;
+        }
+        .intro {
+            flex-grow: 1; /* Allow intro section to fill space */
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50; /* Ensure header is on top */
+        }
+        /* Chatbot styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 1.25rem; /* Equivalent to bottom-5 */
+            right: 1.25rem; /* Equivalent to right-5 */
+            z-index: 1000;
+        }
+        #chat-window {
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-hidden {
+            display: none;
+        }
+        #chat-output {
+            flex-grow: 1;
+        }
+        #chat-input-container {
+             display: flex;
+             border-top-width: 1px;
+        }
+         #chat-input {
+             flex-grow: 1;
+             border: none;
+             padding: 0.5rem; /* p-2 */
+         }
+         #chat-send {
+             border: none;
+             padding: 0.5rem 1rem; /* p-2 px-4 */
+             cursor: pointer;
+         }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0; /* Remove top padding */
+                flex-direction: column; /* Stack elements vertically */
+            }
+            header {
+                position: relative; /* Make header part of the flow */
+            }
+            .sidebar {
+                position: relative; /* Make sidebar part of the flow */
+                top: 0;
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                z-index: 1; /* Reset z-index */
+            }
+            .main-content {
+                margin-left: 0; /* Remove left margin */
+                min-height: auto; /* Adjust min-height */
+            }
+            .intro {
+                 margin: 1rem; /* Adjust margin */
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <div class="header-content">
-                <h1>Salatiso OHS Tools</h1>
-                <nav role="navigation" aria-label="Main navigation">
-                    <div class="nav-links">
-                        <a href="/safety-plans/index.html">Home</a>
-                        <a href="/safety-plans/resources.html">Resources</a>
-                        <a href="/safety-plans/services.html">Services</a>
-                        <a href="/safety-plans/community.html">Community</a>
-                        <a href="/safety-plans/about.html">About</a>
-                        <a href="/safety-plans/contact.html">Contact</a>
+<body class="bg-gray-100">
+    <header class="bg-gray-900 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="logo-placeholder bg-white text-gray-800 p-2 rounded text-sm text-center w-full md:w-auto mb-4 md:mb-0 md:mr-6">
+                [Logo Placeholder - Reserved for Salatiso OHS Tools Logo]
+            </div>
+            <div class="header-content flex-grow w-full">
+                <h1 class="text-3xl font-bold mb-2 text-center md:text-left">Salatiso OHS Tools</h1>
+                <nav role="navigation" aria-label="Main navigation" class="flex flex-col md:flex-row justify-between items-center w-full">
+                    <div class="nav-links mb-4 md:mb-0">
+                        <a href="/safety-plans/index.html" class="px-3 py-2 hover:text-blue-400">Home</a>
+                        <a href="/safety-plans/resources.html" class="px-3 py-2 hover:text-blue-400">Resources</a>
+                        <a href="/safety-plans/services.html" class="px-3 py-2 hover:text-blue-400">Services</a>
+                        <a href="/safety-plans/community.html" class="px-3 py-2 hover:text-blue-400">Community</a>
+                        <a href="/safety-plans/about.html" class="px-3 py-2 hover:text-blue-400">About</a>
+                        <a href="/safety-plans/contact.html" class="px-3 py-2 hover:text-blue-400">Contact</a>
                     </div>
-                    <div class="search-bar">
-                        <form role="search">
-                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
-                            <button type="submit" aria-label="Search">Search</button>
+                    <div class="search-bar w-full md:w-auto">
+                        <form role="search" class="flex">
+                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800 flex-grow">
+                            <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
                         </form>
                     </div>
                 </nav>
@@ -35,436 +138,215 @@
         </div>
     </header>
 
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <h3>OHS Tools</h3>
-            <a href="/safety-plans/pages/construction-compliance.html"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-            <a href="/safety-plans/pages/legal-appointments.html"><span class="icon">📜</span> Legal Appointments</a>
-            <a href="/safety-plans/pages/incident-management.html"><span class="icon">🚑</span> Incident Management</a>
-            <a href="/safety-plans/pages/general-induction.html"><span class="icon">🎓</span> General Induction</a>
-            <a href="/safety-plans/pages/inspections-audits.html"><span class="icon">🔍</span> Inspections & Audits</a>
-            <a href="/safety-plans/pages/toolbox-talks.html"><span class="icon">🛠️</span> Toolbox Talks</a>
+    <aside class="sidebar bg-gray-900 text-gray-200 p-5">
+        <h2 data-i18n="sidebar.ohs_tools" class="text-2xl font-bold mb-6 text-white">OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block py-2 px-1 hover:text-blue-400">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block py-2 px-1 hover:text-blue-400">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block py-2 px-1 hover:text-blue-400">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block py-2 px-1 hover:text-blue-400">Member Dashboard</a></li>
+        </ul>
+        <div class="step-info mt-8 p-4 bg-gray-800 rounded">
+            <h3 data-i18n="sidebar.step_0.title" class="text-lg font-semibold mb-2 text-white">📜 Welcome to Salatiso OHS Tools</h3>
+            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+            <p class="fun-fact text-sm text-blue-300" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
         </div>
-    </div>
+    </aside>
 
-    <div class="main-content">
-        <section class="intro">
-            <h2>Services</h2>
-            <p>Salatiso OHS Tools offers a range of automated OHS services to help you implement effective safety plans. From risk assessments to emergency planning and compliance audits, our services are designed to streamline your safety processes, drawing on the methodologies outlined in "Safety First: The Essentials of OHS Plans."</p>
+    <div class="main-content bg-gray-100">
+        <section class="intro bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Services</h2> <p class="text-gray-600 mb-6">Salatiso OHS Tools offers a range of automated OHS services to help you implement effective safety plans. From risk assessments to emergency planning and compliance audits, our services are designed to streamline your safety processes, drawing on the methodologies outlined in "Safety First: The Essentials of OHS Plans."</p> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Automated Risk Assessment</h3>
+                    <p class="text-gray-600 text-sm mb-4">Utilize our tool to systematically identify hazards, analyze risks, and generate comprehensive risk assessment reports tailored to your industry and activities.</p>
+                    <a href="/safety-plans/pages/risk-assessment.html" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a>
+                </div>
+
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">OHS Plan Generator</h3>
+                    <p class="text-gray-600 text-sm mb-4">Create customized OHS plans based on your company's specific needs, incorporating legal requirements, best practices, and your risk profile.</p>
+                    <a href="#" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a> </div>
+
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Emergency Response Plans</h3>
+                    <p class="text-gray-600 text-sm mb-4">Develop detailed emergency response and evacuation plans, including procedures for various scenarios like fire, medical emergencies, and chemical spills.</p>
+                    <a href="/safety-plans/pages/emergency-response-plan.html" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a>
+                </div>
+
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Compliance Audit Tools</h3>
+                    <p class="text-gray-600 text-sm mb-4">Use our checklists and tools to conduct internal OHS audits, identify compliance gaps, and track corrective actions according to South African regulations.</p>
+                    <a href="/safety-plans/pages/inspections-audits.html" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a>
+                </div>
+
+                 <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Legal Appointment Templates</h3>
+                    <p class="text-gray-600 text-sm mb-4">Generate legally compliant appointment letters for various OHS roles (e.g., Safety Officer, First Aider, Fire Fighter) as required by the OHS Act.</p>
+                    <a href="/safety-plans/pages/legal-appointments.html" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a>
+                </div>
+
+                 <div class="service-card bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Incident Reporting & Investigation</h3>
+                    <p class="text-gray-600 text-sm mb-4">Streamline incident reporting and investigation processes with our guided forms and analysis tools to ensure thorough documentation and prevention.</p>
+                    <a href="/safety-plans/pages/incident-management.html" class="text-blue-500 hover:underline text-sm">Learn More &rarr;</a>
+                </div>
+            </div>
         </section>
 
-        <footer>
-            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
-            <p>
-                <a href="/safety-plans/privacy.html">Privacy Policy</a> |
-                <a href="/safety-plans/terms.html">Terms of Service</a> |
-                <a href="/safety-plans/contact.html">Contact Us</a>
-            </p>
-            <div class="newsletter">
-                <h3>Stay Updated</h3>
-                <form>
-                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="submit">Subscribe</button>
-                </form>
+        <footer class="bg-gray-900 text-white py-8 mt-auto">
+            <div class="container mx-auto px-6 text-center">
+                <p class="mb-2">© 2025 Salatiso OHS Tools. All rights reserved.</p>
+                <p class="mb-4">
+                    <a href="/safety-plans/privacy.html" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" class="mx-2 hover:text-blue-400">Contact Us</a>
+                </p>
+                <div class="newsletter mt-6">
+                    <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
+                    <form class="flex justify-center">
+                        <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </footer>
     </div>
 
-    <!-- Chatbot Widget -->
     <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn">
-            <span class="chat-icon">⛑️</span> Ask Me
+        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
         </button>
-        <div id="chat-window" class="chat-hidden">
-            <div id="chat-output"></div>
-            <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS">
-            <button id="chat-send" aria-label="Send message">Send</button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                 <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
+            </div>
         </div>
     </div>
 
-    <!-- Firebase Scripts and Chatbot Logic -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
-        // Firebase Config
+        // Firebase Config - IMPORTANT: Use environment variables or a secure config method in production
         const firebaseConfig = {
-            apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
-            authDomain: "safety-first-chatbot.firebaseapp.com",
-            projectId: "safety-first-chatbot",
-            storageBucket: "safety-first-chatbot.firebasestorage.app",
-            messagingSenderId: "741489856541",
-            appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
-            measurementId: "G-04Y1PQDYVD"
+             apiKey: "YOUR_API_KEY", // Replace with your actual API key
+             authDomain: "YOUR_AUTH_DOMAIN", // Replace
+             projectId: "YOUR_PROJECT_ID", // Replace
+             storageBucket: "YOUR_STORAGE_BUCKET", // Replace
+             messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Replace
+             appId: "YOUR_APP_ID", // Replace
+             measurementId: "YOUR_MEASUREMENT_ID" // Optional
         };
+
+        let db; // Declare db globally
 
         // Initialize Firebase with error handling
         try {
             firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
+            db = firebase.firestore(); // Assign firestore instance
+            console.log("Firebase Initialized Successfully");
         } catch (error) {
             console.error("Firebase initialization failed:", error);
-            document.getElementById('chat-output').innerHTML = "<p><strong>Error:</strong> Chatbot unavailable. Please try again later.</p>";
+            const chatOutput = document.getElementById('chat-output');
+            if (chatOutput) {
+                 chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
+            }
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            if (chatInput) chatInput.disabled = true;
+            if (chatSend) chatSend.disabled = true;
         }
 
+        // Elements
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatOutput = document.getElementById('chat-output');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+
         // Toggle Chat Window
-        document.getElementById('chat-toggle').addEventListener('click', () => {
-            document.getElementById('chat-window').classList.toggle('chat-hidden');
-        });
+        if (chatToggle) {
+            chatToggle.addEventListener('click', () => {
+                chatWindow.classList.toggle('chat-hidden');
+                if (!chatWindow.classList.contains('chat-hidden')) {
+                    chatInput.focus();
+                }
+            });
+        }
+
+        // Function to add message to chat output
+        function addChatMessage(sender, message) {
+            if (chatOutput) {
+                const messageElement = document.createElement('p');
+                messageElement.classList.add('mb-2');
+                messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+                chatOutput.appendChild(messageElement);
+                chatOutput.scrollTop = chatOutput.scrollHeight;
+            }
+        }
 
         // Send Question to Chatbot
-        document.getElementById('chat-send').addEventListener('click', async () => {
-            const input = document.getElementById('chat-input').value.trim();
-            const output = document.getElementById('chat-output');
-            if (!input) return; // Prevent empty submissions
-
-            output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+        async function sendQuery() {
+            if (!db) {
+                addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
+                return;
+            }
+            const input = chatInput.value.trim();
+            if (!input) return;
+            addChatMessage('You', input);
+            chatInput.value = '';
+            addChatMessage('Chatbot', 'Searching...');
             const query = input.toLowerCase();
 
             try {
-                const snapshot = await db.collection('ohs-knowledge').get();
-                let response = "Sorry, I couldn’t find an exact match. Try rephrasing!";
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.content && data.content.toLowerCase().includes(query)) {
-                        response = `<strong>From ${data.book}, Chapter ${data.chapter}:</strong><br>${data.content.substring(0, 200)}... (See <a href="/safety-plans/resources/${data.file}">full chapter</a>)`;
-                    }
-                });
-                output.innerHTML += `<p><strong>Chatbot:</strong> ${response}</p>`;
+                const snapshot = await db.collection('ohs-knowledge')
+                                         .where('keywords', 'array-contains', query)
+                                         .limit(1)
+                                         .get();
+                let responseFound = false;
+                let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
+
+                if (!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
+                        if (data.file) {
+                            response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
+                        }
+                        responseFound = true;
+                    });
+                }
+                 const searchingMessage = chatOutput.querySelector('p:last-child');
+                 if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
+                 } else {
+                    addChatMessage('Chatbot', response);
+                 }
             } catch (error) {
                 console.error("Firestore query failed:", error);
-                output.innerHTML += `<p><strong>Chatbot:</strong> Oops, something went wrong. Please try again!</p>`;
-            }
-
-            document.getElementById('chat-input').value = '';
-            output.scrollTop = output.scrollHeight;
-        });
-
-        // Adjust Layout
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
-        function adjustLayout() {
-            const headerHeight = document.querySelector('header').offsetHeight || 0;
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            if (sidebar && mainContent) {
-                sidebar.style.top = `${headerHeight}px`;
-                sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-                mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
-                mainContent.style.paddingTop = `${headerHeight}px`;
-                mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+                 const searchingMessage = chatOutput.querySelector('p:last-child');
+                 if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
+                 } else {
+                    addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
+                 }
             }
         }
+
+        // Event listeners
+        if (chatSend) chatSend.addEventListener('click', sendQuery);
+        if (chatInput) chatInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') sendQuery(); });
+
     </script>
-
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f5f6f5;
-            overflow-x: hidden;
-            flex-direction: row; /* Ensure sidebar and main content align */
-        }
-
-        /* Header */
-        header {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 15px 30px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 90;
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .logo-placeholder {
-            background-color: #fff;
-            color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            text-align: center;
-            width: 250px; /* Match sidebar width */
-            height: 40px;
-            line-height: 20px;
-        }
-        .header-content {
-            flex: 1;
-        }
-        header h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            margin-right: 15px;
-            font-size: 0.9em;
-        }
-        .nav-links a:hover {
-            color: #00aaff;
-        }
-        .search-bar form {
-            display: flex;
-            align-items: center;
-        }
-        .search-bar input {
-            padding: 6px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            font-size: 0.9em;
-        }
-        .search-bar button {
-            padding: 6px 12px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        .search-bar button:hover {
-            background-color: #0088cc;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            background-color: #1a2526;
-            color: #ecf0f1;
-            overflow-y: auto;
-            z-index: 100;
-        }
-        .sidebar-content {
-            padding: 20px;
-        }
-        .sidebar h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 1em;
-        }
-        .sidebar a .icon {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .sidebar a:hover {
-            color: #00aaff;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            background-color: #f5f6f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Ensure it takes full height */
-        }
-
-        /* Intro Section */
-        .intro {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 100px 30px 30px 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 1; /* Allow it to grow */
-        }
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .intro p {
-            font-size: 1em;
-            color: #666;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 30px;
-            text-align: center;
-        }
-        footer p {
-            margin: 5px 0;
-            font-size: 0.9em;
-        }
-        footer a {
-            color: #00aaff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .newsletter {
-            margin-top: 20px;
-        }
-        .newsletter h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            font-size: 0.9em;
-            width: 200px;
-        }
-        .newsletter button {
-            padding: 8px 16px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        .newsletter button:hover {
-            background-color: #0088cc;
-        }
-
-        /* Chatbot */
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        .chat-toggle-btn {
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-        }
-        .chat-toggle-btn:hover {
-            background-color: #0088cc;
-        }
-        .chat-icon {
-            margin-right: 5px;
-            font-size: 20px;
-        }
-        #chat-window {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column; /* Improved layout */
-        }
-        .chat-hidden {
-            display: none;
-        }
-        #chat-output {
-            padding: 10px;
-            font-size: 14px;
-            flex: 1; /* Allow output to grow */
-        }
-        #chat-input {
-            width: 70%;
-            padding: 8px;
-            border: none;
-            border-top: 1px solid #ddd;
-        }
-        #chat-send {
-            width: 30%;
-            padding: 8px;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        #chat-send:hover {
-            background-color: #0088cc;
-        }
-
-        /* Accessibility Focus Styles */
-        a:focus, button:focus, input:focus {
-            outline: 2px solid #00aaff;
-            outline-offset: 2px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            header {
-                position: relative;
-            }
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .logo-placeholder {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .intro {
-                margin: 20px;
-            }
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-links a {
-                margin: 5px 10px;
-            }
-        }
-    </style>
 </body>
 </html>
