@@ -39,96 +39,92 @@
         <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
         <ul>
             <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
             <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
-            <li><a href="suppliers.html" class="active" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
-            <li><a href="legislation.html" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
-            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+            <li><a href="inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="suppliers.html" class="active" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
         </ul>
         <div class="step-info">
-            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Suppliers Directory]</h3>
-            <p data-i18n="sidebar.step_0.description">[Placeholder: Browse and rank OHS suppliers in South Africa. Filter by location, services, and accreditations. Submit your reviews to help others choose the best suppliers.]</p>
-            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Choosing accredited suppliers can reduce workplace incidents by up to 20%!]</p>
+            <h3 data-i18n="sidebar.step_0.title">📜 OHS Suppliers Directory</h3>
+            <p data-i18n="sidebar.step_0.description">Browse and rank OHS suppliers in South Africa. Filter by location, services, and accreditations. Submit your reviews to help others choose the best suppliers.</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">⚡ Fun Fact: Choosing accredited suppliers can reduce workplace incidents by up to 20%!</p>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main>
         <section class="intro">
-            <h2 data-i18n="suppliers.title">[Placeholder: OHS Suppliers Directory]</h2>
-            <p data-i18n="suppliers.description">[Placeholder: Find and rank OHS suppliers in South Africa. Browse by location, services, and accreditations. Submit reviews to help others make informed decisions.]</p>
+            <h2 data-i18n="suppliers.title">OHS Suppliers Directory</h2>
+            <p data-i18n="suppliers.description">Find and rank OHS suppliers in South Africa. Browse by location, services, and accreditations. Submit reviews to help others make informed decisions.</p>
         </section>
 
         <section class="supplier-list">
-            <h3>[Placeholder: Supplier List]</h3>
+            <h3 data-i18n="suppliers.list.title">Supplier List</h3>
             <div class="filters">
-                <label>[Placeholder: Filter by Province:]</label>
-                <select id="province-filter">
-                    <option value="">All Provinces</option>
-                    <option value="Gauteng">Gauteng</option>
-                    <option value="KZN">KwaZulu-Natal</option>
-                    <option value="WC">Western Cape</option>
-                    <!-- Add more provinces -->
+                <label data-i18n="suppliers.filters.province_label">Filter by Province:</label>
+                <select id="province-filter" onchange="filterSuppliers()">
+                    <option value="" data-i18n="suppliers.filters.option_all_provinces">All Provinces</option>
+                    <option value="Gauteng" data-i18n="suppliers.filters.option_gauteng">Gauteng</option>
+                    <option value="KZN" data-i18n="suppliers.filters.option_kzn">KwaZulu-Natal</option>
+                    <option value="WC" data-i18n="suppliers.filters.option_wc">Western Cape</option>
+                    <option value="EC" data-i18n="suppliers.filters.option_ec">Eastern Cape</option>
+                    <option value="FS" data-i18n="suppliers.filters.option_fs">Free State</option>
                 </select>
-                <label>[Placeholder: Filter by Service:]</label>
-                <select id="service-filter">
-                    <option value="">All Services</option>
-                    <option value="PPE">PPE</option>
-                    <option value="Training">Training</option>
-                    <option value="Consulting">Consulting</option>
-                    <!-- Add more services -->
+                <label data-i18n="suppliers.filters.service_label">Filter by Service:</label>
+                <select id="service-filter" onchange="filterSuppliers()">
+                    <option value="" data-i18n="suppliers.filters.option_all_services">All Services</option>
+                    <option value="PPE" data-i18n="suppliers.filters.option_ppe">PPE</option>
+                    <option value="Training" data-i18n="suppliers.filters.option_training">Training</option>
+                    <option value="Consulting" data-i18n="suppliers.filters.option_consulting">Consulting</option>
+                    <option value="Alcohol & Drug Testing" data-i18n="suppliers.filters.option_alcohol_drug_testing">Alcohol & Drug Testing</option>
                 </select>
-                <label>[Placeholder: Sort by:]</label>
-                <select id="sort-by">
-                    <option value="ranking">Ranking</option>
-                    <option value="name">Name</option>
-                    <option value="established">Years Established</option>
+                <label data-i18n="suppliers.filters.sort_label">Sort by:</label>
+                <select id="sort-by" onchange="sortSuppliers()">
+                    <option value="ranking" data-i18n="suppliers.filters.option_ranking">Ranking</option>
+                    <option value="name" data-i18n="suppliers.filters.option_name">Name</option>
+                    <option value="established" data-i18n="suppliers.filters.option_established">Years Established</option>
                 </select>
             </div>
             <div id="supplier-table">
-                <!-- Placeholder: Table of suppliers populated dynamically -->
                 <table>
                     <thead>
                         <tr>
-                            <th>Supplier Name</th>
-                            <th>Location</th>
-                            <th>Services</th>
-                            <th>Contact</th>
-                            <th>Ranking</th>
-                            <th>Actions</th>
+                            <th data-i18n="suppliers.table.name">Supplier Name</th>
+                            <th data-i18n="suppliers.table.location">Location</th>
+                            <th data-i18n="suppliers.table.services">Services</th>
+                            <th data-i18n="suppliers.table.contact">Contact</th>
+                            <th data-i18n="suppliers.table.ranking">Ranking</th>
+                            <th data-i18n="suppliers.table.actions">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Example row -->
-                        <tr>
-                            <td>ALCO-Safe (Pty) Ltd</td>
-                            <td>Gauteng, Pretoria</td>
-                            <td>Alcohol & Drug Testing, Training</td>
-                            <td>+27 12 343 8114</td>
-                            <td>4.5/5 (Based on 50 reviews)</td>
-                            <td><button onclick="submitReview('ALCO-Safe')">Submit Review</button></td>
-                        </tr>
-                        <!-- More rows populated from suppliers.json -->
+                    <tbody id="supplier-table-body">
+                        <!-- Populated dynamically by suppliers.js -->
                     </tbody>
                 </table>
             </div>
         </section>
 
         <section class="review-form" id="review-form" style="display: none;">
-            <h3>[Placeholder: Submit a Review]</h3>
+            <h3 data-i18n="suppliers.review_form.title">Submit a Review</h3>
             <form id="supplier-review-form">
-                <label>[Placeholder: Supplier:]</label>
+                <label data-i18n="suppliers.review_form.supplier_label">Supplier:</label>
                 <input type="text" id="review-supplier" readonly>
-                <label>[Placeholder: Rating (1-5):]</label>
-                <select id="review-rating">
+                <label data-i18n="suppliers.review_form.rating_label">Rating (1-5):</label>
+                <select id="review-rating" required>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                <label>[Placeholder: Review:]</label>
-                <textarea id="review-text" required></textarea>
-                <button type="submit">[Placeholder: Submit Review]</button>
+                <label data-i18n="suppliers.review_form.comment_label">Review:</label>
+                <textarea id="review-text" required data-i18n="[placeholder]suppliers.review_form.comment_placeholder">Enter your review here...</textarea>
+                <button type="submit" data-i18n="suppliers.review_form.submit">Submit Review</button>
             </form>
         </section>
     </main>
@@ -154,7 +150,7 @@
         <div class="chatbot-content" style="display: none;">
             <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
             <button data-i18n="chatbot.send">Send</button>
-            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+            <p data-i18n="chatbot.response">I'm here to help! For personalized OHS advice, please contact a professional.</p>
         </div>
     </div>
 
