@@ -1,988 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ensure construction health and safety compliance with Salatiso OHS Tools.">
-    <meta name="keywords" content="OHS tools, construction safety, occupational health and safety, safety plans, South Africa OHS, Salatiso">
-    <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title data-i18n="header.title">Salatiso OHS Tools - Construction Health and Safety</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f5f6f5;
-            overflow-x: hidden;
-            flex-direction: row;
-        }
-
-        /* Header */
-        header {
-            background-color: #1a2526;
-            color: white;
-            padding: 10px 15px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 90;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo-placeholder {
-            font-size: 12px;
-            font-style: italic;
-            background-color: #fff;
-            color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            width: 180px;
-            height: 40px;
-            line-height: 20px;
-        }
-
-        .header-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 8px;
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-
-        .search-bar {
-            margin-top: 5px;
-        }
-
-        .search-bar input {
-            padding: 4px;
-            border: none;
-            border-radius: 2px;
-            font-size: 14px;
-            width: 150px;
-        }
-
-        .search-bar button {
-            padding: 4px 8px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .search-bar button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Language Selector */
-        .language-selector {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 100;
-        }
-
-        .language-selector select {
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-
-        .language-selector select:focus {
-            outline: 2px solid #ff6f61;
-            outline-offset: 2px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 60px;
-            width: 200px;
-            background-color: #f4f4f4;
-            border-right: 1px solid #ddd;
-            padding: 15px;
-            min-height: calc(100vh - 60px);
-            overflow-y: auto;
-            z-index: 80;
-        }
-
-        .sidebar-content .logo-placeholder {
-            margin-bottom: 15px;
-        }
-
-        .sidebar-content h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .sidebar-content a {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            color: #1a2526;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .sidebar-content a:hover {
-            background-color: #e0e0e0;
-        }
-
-        .sidebar-content a.disabled {
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        .sidebar-content .icon {
-            margin-right: 5px;
-        }
-
-        .sidebar-content a.active {
-            color: #ff6f61;
-            font-weight: bold;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 200px;
-            padding: 80px 20px 20px 20px;
-            min-height: 100vh;
-            max-width: 1200px;
-        }
-
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .intro p {
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        /* Legal Obligations (Fixed Cards) */
-        .legal-obligations {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .legal-card {
-            flex: 1;
-            min-width: 300px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .legal-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-        }
-
-        .legal-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 12px;
-            color: #1a2526;
-        }
-
-        .legal-card p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .action-buttons button {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        .action-buttons button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Wizard Container */
-        #wizard-container {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            display: flex;
-            gap: 20px;
-        }
-
-        #wizard-content {
-            flex: 1;
-        }
-
-        #wizard-content h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #1a2526;
-        }
-
-        /* Sidebar for Legislation/Fun Facts */
-        #wizard-sidebar {
-            width: 300px;
-            background-color: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        #wizard-sidebar h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #1a2526;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #wizard-sidebar p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        #wizard-sidebar .fun-fact {
-            font-style: italic;
-            color: #ff6f61;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .progress-bar {
-            margin-bottom: 20px;
-            background-color: #e0e0e0;
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: #34C759;
-            transition: width 0.3s ease;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            max-width: 400px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        .form-group .error {
-            color: #ff6f61;
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-        /* Step 1 Table */
-        .document-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-
-        .document-table th,
-        .document-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .document-table th {
-            background-color: #f0f0f0;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-        }
-
-        .document-table td.document-name {
-            font-weight: bold;
-        }
-
-        .document-table .emoji {
-            margin-right: 5px;
-        }
-
-        /* Activities Categories */
-        .activities-categories details {
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fafafa;
-        }
-
-        .activities-categories summary {
-            padding: 10px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.2s ease;
-        }
-
-        .activities-categories summary:hover {
-            background-color: #e0e0e0;
-        }
-
-        .activities-categories .category-content {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-        }
-
-        .activities-categories .checkbox-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .activities-categories .checkbox-item label {
-            font-weight: normal;
-            margin-left: 5px;
-            font-size: 14px;
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .nav-buttons button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #back-btn {
-            background-color: #666;
-            color: white;
-        }
-
-        #back-btn:hover {
-            background-color: #555;
-        }
-
-        #next-btn {
-            background-color: #ff6f61;
-            color: white;
-        }
-
-        #next-btn:hover {
-            background-color: #e65a50;
-        }
-
-        /* Cart */
-        .cart-container {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-container h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .checkout {
-            margin-top: 10px;
-        }
-
-        .checkout input {
-            padding: 8px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        #checkout-btn {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #checkout-btn:hover {
-            background-color: #e65a50;
-        }
-
-        /* Resources Section */
-        .resources {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .resources h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .resources ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .resources li {
-            padding: 8px 0;
-            font-size: 14px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .resources li:last-child {
-            border-bottom: none;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            margin-top: auto;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #ff6f61;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .newsletter {
-            margin-top: 10px;
-        }
-
-        .newsletter h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .newsletter input {
-            padding: 8px;
-            border: none;
-            border-radius: 2px;
-            margin-right: 10px;
-            font-size: 14px;
-            width: 150px;
-        }
-
-        .newsletter button {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        .newsletter button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Chatbot */
-        .chatbot-container {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            z-index: 1000;
-        }
-
-        .chat-toggle-btn {
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s ease;
-        }
-
-        .chat-toggle-btn:hover {
-            background-color: #e65a50;
-        }
-
-        .chat-icon {
-            margin-right: 5px;
-            font-size: 16px;
-        }
-
-        #chat-window {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            width: 250px;
-            max-height: 350px;
-            overflow-y: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            margin-top: 8px;
-        }
-
-        .chat-hidden {
-            display: none;
-        }
-
-        #chat-output {
-            padding: 8px;
-            font-size: 14px;
-            flex: 1;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #chat-input {
-            width: 70%;
-            padding: 8px;
-            border: none;
-            border-top: 1px solid #ddd;
-            font-size: 14px;
-        }
-
-        #chat-send {
-            width: 30%;
-            padding: 8px;
-            background-color: #1a2526;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #chat-send:hover {
-            background-color: #2a3536;
-        }
-
-        /* Accessibility Focus Styles */
-        a:focus, button:focus, input:focus, select:focus, textarea:focus {
-            outline: 2px solid #ff6f61;
-            outline-offset: 2px;
-        }
-
-        /* Screen Reader Only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 120px;
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-
-            header {
-                position: relative;
-            }
-
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .logo-placeholder {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .intro {
-                margin: 10px 0;
-            }
-
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-links a {
-                margin: 5px 8px;
-            }
-
-            .legal-obligations {
-                flex-direction: column;
-            }
-
-            .legal-card {
-                min-width: 100%;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                max-width: 100%;
-            }
-
-            #wizard-container,
-            .cart-container,
-            .resources {
-                padding: 15px;
-            }
-
-            #wizard-container {
-                flex-direction: column;
-            }
-
-            #wizard-sidebar {
-                width: 100%;
-                margin-top: 20px;
-            }
-
-            .activities-categories .category-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
-
-            .nav-buttons button {
-                width: 100%;
-            }
-
-            .action-buttons button {
-                width: 100%;
-                margin: 5px 0;
-            }
-
-            .chat-window {
-                width: 90%;
-                right: 5%;
-            }
-
-            .language-selector {
-                top: 100px;
-                right: 10px;
-            }
-        }
-    </style>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
-    <!-- Add i18next libraries -->
-    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="header.title">Salatiso OHS Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .search-bar {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .main-content {
+      display: flex;
+      flex: 1;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .sidebar {
+      width: 30%;
+      background-color: #f1f1f1;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+    .sidebar-item {
+      display: none;
+    }
+    .wizard {
+      width: 70%;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .wizard-step {
+      display: none;
+    }
+    .wizard-step.active {
+      display: block;
+    }
+    .error-message {
+      color: red;
+      display: none;
+      font-size: 0.9rem;
+    }
+    .error {
+      border: 1px solid red;
+    }
+    .cart {
+      margin: 2rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+    }
+    .chatbot {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      width: 300px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .chatbot-header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      cursor: pointer;
+    }
+    .chatbot-body {
+      padding: 0.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .chat-message {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+    .user-message {
+      background-color: #e1f5fe;
+      margin-left: 20%;
+      margin-right: 5%;
+    }
+    .bot-message {
+      background-color: #f1f1f1;
+      margin-right: 20%;
+      margin-left: 5%;
+    }
+    .chatbot-input {
+      display: flex;
+      padding: 0.5rem;
+      gap: 0.5rem;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    footer a {
+      color: white;
+      margin: 0 0.5rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <div class="header-content">
-                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
-                <nav role="navigation" aria-label="Main navigation">
-                    <div class="nav-links">
-                        <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
-                        <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
-                        <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
-                        <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
-                        <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
-                        <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
-                        <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
-                    </div>
-                    <div class="search-bar">
-                        <form role="search">
-                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
-                            <button type="submit" aria-label="Search" data-i18n="header.search.button">Search</button>
-                        </form>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+  <!-- Include i18next and Language Detector -->
+  <script src="https://unpkg.com/i18next@23.7.20/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
 
-    <!-- Language Selector -->
-    <div class="language-selector">
-        <label for="language-select" class="sr-only" data-i18n="language_selector.label">Select Language</label>
-        <select id="language-select" aria-label="Select Language">
-            <option value="en" data-i18n="language_selector.en">English</option>
-            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
-            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
-            <option value="nd" data-i18n="language_selector.nd">isiNdebele</option>
-            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
-            <option value="st" data-i18n="language_selector.st">Sesotho</option>
-            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
-            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
-            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
-            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
-            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
-            <option value="fr" data-i18n="language_selector.fr">Français</option>
-            <option value="zh" data-i18n="language_selector.zh">中文 (Mandarin)</option>
-            <option value="es" data-i18n="language_selector.es">Español</option>
-            <option value="sn" data-i18n="language_selector.sn">chiShona</option>
-            <option value="sw" data-i18n="language_selector.sw">Kiswahili</option>
-        </select>
+  <header>
+    <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+    <nav>
+      <a href="#" data-i18n="header.nav.home">Home</a>
+      <a href="#" data-i18n="header.nav.resources">Resources</a>
+      <a href="#" data-i18n="header.nav.services">Services</a>
+      <a href="#" data-i18n="header.nav.community">Community</a>
+      <a href="#" data-i18n="header.nav.about">About</a>
+      <a href="#" data-i18n="header.nav.contact">Contact Us</a>
+      <a href="#" data-i18n="header.nav.login">Login</a>
+      <a href="#" data-i18n="header.nav.logout">Logout</a>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="Search OHS Tools..." data-i18n="[placeholder]header.search.placeholder">
+      <button data-i18n="header.search.button">Search</button>
     </div>
+  </header>
 
+  <div class="main-content">
     <div class="sidebar">
-        <div class="sidebar-content">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <h3 data-i18n="sidebar.ohs_tools">OHS Tools</h3>
-            <a href="/safety-plans/pages/construction-compliance.html" class="active"><span class="icon">🏗️</span> <span data-i18n="sidebar.construction_safety">Construction Health and Safety</span></a>
-            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> <span data-i18n="sidebar.emergency_planning">Emergency Response Planning</span></a>
-            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> <span data-i18n="sidebar.risk_assessment">Risk Assessment</span></a>
-            <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> <span data-i18n="sidebar.legal_appointments">Legal Appointments</span></a>
-            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> <span data-i18n="sidebar.incident_management">Incident Management</span></a>
-            <a href="/safety-plans/pages/general-induction.html" class="disabled" title="Coming Soon"><span class="icon">🎓</span> <span data-i18n="sidebar.general_induction">General Induction</span></a>
-            <a href="/safety-plans/pages/inspections-audits.html" class="disabled" title="Coming Soon"><span class="icon">🔍</span> <span data-i18n="sidebar.inspections_audits">Inspections & Audits</span></a>
-            <a href="/safety-plans/pages/toolbox-talks.html" class="disabled" title="Coming Soon"><span class="icon">🛠️</span> <span data-i18n="sidebar.toolbox_talks">Toolbox Talks</span></a>
+      <div class="sidebar-content">
+        <div class="sidebar-item sidebar-step-0">
+          <h3 data-i18n="sidebar.step_0.title">📜 OHS Compliance</h3>
+          <p data-i18n="sidebar.step_0.description">Start by selecting a service to ensure compliance with the Occupational Health and Safety Act.</p>
+          <p data-i18n="sidebar.step_0.fun_fact">⚡ Fun Fact: Did you know proper OHS documentation can reduce workplace incidents by up to 30%? Let’s get started!</p>
         </div>
-    </div>
-
-    <div class="main-content">
-        <section class="intro">
-            <h2 data-i18n="intro.title">Construction Health and Safety</h2>
-            <p data-i18n="intro.description">Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
-            <p data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
-
-            <!-- Legal Obligations (Fixed Cards) -->
-            <div class="legal-obligations">
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.client.title">Client Obligations</h3>
-                    <p data-i18n="legal_obligations.client.reg_5_1_a"><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
-                    <p data-i18n="legal_obligations.client.reg_5_1_b"><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
-                    <p data-i18n="legal_obligations.client.reg_5_1_l"><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
-                </div>
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.contractor.title">Contractor Obligations</h3>
-                    <p data-i18n="legal_obligations.contractor.reg_7_1_a"><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
-                    <p data-i18n="legal_obligations.contractor.reg_7_1_b"><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
-                    <p data-i18n="legal_obligations.contractor.reg_9"><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
-                </div>
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.professional.title">H&S Professional Obligations</h3>
-                    <p data-i18n="legal_obligations.professional.reg_5_5"><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
-                    <p data-i18n="legal_obligations.professional.reg_8_5"><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
-                    <p data-i18n="legal_obligations.professional.sacpcmp"><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button onclick="startWizard('hs-spec')" data-i18n="action_buttons.hs_spec">Compile Health and Safety Specification</button>
-                <button onclick="startWizard('hs-plan')" data-i18n="action_buttons.hs_plan">Compile Health and Safety Plan</button>
-                <button onclick="startWizard('risk-assessment')" data-i18n="action_buttons.risk_assessment">Compile Risk Assessment</button>
-                <button onclick="startWizard('training')" data-i18n="action_buttons.training">Conduct Training</button>
-                <button onclick="startWizard('appointments')" data-i18n="action_buttons.appointments">Make Legal Appointments</button>
-                <button onclick="startWizard('inspections')" data-i18n="action_buttons.inspections">Conduct Inspections/Audits</button>
-                <button onclick="startWizard('incidents')" data-i18n="action_buttons.incidents">Manage Incidents</button>
-                <button onclick="startWizard('reports')" data-i18n="action_buttons.reports">Compile Reports</button>
-                <button onclick="startWizard('hs-file')" data-i18n="action_buttons.hs_file">Compile Health and Safety File</button>
-            </div>
-
-            <!-- Wizard Container -->
-            <div id="wizard-container">
-                <div id="wizard-content">
-                    <!-- Steps will be dynamically rendered here -->
-                </div>
-                <div id="wizard-sidebar">
-                    <!-- Legislation and fun facts will be dynamically rendered here -->
-                </div>
-            </div>
-
-            <!-- Cart Section -->
-            <div id="cart-container" class="cart-container hidden">
-                <h3 data-i18n="cart.title">Your Cart</h3>
-                <p id="invoice-reference" class="hidden" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
-                <table id="cart-table">
-                    <thead>
-                        <tr>
-                            <th data-i18n="cart.table.document">Document</th>
-                            <th data-i18n="cart.table.price">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items"></tbody>
-                </table>
-                <div class="checkout">
-                    <label for="promo-code" data-i18n="cart.checkout.promo_label">Promo Code:</label>
-                    <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code">
-                    <button id="checkout-btn" data-i18n="cart.checkout.button">Checkout</button>
-                </div>
-            </div>
-
-            <!-- Resource Database -->
-            <section class="resources">
-                <h3 data-i18n="resources.title">Contact Accredited H&S Professionals</h3>
-                <p data-i18n="resources.description">Need expert assistance? Reach out to accredited professionals for your project needs.</p>
-                <ul>
-                    <li data-i18n="resources.jane_doe"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: jane.doe@example.com</li>
-                    <li data-i18n="resources.john_smith"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: john.smith@example.com</li>
-                    <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: emily.brown@example.com</li>
-                </ul>
-            </section>
-        </section>
-
-        <footer>
-            <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All rights reserved.</p>
-            <p>
-                <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy">Privacy Policy</a> |
-                <a href="/safety-plans/terms.html" data-i18n="footer.links.terms">Terms of Service</a> |
-                <a href="/safety-plans/contact.html" data-i18n="footer.links.contact">Contact Us</a>
-            </p>
-            <div class="newsletter">
-                <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
-                <form>
-                    <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="submit" data-i18n="footer.newsletter.button">Subscribe</button>
-                </form>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Chatbot Widget -->
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn">
-            <span class="chat-icon">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
-        </button>
-        <div id="chat-window" class="chat-hidden">
-            <div id="chat-output"></div>
-            <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS">
-            <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send">Send</button>
+        <div class="sidebar-item sidebar-step-1">
+          <h3 data-i18n="sidebar.step_1.title">📋 Legislation</h3>
+          <p data-i18n="sidebar.step_1.description">Construction Regulation 5(1)(b) requires a Health & Safety Specification for all projects, while 7(1)(b) requires an H&S File.</p>
+          <p data-i18n="sidebar.step_1.fun_fact">🛡️ Fun Fact: A strong H&S Specification can reduce accidents by 30%! It’s like a safety shield for your project.</p>
         </div>
+        <div class="sidebar-item sidebar-step-2">
+          <h3 data-i18n="sidebar.step_2.title">📋 Legislation</h3>
+          <p data-i18n="sidebar.step_2.description">Construction Regulation 5: Clients must provide a Health & Safety Specification and ensure contractors comply.</p>
+          <p data-i18n="sidebar.step_2.fun_fact">💼 Fun Fact: Clients who keep their COIDA registration up to date can avoid hefty fines—keep that number handy!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-3">
+          <h3 data-i18n="sidebar.step_3.title">📜 Legislation</h3>
+          <p data-i18n="sidebar.step_3.description">Construction Regulation 7(1)(a): Contractors must develop a Health & Safety Plan based on the client’s specification.</p>
+          <p data-i18n="sidebar.step_3.fun_fact">🤝 Fun Fact: Appointing a contractor early can speed up compliance—teamwork makes the safety dream work!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-4">
+          <h3 data-i18n="sidebar.step_4.title">📋 Legislation</h3>
+          <p data-i18n="sidebar.step_4.description">Construction Regulation 7(1)(b): Contractors must maintain a Health & Safety File on site with all required documents.</p>
+          <p data-i18n="sidebar.step_4.fun_fact">📞 Fun Fact: Having a contractor’s contact details ready can save the day in an emergency—stay connected!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-5">
+          <h3 data-i18n="sidebar.step_5.title">📜 Legislation</h3>
+          <p data-i18n="sidebar.step_5.description">Construction Regulation 3(1): A permit is required for projects above R40,000 or lasting longer than 180 days.</p>
+          <p data-i18n="sidebar.step_5.fun_fact">🚧 Fun Fact: Clear site addresses help emergency services find you faster—don’t let a typo delay help!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-6">
+          <h3 data-i18n="sidebar.step_6.title">📋 Legislation</h3>
+          <p data-i18n="sidebar.step_6.description">Construction Regulation 9: Task-specific Hazard Identification and Risk Assessments (HIRAs) are mandatory for all activities.</p>
+          <p data-i18n="sidebar.step_6.fun_fact">🔍 Fun Fact: Identifying high-risk activities early can reduce risks by 25%—it’s like giving your project a safety superpower!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-7">
+          <h3 data-i18n="sidebar.step_7.title">📜 Legislation</h3>
+          <p data-i18n="sidebar.step_7.description">SACPCMP Guidelines: CHSOs and PrCHSAs must maintain registration and CPD requirements to ensure compliance.</p>
+          <p data-i18n="sidebar.step_7.fun_fact">🧑‍💼 Fun Fact: A registered SACPCMP pro can drastically reduce legal risks—your project’s safety MVP!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-8">
+          <h3 data-i18n="sidebar.step_8.title">📋 Legislation</h3>
+          <p data-i18n="sidebar.step_8.description">Construction Regulation 5(1)(l): Clients must approve the contractor’s H&S Plan before work begins.</p>
+          <p data-i18n="sidebar.step_8.fun_fact">📝 Fun Fact: Clear accountability in documents can boost project transparency—everyone knows their role!</p>
+        </div>
+        <div class="sidebar-item sidebar-step-9">
+          <h3 data-i18n="sidebar.step_9.title">📜 Legislation</h3>
+          <p data-i18n="sidebar.step_9.description">Occupational Health and Safety Act: Proper documentation ensures compliance and protects all stakeholders.</p>
+          <p data-i18n="sidebar.step_9.fun_fact">🛒 Fun Fact: Your cart is your safety toolkit—every document you add makes your project safer!</p>
+        </div>
+      </div>
     </div>
 
-    <script src="/safety-plans/assets/js/common.js"></script>
-    <script src="/safety-plans/assets/js/chatbot.js"></script>
-    <script src="/safety-plans/assets/js/ohs-data.js"></script>
-    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
+    <div class="wizard">
+      <div class="wizard-content">
+        <div class="wizard-step" id="step-0">
+          <p data-i18n="wizard.step_0">Please select an action to begin the process.</p>
+        </div>
+
+        <div class="wizard-step" id="step-1">
+          <h3 data-i18n="wizard.step_1.title">Step 1 of 9: What would you like to do?</h3>
+          <label data-i18n="wizard.step_1.label">Select documents to compile (Check all that apply):</label><br>
+          <input type="checkbox" name="documents" value="hs_spec" required> <span data-i18n="wizard.step_1.hs_spec">Health & Safety Specification</span><br>
+          <input type="checkbox" name="documents" value="hs_plan"> <span data-i18n="wizard.step_1.hs_plan">Health & Safety Plan</span><br>
+          <input type="checkbox" name="documents" value="risk_assessment"> <span data-i18n="wizard.step_1.risk_assessment">Risk Assessment</span><br>
+          <input type="checkbox" name="documents" value="training"> <span data-i18n="wizard.step_1.training">Conduct Training</span><br>
+          <input type="checkbox" name="documents" value="appointments"> <span data-i18n="wizard.step_1.appointments">Make Legal Appointments</span><br>
+          <input type="checkbox" name="documents" value="inspections"> <span data-i18n="wizard.step_1.inspections">Conduct Inspections/Audits</span><br>
+          <input type="checkbox" name="documents" value="incidents"> <span data-i18n="wizard.step_1.incidents">Manage Incidents</span><br>
+          <input type="checkbox" name="documents" value="reports"> <span data-i18n="wizard.step_1.reports">Compliance Reports</span><br>
+          <input type="checkbox" name="documents" value="hs_file"> <span data-i18n="wizard.step_1.hs_file">Health & Safety File</span><br>
+          <div class="error-message" id="checkbox-error" data-i18n="wizard.step_1.error">Please select at least one document to compile.</div>
+        </div>
+
+        <div class="wizard-step" id="step-2">
+          <h3 data-i18n="wizard.step_2.title">Step 2 of 9: Client Details</h3>
+          <label data-i18n="wizard.step_2.client_name_label">Client Company Name:</label><br>
+          <input type="text" id="client-name" required>
+          <div class="error-message" id="client-name-error" data-i18n="wizard.step_2.client_name_error">Please fill in a client company name.</div><br>
+
+          <label data-i18n="wizard.step_2.client_address_label">Client Address:</label><br>
+          <input type="text" id="client-address" required>
+          <div class="error-message" id="client-address-error" data-i18n="wizard.step_2.client_address_error">Please fill in a client address.</div><br>
+
+          <label data-i18n="wizard.step_2.client_contact_person_label">Client Contact Person:</label><br>
+          <input type="text" id="client-contact-person" required>
+          <div class="error-message" id="client-contact-person-error" data-i18n="wizard.step_2.client_contact_person_error">Please fill in a client contact person.</div><br>
+
+          <label data-i18n="wizard.step_2.client_contact_role_label">Client Contact Role:</label><br>
+          <input type="text" id="client-contact-role" required>
+          <div class="error-message" id="client-contact-role-error" data-i18n="wizard.step_2.client_contact_role_error">Please fill in a client contact role.</div><br>
+
+          <label data-i18n="wizard.step_2.client_contact_number_label">Client Contact Number:</label><br>
+          <input type="tel" id="client-contact-number" required>
+          <div class="error-message" id="client-contact-number-error" data-i18n="wizard.step_2.client_contact_number_error">Please fill in a valid phone number (e.g., +27123456789).</div><br>
+
+          <label data-i18n="wizard.step_2.client_email_label">Client Email:</label><br>
+          <input type="email" id="client-email" required>
+          <div class="error-message" id="client-email-error" data-i18n="wizard.step_2.client_email_error">Please fill in a valid email address.</div><br>
+
+          <label data-i18n="wizard.step_2.client_coida_label">COIDA Registration Number:</label><br>
+          <input type="text" id="client-coida" required>
+          <div class="error-message" id="client-coida-error" data-i18n="wizard.step_2.client_coida_error">Please fill in a COIDA registration number.</div>
+        </div>
+
+        <div class="wizard-step" id="step-3">
+          <h3 data-i18n="wizard.step_3.title">Step 3 of 9: Has a Contractor Been Appointed?</h3>
+          <label data-i18n="wizard.step_3.contractor_appointed_label">Contractor Appointed:</label><br>
+          <select id="contractor-appointed" required>
+            <option value="" disabled selected data-i18n="wizard.step_3.contractor_appointed_error">Please select an option.</option>
+            <option value="yes" data-i18n="wizard.step_3.option_yes">Yes</option>
+            <option value="no" data-i18n="wizard.step_3.option_no">No</option>
+            <option value="not_applicable" data-i18n="wizard.step_3.option_not_applicable">Not Applicable</option>
+          </select>
+          <div class="error-message" id="contractor-appointed-error" data-i18n="wizard.step_3.contractor_appointed_error">Please select an option.</div>
+        </div>
+
+        <div class="wizard-step" id="step-4">
+          <h3 data-i18n="wizard.step_4.title">Step 4 of 9: Contractor Details</h3>
+          <label data-i18n="wizard.step_4.contractor_name_label">Contractor Company Name:</label><br>
+          <input type="text" id="contractor-name" required>
+          <div class="error-message" id="contractor-name-error" data-i18n="wizard.step_4.contractor_name_error">Please fill in a contractor company name.</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_address_label">Contractor Address:</label><br>
+          <input type="text" id="contractor-address" required>
+          <div class="error-message" id="contractor-address-error" data-i18n="wizard.step_4.contractor_address_error">Please fill in a contractor address.</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_contact_person_label">Contractor Contact Person:</label><br>
+          <input type="text" id="contractor-contact-person" required>
+          <div class="error-message" id="contractor-contact-person-error" data-i18n="wizard.step_4.contractor_contact_person_error">Please fill in a contractor contact person.</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_contact_role_label">Contractor Contact Role:</label><br>
+          <input type="text" id="contractor-contact-role" required>
+          <div class="error-message" id="contractor-contact-role-error" data-i18n="wizard.step_4.contractor_contact_role_error">Please fill in a contractor contact role.</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_contact_number_label">Contractor Contact Number:</label><br>
+          <input type="tel" id="contractor-contact-number" required>
+          <div class="error-message" id="contractor-contact-number-error" data-i18n="wizard.step_4.contractor_contact_number_error">Please fill in a valid phone number (e.g., +27123456789).</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_email_label">Contractor Email:</label><br>
+          <input type="email" id="contractor-email" required>
+          <div class="error-message" id="contractor-email-error" data-i18n="wizard.step_4.contractor_email_error">Please fill in a valid email address.</div><br>
+
+          <label data-i18n="wizard.step_4.contractor_coida_label">COIDA Registration Number:</label><br>
+          <input type="text" id="contractor-coida" required>
+          <div class="error-message" id="contractor-coida-error" data-i18n="wizard.step_4.contractor_coida_error">Please fill in a COIDA registration number.</div>
+        </div>
+
+        <div class="wizard-step" id="step-5">
+          <h3 data-i18n="wizard.step_5.title">Step 5 of 9: Project Details</h3>
+          <label data-i18n="wizard.step_5.project_reference_label">Project Reference Number:</label><br>
+          <input type="text" id="project-reference"><br>
+
+          <label data-i18n="wizard.step_5.project_name_label">Project Name:</label><br>
+          <input type="text" id="project-name" required>
+          <div class="error-message" id="project-name-error" data-i18n="wizard.step_5.project_name_error">Please fill in a project name.</div><br>
+
+          <label data-i18n="wizard.step_5.site_address_label">Site Address:</label><br>
+          <input type="text" id="site-address" required>
+          <div class="error-message" id="site-address-error" data-i18n="wizard.step_5.site_address_error">Please fill in a site address.</div><br>
+
+          <label data-i18n="wizard.step_5.site_supervisor_name_label">Site Supervisor Name:</label><br>
+          <input type="text" id="site-supervisor-name" required>
+          <div class="error-message" id="site-supervisor-name-error" data-i18n="wizard.step_5.site_supervisor_name_error">Please fill in a site supervisor name.</div><br>
+
+          <label data-i18n="wizard.step_5.site_supervisor_number_label">Site Supervisor Contact Number:</label><br>
+          <input type="tel" id="site-supervisor-number" required>
+          <div class="error-message" id="site-supervisor-number-error" data-i18n="wizard.step_5.site_supervisor_number_error">Please fill in a valid phone number (e.g., +27123456789).</div><br>
+
+          <label data-i18n="wizard.step_5.site_supervisor_email_label">Site Supervisor Email:</label><br>
+          <input type="email" id="site-supervisor-email" required>
+          <div class="error-message" id="site-supervisor-email-error" data-i18n="wizard.step_5.site_supervisor_email_error">Please fill in a valid email address.</div>
+        </div>
+
+        <div class="wizard-step" id="step-6">
+          <h3 data-i18n="wizard.step_6.title">Step 6 of 9: Project Scope</h3>
+          <label data-i18n="wizard.step_6.type_of_work_label">Type of Work to Be Done:</label><br>
+          <input type="text" id="type-of-work" required>
+          <div class="error-message" id="type-of-work-error" data-i18n="wizard.step_6.type_of_work_error">Please fill in the type of work.</div><br>
+
+          <label data-i18n="wizard.step_6.cidb_grade_label">CIDB Grade:</label><br>
+          <select id="cidb-grade" required>
+            <option value="" disabled selected data-i18n="wizard.step_6.cidb_grade_error">Please select a CIDB grade.</option>
+            <option value="not_applicable" data-i18n="wizard.step_6.cidb_grade_not_applicable">Not Applicable</option>
+            <option value="1" data-i18n="wizard.step_6.cidb_grade_1">Grade 1</option>
+            <option value="2" data-i18n="wizard.step_6.cidb_grade_2">Grade 2</option>
+            <option value="3" data-i18n="wizard.step_6.cidb_grade_3">Grade 3</option>
+            <option value="4" data-i18n="wizard.step_6.cidb_grade_4">Grade 4</option>
+            <option value="5" data-i18n="wizard.step_6.cidb_grade_5">Grade 5</option>
+            <option value="6" data-i18n="wizard.step_6.cidb_grade_6">Grade 6</option>
+            <option value="7" data-i18n="wizard.step_6.cidb_grade_7">Grade 7</option>
+            <option value="8" data-i18n="wizard.step_6.cidb_grade_8">Grade 8</option>
+            <option value="9" data-i18n="wizard.step_6.cidb_grade_9">Grade 9</option>
+          </select>
+          <div class="error-message" id="cidb-grade-error" data-i18n="wizard.step_6.cidb_grade_error">Please select a CIDB grade.</div><br>
+
+          <label data-i18n="wizard.step_6.cost_label">Cost (R):</label><br>
+          <input type="number" id="project-cost" required>
+          <div class="error-message" id="project-cost-error" data-i18n="wizard.step_6.cost_error">Please fill in a valid project cost (R).</div><br>
+
+          <label data-i18n="wizard.step_6.duration_label">Duration (Days):</label><br>
+          <input type="number" id="project-duration" required>
+          <div class="error-message" id="project-duration-error" data-i18n="wizard.step_6.duration_error">Please fill in a valid duration (days).</div><br>
+
+          <label data-i18n="wizard.step_6.activities_label">Activities Involved (Check all that apply):</label><br>
+          <input type="checkbox" name="activities" value="security_guards"> <span data-i18n="wizard.step_6.activities.security_guards">Security Guards</span><br>
+          <input type="checkbox" name="activities" value="night_work"> <span data-i18n="wizard.step_6.activities.night_work">Night Work</span><br>
+          <input type="checkbox" name="activities" value="moving_traffic"> <span data-i18n="wizard.step_6.activities.moving_traffic">Work in Moving Traffic</span><br>
+          <input type="checkbox" name="activities" value="vibration_exposure"> <span data-i18n="wizard.step_6.activities.vibration_exposure">Vibration Exposure</span><br>
+          <input type="checkbox" name="activities" value="noise_exposure"> <span data-i18n="wizard.step_6.activities.noise_exposure">Noise Exposure</span><br>
+          <input type="checkbox" name="activities" value="welders"> <span data-i18n="wizard.step_6.activities.welders">Welders</span><br>
+          <input type="checkbox" name="activities" value="welding"> <span data-i18n="wizard.step_6.activities.welding">Welding</span><br>
+          <input type="checkbox" name="activities" value="hot_work"> <span data-i18n="wizard.step_6.activities.hot_work">Hot Work (e.g., Cutting, Grinding)</span><br>
+          <input type="checkbox" name="activities" value="combustible_materials"> <span data-i18n="wizard.step_6.activities.combustible_materials">Combustible Materials</span><br>
+          <input type="checkbox" name="activities" value="hazardous_substances"> <span data-i18n="wizard.step_6.activities.hazardous_substances">Handling Hazardous Substances</span><br>
+          <input type="checkbox" name="activities" value="office_fit_out"> <span data-i18n="wizard.step_6.activities.office_fit_out">Office Fit-Out</span><br>
+          <input type="checkbox" name="activities" value="sensitive_it_equipment"> <span data-i18n="wizard.step_6.activities.sensitive_it_equipment">Sensitive IT Equipment</span><br>
+          <input type="checkbox" name="activities" value="manual_handling"> <span data-i18n="wizard.step_6.activities.manual_handling">Manual Handling</span><br>
+          <input type="checkbox" name="activities" value="working_electricity"> <span data-i18n="wizard.step_6.activities.working_electricity">Working with Electricity</span><br>
+          <input type="checkbox" name="activities" value="dust_exposure"> <span data-i18n="wizard.step_6.activities.dust_exposure">Dust Exposure</span><br>
+          <input type="checkbox" name="activities" value="civil_contractors"> <span data-i18n="wizard.step_6.activities.civil_contractors">Civil Contractors</span><br>
+          <input type="checkbox" name="activities" value="excavation"> <span data-i18n="wizard.step_6.activities.excavation">Excavation</span><br>
+          <input type="checkbox" name="activities" value="crane_operations"> <span data-i18n="wizard.step_6.activities.crane_operations">Crane Operations</span><br>
+          <input type="checkbox" name="activities" value="working_near_water"> <span data-i18n="wizard.step_6.activities.working_near_water">Working Near Water</span><br>
+          <input type="checkbox" name="activities" value="pile_driving"> <span data-i18n="wizard.step_6.activities.pile_driving">Pile Driving</span><br>
+          <input type="checkbox" name="activities" value="working_tunnels"> <span data-i18n="wizard.step_6.activities.working_tunnels">Working in Tunnels</span><br>
+          <input type="checkbox" name="activities" value="general_construction"> <span data-i18n="wizard.step_6.activities.general_construction">General Construction</span><br>
+          <input type="checkbox" name="activities" value="working_from_heights"> <span data-i18n="wizard.step_6.activities.working_from_heights">Working from Heights</span><br>
+          <input type="checkbox" name="activities" value="scaffolding"> <span data-i18n="wizard.step_6.activities.scaffolding">Scaffolding</span><br>
+          <input type="checkbox" name="activities" value="multi_storey"> <span data-i18n="wizard.step_6.activities.multi_storey">Multi-Storey Construction</span><br>
+          <input type="checkbox" name="activities" value="asbestos"> <span data-i18n="wizard.step_6.activities.asbestos">Asbestos Removal</span><br>
+          <input type="checkbox" name="activities" value="confined_space"> <span data-i18n="wizard.step_6.activities.confined_space">Confined Space Entry</span><br>
+          <input type="checkbox" name="activities" value="demolition"> <span data-i18n="wizard.step_6.activities.demolition">Demolition</span><br>
+          <input type="checkbox" name="activities" value="roof_work"> <span data-i18n="wizard.step_6.activities.roof_work">Roof Work</span><br>
+          <input type="checkbox" name="activities" value="temporary_works"> <span data-i18n="wizard.step_6.activities.temporary_works">Temporary Works</span><br>
+          <input type="checkbox" name="activities" value="live_voltage"> <span data-i18n="wizard.step_6.activities.live_voltage">Working with Live Voltage</span><br>
+
+          <label data-i18n="wizard.step_6.scope_details_label">Scope Details:</label><br>
+          <textarea id="scope-details" required></textarea>
+          <div class="error-message" id="scope-details-error" data-i18n="wizard.step_6.scope_details_error">Please fill in scope details.</div>
+        </div>
+
+        <div class="wizard-step" id="step-7">
+          <h3 data-i18n="wizard.step_7.title">Step 7 of 9: Compiled By</h3>
+          <label data-i18n="wizard.step_7.name_label">Name:</label><br>
+          <input type="text" id="compiled-by-name" required>
+          <div class="error-message" id="compiled-by-name-error" data-i18n="wizard.step_7.name_error">Please fill in your name.</div><br>
+
+          <label data-i18n="wizard.step_7.number_label">Contact Number:</label><br>
+          <input type="tel" id="compiled-by-number" required>
+          <div class="error-message" id="compiled-by-number-error" data-i18n="wizard.step_7.number_error">Please fill in a valid phone number (e.g., +27123456789).</div><br>
+
+          <label data-i18n="wizard.step_7.email_label">Email:</label><br>
+          <input type="email" id="compiled-by-email" required>
+          <div class="error-message" id="compiled-by-email-error" data-i18n="wizard.step_7.email_error">Please fill in a valid email address.</div><br>
+
+          <label data-i18n="wizard.step_7.role_label">Role:</label><br>
+          <select id="compiled-by-role" required>
+            <option value="" disabled selected data-i18n="wizard.step_7.role_error">Please select a role.</option>
+            <option value="trainee" data-i18n="wizard.step_7.role_trainee">OHS Trainee</option>
+            <option value="ohs_rep" data-i18n="wizard.step_7.role_ohs_rep">OHS Representative</option>
+            <option value="sacpcmp_officer" data-i18n="wizard.step_7.role_sacpcmp_officer">SACPCMP Officer (CHSO)</option>
+            <option value="sacpcmp_agent" data-i18n="wizard.step_7.role_sacpcmp_agent">SACPCMP Agent (PrCHSA)</option>
+            <option value="other" data-i18n="wizard.step_7.role_other">Other</option>
+          </select>
+          <div class="error-message" id="compiled-by-role-error" data-i18n="wizard.step_7.role_error">Please select a role.</div><br>
+
+          <div id="sacpcmp-reg-section" style="display: none;">
+            <label data-i18n="wizard.step_7.sacpcmp_reg_label">SACPCMP Registration Number:</label><br>
+            <input type="text" id="sacpcmp-reg">
+            <div class="error-message" id="sacpcmp-reg-error" data-i18n="wizard.step_7.sacpcmp_reg_error">Please fill in an SACPCMP registration number.</div><br>
+          </div>
+
+          <div id="specify-role-section" style="display: none;">
+            <label data-i18n="wizard.step_7.specify_role_label">Specify Role:</label><br>
+            <input type="text" id="specify-role">
+            <div class="error-message" id="specify-role-error" data-i18n="wizard.step_7.specify_role_error">Please specify your role.</div>
+          </div>
+        </div>
+
+        <div class="wizard-step" id="step-8">
+          <h3 data-i18n="wizard.step_8.title">Step 8 of 9: Compiled For</h3>
+          <label data-i18n="wizard.step_8.compiled_for_label">Compiled For:</label><br>
+          <select id="compiled-for" required>
+            <option value="" disabled selected data-i18n="wizard.step_8.compiled_for_error">Please select an option.</option>
+            <option value="client" data-i18n="wizard.step_8.option_client">Client</option>
+            <option value="contractor" data-i18n="wizard.step_8.option_contractor">Contractor</option>
+            <option value="other" data-i18n="wizard.step_8.option_other">Other</option>
+          </select>
+          <div class="error-message" id="compiled-for-error" data-i18n="wizard.step_8.compiled_for_error">Please select an option.</div><br>
+
+          <div id="specify-compiled-for-section" style="display: none;">
+            <label data-i18n="wizard.step_8.specify_label">Specify:</label><br>
+            <input type="text" id="specify-compiled-for">
+            <div class="error-message" id="specify-compiled-for-error" data-i18n="wizard.step_8.specify_error">Please specify who the document is compiled for.</div>
+          </div>
+        </div>
+
+        <div class="wizard-step" id="step-9">
+          <h3 data-i18n="wizard.step_9.title">Step 9 of 9: Review & Add to Cart</h3>
+          <p data-i18n="wizard.step_9.description">Review your selections and add the documents to your cart to checkout.</p>
+          <strong data-i18n="wizard.step_9.selected_documents_label">Selected Documents:</strong>
+          <span id="selected-documents"></span>
+        </div>
+
+        <div class="wizard-navigation">
+          <button id="wizard-back" data-i18n="wizard.nav.back">Back</button>
+          <button id="wizard-next" data-i18n="wizard.nav.next">Next</button>
+          <button id="wizard-add-to-cart" style="display: none;" data-i18n="wizard.nav.add_to_cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h3 data-i18n="cart.title">Your Cart</h3>
+    <p data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th data-i18n="cart.table.document">Document</th>
+          <th data-i18n="cart.table.price">Price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="checkout">
+      <label data-i18n="cart.checkout.promo_label">Promo Code:</label>
+      <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25">
+      <button id="cart-checkout" data-i18n="cart.checkout.button">Checkout</button>
+    </div>
+  </div>
+
+  <div class="chatbot">
+    <div class="chatbot-header" data-i18n="chatbot.button">Ask Me</div>
+    <div class="chatbot-body" id="chat-messages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chat-input" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS...">
+      <button id="chat-send" data-i18n="chatbot.send">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All rights reserved.</p>
+    <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
+    <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
+    <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+    <div class="newsletter">
+      <h4 data-i18n="footer.newsletter.title">Stay Updated</h4>
+      <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email">
+      <button data-i18n="footer.newsletter.button">Sign Up</button>
+    </div>
+  </footer>
+
+  <script src="construction-compliance.js"></script>
 </body>
 </html>
