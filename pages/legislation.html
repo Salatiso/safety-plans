@@ -39,96 +39,101 @@
         <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
         <ul>
             <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
             <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
-            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
-            <li><a href="legislation.html" class="active" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
-            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+            <li><a href="inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="legislation.html" class="active" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
         </ul>
         <div class="step-info">
-            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Legal Universe & RMP]</h3>
-            <p data-i18n="sidebar.step_0.description">[Placeholder: Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.]</p>
-            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!]</p>
+            <h3 data-i18n="sidebar.step_0.title">📜 OHS Legal Universe & RMP</h3>
+            <p data-i18n="sidebar.step_0.description">Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">⚡ Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!</p>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main>
         <section class="intro">
-            <h2 data-i18n="legislation.title">[Placeholder: OHS Legal Universe & Risk Management]</h2>
-            <p data-i18n="legislation.description">[Placeholder: Generate a tailored OHS legal universe and risk management plan for your business. Enter your company details, activities, and risks to receive a comprehensive compliance report covering South African legislation, bylaws, and international standards.]</p>
+            <h2 data-i18n="legislation.title">OHS Legal Universe & Risk Management</h2>
+            <p data-i18n="legislation.description">Generate a tailored OHS legal universe and risk management plan for your business. Enter your company details, activities, and risks to receive a comprehensive compliance report covering South African legislation, bylaws, and international standards.</p>
         </section>
 
         <section class="wizard">
-            <h3>[Placeholder: Generate Your RMP]</h3>
+            <h3 data-i18n="legislation.wizard.title">Generate Your RMP</h3>
             <form id="legislation-wizard">
                 <!-- Step 1: Company Details -->
                 <div class="step" id="step-1">
-                    <h4>[Placeholder: Step 1 of 4: Company Details]</h4>
-                    <label>[Placeholder: Company Name:]</label>
+                    <h4 data-i18n="legislation.wizard.step_1.title">Step 1 of 4: Company Details</h4>
+                    <label data-i18n="legislation.wizard.step_1.company_name_label">Company Name:</label>
                     <input type="text" id="company-name" required>
-                    <label>[Placeholder: Industry:]</label>
+                    <label data-i18n="legislation.wizard.step_1.industry_label">Industry:</label>
                     <select id="industry" required>
-                        <option value="">Select Industry</option>
-                        <option value="construction">Construction</option>
-                        <option value="manufacturing">Manufacturing</option>
-                        <option value="education">Education</option>
-                        <!-- Add more industries -->
+                        <option value="" data-i18n="legislation.wizard.step_1.option_select">Select Industry</option>
+                        <option value="construction" data-i18n="legislation.wizard.step_1.option_construction">Construction</option>
+                        <option value="manufacturing" data-i18n="legislation.wizard.step_1.option_manufacturing">Manufacturing</option>
+                        <option value="education" data-i18n="legislation.wizard.step_1.option_education">Education</option>
+                        <option value="healthcare" data-i18n="legislation.wizard.step_1.option_healthcare">Healthcare</option>
+                        <option value="retail" data-i18n="legislation.wizard.step_1.option_retail">Retail</option>
                     </select>
-                    <label>[Placeholder: Location (Province):]</label>
+                    <label data-i18n="legislation.wizard.step_1.location_label">Location (Province):</label>
                     <select id="location" required>
-                        <option value="">Select Province</option>
-                        <option value="Gauteng">Gauteng</option>
-                        <option value="KZN">KwaZulu-Natal</option>
-                        <option value="WC">Western Cape</option>
-                        <!-- Add more provinces -->
+                        <option value="" data-i18n="legislation.wizard.step_1.option_select_location">Select Province</option>
+                        <option value="Gauteng" data-i18n="legislation.wizard.step_1.option_gauteng">Gauteng</option>
+                        <option value="KZN" data-i18n="legislation.wizard.step_1.option_kzn">KwaZulu-Natal</option>
+                        <option value="WC" data-i18n="legislation.wizard.step_1.option_wc">Western Cape</option>
+                        <option value="EC" data-i18n="legislation.wizard.step_1.option_ec">Eastern Cape</option>
+                        <option value="FS" data-i18n="legislation.wizard.step_1.option_fs">Free State</option>
                     </select>
-                    <button type="button" onclick="nextStep(1)">[Placeholder: Next]</button>
+                    <button type="button" onclick="nextStep(1)" data-i18n="legislation.wizard.nav.next">Next</button>
                 </div>
 
                 <!-- Step 2: Activities -->
                 <div class="step" id="step-2" style="display: none;">
-                    <h4>[Placeholder: Step 2 of 4: Activities]</h4>
-                    <label>[Placeholder: Select Activities (Check all that apply):]</label>
-                    <input type="checkbox" id="excavation"> Excavation<br>
-                    <input type="checkbox" id="working-at-heights"> Working at Heights<br>
-                    <input type="checkbox" id="fire-risk"> Fire Risk Activities<br>
-                    <!-- Add more activities -->
-                    <button type="button" onclick="prevStep(2)">[Placeholder: Back]</button>
-                    <button type="button" onclick="nextStep(2)">[Placeholder: Next]</button>
+                    <h4 data-i18n="legislation.wizard.step_2.title">Step 2 of 4: Activities</h4>
+                    <label data-i18n="legislation.wizard.step_2.label">Select Activities (Check all that apply):</label>
+                    <input type="checkbox" id="excavation" data-i18n="legislation.wizard.step_2.option_excavation"> Excavation<br>
+                    <input type="checkbox" id="working-at-heights" data-i18n="legislation.wizard.step_2.option_working_at_heights"> Working at Heights<br>
+                    <input type="checkbox" id="fire-risk" data-i18n="legislation.wizard.step_2.option_fire_risk"> Fire Risk Activities<br>
+                    <button type="button" onclick="prevStep(2)" data-i18n="legislation.wizard.nav.back">Back</button>
+                    <button type="button" onclick="nextStep(2)" data-i18n="legislation.wizard.nav.next">Next</button>
                 </div>
 
                 <!-- Step 3: Risks -->
                 <div class="step" id="step-3" style="display: none;">
-                    <h4>[Placeholder: Step 3 of 4: Risks]</h4>
-                    <label>[Placeholder: Select Risks (Check all that apply):]</label>
-                    <input type="checkbox" id="falls"> Falls from Heights<br>
-                    <input type="checkbox" id="chemical-exposure"> Chemical Exposure<br>
-                    <input type="checkbox" id="fire-hazard"> Fire Hazard<br>
-                    <!-- Add more risks -->
-                    <button type="button" onclick="prevStep(3)">[Placeholder: Back]</button>
-                    <button type="button" onclick="nextStep(3)">[Placeholder: Next]</button>
+                    <h4 data-i18n="legislation.wizard.step_3.title">Step 3 of 4: Risks</h4>
+                    <label data-i18n="legislation.wizard.step_3.label">Select Risks (Check all that apply):</label>
+                    <input type="checkbox" id="falls" data-i18n="legislation.wizard.step_3.option_falls"> Falls from Heights<br>
+                    <input type="checkbox" id="chemical-exposure" data-i18n="legislation.wizard.step_3.option_chemical_exposure"> Chemical Exposure<br>
+                    <input type="checkbox" id="fire-hazard" data-i18n="legislation.wizard.step_3.option_fire_hazard"> Fire Hazard<br>
+                    <button type="button" onclick="prevStep(3)" data-i18n="legislation.wizard.nav.back">Back</button>
+                    <button type="button" onclick="nextStep(3)" data-i18n="legislation.wizard.nav.next">Next</button>
                 </div>
 
                 <!-- Step 4: Review and Generate -->
                 <div class="step" id="step-4" style="display: none;">
-                    <h4>[Placeholder: Step 4 of 4: Review and Generate]</h4>
-                    <p>[Placeholder: Review your inputs and generate your RMP. You can add additional legislation if needed.]</p>
-                    <label>[Placeholder: Add Additional Legislation (Optional):]</label>
-                    <textarea id="additional-legislation"></textarea>
-                    <button type="button" onclick="prevStep(4)">[Placeholder: Back]</button>
-                    <button type="submit">[Placeholder: Generate RMP]</button>
+                    <h4 data-i18n="legislation.wizard.step_4.title">Step 4 of 4: Review and Generate</h4>
+                    <p data-i18n="legislation.wizard.step_4.description">Review your inputs and generate your RMP. You can add additional legislation if needed.</p>
+                    <label data-i18n="legislation.wizard.step_4.additional_legislation_label">Add Additional Legislation (Optional):</label>
+                    <textarea id="additional-legislation" data-i18n="[placeholder]legislation.wizard.step_4.additional_legislation_placeholder">Enter any additional legislation here...</textarea>
+                    <button type="button" onclick="prevStep(4)" data-i18n="legislation.wizard.nav.back">Back</button>
+                    <button type="submit" data-i18n="legislation.wizard.nav.generate">Generate RMP</button>
                 </div>
             </form>
         </section>
 
         <section class="checkout" id="checkout" style="display: none;">
-            <h3>[Placeholder: Checkout]</h3>
-            <p>[Placeholder: Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).]</p>
-            <label>[Placeholder: Voucher Code:]</label>
-            <input type="text" id="voucher-code" placeholder="FREERMP2025">
-            <button onclick="applyVoucher()">[Placeholder: Apply Voucher]</button>
-            <p>[Placeholder: Price: R200 (Free with Voucher)]</p>
-            <button onclick="downloadRMP()">[Placeholder: Download RMP]</button>
+            <h3 data-i18n="legislation.cart.title">Checkout</h3>
+            <p data-i18n="legislation.cart.description">Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).</p>
+            <label data-i18n="legislation.cart.voucher_label">Voucher Code:</label>
+            <input type="text" id="voucher-code" placeholder="FREERMP2025" data-i18n="[placeholder]legislation.cart.voucher_placeholder">
+            <button onclick="applyVoucher()" data-i18n="legislation.cart.apply_voucher">Apply Voucher</button>
+            <p data-i18n="legislation.cart.price">Price: R200 (Free with Voucher)</p>
+            <button onclick="downloadRMP()" data-i18n="legislation.cart.download">Download RMP</button>
         </section>
     </main>
 
@@ -153,7 +158,7 @@
         <div class="chatbot-content" style="display: none;">
             <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
             <button data-i18n="chatbot.send">Send</button>
-            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+            <p data-i18n="chatbot.response">I'm here to help! For personalized OHS advice, please contact a professional.</p>
         </div>
     </div>
 
