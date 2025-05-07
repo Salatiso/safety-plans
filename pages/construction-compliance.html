@@ -6,7 +6,7 @@
     <meta name="description" content="Ensure construction health and safety compliance with Salatiso OHS Tools.">
     <meta name="keywords" content="OHS tools, construction safety, occupational health and safety, safety plans, South Africa OHS, Salatiso">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Salatiso OHS Tools - Construction Health and Safety</title>
+    <title data-i18n="header.title">Salatiso OHS Tools - Construction Health and Safety</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
@@ -101,6 +101,28 @@
 
         .search-bar button:hover {
             background-color: #e65a50;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .language-selector select {
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .language-selector select:focus {
+            outline: 2px solid #ff6f61;
+            outline-offset: 2px;
         }
 
         /* Sidebar */
@@ -660,6 +682,18 @@
             outline-offset: 2px;
         }
 
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -754,33 +788,41 @@
                 width: 90%;
                 right: 5%;
             }
+
+            .language-selector {
+                top: 100px;
+                right: 10px;
+            }
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+    <!-- Add i18next libraries -->
+    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
 </head>
 <body>
     <header>
         <div class="header-container">
             <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
             <div class="header-content">
-                <h1>Salatiso OHS Tools</h1>
+                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
                 <nav role="navigation" aria-label="Main navigation">
                     <div class="nav-links">
-                        <a href="/safety-plans/index.html">Home</a>
-                        <a href="/safety-plans/resources.html">Resources</a>
-                        <a href="/safety-plans/services.html">Services</a>
-                        <a href="/safety-plans/community.html">Community</a>
-                        <a href="/safety-plans/about.html">About</a>
-                        <a href="/safety-plans/contact.html">Contact</a>
-                        <a href="#" id="login-link">Login</a>
+                        <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
+                        <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
+                        <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
+                        <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
+                        <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
+                        <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
+                        <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
                     </div>
                     <div class="search-bar">
                         <form role="search">
-                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
-                            <button type="submit" aria-label="Search">Search</button>
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button">Search</button>
                         </form>
                     </div>
                 </nav>
@@ -788,60 +830,83 @@
         </div>
     </header>
 
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <label for="language-select" class="sr-only" data-i18n="language_selector.label">Select Language</label>
+        <select id="language-select" aria-label="Select Language">
+            <option value="en" data-i18n="language_selector.en">English</option>
+            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
+            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
+            <option value="nd" data-i18n="language_selector.nd">isiNdebele</option>
+            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
+            <option value="st" data-i18n="language_selector.st">Sesotho</option>
+            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
+            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
+            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
+            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
+            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
+            <option value="fr" data-i18n="language_selector.fr">Français</option>
+            <option value="zh" data-i18n="language_selector.zh">中文 (Mandarin)</option>
+            <option value="es" data-i18n="language_selector.es">Español</option>
+            <option value="sn" data-i18n="language_selector.sn">chiShona</option>
+            <option value="sw" data-i18n="language_selector.sw">Kiswahili</option>
+        </select>
+    </div>
+
     <div class="sidebar">
         <div class="sidebar-content">
             <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <h3>OHS Tools</h3>
-            <a href="/safety-plans/pages/construction-compliance.html" class="active"><span class="icon">🏗️</span> Construction Health and Safety</a>
-            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> Emergency Response Planning</a>
-            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> Risk Assessment</a>
-            <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> Legal Appointments</a>
-            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> Incident Management</a>
-            <a href="/safety-plans/pages/general-induction.html" class="disabled" title="Coming Soon"><span class="icon">🎓</span> General Induction</a>
-            <a href="/safety-plans/pages/inspections-audits.html" class="disabled" title="Coming Soon"><span class="icon">🔍</span> Inspections & Audits</a>
-            <a href="/safety-plans/pages/toolbox-talks.html" class="disabled" title="Coming Soon"><span class="icon">🛠️</span> Toolbox Talks</a>
+            <h3 data-i18n="sidebar.ohs_tools">OHS Tools</h3>
+            <a href="/safety-plans/pages/construction-compliance.html" class="active"><span class="icon">🏗️</span> <span data-i18n="sidebar.construction_safety">Construction Health and Safety</span></a>
+            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> <span data-i18n="sidebar.emergency_planning">Emergency Response Planning</span></a>
+            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> <span data-i18n="sidebar.risk_assessment">Risk Assessment</span></a>
+            <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> <span data-i18n="sidebar.legal_appointments">Legal Appointments</span></a>
+            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> <span data-i18n="sidebar.incident_management">Incident Management</span></a>
+            <a href="/safety-plans/pages/general-induction.html" class="disabled" title="Coming Soon"><span class="icon">🎓</span> <span data-i18n="sidebar.general_induction">General Induction</span></a>
+            <a href="/safety-plans/pages/inspections-audits.html" class="disabled" title="Coming Soon"><span class="icon">🔍</span> <span data-i18n="sidebar.inspections_audits">Inspections & Audits</span></a>
+            <a href="/safety-plans/pages/toolbox-talks.html" class="disabled" title="Coming Soon"><span class="icon">🛠️</span> <span data-i18n="sidebar.toolbox_talks">Toolbox Talks</span></a>
         </div>
     </div>
 
     <div class="main-content">
         <section class="intro">
-            <h2>Construction Health and Safety</h2>
-            <p>Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
-            <p>Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
+            <h2 data-i18n="intro.title">Construction Health and Safety</h2>
+            <p data-i18n="intro.description">Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
+            <p data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
 
             <!-- Legal Obligations (Fixed Cards) -->
             <div class="legal-obligations">
                 <div class="legal-card">
-                    <h3>Client Obligations</h3>
-                    <p><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
-                    <p><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
-                    <p><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
+                    <h3 data-i18n="legal_obligations.client.title">Client Obligations</h3>
+                    <p data-i18n="legal_obligations.client.reg_5_1_a"><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
+                    <p data-i18n="legal_obligations.client.reg_5_1_b"><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
+                    <p data-i18n="legal_obligations.client.reg_5_1_l"><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
                 </div>
                 <div class="legal-card">
-                    <h3>Contractor Obligations</h3>
-                    <p><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
-                    <p><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
-                    <p><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
+                    <h3 data-i18n="legal_obligations.contractor.title">Contractor Obligations</h3>
+                    <p data-i18n="legal_obligations.contractor.reg_7_1_a"><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
+                    <p data-i18n="legal_obligations.contractor.reg_7_1_b"><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
+                    <p data-i18n="legal_obligations.contractor.reg_9"><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
                 </div>
                 <div class="legal-card">
-                    <h3>H&S Professional Obligations</h3>
-                    <p><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
-                    <p><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
-                    <p><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
+                    <h3 data-i18n="legal_obligations.professional.title">H&S Professional Obligations</h3>
+                    <p data-i18n="legal_obligations.professional.reg_5_5"><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
+                    <p data-i18n="legal_obligations.professional.reg_8_5"><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
+                    <p data-i18n="legal_obligations.professional.sacpcmp"><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button onclick="startWizard('hs-spec')">Compile Health and Safety Specification</button>
-                <button onclick="startWizard('hs-plan')">Compile Health and Safety Plan</button>
-                <button onclick="startWizard('risk-assessment')">Compile Risk Assessment</button>
-                <button onclick="startWizard('training')">Conduct Training</button>
-                <button onclick="startWizard('appointments')">Make Legal Appointments</button>
-                <button onclick="startWizard('inspections')">Conduct Inspections/Audits</button>
-                <button onclick="startWizard('incidents')">Manage Incidents</button>
-                <button onclick="startWizard('reports')">Compile Reports</button>
-                <button onclick="startWizard('hs-file')">Compile Health and Safety File</button>
+                <button onclick="startWizard('hs-spec')" data-i18n="action_buttons.hs_spec">Compile Health and Safety Specification</button>
+                <button onclick="startWizard('hs-plan')" data-i18n="action_buttons.hs_plan">Compile Health and Safety Plan</button>
+                <button onclick="startWizard('risk-assessment')" data-i18n="action_buttons.risk_assessment">Compile Risk Assessment</button>
+                <button onclick="startWizard('training')" data-i18n="action_buttons.training">Conduct Training</button>
+                <button onclick="startWizard('appointments')" data-i18n="action_buttons.appointments">Make Legal Appointments</button>
+                <button onclick="startWizard('inspections')" data-i18n="action_buttons.inspections">Conduct Inspections/Audits</button>
+                <button onclick="startWizard('incidents')" data-i18n="action_buttons.incidents">Manage Incidents</button>
+                <button onclick="startWizard('reports')" data-i18n="action_buttons.reports">Compile Reports</button>
+                <button onclick="startWizard('hs-file')" data-i18n="action_buttons.hs_file">Compile Health and Safety File</button>
             </div>
 
             <!-- Wizard Container -->
@@ -856,48 +921,48 @@
 
             <!-- Cart Section -->
             <div id="cart-container" class="cart-container hidden">
-                <h3>Your Cart</h3>
-                <p id="invoice-reference" class="hidden">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
+                <h3 data-i18n="cart.title">Your Cart</h3>
+                <p id="invoice-reference" class="hidden" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
                 <table id="cart-table">
                     <thead>
                         <tr>
-                            <th>Document</th>
-                            <th>Price</th>
+                            <th data-i18n="cart.table.document">Document</th>
+                            <th data-i18n="cart.table.price">Price</th>
                         </tr>
                     </thead>
                     <tbody id="cart-items"></tbody>
                 </table>
                 <div class="checkout">
-                    <label for="promo-code">Promo Code:</label>
-                    <input type="text" id="promo-code" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code">
-                    <button id="checkout-btn">Checkout</button>
+                    <label for="promo-code" data-i18n="cart.checkout.promo_label">Promo Code:</label>
+                    <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code">
+                    <button id="checkout-btn" data-i18n="cart.checkout.button">Checkout</button>
                 </div>
             </div>
 
             <!-- Resource Database -->
             <section class="resources">
-                <h3>Contact Accredited H&S Professionals</h3>
-                <p>Need expert assistance? Reach out to accredited professionals for your project needs.</p>
+                <h3 data-i18n="resources.title">Contact Accredited H&S Professionals</h3>
+                <p data-i18n="resources.description">Need expert assistance? Reach out to accredited professionals for your project needs.</p>
                 <ul>
-                    <li><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: jane.doe@example.com</li>
-                    <li><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: john.smith@example.com</li>
-                    <li><strong>Emily Brown, OHS Representative</strong> - Contact: emily.brown@example.com</li>
+                    <li data-i18n="resources.jane_doe"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: jane.doe@example.com</li>
+                    <li data-i18n="resources.john_smith"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: john.smith@example.com</li>
+                    <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: emily.brown@example.com</li>
                 </ul>
             </section>
         </section>
 
         <footer>
-            <p>© 2025 Salatiso OHS Tools. All rights reserved.</p>
+            <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All rights reserved.</p>
             <p>
-                <a href="/safety-plans/privacy.html">Privacy Policy</a> |
-                <a href="/safety-plans/terms.html">Terms of Service</a> |
-                <a href="/safety-plans/contact.html">Contact Us</a>
+                <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html" data-i18n="footer.links.terms">Terms of Service</a> |
+                <a href="/safety-plans/contact.html" data-i18n="footer.links.contact">Contact Us</a>
             </p>
             <div class="newsletter">
-                <h3>Stay Updated</h3>
+                <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
                 <form>
-                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="submit">Subscribe</button>
+                    <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="submit" data-i18n="footer.newsletter.button">Subscribe</button>
                 </form>
             </div>
         </footer>
@@ -906,12 +971,12 @@
     <!-- Chatbot Widget -->
     <div class="chatbot-container">
         <button id="chat-toggle" class="chat-toggle-btn">
-            <span class="chat-icon">⛑️</span> Ask Me
+            <span class="chat-icon">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
         </button>
         <div id="chat-window" class="chat-hidden">
             <div id="chat-output"></div>
-            <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS">
-            <button id="chat-send" aria-label="Send message">Send</button>
+            <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS">
+            <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send">Send</button>
         </div>
     </div>
 
