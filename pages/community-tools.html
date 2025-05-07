@@ -6,6 +6,8 @@
     <title>Community Safety Tools | Salatiso Safety Plans</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/community-tools.css">
+    <!-- Google Maps API (replace YOUR_API_KEY with your Google Maps API key) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -39,51 +41,92 @@
         <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
         <ul>
             <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
             <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
-            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
-            <li><a href="legislation.html" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
-            <li><a href="community-tools.html" class="active" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+            <li><a href="inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="community-tools.html" class="active" data-i18n="sidebar.community_tools">Community Tools</a></li>
         </ul>
         <div class="step-info">
-            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Community Safety Tools]</h3>
-            <p data-i18n="sidebar.step_0.description">[Placeholder: Access tools to improve safety in community settings like spaza shops, schools, and hospitals. Report non-compliance to help reduce fatalities in high-risk areas.]</p>
-            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Proper fire safety in spaza shops can prevent up to 50% of fire-related incidents!]</p>
+            <h3 data-i18n="sidebar.step_0.title">📜 Community Safety Tools</h3>
+            <p data-i18n="sidebar.step_0.description">Report incidents like potholes or safety hazards and access tools to improve safety in community settings like spaza shops, schools, and hospitals.</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know timely reporting of community hazards can help prevent accidents and improve public safety?</p>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main>
         <section class="intro">
-            <h2 data-i18n="community_tools.title">[Placeholder: Community Safety Tools]</h2>
-            <p data-i18n="community_tools.description">[Placeholder: Use these tools to ensure safety in community settings like spaza shops, schools, hospitals, and taverns. Learn about OHS requirements and report non-compliance to improve local safety conditions.]</p>
+            <h2 data-i18n="community_tools.title">Community Safety Tools</h2>
+            <p data-i18n="community_tools.description">Report any safety incident or hazard in your community or workplace, from potholes to defective equipment. Use our tools to ensure safety in settings like spaza shops, schools, hospitals, and taverns.</p>
+        </section>
+
+        <section class="incident-report">
+            <h3 data-i18n="community_tools.incident_report.title">Report an Incident or Hazard</h3>
+            <form id="incident-report-form">
+                <label data-i18n="community_tools.incident_report.photo_label">Upload Photo of the Incident (Optional):</label>
+                <input type="file" id="incident-photo" accept="image/*">
+                <div id="map" style="height: 200px; width: 100%; max-width: 400px; margin-top: 10px;"></div>
+                <p id="location-info" data-i18n="community_tools.incident_report.location_info">Location will be auto-detected...</p>
+                <p id="weather-info" data-i18n="community_tools.incident_report.weather_info">Weather will be auto-detected...</p>
+                <label data-i18n="community_tools.incident_report.description_label">Incident Description:</label>
+                <textarea id="incident-description" required data-i18n="[placeholder]community_tools.incident_report.description_placeholder">Describe the incident or hazard (e.g., pothole on Main Street, broken chair in community center)...</textarea>
+                <label data-i18n="community_tools.incident_report.user_name_label">Your Name (Optional):</label>
+                <input type="text" id="user-name" data-i18n="[placeholder]community_tools.incident_report.user_name_placeholder">Enter your name...
+                <label data-i18n="community_tools.incident_report.user_contact_label">Your Contact Details (Optional):</label>
+                <input type="text" id="user-contact" data-i18n="[placeholder]community_tools.incident_report.user_contact_placeholder">Enter your phone or email...
+                <label data-i18n="community_tools.incident_report.user_social_label">Your Social Media Handle (Optional, e.g., @username on X):</label>
+                <input type="text" id="user-social" data-i18n="[placeholder]community_tools.incident_report.user_social_placeholder">Enter your X handle...
+                <label data-i18n="community_tools.incident_report.service_provider_label">Service Provider (e.g., Municipality):</label>
+                <select id="service-provider" onchange="updateServiceProviderDetails()">
+                    <option value="" data-i18n="community_tools.incident_report.option_select_provider">Select a Service Provider</option>
+                    <!-- Populated dynamically -->
+                </select>
+                <label data-i18n="community_tools.incident_report.provider_contact_label">Service Provider Contact Details (Optional):</label>
+                <input type="text" id="provider-contact" data-i18n="[placeholder]community_tools.incident_report.provider_contact_placeholder">Enter phone or email (auto-filled if provider selected)...
+                <label data-i18n="community_tools.incident_report.provider_social_label">Service Provider Social Media Handle (Optional, e.g., @CityofJoburgZA on X):</label>
+                <input type="text" id="provider-social" data-i18n="[placeholder]community_tools.incident_report.provider_social_placeholder">Enter X handle (auto-filled if provider selected)...
+                <label data-i18n="community_tools.incident_report.employee_route_label">Route to Employer (For Members Only):</label>
+                <select id="employee-route">
+                    <option value="none" data-i18n="community_tools.incident_report.option_none">Do Not Route</option>
+                    <option value="supervisor" data-i18n="community_tools.incident_report.option_supervisor">Supervisor</option>
+                    <option value="safety_rep" data-i18n="community_tools.incident_report.option_safety_rep">Health and Safety Representative</option>
+                </select>
+                <label data-i18n="community_tools.incident_report.share_method_label">Share Report Via:</label>
+                <input type="checkbox" id="share-email" data-i18n="community_tools.incident_report.share_email"> Email<br>
+                <input type="checkbox" id="share-sms" data-i18n="community_tools.incident_report.share_sms"> SMS<br>
+                <input type="checkbox" id="share-whatsapp" data-i18n="community_tools.incident_report.share_whatsapp"> WhatsApp<br>
+                <input type="checkbox" id="share-x" data-i18n="community_tools.incident_report.share_x"> X (Social Media)<br>
+                <button type="submit" data-i18n="community_tools.incident_report.submit">Submit Report</button>
+            </form>
         </section>
 
         <section class="tools-list">
-            <h3>[Placeholder: Available Tools]</h3>
+            <h3 data-i18n="community_tools.list.title">Other Community Safety Tools</h3>
             <div class="tool">
-                <h4>[Placeholder: Spaza Shop OHS Checklist]</h4>
-                <p>[Placeholder: Ensure your spaza shop meets fire safety, electrical, and structural requirements per municipal bylaws and the OHS Act.]</p>
-                <button onclick="viewTool('spaza-shop')">[Placeholder: View Checklist]</button>
+                <h4 data-i18n="community_tools.list.spaza_shop.title">Spaza Shop OHS Checklist</h4>
+                <p data-i18n="community_tools.list.spaza_shop.description">Ensure your spaza shop meets fire safety, electrical, and structural requirements per municipal bylaws and the OHS Act.</p>
+                <button onclick="viewTool('spaza-shop')" data-i18n="community_tools.list.view">View Checklist</button>
             </div>
             <div class="tool">
-                <h4>[Placeholder: School Fire Safety Guide]</h4>
-                <p>[Placeholder: Learn the legal requirements for fire safety in schools, including evacuation plans and equipment.]</p>
-                <button onclick="viewTool('school-fire-safety')">[Placeholder: View Guide]</button>
+                <h4 data-i18n="community_tools.list.school.title">School Fire Safety Guide</h4>
+                <p data-i18n="community_tools.list.school.description">Learn the legal requirements for fire safety in schools, including evacuation plans and equipment.</p>
+                <button onclick="viewTool('school')" data-i18n="community_tools.list.view">View Guide</button>
             </div>
-            <!-- Add more tools -->
-        </section>
-
-        <section class="report-non-compliance">
-            <h3>[Placeholder: Report Non-Compliance]</h3>
-            <form id="report-form">
-                <label>[Placeholder: Setting (e.g., Spaza Shop, School):]</label>
-                <input type="text" id="report-setting" required>
-                <label>[Placeholder: Issue (e.g., No Fire Extinguisher):]</label>
-                <textarea id="report-issue" required></textarea>
-                <label>[Placeholder: Location:]</label>
-                <input type="text" id="report-location" required>
-                <button type="submit">[Placeholder: Submit Report]</button>
-            </form>
+            <div class="tool">
+                <h4 data-i18n="community_tools.list.hospital.title">Hospital Emergency Preparedness Guide</h4>
+                <p data-i18n="community_tools.list.hospital.description">Ensure hospitals are prepared for emergencies with proper evacuation plans and safety equipment.</p>
+                <button onclick="viewTool('hospital')" data-i18n="community_tools.list.view">View Guide</button>
+            </div>
+            <div class="tool">
+                <h4 data-i18n="community_tools.list.tavern.title">Tavern Safety Checklist</h4>
+                <p data-i18n="community_tools.list.tavern.description">Check that taverns comply with fire safety and crowd management regulations to prevent incidents.</p>
+                <button onclick="viewTool('tavern')" data-i18n="community_tools.list.view">View Checklist</button>
+            </div>
         </section>
     </main>
 
@@ -108,7 +151,7 @@
         <div class="chatbot-content" style="display: none;">
             <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
             <button data-i18n="chatbot.send">Send</button>
-            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+            <p data-i18n="chatbot.response">I'm here to help! For personalized OHS advice, please contact a professional.</p>
         </div>
     </div>
 
