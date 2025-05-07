@@ -6,823 +6,186 @@
     <meta name="description" content="Ensure construction health and safety compliance with Salatiso OHS Tools.">
     <meta name="keywords" content="OHS tools, construction safety, occupational health and safety, safety plans, South Africa OHS, Salatiso">
     <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title data-i18n="header.title">Salatiso OHS Tools - Construction Health and Safety</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title data-i18n="page_title.construction">Salatiso OHS Tools - Construction Health and Safety</title> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
     <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Custom base styles */
         body {
             font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f5f6f5;
-            overflow-x: hidden;
-            flex-direction: row;
         }
-
-        /* Header */
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, #wizard-content h3, #wizard-sidebar h4, .legal-card h3, .cart-container h3, .resources h3 {
+             font-family: 'Montserrat', sans-serif;
+        }
+        /* Adjustments for fixed header and sidebar */
+        body {
+            padding-top: 80px; /* Adjust based on actual header height */
+            display: flex;
+        }
+        .sidebar {
+            position: fixed;
+            top: 80px; /* Match body padding-top */
+            left: 0;
+            bottom: 0;
+            width: 250px; /* Fixed sidebar width */
+            overflow-y: auto;
+            z-index: 40; /* Below header */
+        }
+        .main-content {
+            margin-left: 250px; /* Same as sidebar width */
+            flex-grow: 1; /* Take remaining space */
+            padding: 1.5rem; /* Equivalent to p-6 */
+            min-height: calc(100vh - 80px); /* Full height minus header */
+            display: flex;
+            flex-direction: column;
+        }
+        .intro {
+            /* Removed flex-grow: 1 to allow other sections to push footer down */
+        }
         header {
-            background-color: #1a2526;
-            color: white;
-            padding: 10px 15px;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 90;
+            z-index: 50; /* Ensure header is on top */
         }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo-placeholder {
-            font-size: 12px;
-            font-style: italic;
-            background-color: #fff;
-            color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            width: 180px;
-            height: 40px;
-            line-height: 20px;
-        }
-
-        .header-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 8px;
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-
-        .search-bar {
-            margin-top: 5px;
-        }
-
-        .search-bar input {
-            padding: 4px;
-            border: none;
-            border-radius: 2px;
-            font-size: 14px;
-            width: 150px;
-        }
-
-        .search-bar button {
-            padding: 4px 8px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .search-bar button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Language Selector */
-        .language-selector {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 100;
-        }
-
-        .language-selector select {
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-
-        .language-selector select:focus {
-            outline: 2px solid #ff6f61;
-            outline-offset: 2px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 60px;
-            width: 200px;
-            background-color: #f4f4f4;
-            border-right: 1px solid #ddd;
-            padding: 15px;
-            min-height: calc(100vh - 60px);
-            overflow-y: auto;
-            z-index: 80;
-        }
-
-        .sidebar-content .logo-placeholder {
-            margin-bottom: 15px;
-        }
-
-        .sidebar-content h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .sidebar-content a {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            color: #1a2526;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .sidebar-content a:hover {
-            background-color: #e0e0e0;
-        }
-
-        .sidebar-content a.disabled {
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        .sidebar-content .icon {
-            margin-right: 5px;
-        }
-
-        .sidebar-content a.active {
-            color: #ff6f61;
-            font-weight: bold;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 200px;
-            padding: 80px 20px 20px 20px;
-            min-height: 100vh;
-            max-width: 1200px;
-        }
-
-        .intro h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .intro p {
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        /* Legal Obligations (Fixed Cards) */
-        .legal-obligations {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .legal-card {
-            flex: 1;
-            min-width: 300px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .legal-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-        }
-
-        .legal-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 12px;
-            color: #1a2526;
-        }
-
-        .legal-card p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .action-buttons button {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        .action-buttons button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Wizard Container */
-        #wizard-container {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            display: flex;
-            gap: 20px;
-        }
-
-        #wizard-content {
-            flex: 1;
-        }
-
-        #wizard-content h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #1a2526;
-        }
-
-        /* Sidebar for Legislation/Fun Facts */
-        #wizard-sidebar {
-            width: 300px;
-            background-color: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        #wizard-sidebar h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #1a2526;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #wizard-sidebar p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        #wizard-sidebar .fun-fact {
-            font-style: italic;
-            color: #ff6f61;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .progress-bar {
-            margin-bottom: 20px;
-            background-color: #e0e0e0;
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: #34C759;
-            transition: width 0.3s ease;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            max-width: 400px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        .form-group .error {
-            color: #ff6f61;
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-        /* Step 1 Table */
-        .document-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-
-        .document-table th,
-        .document-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .document-table th {
-            background-color: #f0f0f0;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-        }
-
-        .document-table td.document-name {
-            font-weight: bold;
-        }
-
-        .document-table .emoji {
-            margin-right: 5px;
-        }
-
-        /* Activities Categories */
-        .activities-categories details {
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fafafa;
-        }
-
-        .activities-categories summary {
-            padding: 10px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.2s ease;
-        }
-
-        .activities-categories summary:hover {
-            background-color: #e0e0e0;
-        }
-
-        .activities-categories .category-content {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-        }
-
-        .activities-categories .checkbox-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .activities-categories .checkbox-item label {
-            font-weight: normal;
-            margin-left: 5px;
-            font-size: 14px;
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .nav-buttons button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #back-btn {
-            background-color: #666;
-            color: white;
-        }
-
-        #back-btn:hover {
-            background-color: #555;
-        }
-
-        #next-btn {
-            background-color: #ff6f61;
-            color: white;
-        }
-
-        #next-btn:hover {
-            background-color: #e65a50;
-        }
-
-        /* Cart */
-        .cart-container {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-container h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .checkout {
-            margin-top: 10px;
-        }
-
-        .checkout input {
-            padding: 8px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            font-size: 14px;
-        }
-
-        #checkout-btn {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #checkout-btn:hover {
-            background-color: #e65a50;
-        }
-
-        /* Resources Section */
-        .resources {
-            margin: 20px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .resources h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .resources ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .resources li {
-            padding: 8px 0;
-            font-size: 14px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .resources li:last-child {
-            border-bottom: none;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a2526;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            margin-top: auto;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #ff6f61;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .newsletter {
-            margin-top: 10px;
-        }
-
-        .newsletter h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .newsletter input {
-            padding: 8px;
-            border: none;
-            border-radius: 2px;
-            margin-right: 10px;
-            font-size: 14px;
-            width: 150px;
-        }
-
-        .newsletter button {
-            padding: 8px 16px;
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        .newsletter button:hover {
-            background-color: #e65a50;
-        }
-
-        /* Chatbot */
+        /* Chatbot styles */
         .chatbot-container {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
+            bottom: 1.25rem; /* Equivalent to bottom-5 */
+            right: 1.25rem; /* Equivalent to right-5 */
             z-index: 1000;
         }
-
-        .chat-toggle-btn {
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s ease;
-        }
-
-        .chat-toggle-btn:hover {
-            background-color: #e65a50;
-        }
-
-        .chat-icon {
-            margin-right: 5px;
-            font-size: 16px;
-        }
-
         #chat-window {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            width: 250px;
-            max-height: 350px;
+            width: 300px;
+            max-height: 400px;
             overflow-y: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            margin-top: 8px;
         }
-
         .chat-hidden {
             display: none;
         }
-
         #chat-output {
-            padding: 8px;
-            font-size: 14px;
-            flex: 1;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
+            flex-grow: 1;
+        }
+        #chat-input-container {
+             display: flex;
+             border-top-width: 1px;
+        }
+         #chat-input {
+             flex-grow: 1;
+             border: none;
+             padding: 0.5rem; /* p-2 */
+         }
+         #chat-send {
+             border: none;
+             padding: 0.5rem 1rem; /* p-2 px-4 */
+             cursor: pointer;
+         }
+         /* Wizard Sidebar specific styles */
+         #wizard-sidebar {
+             max-height: calc(100vh - 120px); /* Adjust based on header/padding */
+             overflow-y: auto;
+         }
+         /* Style for active sidebar link */
+         .sidebar a.active {
+             color: #3b82f6; /* Example active color (Tailwind blue-500) */
+             font-weight: 600; /* semibold */
+             background-color: rgba(59, 130, 246, 0.1); /* Light blue background */
+             border-left: 3px solid #3b82f6;
+             padding-left: calc(1rem - 3px); /* Adjust padding */
+         }
+         /* Ensure details/summary work well */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::before {
+             content: '► ';
+             font-size: 0.8em;
+             margin-right: 4px;
+        }
+        details[open] > summary::before {
+             content: '▼ ';
+        }
+        /* Style for form elements */
+        .form-group input, .form-group select, .form-group textarea {
+            @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm;
+        }
+        .form-group label {
+             @apply block text-sm font-medium text-gray-700;
+        }
+        .form-group .error {
+             @apply text-red-500 text-xs mt-1;
         }
 
-        #chat-input {
-            width: 70%;
-            padding: 8px;
-            border: none;
-            border-top: 1px solid #ddd;
-            font-size: 14px;
-        }
 
-        #chat-send {
-            width: 30%;
-            padding: 8px;
-            background-color: #1a2526;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-
-        #chat-send:hover {
-            background-color: #2a3536;
-        }
-
-        /* Accessibility Focus Styles */
-        a:focus, button:focus, input:focus, select:focus, textarea:focus {
-            outline: 2px solid #ff6f61;
-            outline-offset: 2px;
-        }
-
-        /* Screen Reader Only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-
-        /* Responsive Design */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
+            body {
+                padding-top: 0; /* Remove top padding */
+                flex-direction: column; /* Stack elements vertically */
+            }
+            header {
+                position: relative; /* Make header part of the flow */
+            }
             .sidebar {
+                position: relative; /* Make sidebar part of the flow */
+                top: 0;
                 width: 100%;
                 height: auto;
-                position: relative;
-                top: 0;
+                bottom: auto;
+                z-index: 1; /* Reset z-index */
             }
-
             .main-content {
-                margin-left: 0;
-                padding-top: 120px;
-                padding-left: 10px;
-                padding-right: 10px;
+                margin-left: 0; /* Remove left margin */
+                min-height: auto; /* Adjust min-height */
             }
-
-            header {
-                position: relative;
+            .intro, #wizard-container, #cart-container, .resources {
+                 margin: 1rem; /* Adjust margin */
             }
-
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .logo-placeholder {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .intro {
-                margin: 10px 0;
-            }
-
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-links a {
-                margin: 5px 8px;
-            }
-
-            .legal-obligations {
-                flex-direction: column;
-            }
-
-            .legal-card {
-                min-width: 100%;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                max-width: 100%;
-            }
-
-            #wizard-container,
-            .cart-container,
-            .resources {
-                padding: 15px;
-            }
-
             #wizard-container {
                 flex-direction: column;
             }
-
             #wizard-sidebar {
                 width: 100%;
-                margin-top: 20px;
+                margin-top: 1rem;
+                max-height: none; /* Remove height limit */
             }
-
-            .activities-categories .category-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
+            .legal-obligations {
                 flex-direction: column;
-            }
-
-            .nav-buttons button {
-                width: 100%;
-            }
-
-            .action-buttons button {
-                width: 100%;
-                margin: 5px 0;
-            }
-
-            .chat-window {
-                width: 90%;
-                right: 5%;
-            }
-
-            .language-selector {
-                top: 100px;
-                right: 10px;
             }
         }
     </style>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
-    <!-- Add i18next libraries -->
-    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <div class="header-content">
-                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
-                <nav role="navigation" aria-label="Main navigation">
-                    <div class="nav-links">
-                        <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
-                        <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
-                        <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
-                        <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
-                        <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
-                        <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
-                        <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
+<body class="bg-gray-100">
+    <header class="bg-gray-900 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="logo-placeholder bg-white text-gray-800 p-2 rounded text-sm text-center w-full md:w-[250px] mb-4 md:mb-0 md:mr-6">
+                [Logo Placeholder - Reserved for Salatiso OHS Tools Logo]
+            </div>
+            <div class="header-content flex-grow w-full">
+                <h1 class="text-3xl font-bold mb-2 text-center md:text-left" data-i18n="header.title">Salatiso OHS Tools</h1>
+                <nav role="navigation" aria-label="Main navigation" class="flex flex-col md:flex-row justify-between items-center w-full">
+                    <div class="nav-links mb-4 md:mb-0">
+                        <a href="/safety-plans/index.html" data-i18n="header.nav.home" class="px-3 py-2 hover:text-blue-400">Home</a>
+                        <a href="/safety-plans/resources.html" data-i18n="header.nav.resources" class="px-3 py-2 hover:text-blue-400">Resources</a>
+                        <a href="/safety-plans/services.html" data-i18n="header.nav.services" class="px-3 py-2 hover:text-blue-400">Services</a>
+                        <a href="/safety-plans/community.html" data-i18n="header.nav.community" class="px-3 py-2 hover:text-blue-400">Community</a>
+                        <a href="/safety-plans/about.html" data-i18n="header.nav.about" class="px-3 py-2 hover:text-blue-400">About</a>
+                        <a href="/safety-plans/contact.html" data-i18n="header.nav.contact" class="px-3 py-2 hover:text-blue-400">Contact</a>
+                        <a href="#" id="login-link" data-i18n="header.nav.login" class="px-3 py-2 hover:text-blue-400">Login</a>
                     </div>
-                    <div class="search-bar">
-                        <form role="search">
-                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools">
-                            <button type="submit" aria-label="Search" data-i18n="header.search.button">Search</button>
+                    <div class="search-bar w-full md:w-auto">
+                        <form role="search" class="flex">
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800 flex-grow">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
                         </form>
                     </div>
                 </nav>
@@ -830,10 +193,9 @@
         </div>
     </header>
 
-    <!-- Language Selector -->
-    <div class="language-selector">
+     <div class="fixed top-20 right-5 z-[100]">
         <label for="language-select" class="sr-only" data-i18n="language_selector.label">Select Language</label>
-        <select id="language-select" aria-label="Select Language">
+        <select id="language-select" aria-label="Select Language" class="p-1 rounded border border-gray-300 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="en" data-i18n="language_selector.en">English</option>
             <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
             <option value="af" data-i18n="language_selector.af">Afrikaans</option>
@@ -853,135 +215,156 @@
         </select>
     </div>
 
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <div class="logo-placeholder">[Logo Placeholder - Reserved for Salatiso OHS Tools Logo]</div>
-            <h3 data-i18n="sidebar.ohs_tools">OHS Tools</h3>
-            <a href="/safety-plans/pages/construction-compliance.html" class="active"><span class="icon">🏗️</span> <span data-i18n="sidebar.construction_safety">Construction Health and Safety</span></a>
-            <a href="/safety-plans/pages/emergency-response-plan.html"><span class="icon">🚨</span> <span data-i18n="sidebar.emergency_planning">Emergency Response Planning</span></a>
-            <a href="/safety-plans/pages/risk-assessment.html"><span class="icon">⚠️</span> <span data-i18n="sidebar.risk_assessment">Risk Assessment</span></a>
-            <a href="/safety-plans/pages/legal-appointments.html" class="disabled" title="Coming Soon"><span class="icon">📜</span> <span data-i18n="sidebar.legal_appointments">Legal Appointments</span></a>
-            <a href="/safety-plans/pages/incident-management.html" class="disabled" title="Coming Soon"><span class="icon">🚑</span> <span data-i18n="sidebar.incident_management">Incident Management</span></a>
-            <a href="/safety-plans/pages/training.html"><span class="icon">🎓</span> <span data-i18n="sidebar.training">Training</span></a>
-            <a href="/safety-plans/pages/inspections-audits.html"><span class="icon">🔍</span> <span data-i18n="sidebar.inspections_audits">Inspections & Audits</span></a>
-        </div>
-    </div>
+    <aside class="sidebar bg-gray-900 text-gray-200 p-5">
+        <h2 data-i18n="sidebar.ohs_tools" class="text-2xl font-bold mb-6 text-white">OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block py-2 px-1 hover:text-blue-400 active">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block py-2 px-1 hover:text-blue-400">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block py-2 px-1 hover:text-blue-400">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400 text-gray-500 cursor-not-allowed" title="Coming Soon">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400 text-gray-500 cursor-not-allowed" title="Coming Soon">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block py-2 px-1 hover:text-blue-400">Member Dashboard</a></li>
+        </ul>
+        <div id="sidebar-step-info" class="step-info mt-8 p-4 bg-gray-800 rounded">
+            </div>
+    </aside>
 
-    <div class="main-content">
-        <section class="intro">
-            <h2 data-i18n="intro.title">Construction Health and Safety</h2>
-            <p data-i18n="intro.description">Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
-            <p data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf">Click Here</a></p>
+    <div class="main-content bg-gray-100">
+        <section class="intro bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-3" data-i18n="intro.title">Construction Health and Safety</h2>
+            <p class="text-gray-600 mb-4" data-i18n="intro.description">Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
+            <p class="text-gray-600" data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf" class="text-blue-500 hover:underline">Click Here</a></p>
 
-            <!-- Legal Obligations (Fixed Cards) -->
-            <div class="legal-obligations">
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.client.title">Client Obligations</h3>
-                    <p data-i18n="legal_obligations.client.reg_5_1_a"><strong>Construction Regulation 5(1)(a):</strong> Prepare a Baseline Risk Assessment (BRA) identifying project hazards.</p>
-                    <p data-i18n="legal_obligations.client.reg_5_1_b"><strong>Construction Regulation 5(1)(b):</strong> Provide a Health & Safety Specification outlining project-specific requirements.</p>
-                    <p data-i18n="legal_obligations.client.reg_5_1_l"><strong>Construction Regulation 5(1)(l):</strong> Approve the Contractor’s Health & Safety Plan before work begins.</p>
+            <div class="legal-obligations mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.client.title">Client Obligations</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.client.reg_5_1_a"><strong>Reg 5(1)(a):</strong> Prepare Baseline Risk Assessment (BRA).</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.client.reg_5_1_b"><strong>Reg 5(1)(b):</strong> Provide H&S Specification.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.client.reg_5_1_l"><strong>Reg 5(1)(l):</strong> Approve Contractor’s H&S Plan.</p>
                 </div>
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.contractor.title">Contractor Obligations</h3>
-                    <p data-i18n="legal_obligations.contractor.reg_7_1_a"><strong>Construction Regulation 7(1)(a):</strong> Develop a Health & Safety Plan based on the Client’s specification.</p>
-                    <p data-i18n="legal_obligations.contractor.reg_7_1_b"><strong>Construction Regulation 7(1)(b):</strong> Maintain an on-site Health & Safety File with all required documents.</p>
-                    <p data-i18n="legal_obligations.contractor.reg_9"><strong>Construction Regulation 9:</strong> Conduct task-specific Hazard Identification and Risk Assessments (HIRAs).</p>
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.contractor.title">Contractor Obligations</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.contractor.reg_7_1_a"><strong>Reg 7(1)(a):</strong> Develop H&S Plan.</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.contractor.reg_7_1_b"><strong>Reg 7(1)(b):</strong> Maintain H&S File on-site.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.contractor.reg_9"><strong>Reg 9:</strong> Conduct task HIRAs.</p>
                 </div>
-                <div class="legal-card">
-                    <h3 data-i18n="legal_obligations.professional.title">H&S Professional Obligations</h3>
-                    <p data-i18n="legal_obligations.professional.reg_5_5"><strong>Construction Regulation 5(5):</strong> Agents (PrCHSA) manage H&S on behalf of the Client, ensuring compliance.</p>
-                    <p data-i18n="legal_obligations.professional.reg_8_5"><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
-                    <p data-i18n="legal_obligations.professional.sacpcmp"><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.professional.title">H&S Professional Obligations</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.professional.reg_5_5"><strong>Reg 5(5):</strong> PrCHSA manages H&S for Client.</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.professional.reg_8_5"><strong>Reg 8(5):</strong> CHSO assists Contractor.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.professional.sacpcmp"><strong>SACPCMP:</strong> Maintain registration & CPD.</p>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button onclick="startWizard('hs-spec')" data-i18n="action_buttons.hs_spec">Compile Health and Safety Specification</button>
-                <button onclick="startWizard('hs-plan')" data-i18n="action_buttons.hs_plan">Compile Health and Safety Plan</button>
-                <button onclick="startWizard('risk-assessment')" data-i18n="action_buttons.risk_assessment">Compile Risk Assessment</button>
-                <button onclick="startWizard('training')" data-i18n="action_buttons.training">Conduct Training</button>
-                <button onclick="startWizard('appointments')" data-i18n="action_buttons.appointments">Make Legal Appointments</button>
-                <button onclick="startWizard('inspections')" data-i18n="action_buttons.inspections">Conduct Inspections/Audits</button>
-                <button onclick="startWizard('incidents')" data-i18n="action_buttons.incidents">Manage Incidents</button>
-                <button onclick="startWizard('reports')" data-i18n="action_buttons.reports">Compile Reports</button>
-                <button onclick="startWizard('hs-file')" data-i18n="action_buttons.hs_file">Compile Health and Safety File</button>
+            <div class="action-buttons mt-6 flex flex-wrap gap-3">
+                <button onclick="startWizard('hs-spec')" data-i18n="action_buttons.hs_spec" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile H&S Specification</button>
+                <button onclick="startWizard('hs-plan')" data-i18n="action_buttons.hs_plan" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile H&S Plan</button>
+                <button onclick="startWizard('risk-assessment')" data-i18n="action_buttons.risk_assessment" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Risk Assessment</button>
+                <button onclick="startWizard('training')" data-i18n="action_buttons.training" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Conduct Training</button>
+                <button onclick="startWizard('appointments')" data-i18n="action_buttons.appointments" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Make Legal Appointments</button>
+                <button onclick="startWizard('inspections')" data-i18n="action_buttons.inspections" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Conduct Inspections/Audits</button>
+                <button onclick="startWizard('incidents')" data-i18n="action_buttons.incidents" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Manage Incidents</button>
+                <button onclick="startWizard('reports')" data-i18n="action_buttons.reports" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Reports</button>
+                <button onclick="startWizard('hs-file')" data-i18n="action_buttons.hs_file" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile H&S File</button>
             </div>
-
-            <!-- Wizard Container -->
-            <div id="wizard-container">
-                <div id="wizard-content">
-                    <!-- Steps will be dynamically rendered here -->
-                </div>
-                <div id="wizard-sidebar">
-                    <!-- Legislation and fun facts will be dynamically rendered here -->
-                </div>
-            </div>
-
-            <!-- Cart Section -->
-            <div id="cart-container" class="cart-container hidden">
-                <h3 data-i18n="cart.title">Your Cart</h3>
-                <p id="invoice-reference" class="hidden" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number"></span> (Valid for 7 days. Register to store indefinitely!)</p>
-                <table id="cart-table">
-                    <thead>
-                        <tr>
-                            <th data-i18n="cart.table.document">Document</th>
-                            <th data-i18n="cart.table.price">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items"></tbody>
-                </table>
-                <div class="checkout">
-                    <label for="promo-code" data-i18n="cart.checkout.promo_label">Promo Code:</label>
-                    <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code">
-                    <button id="checkout-btn" data-i18n="cart.checkout.button">Checkout</button>
-                </div>
-            </div>
-
-            <!-- Resource Database -->
-            <section class="resources">
-                <h3 data-i18n="resources.title">Contact Accredited H&S Professionals</h3>
-                <p data-i18n="resources.description">Need expert assistance? Reach out to accredited professionals for your project needs.</p>
-                <ul>
-                    <li data-i18n="resources.jane_doe"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: jane.doe@example.com</li>
-                    <li data-i18n="resources.john_smith"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: john.smith@example.com</li>
-                    <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: emily.brown@example.com</li>
-                </ul>
-            </section>
         </section>
 
-        <footer>
-            <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All rights reserved.</p>
-            <p>
-                <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy">Privacy Policy</a> |
-                <a href="/safety-plans/terms.html" data-i18n="footer.links.terms">Terms of Service</a> |
-                <a href="/safety-plans/contact.html" data-i18n="footer.links.contact">Contact Us</a>
-            </p>
-            <div class="newsletter">
-                <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
-                <form>
-                    <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="submit" data-i18n="footer.newsletter.button">Subscribe</button>
-                </form>
+        <div id="wizard-container" class="mt-6 bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col md:flex-row gap-6 hidden">
+            <div id="wizard-content" class="flex-grow">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Compliance Wizard</h3>
+                <div id="progress-bar" class="progress-bar w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                    <div id="progress-fill" class="progress-fill bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <div id="step-content">
+                    </div>
+                <div class="nav-buttons mt-6 flex justify-between">
+                    <button id="back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow transition duration-300 disabled:opacity-50" disabled>Back</button>
+                    <button id="next-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition duration-300">Next</button>
+                </div>
+            </div>
+            <div id="wizard-sidebar" class="w-full md:w-1/3 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-inner">
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Relevant Info</h4>
+                <div id="sidebar-legislation"></div>
+                <div id="sidebar-fun-fact" class="mt-4"></div>
+            </div>
+        </div>
+
+        <div id="cart-container" class="cart-container mt-6 bg-white p-6 rounded-lg shadow-md mb-6 hidden">
+            <h3 data-i18n="cart.title" class="text-xl font-semibold text-gray-700 mb-4">Your Cart</h3>
+            <p id="invoice-reference" class="hidden text-sm text-gray-600 mb-4" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number" class="font-medium"></span> (Valid for 7 days. Register to store indefinitely!)</p>
+            <div class="overflow-x-auto">
+                <table id="cart-table" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th data-i18n="cart.table.document" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document</th>
+                            <th data-i18n="cart.table.price" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items" class="bg-white divide-y divide-gray-200">
+                        </tbody>
+                </table>
+            </div>
+            <div class="checkout mt-6 flex items-center gap-4">
+                <label for="promo-code" data-i18n="cart.checkout.promo_label" class="text-sm font-medium text-gray-700">Promo Code:</label>
+                <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code" class="px-3 py-1 border border-gray-300 rounded-md shadow-sm text-sm">
+                <button id="checkout-btn" data-i18n="cart.checkout.button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow transition duration-300 text-sm">Checkout</button>
+            </div>
+        </div>
+
+        <section class="resources mt-6 bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 data-i18n="resources.title" class="text-xl font-semibold text-gray-700 mb-3">Contact Accredited H&S Professionals</h3>
+            <p data-i18n="resources.description" class="text-gray-600 mb-4 text-sm">Need expert assistance? Reach out to accredited professionals for your project needs.</p>
+            <ul class="space-y-2 text-sm">
+                <li data-i18n="resources.jane_doe" class="border-b border-gray-200 pb-2"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: <a href="mailto:jane.doe@example.com" class="text-blue-500 hover:underline">jane.doe@example.com</a></li>
+                <li data-i18n="resources.john_smith" class="border-b border-gray-200 pb-2"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: <a href="mailto:john.smith@example.com" class="text-blue-500 hover:underline">john.smith@example.com</a></li>
+                <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: <a href="mailto:emily.brown@example.com" class="text-blue-500 hover:underline">emily.brown@example.com</a></li>
+            </ul>
+        </section>
+
+        <footer class="bg-gray-900 text-white py-8 mt-auto">
+            <div class="container mx-auto px-6 text-center">
+                <p class="mb-2" data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All rights reserved.</p>
+                <p class="mb-4">
+                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
+                </p>
+                <div class="newsletter mt-6">
+                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                    <form class="flex justify-center">
+                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </footer>
     </div>
 
-    <!-- Chatbot Widget -->
     <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn">
-            <span class="chat-icon">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
         </button>
-        <div id="chat-window" class="chat-hidden">
-            <div id="chat-output"></div>
-            <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS">
-            <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send">Send</button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                 <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
+            </div>
         </div>
     </div>
 
-    <script src="/safety-plans/assets/js/common.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script src="/safety-plans/assets/js/i18n.js"></script> <script src="/safety-plans/assets/js/common.js"></script>
     <script src="/safety-plans/assets/js/chatbot.js"></script>
     <script src="/safety-plans/assets/js/ohs-data.js"></script>
-    <script src="/safety-plans/assets/js/construction-compliance.js"></script>
-</body>
+    <script src="/safety-plans/assets/js/construction-compliance.js"></script> </body>
 </html>
