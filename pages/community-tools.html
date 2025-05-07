@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Safety Tools | Salatiso Safety Plans</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/community-tools.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
+                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
+                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
+                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
+                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
+                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
+                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
+                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
+                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Community Tools..." data-i18n="[placeholder]header.search.placeholder">
+                <button data-i18n="header.search.button">Search</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
+        <ul>
+            <li><a href="construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="suppliers.html" data-i18n="sidebar.suppliers">[Placeholder: Suppliers]</a></li>
+            <li><a href="legislation.html" data-i18n="sidebar.legislation">[Placeholder: Legislation]</a></li>
+            <li><a href="community-tools.html" class="active" data-i18n="sidebar.community_tools">[Placeholder: Community Tools]</a></li>
+        </ul>
+        <div class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">[Placeholder: Community Safety Tools]</h3>
+            <p data-i18n="sidebar.step_0.description">[Placeholder: Access tools to improve safety in community settings like spaza shops, schools, and hospitals. Report non-compliance to help reduce fatalities in high-risk areas.]</p>
+            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">[Placeholder: Fun Fact: Proper fire safety in spaza shops can prevent up to 50% of fire-related incidents!]</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <section class="intro">
+            <h2 data-i18n="community_tools.title">[Placeholder: Community Safety Tools]</h2>
+            <p data-i18n="community_tools.description">[Placeholder: Use these tools to ensure safety in community settings like spaza shops, schools, hospitals, and taverns. Learn about OHS requirements and report non-compliance to improve local safety conditions.]</p>
+        </section>
+
+        <section class="tools-list">
+            <h3>[Placeholder: Available Tools]</h3>
+            <div class="tool">
+                <h4>[Placeholder: Spaza Shop OHS Checklist]</h4>
+                <p>[Placeholder: Ensure your spaza shop meets fire safety, electrical, and structural requirements per municipal bylaws and the OHS Act.]</p>
+                <button onclick="viewTool('spaza-shop')">[Placeholder: View Checklist]</button>
+            </div>
+            <div class="tool">
+                <h4>[Placeholder: School Fire Safety Guide]</h4>
+                <p>[Placeholder: Learn the legal requirements for fire safety in schools, including evacuation plans and equipment.]</p>
+                <button onclick="viewTool('school-fire-safety')">[Placeholder: View Guide]</button>
+            </div>
+            <!-- Add more tools -->
+        </section>
+
+        <section class="report-non-compliance">
+            <h3>[Placeholder: Report Non-Compliance]</h3>
+            <form id="report-form">
+                <label>[Placeholder: Setting (e.g., Spaza Shop, School):]</label>
+                <input type="text" id="report-setting" required>
+                <label>[Placeholder: Issue (e.g., No Fire Extinguisher):]</label>
+                <textarea id="report-issue" required></textarea>
+                <label>[Placeholder: Location:]</label>
+                <input type="text" id="report-location" required>
+                <button type="submit">[Placeholder: Submit Report]</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
+            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
+            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+        </div>
+        <div class="newsletter">
+            <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
+            <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter.placeholder">
+            <button data-i18n="footer.newsletter.button">Subscribe</button>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button data-i18n="chatbot.button">Ask Me</button>
+        <div class="chatbot-content" style="display: none;">
+            <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
+            <button data-i18n="chatbot.send">Send</button>
+            <p data-i18n="chatbot.response">[Placeholder: I'm here to help! For personalized OHS advice, please contact a professional.]</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/community-tools.js"></script>
+</body>
+</html>
