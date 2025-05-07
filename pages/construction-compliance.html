@@ -211,6 +211,29 @@
             margin-bottom: 8px;
         }
 
+        /* Action Buttons */
+        .action-buttons {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 16px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #e65a50;
+        }
+
         /* Wizard Container */
         #wizard-container {
             margin: 20px 0;
@@ -716,6 +739,11 @@
                 width: 100%;
             }
 
+            .action-buttons button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
             .info-tooltip {
                 width: 200px;
                 left: 0;
@@ -801,6 +829,19 @@
                     <p><strong>Construction Regulation 8(5):</strong> Officers (CHSO) assist Contractors in implementing and monitoring H&S systems.</p>
                     <p><strong>SACPCMP Guidelines:</strong> Must maintain registration and CPD requirements for professional roles.</p>
                 </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button onclick="startWizard('hs-spec')">Compile Health and Safety Specification</button>
+                <button onclick="startWizard('hs-plan')">Compile Health and Safety Plan</button>
+                <button onclick="startWizard('risk-assessment')">Compile Risk Assessment</button>
+                <button onclick="startWizard('training')">Conduct Training</button>
+                <button onclick="startWizard('appointments')">Make Legal Appointments</button>
+                <button onclick="startWizard('inspections')">Conduct Inspections/Audits</button>
+                <button onclick="startWizard('incidents')">Manage Incidents</button>
+                <button onclick="startWizard('reports')">Compile Reports</button>
+                <button onclick="startWizard('hs-file')">Compile Health and Safety File</button>
             </div>
 
             <!-- Wizard Container -->
