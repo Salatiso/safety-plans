@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries OHS Incident Register for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Register For: {{SCOPE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Year: {{YEAR}}\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Maintained by: {{COMPILED_BY_NAME}}\par}
+\end{titlepage}
+
+\section{OHS Incident Register}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{1cm}p{2cm}p{2cm}p{2cm}p{2cm}p{3cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}}
+        \toprule
+        \textbf{ID No.} & \textbf{Date} & \textbf{Time} & \textbf{Location} & \textbf{Person} & \textbf{Description} & \textbf{Type} & \textbf{Injury/Damage} & \textbf{Days Lost} & \textbf{Inv. Report No.} & \textbf{Root Cause} & \textbf{Corrective Actions} & \textbf{CAPA Closed} & \textbf{Statutory Reported} & \textbf{Comments} \\
+        \midrule
+        & & & & & & & & & & & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{OHS Incident Register}
+\end{table}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
