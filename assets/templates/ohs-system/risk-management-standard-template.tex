@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Risk Management Standard for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Standard Number: RMS-001\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Effective Date: {{DATE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Review Date: {{REVIEW_DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}, CEO\par}
+\end{titlepage}
+
+\section{Introduction}
+This Risk Management Standard provides the framework and minimum requirements for identifying, assessing, and controlling risks across {{COMPANY_NAME}}. It supports the {{COMPANY_NAME}} Risk Management Policy and aims to ensure a consistent and effective approach to managing risks in alignment with ISO 45001 and SANS 31000 standards.
+
+\section{Purpose}
+The purpose of this standard is to:
+\begin{itemize}
+    \item Define the core elements of {{COMPANY_NAME}}'s Risk Management System.
+    \item Outline the responsibilities for implementing and maintaining the system.
+    \item Ensure compliance with legal, regulatory, and other requirements related to risk management.
+    \item Provide a basis for the development of site-specific Risk Assessment Plans.
+\end{itemize}
+
+\section{Scope}
+This standard applies to all {{COMPANY_NAME}} facilities, operations, employees, contractors, and visitors as defined in the Risk Management Policy.
+
+\section{Definitions}
+Refer to the {{COMPANY_NAME}} Risk Management Policy for key definitions. Additional definitions specific to this standard include:
+\begin{itemize}
+    \item \textbf{Risk Register:} A documented record of identified risks, their assessments, and control measures.
+    \item \textbf{Hierarchy of Controls:} A system for prioritizing risk control measures, starting with elimination, followed by substitution, engineering controls, administrative controls, and PPE.
+\end{itemize}
+
+\section{Legal and Standard References}
+This standard is based on and aims to comply with:
+\begin{itemize}
+    \item \textbf{South African Legislation:}
+    \begin{itemize}
+        \item Occupational Health and Safety Act 85 of 1993, Section 8: Duty to manage risks.
+    \end{itemize}
+    \item \textbf{South African National Standards (SANS):}
+    \begin{itemize}
+        \item SANS 31000: Risk Management – Guidelines.
+        \item SANS 45001: Occupational Health and Safety Management Systems.
+    \end{itemize}
+    \item \textbf{International Standards:}
+    \begin{itemize}
+        \item ISO 45001:2018, Clause 6.1: Actions to address risks and opportunities.
+    \end{itemize}
+\end{itemize}
+
+\section{Key Elements of the Risk Management System}
+
+\subsection{Leadership and Commitment}
+Top management shall demonstrate leadership and commitment to risk management as outlined in the Risk Management Policy.
+
+\subsection{Planning}
+
+\subsubsection{Hazard Identification and Risk Assessment (HIRA)}
+A systematic HIRA process shall be established to identify hazards and assess risks, considering:
+\begin{itemize}
+    \item Work activities, processes, and materials.
+    \item Workplace layout and conditions.
+    \item Historical incident data.
+    \item Employee feedback and observations.
+\end{itemize}
+
+\subsubsection{Risk Assessment Plan Development}
+A documented Risk Assessment Plan shall be developed for each {{COMPANY_NAME}} site, based on the HIRA findings.
+
+\subsection{Support}
+
+\subsubsection{Resources}
+{{COMPANY_NAME}} shall provide resources for risk management, including competent personnel, tools, and training.
+
+\subsubsection{Roles, Responsibilities, and Authorities}
+Roles shall be defined, including the appointment of personnel responsible for conducting HIRAs and maintaining risk registers.
+
+\subsubsection{Competence, Training, and Awareness}
+All employees shall receive training on risk identification and control, with specialized training for those conducting HIRAs.
+
+\subsection{Operation}
+
+\subsubsection{Operational Planning and Control}
+Risk control measures shall be implemented following the hierarchy of controls, with regular monitoring to ensure effectiveness.
+
+\subsection{Performance Evaluation}
+The Risk Management System shall be monitored through audits, inspections, and reviews of incident data.
+
+\subsection{Improvement}
+Risk-related incidents and nonconformities shall be investigated, with corrective actions implemented to prevent recurrence.
+
+\section{Document Control and Record Keeping}
+All risk management documentation shall be controlled, including HIRAs, risk registers, and incident reports.
+
+\section{Standard Review}
+This standard will be reviewed at least every two years or as necessitated by changes in policy, legislation, or lessons learned.
+
+\section{Signature}
+\textbf{Approved By:}
+
+{{CEO_NAME}}\\
+\textbf{CEO, {{COMPANY_NAME}}}\\
+\textbf{Date:} {{DATE}}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
