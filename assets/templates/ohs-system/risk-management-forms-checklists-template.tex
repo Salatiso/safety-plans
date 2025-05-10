@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Risk Management Forms \& Checklists for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Document Reference: RMF-001\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date: {{DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}, CEO\par}
+\end{titlepage}
+
+\section{Risk Rating Matrix}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Likelihood} & \textbf{Severity} & \textbf{Risk Level} & \textbf{Action Required} \\
+        \midrule
+        Rare & Minor & Low & Monitor \\
+        Possible & Moderate & Medium & Implement Controls \\
+        Likely & Severe & High & Immediate Action \\
+        \bottomrule
+    \end{tabular}
+    \caption{Risk Rating Matrix}
+\end{table}
+
+\section{Risk Register Template}
+
+\textbf{Site:} {{SITE_ADDRESS}}\\
+\textbf{Last Updated:} {{DATE}}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{ID} & \textbf{Hazard} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Controls} \\
+        \midrule
+        & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Risk Register}
+\end{table}
+
+\section{HIRA Template}
+
+\textbf{Site/Location:} {{SITE_ADDRESS}}\\
+\textbf{Date of Assessment:} \_\_\_\_ \textbf{Assessor:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{ID} & \textbf{Hazard} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Controls} \\
+        \midrule
+        & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{HIRA Template}
+\end{table}
+
+\section{Risk Control Action Plan Template}
+
+\textbf{Site:} {{SITE_ADDRESS}}\\
+\textbf{Date:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{5cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{ID} & \textbf{Action} & \textbf{Responsible Person} & \textbf{Target Date} \\
+        \midrule
+        & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Risk Control Action Plan}
+\end{table}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
