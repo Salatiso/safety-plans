@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Construction OHS Forms \& Checklists for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Document Reference: COHSF-001\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date: {{DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}, CEO\par}
+\end{titlepage}
+
+\section{Legal Appointment Letter Templates}
+
+\subsection{Appointment of Construction Manager (CR 8.1)}
+\textbf{Date:} {{DATE}}\\
+\textbf{To:} {{COMPILED_BY_NAME}}\\
+\textbf{Project:} {{PROJECT_NAME}}
+
+Dear {{COMPILED_BY_NAME}},
+
+In accordance with Regulation 8(1) of the Construction Regulations, 2014, you are hereby appointed as the \textbf{Construction Manager} for the {{PROJECT_NAME}} project, effective {{DATE}}. Your duties include ensuring compliance with the H\&S Plan.
+
+Sincerely,\\
+{{CEO_NAME}}\\
+CEO, {{COMPANY_NAME}}
+
+\section{Hazard Identification and Risk Assessment (HIRA) Form Template}
+
+\textbf{Project:} {{PROJECT_NAME}}\\
+\textbf{Task/Activity:} \_\_\_\_ \textbf{Location:} {{SITE_ADDRESS}}\\
+\textbf{Date of Assessment:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Task Step} & \textbf{Hazard} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Controls} \\
+        \midrule
+        & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{HIRA Form}
+\end{table}
+
+\section{Site OHS Induction Record Form Template}
+
+\textbf{Project:} {{PROJECT_NAME}}\\
+\textbf{Date of Induction:} \_\_\_\_ \textbf{Conducted By:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Full Name} & \textbf{ID Number} & \textbf{Company} & \textbf{Signature} \\
+        \midrule
+        & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Site OHS Induction Record}
+\end{table}
+
+\section{Toolbox Talk Record Form Template}
+
+\textbf{Project:} {{PROJECT_NAME}}\\
+\textbf{Date:} \_\_\_\_ \textbf{Topic:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Full Name} & \textbf{Company} & \textbf{Signature} \\
+        \midrule
+        & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Toolbox Talk Record}
+\end{table}
+
+\section{Personal Protective Equipment (PPE) Issue Register Template}
+
+\textbf{Project:} {{PROJECT_NAME}}\\
+\textbf{Issued By:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Date} & \textbf{Employee Name} & \textbf{PPE Item} & \textbf{Qty Issued} & \textbf{Signature} \\
+        \midrule
+        & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{PPE Issue Register}
+\end{table}
+
+\section{Scaffolding Inspection Checklist Template}
+
+\textbf{Project:} {{PROJECT_NAME}}\\
+\textbf{Scaffold Location:} \_\_\_\_ \textbf{Date:} \_\_\_\_
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{6cm}p{2cm}p{3cm}}
+        \toprule
+        \textbf{Item No.} & \textbf{Inspection Point} & \textbf{Compliant (Y/N)} & \textbf{Comments} \\
+        \midrule
+        1.1 & Ground conditions suitable? & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Scaffolding Inspection Checklist}
+\end{table}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
