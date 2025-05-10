@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('invoice-reference').classList.remove('hidden');
     }
 
-    // Checkout handler (server-side PDF generation)
+    // Checkout handler (server-side PDF generation with ZIP)
 checkoutBtn.addEventListener('click', async () => {
     try {
         const companyDetails = {
@@ -452,22 +452,22 @@ checkoutBtn.addEventListener('click', async () => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to generate PDF');
+            throw new Error('Failed to generate ZIP file');
         }
 
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${selectedDocuments[0] || 'ohs-document'}.pdf`;
+        a.download = 'ohs-documents.zip';
         document.body.appendChild(a);
         a.click();
         a.remove();
         window.URL.revokeObjectURL(url);
 
-        alert('Document downloaded successfully!');
+        alert('Documents downloaded successfully as a ZIP file!');
     } catch (error) {
-        console.error('Error generating PDF:', error);
-        alert('Failed to generate PDF. Please try again.');
+        console.error('Error generating ZIP file:', error);
+        alert('Failed to generate ZIP file. Please try again.');
     }
 });
