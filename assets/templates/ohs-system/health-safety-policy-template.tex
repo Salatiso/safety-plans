@@ -1,1 +1,85 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
 
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Health and Safety Policy for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Document Reference: HSP-001\par}
+    \vspace{0.5cm}
+    {\normalsize Revision: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date: {{DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}\par}
+\end{titlepage}
+
+\section{Purpose}
+This Health and Safety Policy outlines {{COMPANY_NAME}}'s commitment to ensuring a safe and healthy workplace, in compliance with the Occupational Health and Safety Act 85 of 1993 and ISO 45001 standards.
+
+\section{Scope}
+This policy applies to all employees, contractors, and visitors at {{COMPANY_NAME}}'s premises located at {{COMPANY_ADDRESS}}.
+
+\section{Policy Statement}
+We, {{COMPANY_NAME}}, are committed to:
+\begin{itemize}
+    \item Complying with all applicable OHS legislation and standards.
+    \item Eliminating hazards and reducing risks through systematic assessments.
+    \item Promoting employee participation in safety decisions.
+    \item Continuously improving our OHS management system.
+\end{itemize}
+
+\section{Responsibilities}
+\begin{itemize}
+    \item \textbf{CEO ({{CEO_NAME}})}: Ensure policy implementation and resource allocation.
+    \item \textbf{Managers}: Implement safety procedures and training.
+    \item \textbf{Employees}: Follow safety protocols and report hazards.
+\end{itemize}
+
+\section{Arrangements}
+{{CUSTOM_CONTENT}}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
