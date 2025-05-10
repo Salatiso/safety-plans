@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Occupational Health and Safety (OHS) Legal Register for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Register For: {{SCOPE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date of This Version: {{DATE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Next Scheduled Review Date: {{REVIEW_DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Maintained by: {{COMPILED_BY_NAME}}\par}
+\end{titlepage}
+
+\section{OHS Legal Register}
+\textbf{Purpose:} To identify and maintain a record of applicable Occupational Health and Safety (OHS) legal and other requirements relevant to {{COMPANY_NAME}}'s operations, activities, products, and services, and to document how these requirements apply and are managed.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{1cm}p{3cm}p{2cm}p{2cm}p{2cm}p{2cm}p{3cm}p{3cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}}
+        \toprule
+        \textbf{ID No.} & \textbf{Title} & \textbf{Reference No.} & \textbf{Issuing Authority} & \textbf{Publication Date} & \textbf{Effective Date} & \textbf{Summary} & \textbf{Applicability} & \textbf{Obligations} & \textbf{Responsible Person} & \textbf{Access Link} & \textbf{Verification Method} & \textbf{Last Verification} & \textbf{Status} \\
+        \midrule
+        1 & Occupational Health and Safety Act & Act No. 85 of 1993 & SA Government & [Date] & [Date] & Provides for the health and safety of persons at work. & Applies to all operations and employees. & Implement OHSMS, conduct HIRAs, provide training. & CEO, OHS Dept & www.gov.za & OHSMS Audits & & \\
+        2 & Construction Regulations & GNR.84 of 7 Feb 2014 & Dept of Employment and Labour & 07/02/2014 & [Date] & Specific H\&S requirements for construction work. & Applies to all construction projects. & Develop H\&S Plans, make CR appointments. & Project Mgt, OHS Dept & DoEL Website & Project Audits & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{OHS Legal Register}
+\end{table}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
