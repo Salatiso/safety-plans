@@ -1,1 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compile a comprehensive OHS management system with SafetyHelp. Create policies, procedures, and manuals tailored to your company, aligned with ISO 45001 and South African OHS legislation.">
+    <meta name="keywords" content="OHS management system, health and safety policy, risk assessment procedure, ISO 45001, South Africa OHS, SafetyHelp">
+    <meta name="author" content="Salatiso Lonwabo Mdeni">
+    <title data-i18n="page_title.ohs_system">SafetyHelp - OHS System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            padding-top: 80px;
+            display: flex;
+            background-color: #f5f6f5;
+            overflow-x: hidden;
+            flex-direction: row;
+        }
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, #wizard-content h3, #wizard-sidebar h4, .legal-card h3, .cart-container h3, .resources h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            padding-top: 80px;
+            display: flex;
+        }
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            overflow-y: auto;
+            z-index: 40;
+        }
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 1.5rem;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+        .chatbot-container {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 1000;
+        }
+        #chat-window {
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-hidden {
+            display: none;
+        }
+        #chat-output {
+            flex-grow: 1;
+        }
+        #chat-input-container {
+            display: flex;
+            border-top-width: 1px;
+        }
+        #chat-input {
+            flex-grow: 1;
+            border: none;
+            padding: 0.5rem;
+        }
+        #chat-send {
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        #wizard-sidebar {
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        .sidebar a.active {
+            color: #3b82f6;
+            font-weight: 600;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+            padding-left: calc(1rem - 3px);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::before {
+            content: '► ';
+            font-size: 0.8em;
+            margin-right: 4px;
+        }
+        details[open] > summary::before {
+            content: '▼ ';
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm;
+        }
+        .form-group label {
+            @apply block text-sm font-medium text-gray-700;
+        }
+        .form-group .error {
+            @apply text-red-500 text-xs mt-1;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+                flex-direction: column;
+            }
+            header {
+                position: relative;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                z-index: 1;
+            }
+            .main-content {
+                margin-left: 0;
+                min-height: auto;
+            }
+            .intro, #wizard-container, #cart-container, .resources {
+                margin: 1rem;
+            }
+            #wizard-container {
+                flex-direction: column;
+            }
+            #wizard-sidebar {
+                width: 100%;
+                margin-top: 1rem;
+                max-height: none;
+            }
+            .legal-obligations {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gray-900 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="logo-placeholder bg-white text-gray-800 p-2 rounded text-sm text-center w-full md:w-[250px] mb-4 md:mb-0 md:mr-6">
+                <a href="/" class="logo">
+                    <img src="/path/to/safetyhelp-logo.svg" alt="SafetyHelp Logo" class="w-[250px] h-auto">
+                </a>
+            </div>
+            <div class="header-content flex-grow w-full">
+                <h1 class="text-3xl font-bold mb-2 text-center md:text-left" data-i18n="header.title">SafetyHelp</h1>
+                <nav role="navigation" aria-label="Main navigation" class="flex flex-col md:flex-row justify-between items-center w-full">
+                    <div class="nav-links mb-4 md:mb-0">
+                        <a href="/safety-plans/index.html" data-i18n="header.nav.home" class="px-3 py-2 hover:text-blue-400">Home</a>
+                        <a href="/safety-plans/resources.html" data-i18n="header.nav.resources" class="px-3 py-2 hover:text-blue-400">Resources</a>
+                        <a href="/safety-plans/services.html" data-i18n="header.nav.services" class="px-3 py-2 hover:text-blue-400">Services</a>
+                        <a href="/safety-plans/community.html" data-i18n="header.nav.community" class="px-3 py-2 hover:text-blue-400">Community</a>
+                        <a href="/safety-plans/about.html" data-i18n="header.nav.about" class="px-3 py-2 hover:text-blue-400">About</a>
+                        <a href="/safety-plans/contact.html" data-i18n="header.nav.contact" class="px-3 py-2 hover:text-blue-400">Contact</a>
+                        <a href="#" id="login-link" data-i18n="header.nav.login" class="px-3 py-2 hover:text-blue-400">Login</a>
+                    </div>
+                    <div class="search-bar w-full md:w-auto">
+                        <form role="search" class="flex">
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800 flex-grow">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
 
+    <div class="fixed top-20 right-5 z-[100]">
+        <label for="language-select" class="sr-only" data-i18n="language_selector.label">Select Language</label>
+        <select id="language-select" aria-label="Select Language" class="p-1 rounded border border-gray-300 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="en" data-i18n="language_selector.en">English</option>
+            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
+            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
+            <option value="nd" data-i18n="language_selector.nd">isiNdebele</option>
+            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
+            <option value="st" data-i18n="language_selector.st">Sesotho</option>
+            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
+            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
+            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
+            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
+            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
+            <option value="fr" data-i18n="language_selector.fr">Français</option>
+            <option value="zh" data-i18n="language_selector.zh">中文 (Mandarin)</option>
+            <option value="es" data-i18n="language_selector.es">Español</option>
+            <option value="sn" data-i18n="language_selector.sn">chiShona</option>
+            <option value="sw" data-i18n="language_selector.sw">Kiswahili</option>
+        </select>
+    </div>
+
+    <aside class="sidebar bg-gray-900 text-gray-200 p-5">
+        <h2 data-i18n="sidebar.ohs_tools" class="text-2xl font-bold mb-6 text-white">OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block py-2 px-1 hover:text-blue-400">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block py-2 px-1 hover:text-blue-400">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block py-2 px-1 hover:text-blue-400">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections \& Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block py-2 px-1 hover:text-blue-400">Member Dashboard</a></li>
+            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="block py-2 px-1 hover:text-blue-400 active">OHS System</a></li>
+        </ul>
+        <div id="sidebar-step-info" class="step-info mt-8 p-4 bg-gray-800 rounded">
+            <h3 data-i18n="sidebar.step_0.title" class="text-lg font-semibold mb-2 text-white">📜 Welcome to SafetyHelp</h3>
+            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+            <p class="fun-fact text-sm text-blue-300" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
+        </div>
+    </aside>
+
+    <div class="main-content bg-gray-100">
+        <section class="intro bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-3" data-i18n="ohs_system.title">Occupational Health and Safety (OHS) System</h2>
+            <p class="text-gray-600 mb-4" data-i18n="ohs_system.description">Ensure compliance with South African OHS legislation and international standards like ISO 45001 by compiling a comprehensive OHS management system for your organization. Use our interactive wizard to create essential documents, including the OHS Management System Manual, policies, procedures, and supporting forms. Customize templates with your company details and download them as PDFs, all while aligning with ISO 9000 quality management principles.</p>
+            <p class="text-gray-600" data-i18n="ohs_system.download_link">Download a Sample OHS Management System Manual: <a href="/safety-plans/resources/ohs-management-system-manual-sample.pdf" class="text-blue-500 hover:underline">Click Here</a></p>
+
+            <div class="legal-obligations mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.ohs_act.title">OHS Act Obligations</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.ohs_act.section_7"><strong>Section 7:</strong> Requires a CEO-signed Health and Safety Policy.</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.ohs_act.section_8"><strong>Section 8:</strong> Ensure a safe, risk-free workplace.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.ohs_act.section_13"><strong>Section 13:</strong> Provide OHS training to employees.</p>
+                </div>
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.coida.title">COIDA Obligations</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.coida.section_24"><strong>Section 24:</strong> Report work-related injuries.</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.coida.registration"><strong>Registration:</strong> Register with the Compensation Fund.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.coida.records"><strong>Records:</strong> Retain incident records for audits.</p>
+                </div>
+                <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legal_obligations.iso_45001.title">ISO 45001 Requirements</h3>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.iso_45001.clause_6_1_2"><strong>Clause 6.1.2:</strong> Conduct hazard identification and risk assessment.</p>
+                    <p class="text-sm text-gray-600 mb-2" data-i18n="legal_obligations.iso_45001.clause_8_2"><strong>Clause 8.2:</strong> Develop emergency response plans.</p>
+                    <p class="text-sm text-gray-600" data-i18n="legal_obligations.iso_45001.clause_9_2"><strong>Clause 9.2:</strong> Perform regular audits and inspections.</p>
+                </div>
+            </div>
+
+            <div class="action-buttons mt-6 flex flex-wrap gap-3">
+                <button onclick="startWizard('ohs-manual')" data-i18n="action_buttons.ohs_manual" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile OHS Management System Manual</button>
+                <button onclick="startWizard('health-safety-policy')" data-i18n="action_buttons.health_safety_policy" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Health and Safety Policy</button>
+                <button onclick="startWizard('risk-assessment-procedure')" data-i18n="action_buttons.risk_assessment_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Risk Assessment Procedure</button>
+                <button onclick="startWizard('incident-reporting-procedure')" data-i18n="action_buttons.incident_reporting_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Incident Reporting Procedure</button>
+                <button onclick="startWizard('emergency-response-plan')" data-i18n="action_buttons.emergency_response_plan" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Emergency Response Plan</button>
+                <button onclick="startWizard('training-induction-procedure')" data-i18n="action_buttons.training_induction_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Training and Induction Procedure</button>
+                <button onclick="startWizard('inspection-auditing-procedure')" data-i18n="action_buttons.inspection_auditing_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Inspection and Auditing Procedure</button>
+                <button onclick="startWizard('ppe-policy')" data-i18n="action_buttons.ppe_policy" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile PPE Policy</button>
+                <button onclick="startWizard('hazardous-substances-procedure')" data-i18n="action_buttons.hazardous_substances_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Hazardous Substances Procedure</button>
+                <button onclick="startWizard('machinery-equipment-safety-procedure')" data-i18n="action_buttons.machinery_equipment_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Machinery and Equipment Safety Procedure</button>
+                <button onclick="startWizard('first-aid-procedure')" data-i18n="action_buttons.first_aid_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile First Aid Procedure</button>
+                <button onclick="startWizard('fire-safety-procedure')" data-i18n="action_buttons.fire_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Fire Safety Procedure</button>
+                <button onclick="startWizard('electrical-safety-procedure')" data-i18n="action_buttons.electrical_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Electrical Safety Procedure</button>
+                <button onclick="startWizard('manual-handling-procedure')" data-i18n="action_buttons.manual_handling_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Manual Handling Procedure</button>
+            </div>
+        </section>
+
+        <div id="wizard-container" class="mt-6 bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col md:flex-row gap-6 hidden">
+            <div id="wizard-content" class="flex-grow">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">OHS System Wizard</h3>
+                <div id="progress-bar" class="progress-bar w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                    <div id="progress-fill" class="progress-fill bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <div id="step-content">
+                    <!-- Step 0: Initial Prompt -->
+                    <div id="step-0" class="step">
+                        <p data-i18n="wizard.step_0">Please select an action to start the process.</p>
+                    </div>
+                    <!-- Step 1: Select Documents -->
+                    <div id="step-1" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_1.title">Step 1 of 5: What do you want to do?</h4>
+                        <div class="form-group">
+                            <label data-i18n="wizard.step_1.label">Select the Documents you will Compile (Select all that apply):</label>
+                            <table class="document-table w-full border-collapse mb-4">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Select</th>
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ohs-manual" name="documents" value="ohs-manual" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_manual"><span class="emoji">📋</span> OHS Management System Manual</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="health-safety-policy" name="documents" value="health-safety-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.health_safety_policy"><span class="emoji">📜</span> Health and Safety Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="risk-assessment-procedure" name="documents" value="risk-assessment-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.risk_assessment_procedure"><span class="emoji">⚠️</span> Risk Assessment Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-reporting-procedure" name="documents" value="incident-reporting-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.incident_reporting_procedure"><span class="emoji">🚑</span> Incident Reporting and Investigation Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="emergency-response-plan" name="documents" value="emergency-response-plan" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.emergency_response_plan"><span class="emoji">🚨</span> Emergency Response Plan</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="training-induction-procedure" name="documents" value="training-induction-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.training_induction_procedure"><span class="emoji">🎓</span> Training and Induction Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="inspection-auditing-procedure" name="documents" value="inspection-auditing-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.inspection_auditing_procedure"><span class="emoji">🔍</span> Inspection and Auditing Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ppe-policy" name="documents" value="ppe-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ppe_policy"><span class="emoji">🧤</span> Personal Protective Equipment (PPE) Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hazardous-substances-procedure" name="documents" value="hazardous-substances-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.hazardous_substances_procedure"><span class="emoji">☣️</span> Hazardous Substances Management Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="machinery-equipment-safety-procedure" name="documents" value="machinery-equipment-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.machinery_equipment_safety_procedure"><span class="emoji">⚙️</span> Machinery and Equipment Safety Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="first-aid-procedure" name="documents" value="first-aid-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.first_aid_procedure"><span class="emoji">🩺</span> First Aid Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fire-safety-procedure" name="documents" value="fire-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.fire_safety_procedure"><span class="emoji">🔥</span> Fire Safety Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="electrical-safety-procedure" name="documents" value="electrical-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.electrical_safety_procedure"><span class="emoji">⚡</span> Electrical Safety Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="manual-handling-procedure" name="documents" value="manual-handling-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.manual_handling_procedure"><span class="emoji">🏋️</span> Manual Handling Procedure</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p id="documents-error" class="error hidden" data-i18n="wizard.step_1.error">Please select at least one document to compile.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2: Company Details -->
+                    <div id="step-2" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_2.title">Step 2 of 5: Company Details</h4>
+                        <div class="form-group">
+                            <label for="company-name" data-i18n="wizard.step_2.company_name_label">Company Name:</label>
+                            <input type="text" id="company-name" name="company-name" required>
+                            <p id="company-name-error" class="error hidden" data-i18n="wizard.step_2.company_name_error">Please enter the company name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-address" data-i18n="wizard.step_2.company_address_label">Company Address:</label>
+                            <input type="text" id="company-address" name="company-address" required>
+                            <p id="company-address-error" class="error hidden" data-i18n="wizard.step_2.company_address_error">Please enter the company address.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-contact-number" data-i18n="wizard.step_2.company_contact_number_label">Company Contact Number:</label>
+                            <input type="tel" id="company-contact-number" name="company-contact-number" pattern="\+[0-9]{10,}" placeholder="+27123456789" required>
+                            <p id="company-contact-number-error" class="error hidden" data-i18n="wizard.step_2.company_contact_number_error">Please enter a valid phone number (e.g., +27123456789).</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-email" data-i18n="wizard.step_2.company_email_label">Company Email:</label>
+                            <input type="email" id="company-email" name="company-email" required>
+                            <p id="company-email-error" class="error hidden" data-i18n="wizard.step_2.company_email_error">Please enter a valid email address.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceo-name" data-i18n="wizard.step_2.ceo_name_label">CEO Name:</label>
+                            <input type="text" id="ceo-name" name="ceo-name" required>
+                            <p id="ceo-name-error" class="error hidden" data-i18n="wizard.step_2.ceo_name_error">Please enter the CEO's name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="coida-registration" data-i18n="wizard.step_2.coida_registration_label">COIDA Registration Number:</label>
+                            <input type="text" id="coida-registration" name="coida-registration" required>
+                            <p id="coida-registration-error" class="error hidden" data-i18n="wizard.step_2.coida_registration_error">Please enter the COIDA registration number.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3: Customize Content -->
+                    <div id="step-3" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_3.title">Step 3 of 5: Customize Content</h4>
+                        <div class="form-group">
+                            <label for="custom-content" data-i18n="wizard.step_3.custom_content_label">Edit Document Content (e.g., Safety Objectives, Procedures):</label>
+                            <textarea id="custom-content" name="custom-content" rows="6" required></textarea>
+                            <p id="custom-content-error" class="error hidden" data-i18n="wizard.step_3.custom_content_error">Please enter the custom content.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4: Compiled By -->
+                    <div id="step-4" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_4.title">Step 4 of 5: Compiled By</h4>
+                        <div class="form-group">
+                            <label for="compiled-by-name" data-i18n="wizard.step_4.name_label">Name:</label>
+                            <input type="text" id="compiled-by-name" name="compiled-by-name" required>
+                            <p id="compiled-by-name-error" class="error hidden" data-i18n="wizard.step_4.name_error">Please enter your name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="compiled-by-number" data-i18n="wizard.step_4.number_label">Contact Number:</label>
+                            <input type="tel" id="compiled-by-number" name="compiled-by-number" pattern="\+[0-9]{10,}" placeholder="+27123456789" required>
+                            <p id="compiled-by-number-error" class="error hidden" data-i18n="wizard.step_4.number_error">Please enter a valid phone number (e.g., +27123456789).</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="compiled-by-email" data-i18n="wizard.step_4.email_label">Email:</label>
+                            <input type="email" id="compiled-by-email" name="compiled-by-email" required>
+                            <p id="compiled-by-email-error" class="error hidden" data-i18n="wizard.step_4.email_error">Please enter a valid email address.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="compiled-by-role" data-i18n="wizard.step_4.role_label">Role:</label>
+                            <select id="compiled-by-role" name="compiled-by-role" required>
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="trainee" data-i18n="wizard.step_4.role_trainee">OHS Trainee</option>
+                                <option value="ohs-rep" data-i18n="wizard.step_4.role_ohs_rep">OHS Representative</option>
+                                <option value="sacpcmp-officer" data-i18n="wizard.step_4.role_sacpcmp_officer">SACPCMP Officer (CHSO)</option>
+                                <option value="sacpcmp-agent" data-i18n="wizard.step_4.role_sacpcmp_agent">SACPCMP Agent (PrCHSA)</option>
+                                <option value="other" data-i18n="wizard.step_4.role_other">Other</option>
+                            </select>
+                            <p id="compiled-by-role-error" class="error hidden" data-i18n="wizard.step_4.role_error">Please select a role.</p>
+                        </div>
+                        <div class="form-group hidden" id="sacpcmp-reg-group">
+                            <label for="sacpcmp-reg" data-i18n="wizard.step_4.sacpcmp_reg_label">SACPCMP Registration Number:</label>
+                            <input type="text" id="sacpcmp-reg" name="sacpcmp-reg">
+                            <p id="sacpcmp-reg-error" class="error hidden" data-i18n="wizard.step_4.sacpcmp_reg_error">Please enter the SACPCMP registration number.</p>
+                        </div>
+                        <div class="form-group hidden" id="specify-role-group">
+                            <label for="specify-role" data-i18n="wizard.step_4.specify_role_label">Specify Role:</label>
+                            <input type="text" id="specify-role" name="specify-role">
+                            <p id="specify-role-error" class="error hidden" data-i18n="wizard.step_4.specify_role_error">Please specify your role.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5: Review and Add to Cart -->
+                    <div id="step-5" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_5.title">Step 5 of 5: Review and Add to Cart</h4>
+                        <p data-i18n="wizard.step_5.description" class="text-gray-600 mb-4">Review your selections and add documents to your cart to proceed.</p>
+                        <div class="form-group">
+                            <label data-i18n="wizard.step_5.selected_documents_label" class="block text-sm font-medium text-gray-700 mb-2">Selected Documents:</label>
+                            <ul id="selected-documents" class="list-disc list-inside text-gray-600"></ul>
+                        </div>
+                        <button id="add-to-cart-btn" data-i18n="wizard.nav.add_to_cart" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition duration-300 mt-4">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="nav-buttons mt-6 flex justify-between">
+                    <button id="back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow transition duration-300 disabled:opacity-50" data-i18n="wizard.nav.back" disabled>Back</button>
+                    <button id="next-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition duration-300" data-i18n="wizard.nav.next">Next</button>
+                </div>
+            </div>
+            <div id="wizard-sidebar" class="w-full md:w-1/3 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-inner">
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Relevant Info</h4>
+                <div id="sidebar-legislation"></div>
+                <div id="sidebar-fun-fact" class="mt-4"></div>
+            </div>
+        </div>
+
+        <div id="cart-container" class="cart-container mt-6 bg-white p-6 rounded-lg shadow-md mb-6 hidden">
+            <h3 data-i18n="cart.title" class="text-xl font-semibold text-gray-700 mb-4">Your Cart</h3>
+            <p id="invoice-reference" class="hidden text-sm text-gray-600 mb-4" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number" class="font-medium"></span> (Valid for 7 days. Register to store indefinitely!)</p>
+            <div class="overflow-x-auto">
+                <table id="cart-table" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th data-i18n="cart.table.document" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document</th>
+                            <th data-i18n="cart.table.price" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items" class="bg-white divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+            <div class="checkout mt-6 flex items-center gap-4">
+                <label for="promo-code" data-i18n="cart.checkout.promo_label" class="text-sm font-medium text-gray-700">Promo Code:</label>
+                <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code" class="px-3 py-1 border border-gray-300 rounded-md shadow-sm text-sm">
+                <button id="checkout-btn" data-i18n="cart.checkout.button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow transition duration-300 text-sm">Checkout</button>
+            </div>
+        </div>
+
+        <section class="resources mt-6 bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 data-i18n="resources.title" class="text-xl font-semibold text-gray-700 mb-3">Contact Accredited OHS Professionals</h3>
+            <p data-i18n="resources.description" class="text-gray-600 mb-4 text-sm">Need expert assistance? Reach out to accredited professionals for your OHS needs.</p>
+            <ul class="space-y-2 text-sm">
+                <li data-i18n="resources.jane_doe" class="border-b border-gray-200 pb-2"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: <a href="mailto:jane.doe@example.com" class="text-blue-500 hover:underline">jane.doe@example.com</a></li>
+                <li data-i18n="resources.john_smith" class="border-b border-gray-200 pb-2"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: <a href="mailto:john.smith@example.com" class="text-blue-500 hover:underline">john.smith@example.com</a></li>
+                <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: <a href="mailto:emily.brown@example.com" class="text-blue-500 hover:underline">emily.brown@example.com</a></li>
+            </ul>
+            <h3 data-i18n="resources.legislation.title" class="text-xl font-semibold text-gray-700 mt-6 mb-3">Relevant Legislation and Standards</h3>
+            <ul class="space-y-2 text-sm">
+                <li><a href="https://www.gov.za/documents/occupational-health-and-safety-act" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Occupational Health and Safety Act 85 of 1993</a></li>
+                <li><a href="https://www.gov.za/documents/compensation-occupational-injuries-and-diseases-act" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Compensation for Occupational Injuries and Diseases Act 130 of 1993</a></li>
+                <li><a href="https://www.iso.org/standard/63787.html" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">ISO 45001:2018 - Occupational Health and Safety Management Systems</a></li>
+                <li><a href="https://www.sabs.co.za/Standardisation/standards-development/SANS-standards.php" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">SANS Standards (e.g., SANS 31000 for Risk Management)</a></li>
+            </ul>
+        </section>
+
+        <footer class="bg-gray-900 text-white py-8 mt-auto">
+            <div class="container mx-auto px-6 text-center">
+                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
+                <p class="mb-4">
+                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
+                </p>
+                <div class="newsletter mt-6">
+                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                    <form class="flex justify-center">
+                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+        </button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="/safety-plans/assets/js/ohs-system.js"></script>
+</body>
+</html>
