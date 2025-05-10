@@ -1,0 +1,21 @@
+{
+  "construction": {
+    "small": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure"],
+      "medium": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "emergency-response-procedure"],
+      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "emergency-response-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure", "permit-to-work-procedure"]
+    }
+  },
+  "manufacturing": {
+    "small": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure"],
+      "medium": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "emergency-response-procedure"],
+      "high": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "hazardous-substance-standard", "emergency-response-procedure"]
+    }
+  }
+}
