@@ -3,19 +3,170 @@
     "small": {
       "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure"],
       "medium": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "emergency-response-procedure"],
-      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure"]
+      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure", "permit-to-work-procedure"]
     },
     "medium": {
       "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log"],
       "medium": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "emergency-response-procedure", "training-competency-log"],
-      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure", "permit-to-work-procedure"]
+      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure", "permit-to-work-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "medium": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "emergency-response-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "hira-procedure", "working-at-heights-procedure", "confined-space-entry-procedure", "emergency-response-procedure", "permit-to-work-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register", "incident-investigation-procedure"]
     }
   },
   "manufacturing": {
     "small": {
       "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure"],
       "medium": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "emergency-response-procedure"],
-      "high": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "hazardous-substance-standard", "emergency-response-procedure"]
+      "high": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "hazardous-substance-standard", "emergency-response-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "emergency-response-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "hazardous-substance-standard", "emergency-response-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "medium": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "emergency-response-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "hira-procedure", "lockout-tagout-procedure", "hazardous-substance-standard", "emergency-response-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register", "hazardous-substance-handling-permit"]
+    }
+  },
+  "office": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "ergonomics-assessment-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
+    }
+  },
+  "chemical": {
+    "small": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure"],
+      "medium": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure"],
+      "high": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "hira-procedure", "emergency-response-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "hira-procedure", "hazardous-substance-standard", "emergency-response-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register", "chemical-register"]
+    }
+  },
+  "healthcare": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "first-aid-procedure", "infectious-disease-policy", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register", "medical-examination-register"]
+    }
+  },
+  "education": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "induction-training-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
+    }
+  },
+  "retail": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
+    }
+  },
+  "transportation": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "safe-driving-standard", "induction-training-procedure", "hazardous-substance-handling-permit", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
+    }
+  },
+  "hospitality": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "fire-evacuation-procedure", "manual-handling-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
+    }
+  },
+  "other": {
+    "small": {
+      "low": ["ohs-policy", "emergency-response-procedure"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "hira-procedure"],
+      "high": ["ohs-policy", "emergency-response-procedure", "hira-procedure", "incident-reporting-procedure"]
+    },
+    "medium": {
+      "low": ["ohs-policy", "emergency-response-procedure", "training-competency-log"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "hira-procedure", "training-competency-log"],
+      "high": ["ohs-policy", "emergency-response-procedure", "hira-procedure", "incident-reporting-procedure", "training-competency-log"]
+    },
+    "large": {
+      "low": ["ohs-policy", "emergency-response-procedure", "training-competency-log", "ohs-management-standard"],
+      "medium": ["ohs-policy", "emergency-response-procedure", "hira-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"],
+      "high": ["ohs-policy", "emergency-response-procedure", "hira-procedure", "incident-reporting-procedure", "training-competency-log", "ohs-management-standard", "incident-injury-register"]
     }
   }
 }
