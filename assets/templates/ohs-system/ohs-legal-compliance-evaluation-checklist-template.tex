@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Occupational Health and Safety (OHS) Legal Compliance Evaluation Checklist for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Evaluation For: {{SCOPE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Evaluation ID: {{EVALUATION_ID}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date of Evaluation: {{DATE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Evaluator(s): {{COMPILED_BY_NAME}}\par}
+\end{titlepage}
+
+\section{OHS Legal Compliance Evaluation Checklist}
+
+\textbf{Purpose:} To systematically evaluate {{COMPANY_NAME}}'s compliance with specific OHS legal and other requirements applicable to the defined scope.
+
+\textbf{Scope of this Evaluation:}
+\begin{itemize}
+    \item \textbf{Specific Legislation/Standard:} \_\_\_\_
+    \item \textbf{Area(s)/Process(es) Covered:} \_\_\_\_
+\end{itemize}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{1cm}p{3cm}p{3cm}p{2cm}p{3cm}p{2cm}p{2cm}p{2cm}}
+        \toprule
+        \textbf{Ref No.} & \textbf{Requirement} & \textbf{Evidence Sought} & \textbf{Status (C/NC/PC/NA)} & \textbf{Observations} & \textbf{Corrective Action} & \textbf{Responsible Person} & \textbf{Target Date} \\
+        \midrule
+        8.1 & Sec 8(1): Provide a safe working environment. & Review Risk Assessments, Inspections. & & & & & \\
+        GSR3.1 & GSR 3(1): Prompt first aid treatment. & Review Emergency Plan, First Aider availability. & & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{OHS Legal Compliance Evaluation Checklist}
+\end{table}
+
+\section{Summary of Key Findings}
+\textbf{Areas of Good Compliance:} \_\_\_\_\\
+\textbf{Key Non-Compliances:} \_\_\_\_
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
