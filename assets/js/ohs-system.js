@@ -417,42 +417,57 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('invoice-reference').classList.remove('hidden');
     }
 
-    // Checkout handler (simulated PDF generation)
-    checkoutBtn.addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    // Checkout handler (server-side PDF generation)
+checkoutBtn.addEventListener('click', async () => {
+    try {
+        const companyDetails = {
+            name: document.getElementById('company-name').value,
+            address: document.getElementById('company-address').value,
+            contactNumber: document.getElementById('company-contact-number').value,
+            email: document.getElementById('company-email').value,
+            ceoName: document.getElementById('ceo-name').value,
+            coidaReg: document.getElementById('coida-registration').value
+        };
 
-        doc.setFontSize(16);
-        doc.text('SafetyHelp OHS Documents', 20, 20);
-        doc.setFontSize(12);
-        doc.text('Company Details:', 20, 30);
-        doc.text(`Name: ${document.getElementById('company-name').value}`, 20, 40);
-        doc.text(`Address: ${document.getElementById('company-address').value}`, 20, 50);
-        doc.text(`Contact: ${document.getElementById('company-contact-number').value}`, 20, 60);
-        doc.text(`Email: ${document.getElementById('company-email').value}`, 20, 70);
-        doc.text(`CEO: ${document.getElementById('ceo-name').value}`, 20, 80);
-        doc.text(`COIDA Reg: ${document.getElementById('coida-registration').value}`, 20, 90);
+        const compiledBy = {
+            name: document.getElementById('compiled-by-name').value,
+            contactNumber: document.getElementById('compiled-by-number').value,
+            email: document.getElementById('compiled-by-email').value,
+            role: document.getElementById('compiled-by-role').value
+        };
 
-        doc.text('Selected Documents:', 20, 110);
-        selectedDocuments.forEach((docId, index) => {
-            const docName = docId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-            doc.text(`${index + 1}. ${docName}`, 20, 120 + (index * 10));
+        const customContent = document.getElementById('custom-content').value;
+
+        const response = await fetch('http://localhost:3000/generate-pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                documents: selectedDocuments,
+                companyDetails,
+                customContent,
+                compiledBy
+            })
         });
 
-        doc.text('Compiled By:', 20, 120 + (selectedDocuments.length * 10) + 10);
-        doc.text(`Name: ${document.getElementById('compiled-by-name').value}`, 20, 120 + (selectedDocuments.length * 10) + 20);
-        doc.text(`Contact: ${document.getElementById('compiled-by-number').value}`, 20, 120 + (selectedDocuments.length * 10) + 30);
-        doc.text(`Email: ${document.getElementById('compiled-by-email').value}`, 20, 120 + (selectedDocuments.length * 10) + 40);
-        doc.text(`Role: ${document.getElementById('compiled-by-role').value}`, 20, 120 + (selectedDocuments.length * 10) + 50);
+        if (!response.ok) {
+            throw new Error('Failed to generate PDF');
+        }
 
-        doc.save('ohs-documents.pdf');
-        alert('Documents downloaded successfully! Check your downloads folder.');
-    });
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${selectedDocuments[0] || 'ohs-document'}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
 
-    // Chatbot toggle (simplified)
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatWindow = document.getElementById('chat-window');
-    chatToggle.addEventListener('click', () => {
-        chatWindow.classList.toggle('chat-hidden');
-    });
+        alert('Document downloaded successfully!');
+    } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Failed to generate PDF. Please try again.');
+    }
 });
