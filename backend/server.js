@@ -3,6 +3,7 @@ const { exec } = require('child_process');
 const fs = require('fs-extra');
 const path = require('path');
 const util = require('util');
+const archiver = require('archiver');
 
 const app = express();
 const port = 3000;
@@ -13,13 +14,13 @@ const execPromise = util.promisify(exec);
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Serve static files (for frontend access to PDFs)
+// Serve static files (for frontend access to PDFs and ZIPs)
 app.use('/generated-pdfs', express.static(path.join(__dirname, 'generated-pdfs')));
 
 // Ensure generated-pdfs directory exists
 fs.ensureDirSync(path.join(__dirname, 'generated-pdfs'));
 
-// API endpoint to generate PDFs
+// API endpoint to generate PDFs and return as ZIP
 app.post('/generate-pdf', async (req, res) => {
     try {
         const { documents, companyDetails, customContent, compiledBy } = req.body;
@@ -28,61 +29,100 @@ app.post('/generate-pdf', async (req, res) => {
             return res.status(400).json({ error: 'No documents selected' });
         }
 
-        // For simplicity, we'll generate a PDF for the first document
-        // In a full implementation, you'd loop through all documents and combine PDFs
-        const docId = documents[0]; // e.g., 'health-safety-policy'
-        const templatePath = path.join(__dirname, '..', 'assets', 'templates', 'ohs-system', `${docId}-template.tex`);
         const outputDir = path.join(__dirname, 'generated-pdfs');
-        const outputBaseName = `${docId}-${Date.now()}`;
-        const outputTexPath = path.join(outputDir, `${outputBaseName}.tex`);
-        const outputPdfPath = path.join(outputDir, `${outputBaseName}.pdf`);
+        const zipBaseName = `ohs-documents-${Date.now()}`;
+        const zipPath = path.join(outputDir, `${zipBaseName}.zip`);
+        const pdfPaths = [];
 
-        // Read the LaTeX template
-        let template = await fs.readFile(templatePath, 'utf-8');
+        // Generate PDFs for each document
+        for (const docId of documents) {
+            const templatePath = path.join(__dirname, '..', 'assets', 'templates', 'ohs-system', `${docId}-template.tex`);
+            const outputBaseName = `${docId}-${Date.now()}`;
+            const outputTexPath = path.join(outputDir, `${outputBaseName}.tex`);
+            const outputPdfPath = path.join(outputDir, `${outputBaseName}.pdf`);
 
-        // Replace placeholders with user inputs
-        template = template
-            .replace('{{COMPANY_NAME}}', companyDetails.name || 'N/A')
-            .replace('{{COMPANY_ADDRESS}}', companyDetails.address || 'N/A')
-            .replace('{{COMPANY_CONTACT}}', companyDetails.contactNumber || 'N/A')
-            .replace('{{COMPANY_EMAIL}}', companyDetails.email || 'N/A')
-            .replace('{{CEO_NAME}}', companyDetails.ceoName || 'N/A')
-            .replace('{{COIDA_REG}}', companyDetails.coidaReg || 'N/A')
-            .replace('{{CUSTOM_CONTENT}}', customContent || 'No custom content provided.')
-            .replace('{{COMPILED_BY_NAME}}', compiledBy.name || 'N/A')
-            .replace('{{COMPILED_BY_CONTACT}}', compiledBy.contactNumber || 'N/A')
-            .replace('{{COMPILED_BY_EMAIL}}', compiledBy.email || 'N/A')
-            .replace('{{COMPILED_BY_ROLE}}', compiledBy.role || 'N/A')
-            .replace('{{DATE}}', new Date().toISOString().split('T')[0])
-            .replace('{{REVISION}}', '1.0');
+            // Check if template exists
+            if (!await fs.pathExists(templatePath)) {
+                console.warn(`Template for ${docId} not found, skipping.`);
+                continue;
+            }
 
-        // Write the modified LaTeX to a temporary file
-        await fs.writeFile(outputTexPath, template);
+            // Read the LaTeX template
+            let template = await fs.readFile(templatePath, 'utf-8');
 
-        // Run latexmk to generate the PDF
-        await execPromise(`latexmk -pdf -output-directory=${outputDir} ${outputTexPath}`);
+            // Replace placeholders with user inputs
+            template = template
+                .replace('{{COMPANY_NAME}}', companyDetails.name || 'N/A')
+                .replace('{{COMPANY_ADDRESS}}', companyDetails.address || 'N/A')
+                .replace('{{COMPANY_CONTACT}}', companyDetails.contactNumber || 'N/A')
+                .replace('{{COMPANY_EMAIL}}', companyDetails.email || 'N/A')
+                .replace('{{CEO_NAME}}', companyDetails.ceoName || 'N/A')
+                .replace('{{COIDA_REG}}', companyDetails.coidaReg || 'N/A')
+                .replace('{{CUSTOM_CONTENT}}', customContent || 'No custom content provided.')
+                .replace('{{COMPILED_BY_NAME}}', compiledBy.name || 'N/A')
+                .replace('{{COMPILED_BY_CONTACT}}', compiledBy.contactNumber || 'N/A')
+                .replace('{{COMPILED_BY_EMAIL}}', compiledBy.email || 'N/A')
+                .replace('{{COMPILED_BY_ROLE}}', compiledBy.role || 'N/A')
+                .replace('{{DATE}}', new Date().toISOString().split('T')[0])
+                .replace('{{REVISION}}', '1.0');
 
-        // Clean up auxiliary files generated by latexmk
-        await execPromise(`latexmk -c -output-directory=${outputDir} ${outputTexPath}`);
+            // Write the modified LaTeX to a temporary file
+            await fs.writeFile(outputTexPath, template);
 
-        // Send the PDF file as a response
-        res.download(outputPdfPath, `${docId}.pdf`, async (err) => {
+            // Run latexmk to generate the PDF
+            await execPromise(`latexmk -pdf -output-directory=${outputDir} ${outputTexPath}`);
+
+            // Clean up auxiliary files generated by latexmk
+            await execPromise(`latexmk -c -output-directory=${outputDir} ${outputTexPath}`);
+
+            pdfPaths.push({ path: outputPdfPath, name: `${docId}.pdf` });
+
+            // Clean up the temporary .tex file
+            await fs.remove(outputTexPath);
+        }
+
+        if (pdfPaths.length === 0) {
+            return res.status(400).json({ error: 'No PDFs generated. Check if templates exist for selected documents.' });
+        }
+
+        // Create a ZIP file containing all PDFs
+        const output = fs.createWriteStream(zipPath);
+        const archive = archiver('zip', { zlib: { level: 9 } });
+
+        // Pipe the archive to the output file
+        archive.pipe(output);
+
+        // Add each PDF to the ZIP
+        for (const pdf of pdfPaths) {
+            archive.file(pdf.path, { name: pdf.name });
+        }
+
+        // Finalize the ZIP and send it
+        await archive.finalize();
+
+        // Wait for the ZIP file to be fully written
+        await new Promise(resolve => output.on('close', resolve));
+
+        // Send the ZIP file as a response
+        res.download(zipPath, 'ohs-documents.zip', async (err) => {
             if (err) {
-                console.error('Error sending PDF:', err);
-                res.status(500).json({ error: 'Failed to send PDF' });
+                console.error('Error sending ZIP:', err);
+                res.status(500).json({ error: 'Failed to send ZIP file' });
             }
 
             // Clean up temporary files
-            await fs.remove(outputTexPath);
-            await fs.remove(outputPdfPath);
-            const auxFiles = ['aux', 'log', 'fls', 'fdb_latexmk'].map(ext => path.join(outputDir, `${outputBaseName}.${ext}`));
-            for (const file of auxFiles) {
-                if (await fs.pathExists(file)) await fs.remove(file);
+            await fs.remove(zipPath);
+            for (const pdf of pdfPaths) {
+                await fs.remove(pdf.path);
+                const auxFiles = ['aux', 'log', 'fls', 'fdb_latexmk'].map(ext => path.join(outputDir, `${path.basename(pdf.path, '.pdf')}.${ext}`));
+                for (const file of auxFiles) {
+                    if (await fs.pathExists(file)) await fs.remove(file);
+                }
             }
         });
     } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).json({ error: 'Failed to generate PDF' });
+        console.error('Error generating PDFs:', error);
+        res.status(500).json({ error: 'Failed to generate PDFs' });
     }
 });
 
