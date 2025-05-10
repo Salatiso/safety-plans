@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries OHS Incident Report and Investigation Forms for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape Document Reference: OHSIRF-001\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Date: {{DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}, CEO\par}
+\end{titlepage}
+
+\section{Internal OHS Incident Report Form}
+
+\textbf{Report No.:} \_\_\_\_ \textbf{Date of Report:} \_\_\_\_
+
+\subsection{SECTION A: Incident Details}
+\begin{itemize}
+    \item \textbf{Site/Location of Incident:} \_\_\_\_
+    \item \textbf{Date of Incident:} \_\_\_\_ \textbf{Time of Incident:} \_\_\_\_
+    \item \textbf{Person Reporting Incident:} Name: \_\_\_\_ Dept: \_\_\_\_ Contact: \_\_\_\_
+    \item \textbf{Type of Incident:} \_\_\_\_ (e.g., Fatality, LTI, Near Miss)
+    \item \textbf{Brief Description of What Happened:} \_\_\_\_
+    \item \textbf{Immediate Actions Taken:} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION B: Details of Person(s) Injured/Exposed}
+\begin{itemize}
+    \item \textbf{Full Name:} \_\_\_\_ \textbf{ID No./Employee No.:} \_\_\_\_
+    \item \textbf{Status:} \_\_\_\_ (Employee/Contractor/Visitor)
+    \item \textbf{Nature of Injury/Illness:} \_\_\_\_
+    \item \textbf{Treatment Given:} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION C: Witness(es)}
+\begin{itemize}
+    \item \textbf{Witness 1 Name:} \_\_\_\_ Contact No.: \_\_\_\_
+    \item \textbf{Witness 2 Name:} \_\_\_\_ Contact No.: \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION D: Property/Equipment/Environmental Damage}
+\begin{itemize}
+    \item \textbf{Description of Damage/Spill:} \_\_\_\_
+    \item \textbf{Estimated Cost of Damage:} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION E: Initial Assessment by Supervisor/Manager}
+\begin{itemize}
+    \item \textbf{Immediate Cause(s):} \_\_\_\_
+    \item \textbf{Immediate Corrective Actions:} \_\_\_\_
+    \item \textbf{Level of Investigation Required:} \_\_\_\_
+\end{itemize}
+
+\section{OHS Incident Investigation Report}
+
+\textbf{Investigation Report No.:} \_\_\_\_ \textbf{Incident Report No.:} \_\_\_\_\\
+\textbf{Classification:} \_\_\_\_
+
+\subsection{SECTION 1: Incident Overview}
+\begin{itemize}
+    \item \textbf{Date \& Time of Incident:} \_\_\_\_
+    \item \textbf{Location of Incident:} \_\_\_\_
+    \item \textbf{Brief Summary:} \_\_\_\_
+    \item \textbf{Actual Consequences:} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION 2: Investigation Team}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+        \toprule
+        \textbf{Name} & \textbf{Title/Role} & \textbf{Department} & \textbf{Signature} \\
+        \midrule
+        & Lead Investigator & & \\
+        & H\&S Representative & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Investigation Team}
+\end{table}
+
+\subsection{SECTION 3: Sequence of Events}
+\_\_\_\_
+
+\subsection{SECTION 4: Evidence Gathered}
+\begin{itemize}
+    \item \textbf{Physical Evidence:} \_\_\_\_
+    \item \textbf{Witness Statements:} \_\_\_\_
+    \item \textbf{Documentary Evidence:} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION 5: Analysis of Causes}
+\begin{itemize}
+    \item \textbf{Immediate Causes:} \_\_\_\_
+    \item \textbf{Contributing Factors:} \_\_\_\_
+    \item \textbf{Root Cause(s):} \_\_\_\_
+\end{itemize}
+
+\subsection{SECTION 6: Recommended Corrective and Preventive Actions}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{1cm}p{3cm}p{2cm}p{3cm}p{2cm}p{2cm}p{2cm}}
+        \toprule
+        \textbf{No.} & \textbf{Action} & \textbf{Type} & \textbf{Rationale} & \textbf{Hierarchy} & \textbf{Responsible} & \textbf{Target Date} \\
+        \midrule
+        1 & & & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Corrective and Preventive Actions}
+\end{table}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
