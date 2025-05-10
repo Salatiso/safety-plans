@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{noto}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Risk Assessment Plan for {{COMPANY_NAME}}\par}
+    \vspace{1cm}
+    {\large\itshape For Site: {{SITE_ADDRESS}}\par}
+    \vspace{0.5cm}
+    {\normalsize Plan Number: RAP-001\par}
+    \vspace{0.5cm}
+    {\normalsize Version: {{REVISION}}\par}
+    \vspace{0.5cm}
+    {\normalsize Issue Date: {{DATE}}\par}
+    \vspace{0.5cm}
+    {\normalsize Next Review Date: {{REVIEW_DATE}}\par}
+    \vspace{2cm}
+    {\normalsize Approved by: {{CEO_NAME}}, CEO\par}
+\end{titlepage}
+
+\section{Cover Page \& Document Control}
+
+\subsection{Plan Identification}
+\textbf{Site:} {{SITE_ADDRESS}}\\
+\textbf{Plan Number:} RAP-001\\
+\textbf{Version:} {{REVISION}}\\
+\textbf{Issue Date:} {{DATE}}\\
+\textbf{Next Review Date:} {{REVIEW_DATE}}
+
+\subsection{Approval and Review Information}
+\textbf{Approved By:}\\
+Name: {{CEO_NAME}}\\
+Title: CEO\\
+Signature: _________________________\\
+Date: {{DATE}}
+
+\subsection{Distribution List}
+\begin{itemize}
+    \item OHS Manager
+    \item Site Management
+    \item Health and Safety Committee
+    \item Risk Assessment Team
+\end{itemize}
+
+\subsection{Amendment Record}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{2cm}p{3cm}p{6cm}p{3cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date Issued} & \textbf{Description of Changes} & \textbf{Approved By} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial Issue & {{CEO_NAME}} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Amendment Record}
+\end{table}
+
+\section{Introduction}
+
+\subsection{Purpose of the Plan}
+This Risk Assessment Plan outlines the process for identifying, assessing, and controlling risks at {{COMPANY_NAME}}'s site at {{SITE_ADDRESS}}, ensuring compliance with OHS regulations and standards.
+
+\subsection{Scope of the Plan}
+This plan applies to all activities, processes, and areas at the specified site.
+
+\subsection{Objectives of the Plan}
+\begin{itemize}
+    \item Identify and assess workplace hazards.
+    \item Implement effective risk controls.
+    \item Ensure compliance with legal requirements.
+\end{itemize}
+
+\section{Site Information \& Risk Profile}
+
+\subsection{Site Description}
+\textbf{Location:} {{SITE_ADDRESS}}\\
+\textbf{Layout:} {{SITE_LAYOUT}}\\
+\textbf{Occupancy:} {{SITE_OCCUPANCY}}
+
+\subsection{Identified Hazards}
+{{SITE_RISKS}}
+
+\subsection{Activities and Processes}
+{{SITE_ACTIVITIES}}
+
+\section{Risk Assessment Team}
+
+\subsection{Team Structure}
+\textbf{Lead Assessor:} {{COMPILED_BY_NAME}}\\
+\textbf{Team Members:} To be assigned by the OHS Manager.
+
+\subsection{Roles and Responsibilities}
+\begin{itemize}
+    \item \textbf{Lead Assessor:} Oversee the HIRA process.
+    \item \textbf{Team Members:} Conduct assessments and report findings.
+\end{itemize}
+
+\section{Risk Assessment Process}
+
+\subsection{Hazard Identification}
+Identify hazards through inspections, employee feedback, and incident reviews.
+
+\subsection{Risk Assessment}
+Assess risks using the risk rating matrix (Appendix A).
+
+\subsection{Risk Control}
+Implement controls following the hierarchy of controls.
+
+\section{Risk Register}
+Maintain a risk register (Appendix B) to document all identified risks and controls.
+
+\section{Monitoring and Review}
+\textbf{Responsibility:} {{COMPILED_BY_NAME}}\\
+\textbf{Review Schedule:} Annually or after significant changes.
+
+\section{Appendices}
+\begin{itemize}
+    \item \textbf{Appendix A:} Risk Rating Matrix (See Forms/Checklists)
+    \item \textbf{Appendix B:} Risk Register (See Forms/Checklists)
+    \item \textbf{Appendix C:} HIRA Template (See Forms/Checklists)
+\end{itemize}
+
+\section{Contact Information}
+For inquiries, contact:
+\begin{itemize}
+    \item Phone: {{COMPANY_CONTACT}}
+    \item Email: {{COMPANY_EMAIL}}
+\end{itemize}
+
+\section{Document Control}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \midrule
+        {{REVISION}} & {{DATE}} & Initial version \\
+        \bottomrule
+    \end{tabular}
+    \caption{Revision History}
+\end{table}
+
+\section{Compiled By}
+\begin{itemize}
+    \item \textbf{Name}: {{COMPILED_BY_NAME}}
+    \item \textbf{Contact}: {{COMPILED_BY_CONTACT}}
+    \item \textbf{Email}: {{COMPILED_BY_EMAIL}}
+    \item \textbf{Role}: {{COMPILED_BY_ROLE}}
+\end{itemize}
+
+\end{document}
