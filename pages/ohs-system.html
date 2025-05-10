@@ -22,7 +22,7 @@
             overflow-x: hidden;
             flex-direction: row;
         }
-        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, #wizard-content h3, #wizard-sidebar h4, .legal-card h3, .cart-container h3, .resources h3 {
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, #wizard-content h3, #wizard-sidebar h4, .legal-card h3, .cart-container h3, .resources h3, .document-categories h2, .category-card h3, .selection-method h3 {
             font-family: 'Montserrat', sans-serif;
         }
         body {
@@ -140,7 +140,7 @@
                 margin-left: 0;
                 min-height: auto;
             }
-            .intro, #wizard-container, #cart-container, .resources {
+            .intro, .document-categories, .selection-method, #wizard-container, #cart-container, .resources {
                 margin: 1rem;
             }
             #wizard-container {
@@ -151,8 +151,14 @@
                 margin-top: 1rem;
                 max-height: none;
             }
-            .legal-obligations {
+            .legal-obligations, .document-categories {
                 flex-direction: column;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .action-buttons button {
+                width: 100%;
             }
         }
     </style>
@@ -219,7 +225,7 @@
             <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400">Legal Appointments</a></li>
             <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400">Incident Management</a></li>
             <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections \& Audits</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections & Audits</a></li>
             <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
             <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
             <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
@@ -259,41 +265,376 @@
                     <p class="text-sm text-gray-600" data-i18n="legal_obligations.iso_45001.clause_9_2"><strong>Clause 9.2:</strong> Perform regular audits and inspections.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="action-buttons mt-6 flex flex-wrap gap-3">
-                <button onclick="startWizard('ohs-manual')" data-i18n="action_buttons.ohs_manual" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile OHS Management System Manual</button>
-                <button onclick="startWizard('health-safety-policy')" data-i18n="action_buttons.health_safety_policy" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Health and Safety Policy</button>
-                <button onclick="startWizard('risk-assessment-procedure')" data-i18n="action_buttons.risk_assessment_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Risk Assessment Procedure</button>
-                <button onclick="startWizard('incident-reporting-procedure')" data-i18n="action_buttons.incident_reporting_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Incident Reporting Procedure</button>
-                <button onclick="startWizard('emergency-response-plan')" data-i18n="action_buttons.emergency_response_plan" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Emergency Response Plan</button>
-                <button onclick="startWizard('training-induction-procedure')" data-i18n="action_buttons.training_induction_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Training and Induction Procedure</button>
-                <button onclick="startWizard('inspection-auditing-procedure')" data-i18n="action_buttons.inspection_auditing_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Inspection and Auditing Procedure</button>
-                <button onclick="startWizard('ppe-policy')" data-i18n="action_buttons.ppe_policy" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile PPE Policy</button>
-                <button onclick="startWizard('hazardous-substances-procedure')" data-i18n="action_buttons.hazardous_substances_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Hazardous Substances Procedure</button>
-                <button onclick="startWizard('machinery-equipment-safety-procedure')" data-i18n="action_buttons.machinery_equipment_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Machinery and Equipment Safety Procedure</button>
-                <button onclick="startWizard('first-aid-procedure')" data-i18n="action_buttons.first_aid_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile First Aid Procedure</button>
-                <button onclick="startWizard('fire-safety-procedure')" data-i18n="action_buttons.fire_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Fire Safety Procedure</button>
-                <button onclick="startWizard('electrical-safety-procedure')" data-i18n="action_buttons.electrical_safety_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Electrical Safety Procedure</button>
-                <button onclick="startWizard('manual-handling-procedure')" data-i18n="action_buttons.manual_handling_procedure" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Compile Manual Handling Procedure</button>
+        <section class="document-categories bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-3" data-i18n="document_categories.title">Compile Your OHS Management System Documents</h2>
+            <p class="text-gray-600 mb-4" data-i18n="document_categories.description">Select and compile the documents you need for your OHS management system. Choose from policies, procedures, standards, and more, tailored to your organization’s needs.</p>
+            <div class="categories-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.policies.title">Policies</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.policies.description">High-level statements of intent and commitment, approved by top management.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('ohs-policy')" data-i18n="document_categories.policies.ohs_policy" class="text-blue-500 hover:underline">Occupational Health and Safety (OHS) Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🌍</span><button onclick="startWizard('environmental-policy')" data-i18n="document_categories.policies.environmental_policy" class="text-blue-500 hover:underline">Environmental Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📊</span><button onclick="startWizard('quality-policy')" data-i18n="document_categories.policies.quality_policy" class="text-blue-500 hover:underline">Quality Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚭</span><button onclick="startWizard('substance-abuse-policy')" data-i18n="document_categories.policies.substance_abuse_policy" class="text-blue-500 hover:underline">Substance Abuse Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚬</span><button onclick="startWizard('smoking-policy')" data-i18n="document_categories.policies.smoking_policy" class="text-blue-500 hover:underline">Smoking Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🛡️</span><button onclick="startWizard('workplace-violence-policy')" data-i18n="document_categories.policies.workplace_violence_policy" class="text-blue-500 hover:underline">Workplace Violence and Harassment Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧠</span><button onclick="startWizard('mental-health-policy')" data-i18n="document_categories.policies.mental_health_policy" class="text-blue-500 hover:underline">Mental Health and Wellbeing Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">♿</span><button onclick="startWizard('disability-policy')" data-i18n="document_categories.policies.disability_policy" class="text-blue-500 hover:underline">Disability and Return-to-Work Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🤝</span><button onclick="startWizard('contractor-policy')" data-i18n="document_categories.policies.contractor_policy" class="text-blue-500 hover:underline">Contractor and Service Provider Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧤</span><button onclick="startWizard('ppe-policy')" data-i18n="document_categories.policies.ppe_policy" class="text-blue-500 hover:underline">PPE Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">💪</span><button onclick="startWizard('fit-for-duty-policy')" data-i18n="document_categories.policies.fit_for_duty_policy" class="text-blue-500 hover:underline">Fit-for-Duty Policy</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🦠</span><button onclick="startWizard('infectious-disease-policy')" data-i18n="document_categories.policies.infectious_disease_policy" class="text-blue-500 hover:underline">COVID-19 or Infectious Disease Response Policy</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.procedures.title">Procedures</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.procedures.description">Step-by-step guides on how to perform tasks safely and consistently.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">🚑</span><button onclick="startWizard('incident-reporting-procedure')" data-i18n="document_categories.procedures.incident_reporting_procedure" class="text-blue-500 hover:underline">Incident and Accident Reporting Procedure</button> (<a href="/safety-plans/pages/incident-management.html" class="text-blue-500 hover:underline" data-i18n="links.incident_management">Manage Incidents</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚨</span><button onclick="startWizard('emergency-response-procedure')" data-i18n="document_categories.procedures.emergency_response_procedure" class="text-blue-500 hover:underline">Emergency Response Procedure</button> (<a href="/safety-plans/pages/emergency-response-plan.html" class="text-blue-500 hover:underline" data-i18n="links.emergency_response">Plan Emergency Response</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔥</span><button onclick="startWizard('fire-evacuation-procedure')" data-i18n="document_categories.procedures.fire_evacuation_procedure" class="text-blue-500 hover:underline">Fire Evacuation Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('permit-to-work-procedure')" data-i18n="document_categories.procedures.permit_to_work_procedure" class="text-blue-500 hover:underline">Permit-to-Work Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('hira-procedure')" data-i18n="document_categories.procedures.hira_procedure" class="text-blue-500 hover:underline">Hazard Identification and Risk Assessment (HIRA) Procedure</button> (<a href="/safety-plans/pages/risk-assessment.html" class="text-blue-500 hover:underline" data-i18n="links.risk_assessment">Conduct Risk Assessment</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧤</span><button onclick="startWizard('ppe-issuance-procedure')" data-i18n="document_categories.procedures.ppe_issuance_procedure" class="text-blue-500 hover:underline">PPE Issuance and Use Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔒</span><button onclick="startWizard('lockout-tagout-procedure')" data-i18n="document_categories.procedures.lockout_tagout_procedure" class="text-blue-500 hover:underline">Lockout/Tagout Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏪</span><button onclick="startWizard('confined-space-entry-procedure')" data-i18n="document_categories.procedures.confined_space_entry_procedure" class="text-blue-500 hover:underline">Confined Space Entry Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🪜</span><button onclick="startWizard('working-at-heights-procedure')" data-i18n="document_categories.procedures.working_at_heights_procedure" class="text-blue-500 hover:underline">Working at Heights Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🤝</span><button onclick="startWizard('contractor-management-procedure')" data-i18n="document_categories.procedures.contractor_management_procedure" class="text-blue-500 hover:underline">Contractor Management Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔥</span><button onclick="startWizard('hot-work-procedure')" data-i18n="document_categories.procedures.hot_work_procedure" class="text-blue-500 hover:underline">Hot Work Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🩺</span><button onclick="startWizard('first-aid-procedure')" data-i18n="document_categories.procedures.first_aid_procedure" class="text-blue-500 hover:underline">First Aid and Medical Emergency Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧘</span><button onclick="startWizard('ergonomics-assessment-procedure')" data-i18n="document_categories.procedures.ergonomics_assessment_procedure" class="text-blue-500 hover:underline">Ergonomics Assessment Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔍</span><button onclick="startWizard('incident-investigation-procedure')" data-i18n="document_categories.procedures.incident_investigation_procedure" class="text-blue-500 hover:underline">Incident Investigation Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🎓</span><button onclick="startWizard('induction-training-procedure')" data-i18n="document_categories.procedures.induction_training_procedure" class="text-blue-500 hover:underline">Induction and Training Procedure</button> (<a href="/safety-plans/pages/training.html" class="text-blue-500 hover:underline" data-i18n="links.training">Conduct Training</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">📢</span><button onclick="startWizard('toolbox-talk-procedure')" data-i18n="document_categories.procedures.toolbox_talk_procedure" class="text-blue-500 hover:underline">Toolbox Talk Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📄</span><button onclick="startWizard('document-control-procedure')" data-i18n="document_categories.procedures.document_control_procedure" class="text-blue-500 hover:underline">Document and Records Control Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚖️</span><button onclick="startWizard('non-conformance-procedure')" data-i18n="document_categories.procedures.non_conformance_procedure" class="text-blue-500 hover:underline">Non-Conformance and Corrective Action Procedure</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔍</span><button onclick="startWizard('internal-audit-procedure')" data-i18n="document_categories.procedures.internal_audit_procedure" class="text-blue-500 hover:underline">Internal OHS Audit Procedure</button> (<a href="/safety-plans/pages/inspections-audits.html" class="text-blue-500 hover:underline" data-i18n="links.inspections_audits">Conduct Inspections & Audits</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏥</span><button onclick="startWizard('return-to-work-procedure')" data-i18n="document_categories.procedures.return_to_work_procedure" class="text-blue-500 hover:underline">Return-to-Work Procedure</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.standards.title">Standards/Guidelines</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.standards.description">Internal benchmarks aligned to legislation or industry norms, defining expected conditions or behaviors.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">📋</span><button onclick="startWizard('ohs-management-standard')" data-i18n="document_categories.standards.ohs_management_standard" class="text-blue-500 hover:underline">OHS Management System Standard (ISO 45001 aligned)</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📊</span><button onclick="startWizard('risk-rating-matrix')" data-i18n="document_categories.standards.risk_rating_matrix" class="text-blue-500 hover:underline">Risk Rating Matrix</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚨</span><button onclick="startWizard('emergency-preparedness-standard')" data-i18n="document_categories.standards.emergency_preparedness_standard" class="text-blue-500 hover:underline">Standard for Emergency Preparedness and Response</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧹</span><button onclick="startWizard('housekeeping-standard')" data-i18n="document_categories.standards.housekeeping_standard" class="text-blue-500 hover:underline">Housekeeping and Waste Management Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📉</span><button onclick="startWizard('incident-classification-matrix')" data-i18n="document_categories.standards.incident_classification_matrix" class="text-blue-500 hover:underline">Incident Classification Matrix</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🎓</span><button onclick="startWizard('ohs-training-standard')" data-i18n="document_categories.standards.ohs_training_standard" class="text-blue-500 hover:underline">OHS Training and Competency Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚗</span><button onclick="startWizard('safe-driving-standard')" data-i18n="document_categories.standards.safe_driving_standard" class="text-blue-500 hover:underline">Safe Driving / Fleet Management Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">💡</span><button onclick="startWizard('noise-ventilation-standard')" data-i18n="document_categories.standards.noise_ventilation_standard" class="text-blue-500 hover:underline">Standard for Noise, Ventilation, and Lighting</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔥</span><button onclick="startWizard('fire-protection-standard')" data-i18n="document_categories.standards.fire_protection_standard" class="text-blue-500 hover:underline">Fire Protection System Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧘</span><button onclick="startWizard('ergonomics-standard')" data-i18n="document_categories.standards.ergonomics_standard" class="text-blue-500 hover:underline">Workplace Ergonomics Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏥</span><button onclick="startWizard('health-surveillance-standard')" data-i18n="document_categories.standards.health_surveillance_standard" class="text-blue-500 hover:underline">Occupational Health Surveillance Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🪜</span><button onclick="startWizard('fall-protection-standard')" data-i18n="document_categories.standards.fall_protection_standard" class="text-blue-500 hover:underline">Fall Protection Plan Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☣️</span><button onclick="startWizard('hazardous-substance-standard')" data-i18n="document_categories.standards.hazardous_substance_standard" class="text-blue-500 hover:underline">Hazardous Substance Handling Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏗️</span><button onclick="startWizard('construction-safety-standard')" data-i18n="document_categories.standards.construction_safety_standard" class="text-blue-500 hover:underline">Construction Site Safety Standard</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚻</span><button onclick="startWizard('hygiene-facility-standard')" data-i18n="document_categories.standards.hygiene_facility_standard" class="text-blue-500 hover:underline">Hygiene Facility Standard (toilets, water, rest areas)</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.registers_logs.title">Registers and Logs</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.registers_logs.description">Continuously updated records for tracking and traceability.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('legal-requirements-register')" data-i18n="document_categories.registers_logs.legal_requirements_register" class="text-blue-500 hover:underline">Legal Requirements Register</button> (<a href="/safety-plans/pages/legislation.html" class="text-blue-500 hover:underline" data-i18n="links.legislation">View Legislation</a>)</li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('risk-register')" data-i18n="document_categories.registers_logs.risk_register" class="text-blue-500 hover:underline">Risk Register / HIRA Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🎓</span><button onclick="startWizard('training-competency-log')" data-i18n="document_categories.registers_logs.training_competency_log" class="text-blue-500 hover:underline">Training and Competency Log</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧤</span><button onclick="startWizard('ppe-issuance-register')" data-i18n="document_categories.registers_logs.ppe_issuance_register" class="text-blue-500 hover:underline">PPE Issuance Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🤝</span><button onclick="startWizard('contractor-register')" data-i18n="document_categories.registers_logs.contractor_register" class="text-blue-500 hover:underline">Contractor Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚑</span><button onclick="startWizard('incident-injury-register')" data-i18n="document_categories.registers_logs.incident_injury_register" class="text-blue-500 hover:underline">Incident and Injury Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚖️</span><button onclick="startWizard('corrective-action-register')" data-i18n="document_categories.registers_logs.corrective_action_register" class="text-blue-500 hover:underline">Corrective Action Register (CAR/PAR)</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🩺</span><button onclick="startWizard('first-aid-register')" data-i18n="document_categories.registers_logs.first_aid_register" class="text-blue-500 hover:underline">First Aid Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔧</span><button onclick="startWizard('equipment-inspection-log')" data-i18n="document_categories.registers_logs.equipment_inspection_log" class="text-blue-500 hover:underline">Equipment/Machinery Inspection Log</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔥</span><button onclick="startWizard('fire-equipment-inspection-register')" data-i18n="document_categories.registers_logs.fire_equipment_inspection_register" class="text-blue-500 hover:underline">Fire Equipment Inspection Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☣️</span><button onclick="startWizard('chemical-register')" data-i18n="document_categories.registers_logs.chemical_register" class="text-blue-500 hover:underline">Chemical Register / MSDS Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚨</span><button onclick="startWizard('emergency-drill-register')" data-i18n="document_categories.registers_logs.emergency_drill_register" class="text-blue-500 hover:underline">Emergency Drill Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">👤</span><button onclick="startWizard('visitor-induction-register')" data-i18n="document_categories.registers_logs.visitor_induction_register" class="text-blue-500 hover:underline">Visitor and Induction Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏥</span><button onclick="startWizard('medical-examination-register')" data-i18n="document_categories.registers_logs.medical_examination_register" class="text-blue-500 hover:underline">Occupational Medical Examination Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☢️</span><button onclick="startWizard('asbestos-lead-exposure-register')" data-i18n="document_categories.registers_logs.asbestos_lead_exposure_register" class="text-blue-500 hover:underline">Asbestos or Lead Exposure Register</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.templates_forms.title">Templates/Forms</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.templates_forms.description">Pre-formatted documents to collect and standardize input.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('hira-template')" data-i18n="document_categories.templates_forms.hira_template" class="text-blue-500 hover:underline">HIRA Template</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚑</span><button onclick="startWizard('incident-report-form')" data-i18n="document_categories.templates_forms.incident_report_form" class="text-blue-500 hover:underline">Incident Report Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔍</span><button onclick="startWizard('root-cause-analysis-form')" data-i18n="document_categories.templates_forms.root_cause_analysis_form" class="text-blue-500 hover:underline">Root Cause Analysis Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📢</span><button onclick="startWizard('toolbox-talk-attendance-sheet')" data-i18n="document_categories.templates_forms.toolbox_talk_attendance_sheet" class="text-blue-500 hover:underline">Toolbox Talk Attendance Sheet</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📞</span><button onclick="startWizard('emergency-contact-list')" data-i18n="document_categories.templates_forms.emergency_contact_list" class="text-blue-500 hover:underline">Emergency Contact List</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🎓</span><button onclick="startWizard('training-attendance-register')" data-i18n="document_categories.templates_forms.training_attendance_register" class="text-blue-500 hover:underline">Training Attendance Register</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📝</span><button onclick="startWizard('safety-meeting-minutes-template')" data-i18n="document_categories.templates_forms.safety_meeting_minutes_template" class="text-blue-500 hover:underline">Safety Meeting Minutes Template</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔍</span><button onclick="startWizard('audit-checklist-template')" data-i18n="document_categories.templates_forms.audit_checklist_template" class="text-blue-500 hover:underline">Audit Checklist Template</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📋</span><button onclick="startWizard('daily-site-inspection-form')" data-i18n="document_categories.templates_forms.daily_site_inspection_form" class="text-blue-500 hover:underline">Daily Site Inspection Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('permit-request-forms')" data-i18n="document_categories.templates_forms.permit_request_forms" class="text-blue-500 hover:underline">Permit Request Forms</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('risk-control-action-plan-template')" data-i18n="document_categories.templates_forms.risk_control_action_plan_template" class="text-blue-500 hover:underline">Risk Control Action Plan Template</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🤝</span><button onclick="startWizard('contractor-evaluation-checklist')" data-i18n="document_categories.templates_forms.contractor_evaluation_checklist" class="text-blue-500 hover:underline">Contractor Evaluation Checklist</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">✅</span><button onclick="startWizard('ohs-induction-checklist')" data-i18n="document_categories.templates_forms.ohs_induction_checklist" class="text-blue-500 hover:underline">OHS Induction Checklist</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📝</span><button onclick="startWizard('health-surveillance-consent-form')" data-i18n="document_categories.templates_forms.health_surveillance_consent_form" class="text-blue-500 hover:underline">Health Surveillance Consent Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('hazard-report-card')" data-i18n="document_categories.templates_forms.hazard_report_card" class="text-blue-500 hover:underline">Hazard Report Card / Near-Miss Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏥</span><button onclick="startWizard('fit-for-duty-form')" data-i18n="document_categories.templates_forms.fit_for_duty_form" class="text-blue-500 hover:underline">Fit-for-Duty / Return-to-Work Assessment Form</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📋</span><button onclick="startWizard('jsa-template')" data-i18n="document_categories.templates_forms.jsa_template" class="text-blue-500 hover:underline">Job Safety Analysis (JSA) Template</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🧘</span><button onclick="startWizard('ergonomic-risk-assessment-form')" data-i18n="document_categories.templates_forms.ergonomic_risk_assessment_form" class="text-blue-500 hover:underline">Ergonomic Risk Assessment Form</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.permits.title">Permits</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.permits.description">Controlled authorizations for high-risk or restricted tasks.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('permit-to-work-general')" data-i18n="document_categories.permits.permit_to_work_general" class="text-blue-500 hover:underline">Permit to Work (General)</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔥</span><button onclick="startWizard('hot-work-permit')" data-i18n="document_categories.permits.hot_work_permit" class="text-blue-500 hover:underline">Hot Work Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏪</span><button onclick="startWizard('confined-space-entry-permit')" data-i18n="document_categories.permits.confined_space_entry_permit" class="text-blue-500 hover:underline">Confined Space Entry Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🪜</span><button onclick="startWizard('working-at-heights-permit')" data-i18n="document_categories.permits.working_at_heights_permit" class="text-blue-500 hover:underline">Working at Heights Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚡</span><button onclick="startWizard('electrical-isolation-permit')" data-i18n="document_categories.permits.electrical_isolation_permit" class="text-blue-500 hover:underline">Electrical Isolation / Lockout Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⛏️</span><button onclick="startWizard('excavation-permit')" data-i18n="document_categories.permits.excavation_permit" class="text-blue-500 hover:underline">Excavation and Trenching Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏗️</span><button onclick="startWizard('crane-lifting-permit')" data-i18n="document_categories.permits.crane_lifting_permit" class="text-blue-500 hover:underline">Crane / Lifting Operation Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">💥</span><button onclick="startWizard('demolition-work-permit')" data-i18n="document_categories.permits.demolition_work_permit" class="text-blue-500 hover:underline">Demolition Work Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☣️</span><button onclick="startWizard('hazardous-substance-handling-permit')" data-i18n="document_categories.permits.hazardous_substance_handling_permit" class="text-blue-500 hover:underline">Hazardous Substance Handling Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚗</span><button onclick="startWizard('vehicle-equipment-access-permit')" data-i18n="document_categories.permits.vehicle_equipment_access_permit" class="text-blue-500 hover:underline">Vehicle and Equipment Access Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☢️</span><button onclick="startWizard('radiation-work-permit')" data-i18n="document_categories.permits.radiation_work_permit" class="text-blue-500 hover:underline">Radiation Work Permit</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">☢️</span><button onclick="startWizard('asbestos-disturbance-permit')" data-i18n="document_categories.permits.asbestos_disturbance_permit" class="text-blue-500 hover:underline">Asbestos Disturbance Permit</button></li>
+                        </ul>
+                    </details>
+                </div>
+                <div class="category-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
+                    <details>
+                        <summary class="text-lg font-semibold text-gray-700 cursor-pointer flex items-center">
+                            <span data-i18n="document_categories.records.title">Records</span>
+                        </summary>
+                        <p class="text-sm text-gray-600 mt-2 mb-3" data-i18n="document_categories.records.description">Completed documents demonstrating implementation and compliance.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('signed-policies')" data-i18n="document_categories.records.signed_policies" class="text-blue-500 hover:underline">Signed Policies</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">⚠️</span><button onclick="startWizard('completed-risk-assessments')" data-i18n="document_categories.records.completed_risk_assessments" class="text-blue-500 hover:underline">Completed Risk Assessments</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🚑</span><button onclick="startWizard('incident-investigation-reports')" data-i18n="document_categories.records.incident_investigation_reports" class="text-blue-500 hover:underline">Incident Investigation Reports</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📝</span><button onclick="startWizard('signed-meeting-minutes')" data-i18n="document_categories.records.signed_meeting_minutes" class="text-blue-500 hover:underline">Signed Meeting Minutes</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('completed-permits')" data-i18n="document_categories.records.completed_permits" class="text-blue-500 hover:underline">Completed Permits</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🎓</span><button onclick="startWizard('attendance-records')" data-i18n="document_categories.records.attendance_records" class="text-blue-500 hover:underline">Attendance Records (Training/Inductions/Toolbox Talks)</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">✅</span><button onclick="startWizard('certificates-of-compliance')" data-i18n="document_categories.records.certificates_of_compliance" class="text-blue-500 hover:underline">Certificates of Compliance (e.g., fire, electrical)</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔧</span><button onclick="startWizard('equipment-maintenance-reports')" data-i18n="document_categories.records.equipment_maintenance_reports" class="text-blue-500 hover:underline">Equipment Maintenance and Calibration Reports</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🏥</span><button onclick="startWizard('medical-surveillance-reports')" data-i18n="document_categories.records.medical_surveillance_reports" class="text-blue-500 hover:underline">Medical Surveillance Reports</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">📜</span><button onclick="startWizard('coida-claims-reports')" data-i18n="document_categories.records.coida_claims_reports" class="text-blue-500 hover:underline">COIDA Claims and Reports</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🔍</span><button onclick="startWizard('audit-reports')" data-i18n="document_categories.records.audit_reports" class="text-blue-500 hover:underline">Audit Reports</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🤝</span><button onclick="startWizard('contractor-safety-files')" data-i18n="document_categories.records.contractor_safety_files" class="text-blue-500 hover:underline">Contractor Safety Files</button></li>
+                            <li class="flex items-center"><span class="emoji mr-2">🗑️</span><button onclick="startWizard('waste-disposal-certificates')" data-i18n="document_categories.records.waste_disposal_certificates" class="text-blue-500 hover:underline">Waste Disposal Certificates</button></li>
+                        </ul>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="selection-method bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 data-i18n="selection_method.title" class="text-xl font-semibold text-gray-700 mb-3">Select Your Compilation Method</h3>
+            <p data-i18n="selection_method.description" class="text-gray-600 mb-4">Choose how you’d like to compile your OHS documents: let our wizard suggest documents based on your industry, select from categories, or manually pick specific documents.</p>
+            <div class="action-buttons flex flex-wrap gap-3">
+                <button onclick="startWizard('automated')" data-i18n="selection_method.automated_wizard" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Automated Wizard</button>
+                <button onclick="startWizard('semi-automated')" data-i18n="selection_method.semi_automated" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Semi-Automated Selection</button>
+                <button onclick="startWizard('manual')" data-i18n="selection_method.manual" class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded shadow transition duration-300">Manual Selection</button>
             </div>
         </section>
 
         <div id="wizard-container" class="mt-6 bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col md:flex-row gap-6 hidden">
             <div id="wizard-content" class="flex-grow">
-                <h3 class="text-xl font-semibold text-gray-700 mb-4">OHS System Wizard</h3>
+                <h3 class="text-xl font-semibold text-gray-700 mb-4" data-i18n="wizard.title">OHS System Wizard</h3>
                 <div id="progress-bar" class="progress-bar w-full bg-gray-200 rounded-full h-2.5 mb-4">
                     <div id="progress-fill" class="progress-fill bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
                 </div>
                 <div id="step-content">
                     <!-- Step 0: Initial Prompt -->
                     <div id="step-0" class="step">
-                        <p data-i18n="wizard.step_0">Please select an action to start the process.</p>
+                        <p data-i18n="wizard.step_0">Please select a compilation method to start the process.</p>
                     </div>
-                    <!-- Step 1: Select Documents -->
-                    <div id="step-1" class="step hidden">
-                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_1.title">Step 1 of 5: What do you want to do?</h4>
+                    <!-- Step 1: Select Industry (Automated Wizard) -->
+                    <div id="step-1-automated" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.automated.step_1.title">Step 1 of 5: Select Your Industry</h4>
                         <div class="form-group">
-                            <label data-i18n="wizard.step_1.label">Select the Documents you will Compile (Select all that apply):</label>
+                            <label for="industry" data-i18n="wizard.automated.step_1.label">Industry:</label>
+                            <select id="industry" name="industry" required>
+                                <option value="" disabled selected data-i18n="wizard.automated.step_1.error">Please select an industry.</option>
+                                <option value="construction" data-i18n="wizard.automated.step_1.option_construction">Construction</option>
+                                <option value="manufacturing" data-i18n="wizard.automated.step_1.option_manufacturing">Manufacturing</option>
+                                <option value="office" data-i18n="wizard.automated.step_1.option_office">Office/Administrative</option>
+                                <option value="chemical" data-i18n="wizard.automated.step_1.option_chemical">Chemical Industry</option>
+                                <option value="healthcare" data-i18n="wizard.automated.step_1.option_healthcare">Healthcare</option>
+                                <option value="education" data-i18n="wizard.automated.step_1.option_education">Education</option>
+                                <option value="retail" data-i18n="wizard.automated.step_1.option_retail">Retail</option>
+                                <option value="transportation" data-i18n="wizard.automated.step_1.option_transportation">Transportation</option>
+                                <option value="hospitality" data-i18n="wizard.automated.step_1.option_hospitality">Hospitality</option>
+                                <option value="other" data-i18n="wizard.automated.step_1.option_other">Other</option>
+                            </select>
+                            <p id="industry-error" class="error hidden" data-i18n="wizard.automated.step_1.error">Please select an industry.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.automated.step_1.legal_fact"><strong>Legal Fact:</strong> The OHS Act Section 8 requires employers to provide a safe workplace tailored to industry-specific risks.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2: Key Details (Automated Wizard) -->
+                    <div id="step-2-automated" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.automated.step_2.title">Step 2 of 5: Key Details</h4>
+                        <div class="form-group">
+                            <label for="company-size" data-i18n="wizard.automated.step_2.company_size_label">Company Size (Number of Employees):</label>
+                            <select id="company-size" name="company-size" required>
+                                <option value="" disabled selected data-i18n="wizard.automated.step_2.company_size_error">Please select the number of employees.</option>
+                                <option value="small" data-i18n="wizard.automated.step_2.option_small">1-10 (Small)</option>
+                                <option value="medium" data-i18n="wizard.automated.step_2.option_medium">11-50 (Medium)</option>
+                                <option value="large" data-i18n="wizard.automated.step_2.option_large">51+ (Large)</option>
+                            </select>
+                            <p id="company-size-error" class="error hidden" data-i18n="wizard.automated.step_2.company_size_error">Please select the company size.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="risk-profile" data-i18n="wizard.automated.step_2.risk_profile_label">Risk Profile of Your Workplace:</label>
+                            <select id="risk-profile" name="risk-profile" required>
+                                <option value="" disabled selected data-i18n="wizard.automated.step_2.risk_profile_error">Please select a risk profile.</option>
+                                <option value="low" data-i18n="wizard.automated.step_2.option_low">Low Risk (e.g., Office)</option>
+                                <option value="medium" data-i18n="wizard.automated.step_2.option_medium">Medium Risk (e.g., Manufacturing)</option>
+                                <option value="high" data-i18n="wizard.automated.step_2.option_high">High Risk (e.g., Construction, Chemicals)</option>
+                            </select>
+                            <p id="risk-profile-error" class="error hidden" data-i18n="wizard.automated.step_2.risk_profile_error">Please select a risk profile.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.automated.step_2.legal_fact"><strong>Legal Fact:</strong> High-risk workplaces require more stringent procedures, as per ISO 45001 Clause 6.1.2.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3: Document Suggestions (Automated Wizard) -->
+                    <div id="step-3-automated" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.automated.step_3.title">Step 3 of 5: Document Suggestions</h4>
+                        <p data-i18n="wizard.automated.step_3.description" class="text-gray-600 mb-4">Based on your industry, company size, and risk profile, here are the suggested documents. Select the ones you want to compile.</p>
+                        <div class="form-group">
+                            <label data-i18n="wizard.automated.step_3.suggested_documents_label" class="block text-sm font-medium text-gray-700 mb-2">Suggested Documents:</label>
+                            <table class="document-table w-full border-collapse mb-4">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Select</th>
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="suggested-documents">
+                                    <!-- Dynamically populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <p id="suggested-documents-error" class="error hidden" data-i18n="wizard.automated.step_3.error">Please select at least one document to compile.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.automated.step_3.legal_fact"><strong>Legal Fact:</strong> ISO 45001 mandates a documented OHS policy and risk assessment process.</p>
+                        </div>
+                    </div>
+                    <!-- Step 1: Select Categories (Semi-Automated) -->
+                    <div id="step-1-semi-automated" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.semi_automated.step_1.title">Step 1 of 4: Select Categories</h4>
+                        <div class="form-group">
+                            <label data-i18n="wizard.semi_automated.step_1.label">Select the Categories you want to Compile Documents From:</label>
+                            <table class="category-table w-full border-collapse mb-4">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Select</th>
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-policies" name="categories" value="policies" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.policies.title">Policies</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-procedures" name="categories" value="procedures" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.procedures.title">Procedures</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-standards" name="categories" value="standards" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.standards.title">Standards/Guidelines</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-registers-logs" name="categories" value="registers-logs" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.registers_logs.title">Registers and Logs</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-templates-forms" name="categories" value="templates-forms" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.templates_forms.title">Templates/Forms</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-permits" name="categories" value="permits" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.permits.title">Permits</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="category-records" name="categories" value="records" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2" data-i18n="document_categories.records.title">Records</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p id="categories-error" class="error hidden" data-i18n="wizard.semi_automated.step_1.error">Please select at least one category.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.semi_automated.step_1.legal_fact"><strong>Legal Fact:</strong> Section 7 of the OHS Act requires a CEO-signed policy.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2: Select Documents (Semi-Automated and Manual) -->
+                    <div id="step-2-semi-automated" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.semi_automated.step_2.title">Step 2 of 4: Select Documents</h4>
+                        <p data-i18n="wizard.semi_automated.step_2.description" class="text-gray-600 mb-4">Select the documents you want to compile from the categories you chose.</p>
+                        <div class="form-group">
+                            <label data-i18n="wizard.semi_automated.step_2.documents_label" class="block text-sm font-medium text-gray-700 mb-2">Documents:</label>
+                            <table class="document-table w-full border-collapse mb-4">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Select</th>
+                                        <th class="border border-gray-200 p-2 text-left text-sm font-semibold text-gray-700">Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="category-documents">
+                                    <!-- Dynamically populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <p id="category-documents-error" class="error hidden" data-i18n="wizard.semi_automated.step_2.error">Please select at least one document to compile.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.semi_automated.step_2.legal_fact"><strong>Legal Fact:</strong> ISO 45001 requires documented procedures for high-risk tasks.</p>
+                        </div>
+                    </div>
+                    <!-- Step 1: Select Documents (Manual) -->
+                    <div id="step-1-manual" class="step hidden">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.manual.step_1.title">Step 1 of 4: Select Documents</h4>
+                        <div class="form-group">
+                            <label data-i18n="wizard.manual.step_1.label">Select the Documents you will Compile (Select all that apply):</label>
                             <table class="document-table w-full border-collapse mb-4">
                                 <thead>
                                     <tr class="bg-gray-50">
@@ -306,273 +647,643 @@
                                         <td class="border border-gray-200 p-2">
                                             <input type="checkbox" id="ohs-manual" name="documents" value="ohs-manual" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_manual"><span class="emoji">📋</span> OHS Management System Manual</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.manual.step_1.ohs_manual"><span class="emoji">📋</span> OHS Management System Manual</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
                                             <input type="checkbox" id="health-safety-policy" name="documents" value="health-safety-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.health_safety_policy"><span class="emoji">📜</span> Health and Safety Policy</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.ohs_policy"><span class="emoji">📜</span> Occupational Health and Safety (OHS) Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="risk-assessment-procedure" name="documents" value="risk-assessment-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="environmental-policy" name="documents" value="environmental-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.risk_assessment_procedure"><span class="emoji">⚠️</span> Risk Assessment Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.environmental_policy"><span class="emoji">🌍</span> Environmental Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="incident-reporting-procedure" name="documents" value="incident-reporting-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="quality-policy" name="documents" value="quality-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.incident_reporting_procedure"><span class="emoji">🚑</span> Incident Reporting and Investigation Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.quality_policy"><span class="emoji">📊</span> Quality Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="emergency-response-plan" name="documents" value="emergency-response-plan" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="substance-abuse-policy" name="documents" value="substance-abuse-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.emergency_response_plan"><span class="emoji">🚨</span> Emergency Response Plan</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.substance_abuse_policy"><span class="emoji">🚭</span> Substance Abuse Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="training-induction-procedure" name="documents" value="training-induction-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="smoking-policy" name="documents" value="smoking-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.training_induction_procedure"><span class="emoji">🎓</span> Training and Induction Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.smoking_policy"><span class="emoji">🚬</span> Smoking Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="inspection-auditing-procedure" name="documents" value="inspection-auditing-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="workplace-violence-policy" name="documents" value="workplace-violence-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.inspection_auditing_procedure"><span class="emoji">🔍</span> Inspection and Auditing Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.workplace_violence_policy"><span class="emoji">🛡️</span> Workplace Violence and Harassment Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="mental-health-policy" name="documents" value="mental-health-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.mental_health_policy"><span class="emoji">🧠</span> Mental Health and Wellbeing Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="disability-policy" name="documents" value="disability-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.disability_policy"><span class="emoji">♿</span> Disability and Return-to-Work Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="contractor-policy" name="documents" value="contractor-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.contractor_policy"><span class="emoji">🤝</span> Contractor and Service Provider Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
                                             <input type="checkbox" id="ppe-policy" name="documents" value="ppe-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ppe_policy"><span class="emoji">🧤</span> Personal Protective Equipment (PPE) Policy</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.ppe_policy"><span class="emoji">🧤</span> PPE Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="hazardous-substances-procedure" name="documents" value="hazardous-substances-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="fit-for-duty-policy" name="documents" value="fit-for-duty-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.hazardous_substances_procedure"><span class="emoji">☣️</span> Hazardous Substances Management Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.fit_for_duty_policy"><span class="emoji">💪</span> Fit-for-Duty Policy</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="machinery-equipment-safety-procedure" name="documents" value="machinery-equipment-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="infectious-disease-policy" name="documents" value="infectious-disease-policy" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.machinery_equipment_safety_procedure"><span class="emoji">⚙️</span> Machinery and Equipment Safety Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.policies.infectious_disease_policy"><span class="emoji">🦠</span> COVID-19 or Infectious Disease Response Policy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-reporting-procedure" name="documents" value="incident-reporting-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.incident_reporting_procedure"><span class="emoji">🚑</span> Incident and Accident Reporting Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="emergency-response-procedure" name="documents" value="emergency-response-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.emergency_response_procedure"><span class="emoji">🚨</span> Emergency Response Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fire-evacuation-procedure" name="documents" value="fire-evacuation-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.fire_evacuation_procedure"><span class="emoji">🔥</span> Fire Evacuation Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="permit-to-work-procedure" name="documents" value="permit-to-work-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.permit_to_work_procedure"><span class="emoji">📜</span> Permit-to-Work Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hira-procedure" name="documents" value="hira-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.hira_procedure"><span class="emoji">⚠️</span> Hazard Identification and Risk Assessment (HIRA) Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ppe-issuance-procedure" name="documents" value="ppe-issuance-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.ppe_issuance_procedure"><span class="emoji">🧤</span> PPE Issuance and Use Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="lockout-tagout-procedure" name="documents" value="lockout-tagout-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.lockout_tagout_procedure"><span class="emoji">🔒</span> Lockout/Tagout Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="confined-space-entry-procedure" name="documents" value="confined-space-entry-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.confined_space_entry_procedure"><span class="emoji">🏪</span> Confined Space Entry Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="working-at-heights-procedure" name="documents" value="working-at-heights-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.working_at_heights_procedure"><span class="emoji">🪜</span> Working at Heights Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="contractor-management-procedure" name="documents" value="contractor-management-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.contractor_management_procedure"><span class="emoji">🤝</span> Contractor Management Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hot-work-procedure" name="documents" value="hot-work-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.hot_work_procedure"><span class="emoji">🔥</span> Hot Work Procedure</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
                                             <input type="checkbox" id="first-aid-procedure" name="documents" value="first-aid-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.first_aid_procedure"><span class="emoji">🩺</span> First Aid Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.first_aid_procedure"><span class="emoji">🩺</span> First Aid and Medical Emergency Procedure</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="fire-safety-procedure" name="documents" value="fire-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="ergonomics-assessment-procedure" name="documents" value="ergonomics-assessment-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.fire_safety_procedure"><span class="emoji">🔥</span> Fire Safety Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.ergonomics_assessment_procedure"><span class="emoji">🧘</span> Ergonomics Assessment Procedure</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="electrical-safety-procedure" name="documents" value="electrical-safety-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="incident-investigation-procedure" name="documents" value="incident-investigation-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.electrical_safety_procedure"><span class="emoji">⚡</span> Electrical Safety Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.incident_investigation_procedure"><span class="emoji">🔍</span> Incident Investigation Procedure</td>
                                     </tr>
                                     <tr>
                                         <td class="border border-gray-200 p-2">
-                                            <input type="checkbox" id="manual-handling-procedure" name="documents" value="manual-handling-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                            <input type="checkbox" id="induction-training-procedure" name="documents" value="induction-training-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
                                         </td>
-                                        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.manual_handling_procedure"><span class="emoji">🏋️</span> Manual Handling Procedure</td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.induction_training_procedure"><span class="emoji">🎓</span> Induction and Training Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="toolbox-talk-procedure" name="documents" value="toolbox-talk-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.toolbox_talk_procedure"><span class="emoji">📢</span> Toolbox Talk Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="document-control-procedure" name="documents" value="document-control-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.document_control_procedure"><span class="emoji">📄</span> Document and Records Control Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="non-conformance-procedure" name="documents" value="non-conformance-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.non_conformance_procedure"><span class="emoji">⚖️</span> Non-Conformance and Corrective Action Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="internal-audit-procedure" name="documents" value="internal-audit-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.internal_audit_procedure"><span class="emoji">🔍</span> Internal OHS Audit Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="return-to-work-procedure" name="documents" value="return-to-work-procedure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.procedures.return_to_work_procedure"><span class="emoji">🏥</span> Return-to-Work Procedure</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ohs-management-standard" name="documents" value="ohs-management-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.ohs_management_standard"><span class="emoji">📋</span> OHS Management System Standard (ISO 45001 aligned)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="risk-rating-matrix" name="documents" value="risk-rating-matrix" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.risk_rating_matrix"><span class="emoji">📊</span> Risk Rating Matrix</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="emergency-preparedness-standard" name="documents" value="emergency-preparedness-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.emergency_preparedness_standard"><span class="emoji">🚨</span> Standard for Emergency Preparedness and Response</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="housekeeping-standard" name="documents" value="housekeeping-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.housekeeping_standard"><span class="emoji">🧹</span> Housekeeping and Waste Management Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-classification-matrix" name="documents" value="incident-classification-matrix" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.incident_classification_matrix"><span class="emoji">📉</span> Incident Classification Matrix</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ohs-training-standard" name="documents" value="ohs-training-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.ohs_training_standard"><span class="emoji">🎓</span> OHS Training and Competency Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="safe-driving-standard" name="documents" value="safe-driving-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.safe_driving_standard"><span class="emoji">🚗</span> Safe Driving / Fleet Management Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="noise-ventilation-standard" name="documents" value="noise-ventilation-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.noise_ventilation_standard"><span class="emoji">💡</span> Standard for Noise, Ventilation, and Lighting</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fire-protection-standard" name="documents" value="fire-protection-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.fire_protection_standard"><span class="emoji">🔥</span> Fire Protection System Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ergonomics-standard" name="documents" value="ergonomics-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.ergonomics_standard"><span class="emoji">🧘</span> Workplace Ergonomics Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="health-surveillance-standard" name="documents" value="health-surveillance-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.health_surveillance_standard"><span class="emoji">🏥</span> Occupational Health Surveillance Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fall-protection-standard" name="documents" value="fall-protection-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.fall_protection_standard"><span class="emoji">🪜</span> Fall Protection Plan Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hazardous-substance-standard" name="documents" value="hazardous-substance-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.hazardous_substance_standard"><span class="emoji">☣️</span> Hazardous Substance Handling Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="construction-safety-standard" name="documents" value="construction-safety-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.construction_safety_standard"><span class="emoji">🏗️</span> Construction Site Safety Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hygiene-facility-standard" name="documents" value="hygiene-facility-standard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.standards.hygiene_facility_standard"><span class="emoji">🚻</span> Hygiene Facility Standard (toilets, water, rest areas)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="legal-requirements-register" name="documents" value="legal-requirements-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.legal_requirements_register"><span class="emoji">📜</span> Legal Requirements Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="risk-register" name="documents" value="risk-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.risk_register"><span class="emoji">⚠️</span> Risk Register / HIRA Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="training-competency-log" name="documents" value="training-competency-log" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.training_competency_log"><span class="emoji">🎓</span> Training and Competency Log</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ppe-issuance-register" name="documents" value="ppe-issuance-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.ppe_issuance_register"><span class="emoji">🧤</span> PPE Issuance Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="contractor-register" name="documents" value="contractor-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.contractor_register"><span class="emoji">🤝</span> Contractor Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-injury-register" name="documents" value="incident-injury-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.incident_injury_register"><span class="emoji">🚑</span> Incident and Injury Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="corrective-action-register" name="documents" value="corrective-action-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.corrective_action_register"><span class="emoji">⚖️</span> Corrective Action Register (CAR/PAR)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="first-aid-register" name="documents" value="first-aid-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.first_aid_register"><span class="emoji">🩺</span> First Aid Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="equipment-inspection-log" name="documents" value="equipment-inspection-log" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.equipment_inspection_log"><span class="emoji">🔧</span> Equipment/Machinery Inspection Log</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fire-equipment-inspection-register" name="documents" value="fire-equipment-inspection-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.fire_equipment_inspection_register"><span class="emoji">🔥</span> Fire Equipment Inspection Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="chemical-register" name="documents" value="chemical-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.chemical_register"><span class="emoji">☣️</span> Chemical Register / MSDS Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="emergency-drill-register" name="documents" value="emergency-drill-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.emergency_drill_register"><span class="emoji">🚨</span> Emergency Drill Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="visitor-induction-register" name="documents" value="visitor-induction-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.visitor_induction_register"><span class="emoji">👤</span> Visitor and Induction Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="medical-examination-register" name="documents" value="medical-examination-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.medical_examination_register"><span class="emoji">🏥</span> Occupational Medical Examination Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="asbestos-lead-exposure-register" name="documents" value="asbestos-lead-exposure-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.registers_logs.asbestos_lead_exposure_register"><span class="emoji">☢️</span> Asbestos or Lead Exposure Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hira-template" name="documents" value="hira-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.hira_template"><span class="emoji">⚠️</span> HIRA Template</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-report-form" name="documents" value="incident-report-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.incident_report_form"><span class="emoji">🚑</span> Incident Report Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="root-cause-analysis-form" name="documents" value="root-cause-analysis-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.root_cause_analysis_form"><span class="emoji">🔍</span> Root Cause Analysis Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="toolbox-talk-attendance-sheet" name="documents" value="toolbox-talk-attendance-sheet" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.toolbox_talk_attendance_sheet"><span class="emoji">📢</span> Toolbox Talk Attendance Sheet</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="emergency-contact-list" name="documents" value="emergency-contact-list" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.emergency_contact_list"><span class="emoji">📞</span> Emergency Contact List</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="training-attendance-register" name="documents" value="training-attendance-register" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.training_attendance_register"><span class="emoji">🎓</span> Training Attendance Register</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="safety-meeting-minutes-template" name="documents" value="safety-meeting-minutes-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.safety_meeting_minutes_template"><span class="emoji">📝</span> Safety Meeting Minutes Template</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="audit-checklist-template" name="documents" value="audit-checklist-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.audit_checklist_template"><span class="emoji">🔍</span> Audit Checklist Template</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="daily-site-inspection-form" name="documents" value="daily-site-inspection-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.daily_site_inspection_form"><span class="emoji">📋</span> Daily Site Inspection Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="permit-request-forms" name="documents" value="permit-request-forms" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.permit_request_forms"><span class="emoji">📜</span> Permit Request Forms</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="risk-control-action-plan-template" name="documents" value="risk-control-action-plan-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.risk_control_action_plan_template"><span class="emoji">⚠️</span> Risk Control Action Plan Template</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="contractor-evaluation-checklist" name="documents" value="contractor-evaluation-checklist" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.contractor_evaluation_checklist"><span class="emoji">🤝</span> Contractor Evaluation Checklist</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ohs-induction-checklist" name="documents" value="ohs-induction-checklist" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.ohs_induction_checklist"><span class="emoji">✅</span> OHS Induction Checklist</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="health-surveillance-consent-form" name="documents" value="health-surveillance-consent-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.health_surveillance_consent_form"><span class="emoji">📝</span> Health Surveillance Consent Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hazard-report-card" name="documents" value="hazard-report-card" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.hazard_report_card"><span class="emoji">⚠️</span> Hazard Report Card / Near-Miss Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="fit-for-duty-form" name="documents" value="fit-for-duty-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.fit_for_duty_form"><span class="emoji">🏥</span> Fit-for-Duty / Return-to-Work Assessment Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="jsa-template" name="documents" value="jsa-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.jsa_template"><span class="emoji">📋</span> Job Safety Analysis (JSA) Template</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="ergonomic-risk-assessment-form" name="documents" value="ergonomic-risk-assessment-form" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.templates_forms.ergonomic_risk_assessment_form"><span class="emoji">🧘</span> Ergonomic Risk Assessment Form</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="permit-to-work-general" name="documents" value="permit-to-work-general" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.permit_to_work_general"><span class="emoji">📜</span> Permit to Work (General)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hot-work-permit" name="documents" value="hot-work-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.hot_work_permit"><span class="emoji">🔥</span> Hot Work Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="confined-space-entry-permit" name="documents" value="confined-space-entry-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.confined_space_entry_permit"><span class="emoji">🏪</span> Confined Space Entry Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="working-at-heights-permit" name="documents" value="working-at-heights-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.working_at_heights_permit"><span class="emoji">🪜</span> Working at Heights Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="electrical-isolation-permit" name="documents" value="electrical-isolation-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.electrical_isolation_permit"><span class="emoji">⚡</span> Electrical Isolation / Lockout Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="excavation-permit" name="documents" value="excavation-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.excavation_permit"><span class="emoji">⛏️</span> Excavation and Trenching Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="crane-lifting-permit" name="documents" value="crane-lifting-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.crane_lifting_permit"><span class="emoji">🏗️</span> Crane / Lifting Operation Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="demolition-work-permit" name="documents" value="demolition-work-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.demolition_work_permit"><span class="emoji">💥</span> Demolition Work Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="hazardous-substance-handling-permit" name="documents" value="hazardous-substance-handling-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.hazardous_substance_handling_permit"><span class="emoji">☣️</span> Hazardous Substance Handling Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="vehicle-equipment-access-permit" name="documents" value="vehicle-equipment-access-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.vehicle_equipment_access_permit"><span class="emoji">🚗</span> Vehicle and Equipment Access Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="radiation-work-permit" name="documents" value="radiation-work-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.radiation_work_permit"><span class="emoji">☢️</span> Radiation Work Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="asbestos-disturbance-permit" name="documents" value="asbestos-disturbance-permit" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.permits.asbestos_disturbance_permit"><span class="emoji">☢️</span> Asbestos Disturbance Permit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="signed-policies" name="documents" value="signed-policies" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.signed_policies"><span class="emoji">📜</span> Signed Policies</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="completed-risk-assessments" name="documents" value="completed-risk-assessments" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.completed_risk_assessments"><span class="emoji">⚠️</span> Completed Risk Assessments</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="incident-investigation-reports" name="documents" value="incident-investigation-reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.incident_investigation_reports"><span class="emoji">🚑</span> Incident Investigation Reports</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="signed-meeting-minutes" name="documents" value="signed-meeting-minutes" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.signed_meeting_minutes"><span class="emoji">📝</span> Signed Meeting Minutes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="completed-permits" name="documents" value="completed-permits" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.completed_permits"><span class="emoji">📜</span> Completed Permits</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="attendance-records" name="documents" value="attendance-records" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.attendance_records"><span class="emoji">🎓</span> Attendance Records (Training/Inductions/Toolbox Talks)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="certificates-of-compliance" name="documents" value="certificates-of-compliance" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.certificates_of_compliance"><span class="emoji">✅</span> Certificates of Compliance (e.g., fire, electrical)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="equipment-maintenance-reports" name="documents" value="equipment-maintenance-reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.equipment_maintenance_reports"><span class="emoji">🔧</span> Equipment Maintenance and Calibration Reports</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="medical-surveillance-reports" name="documents" value="medical-surveillance-reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.medical_surveillance_reports"><span class="emoji">🏥</span> Medical Surveillance Reports</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="coida-claims-reports" name="documents" value="coida-claims-reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.coida_claims_reports"><span class="emoji">📜</span> COIDA Claims and Reports</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="audit-reports" name="documents" value="audit-reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.audit_reports"><span class="emoji">🔍</span> Audit Reports</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="contractor-safety-files" name="documents" value="contractor-safety-files" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.contractor_safety_files"><span class="emoji">🤝</span> Contractor Safety Files</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-200 p-2">
+                                            <input type="checkbox" id="waste-disposal-certificates" name="documents" value="waste-disposal-certificates" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                        </td>
+                                        <td class="border border-gray-200 p-2 document-name" data-i18n="document_categories.records.waste_disposal_certificates"><span class="emoji">🗑️</span> Waste Disposal Certificates</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <p id="documents-error" class="error hidden" data-i18n="wizard.step_1.error">Please select at least one document to compile.</p>
+                            <p id="documents-error" class="error hidden" data-i18n="wizard.manual.step_1.error">Please select at least one document to compile.</p>
+                        </div>
+                        <div class="legal-fact mt-3 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                            <p data-i18n="wizard.manual.step_1.legal_fact"><strong>Legal Fact:</strong> COIDA Section 24 requires incident reports to be retained for audit purposes.</p>
                         </div>
                     </div>
-                    <!-- Step 2: Company Details -->
-                    <div id="step-2" class="step hidden">
-                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_2.title">Step 2 of 5: Company Details</h4>
-                        <div class="form-group">
-                            <label for="company-name" data-i18n="wizard.step_2.company_name_label">Company Name:</label>
-                            <input type="text" id="company-name" name="company-name" required>
-                            <p id="company-name-error" class="error hidden" data-i18n="wizard.step_2.company_name_error">Please enter the company name.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="company-address" data-i18n="wizard.step_2.company_address_label">Company Address:</label>
-                            <input type="text" id="company-address" name="company-address" required>
-                            <p id="company-address-error" class="error hidden" data-i18n="wizard.step_2.company_address_error">Please enter the company address.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="company-contact-number" data-i18n="wizard.step_2.company_contact_number_label">Company Contact Number:</label>
-                            <input type="tel" id="company-contact-number" name="company-contact-number" pattern="\+[0-9]{10,}" placeholder="+27123456789" required>
-                            <p id="company-contact-number-error" class="error hidden" data-i18n="wizard.step_2.company_contact_number_error">Please enter a valid phone number (e.g., +27123456789).</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="company-email" data-i18n="wizard.step_2.company_email_label">Company Email:</label>
-                            <input type="email" id="company-email" name="company-email" required>
-                            <p id="company-email-error" class="error hidden" data-i18n="wizard.step_2.company_email_error">Please enter a valid email address.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="ceo-name" data-i18n="wizard.step_2.ceo_name_label">CEO Name:</label>
-                            <input type="text" id="ceo-name" name="ceo-name" required>
-                            <p id="ceo-name-error" class="error hidden" data-i18n="wizard.step_2.ceo_name_error">Please enter the CEO's name.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="coida-registration" data-i18n="wizard.step_2.coida_registration_label">COIDA Registration Number:</label>
-                            <input type="text" id="coida-registration" name="coida-registration" required>
-                            <p id="coida-registration-error" class="error hidden" data-i18n="wizard.step_2.coida_registration_error">Please enter the COIDA registration number.</p>
-                        </div>
-                    </div>
-                    <!-- Step 3: Customize Content -->
-                    <div id="step-3" class="step hidden">
-                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_3.title">Step 3 of 5: Customize Content</h4>
-                        <div class="form-group">
-                            <label for="custom-content" data-i18n="wizard.step_3.custom_content_label">Edit Document Content (e.g., Safety Objectives, Procedures):</label>
-                            <textarea id="custom-content" name="custom-content" rows="6" required></textarea>
-                            <p id="custom-content-error" class="error hidden" data-i18n="wizard.step_3.custom_content_error">Please enter the custom content.</p>
-                        </div>
-                    </div>
-                    <!-- Step 4: Compiled By -->
-                    <div id="step-4" class="step hidden">
-                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_4.title">Step 4 of 5: Compiled By</h4>
-                        <div class="form-group">
-                            <label for="compiled-by-name" data-i18n="wizard.step_4.name_label">Name:</label>
-                            <input type="text" id="compiled-by-name" name="compiled-by-name" required>
-                            <p id="compiled-by-name-error" class="error hidden" data-i18n="wizard.step_4.name_error">Please enter your name.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="compiled-by-number" data-i18n="wizard.step_4.number_label">Contact Number:</label>
-                            <input type="tel" id="compiled-by-number" name="compiled-by-number" pattern="\+[0-9]{10,}" placeholder="+27123456789" required>
-                            <p id="compiled-by-number-error" class="error hidden" data-i18n="wizard.step_4.number_error">Please enter a valid phone number (e.g., +27123456789).</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="compiled-by-email" data-i18n="wizard.step_4.email_label">Email:</label>
-                            <input type="email" id="compiled-by-email" name="compiled-by-email" required>
-                            <p id="compiled-by-email-error" class="error hidden" data-i18n="wizard.step_4.email_error">Please enter a valid email address.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="compiled-by-role" data-i18n="wizard.step_4.role_label">Role:</label>
-                            <select id="compiled-by-role" name="compiled-by-role" required>
-                                <option value="" disabled selected>Select Role</option>
-                                <option value="trainee" data-i18n="wizard.step_4.role_trainee">OHS Trainee</option>
-                                <option value="ohs-rep" data-i18n="wizard.step_4.role_ohs_rep">OHS Representative</option>
-                                <option value="sacpcmp-officer" data-i18n="wizard.step_4.role_sacpcmp_officer">SACPCMP Officer (CHSO)</option>
-                                <option value="sacpcmp-agent" data-i18n="wizard.step_4.role_sacpcmp_agent">SACPCMP Agent (PrCHSA)</option>
-                                <option value="other" data-i18n="wizard.step_4.role_other">Other</option>
-                            </select>
-                            <p id="compiled-by-role-error" class="error hidden" data-i18n="wizard.step_4.role_error">Please select a role.</p>
-                        </div>
-                        <div class="form-group hidden" id="sacpcmp-reg-group">
-                            <label for="sacpcmp-reg" data-i18n="wizard.step_4.sacpcmp_reg_label">SACPCMP Registration Number:</label>
-                            <input type="text" id="sacpcmp-reg" name="sacpcmp-reg">
-                            <p id="sacpcmp-reg-error" class="error hidden" data-i18n="wizard.step_4.sacpcmp_reg_error">Please enter the SACPCMP registration number.</p>
-                        </div>
-                        <div class="form-group hidden" id="specify-role-group">
-                            <label for="specify-role" data-i18n="wizard.step_4.specify_role_label">Specify Role:</label>
-                            <input type="text" id="specify-role" name="specify-role">
-                            <p id="specify-role-error" class="error hidden" data-i18n="wizard.step_4.specify_role_error">Please specify your role.</p>
-                        </div>
-                    </div>
-                    <!-- Step 5: Review and Add to Cart -->
-                    <div id="step-5" class="step hidden">
-                        <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="wizard.step_5.title">Step 5 of 5: Review and Add to Cart</h4>
-                        <p data-i18n="wizard.step_5.description" class="text-gray-600 mb-4">Review your selections and add documents to your cart to proceed.</p>
-                        <div class="form-group">
-                            <label data-i18n="wizard.step_5.selected_documents_label" class="block text-sm font-medium text-gray-700 mb-2">Selected Documents:</label>
-                            <ul id="selected-documents" class="list-disc list-inside text-gray-600"></ul>
-                        </div>
-                        <button id="add-to-cart-btn" data-i18n="wizard.nav.add_to_cart" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition duration-300 mt-4">Add to Cart</button>
-                    </div>
-                </div>
-                <div class="nav-buttons mt-6 flex justify-between">
-                    <button id="back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow transition duration-300 disabled:opacity-50" data-i18n="wizard.nav.back" disabled>Back</button>
-                    <button id="next-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition duration-300" data-i18n="wizard.nav.next">Next</button>
-                </div>
-            </div>
-            <div id="wizard-sidebar" class="w-full md:w-1/3 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-inner">
-                <h4 class="text-lg font-semibold text-gray-700 mb-3">Relevant Info</h4>
-                <div id="sidebar-legislation"></div>
-                <div id="sidebar-fun-fact" class="mt-4"></div>
-            </div>
-        </div>
-
-        <div id="cart-container" class="cart-container mt-6 bg-white p-6 rounded-lg shadow-md mb-6 hidden">
-            <h3 data-i18n="cart.title" class="text-xl font-semibold text-gray-700 mb-4">Your Cart</h3>
-            <p id="invoice-reference" class="hidden text-sm text-gray-600 mb-4" data-i18n="cart.invoice_reference">Invoice Reference Number: <span id="invoice-ref-number" class="font-medium"></span> (Valid for 7 days. Register to store indefinitely!)</p>
-            <div class="overflow-x-auto">
-                <table id="cart-table" class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th data-i18n="cart.table.document" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document</th>
-                            <th data-i18n="cart.table.price" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items" class="bg-white divide-y divide-gray-200">
-                    </tbody>
-                </table>
-            </div>
-            <div class="checkout mt-6 flex items-center gap-4">
-                <label for="promo-code" data-i18n="cart.checkout.promo_label" class="text-sm font-medium text-gray-700">Promo Code:</label>
-                <input type="text" id="promo-code" data-i18n="[placeholder]cart.checkout.promo_placeholder" placeholder="Enter SAFETYFIRST25" aria-label="Promo Code" class="px-3 py-1 border border-gray-300 rounded-md shadow-sm text-sm">
-                <button id="checkout-btn" data-i18n="cart.checkout.button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow transition duration-300 text-sm">Checkout</button>
-            </div>
-        </div>
-
-        <section class="resources mt-6 bg-white p-6 rounded-lg shadow-md mb-6">
-            <h3 data-i18n="resources.title" class="text-xl font-semibold text-gray-700 mb-3">Contact Accredited OHS Professionals</h3>
-            <p data-i18n="resources.description" class="text-gray-600 mb-4 text-sm">Need expert assistance? Reach out to accredited professionals for your OHS needs.</p>
-            <ul class="space-y-2 text-sm">
-                <li data-i18n="resources.jane_doe" class="border-b border-gray-200 pb-2"><strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: <a href="mailto:jane.doe@example.com" class="text-blue-500 hover:underline">jane.doe@example.com</a></li>
-                <li data-i18n="resources.john_smith" class="border-b border-gray-200 pb-2"><strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: <a href="mailto:john.smith@example.com" class="text-blue-500 hover:underline">john.smith@example.com</a></li>
-                <li data-i18n="resources.emily_brown"><strong>Emily Brown, OHS Representative</strong> - Contact: <a href="mailto:emily.brown@example.com" class="text-blue-500 hover:underline">emily.brown@example.com</a></li>
-            </ul>
-            <h3 data-i18n="resources.legislation.title" class="text-xl font-semibold text-gray-700 mt-6 mb-3">Relevant Legislation and Standards</h3>
-            <ul class="space-y-2 text-sm">
-                <li><a href="https://www.gov.za/documents/occupational-health-and-safety-act" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Occupational Health and Safety Act 85 of 1993</a></li>
-                <li><a href="https://www.gov.za/documents/compensation-occupational-injuries-and-diseases-act" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Compensation for Occupational Injuries and Diseases Act 130 of 1993</a></li>
-                <li><a href="https://www.iso.org/standard/63787.html" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">ISO 45001:2018 - Occupational Health and Safety Management Systems</a></li>
-                <li><a href="https://www.sabs.co.za/Standardisation/standards-development/SANS-standards.php" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">SANS Standards (e.g., SANS 31000 for Risk Management)</a></li>
-            </ul>
-        </section>
-
-        <footer class="bg-gray-900 text-white py-8 mt-auto">
-            <div class="container mx-auto px-6 text-center">
-                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
-                <p class="mb-4">
-                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
-                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
-                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
-                </p>
-                <div class="newsletter mt-6">
-                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
-                    <form class="flex justify-center">
-                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
-        </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
-            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
-            </div>
-            <div id="chat-input-container" class="flex border-t border-gray-200">
-                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="/safety-plans/assets/js/ohs-system.js"></script>
-</body>
-</html>
