@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SafetyHelp OHS Tools - Your go-to resource for Occupational Health and Safety tools. Safety Personalized, Compliance Simplified—Anytime, Anywhere.">
+  <meta name="description" content="SafetyHelp - Your go-to resource for OHS tools. Safety Personalized, Compliance Simplified—Anytime, Anywhere.">
   <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS">
   <meta name="author" content="SafetyHelp Team">
   <title>SafetyHelp - Home</title>
@@ -19,6 +19,8 @@
       margin: 0;
       padding-top: 100px;
       display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
       font-family: 'Montserrat', sans-serif;
@@ -42,9 +44,12 @@
       align-items: center;
       padding: 10px 20px;
     }
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
     .logo-container {
-      padding-left: 10px;
-      text-align: left;
+      padding-left: 0;
     }
     .logo-container img {
       height: 50px;
@@ -53,9 +58,8 @@
       font-size: 14px;
       margin-top: 5px;
     }
-    .header-right {
-      display: flex;
-      align-items: center;
+    .nav-links {
+      margin-left: 20px;
     }
     .nav-links a {
       color: white;
@@ -70,7 +74,6 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      margin-left: 20px;
     }
     .search-bar button {
       background-color: #FD7E14;
@@ -145,13 +148,12 @@
       margin-left: 250px;
       flex-grow: 1;
       padding: 1.5rem;
-      min-height: calc(100vh - 100px);
       display: flex;
       flex-direction: row;
       gap: 20px;
     }
     .intro {
-      flex: 1;
+      flex: 3;
       background-color: white;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -185,7 +187,7 @@
     /* Carousel */
     .carousel-container {
       flex: 1;
-      max-width: 300px;
+      max-width: 250px;
       position: relative;
     }
     .carousel-item {
@@ -291,6 +293,7 @@
       padding: 15px;
       text-align: center;
       width: 100%;
+      margin-top: auto;
     }
     footer p {
       font-size: 14px;
@@ -303,7 +306,6 @@
     footer a:hover {
       color: #e06b00;
     }
-    /* Newsletter (if used) */
     .newsletter h3 {
       font-size: 14px;
       margin-bottom: 8px;
@@ -386,15 +388,21 @@
         flex-direction: column;
         align-items: flex-start;
       }
-      .logo-container {
+      .header-left {
         width: 100%;
+        justify-content: center;
+      }
+      .logo-container {
         text-align: center;
         padding-left: 0;
       }
-      .header-right {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
+      .nav-links {
+        margin-left: 0;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .nav-links a {
+        margin: 5px 10px;
       }
       .search-language-container {
         align-items: center;
@@ -420,6 +428,12 @@
         max-width: 100%;
         margin: 1rem 0;
       }
+      .carousel-prev {
+        left: 0;
+      }
+      .carousel-next {
+        right: 0;
+      }
     }
   </style>
 </head>
@@ -427,12 +441,12 @@
   <!-- Header -->
   <header class="bg-gray-900 text-white shadow-md">
     <div class="container mx-auto header-container">
-      <div class="logo-container">
-        <img src="../images/logo.png" alt="SafetyHelp Logo">
-        <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
-      </div>
-      <div class="header-right">
-        <div class="nav-links mb-4 md:mb-0">
+      <div class="header-left">
+        <div class="logo-container">
+          <img src="../images/logo.png" alt="SafetyHelp Logo">
+          <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+        </div>
+        <div class="nav-links">
           <a href="/safety-plans/index.html">Home</a>
           <a href="/safety-plans/resources.html">Resources</a>
           <a href="/safety-plans/services.html">Services</a>
@@ -440,33 +454,33 @@
           <a href="/safety-plans/about.html">About</a>
           <a href="/safety-plans/contact.html">Contact</a>
         </div>
-        <div class="search-language-container">
-          <div class="language-selector">
-            <select id="language-select" aria-label="Select language">
-              <option value="en">English</option>
-              <option value="af">Afrikaans</option>
-              <option value="zu">isiZulu</option>
-              <option value="xh">isiXhosa</option>
-              <option value="st">Sesotho</option>
-              <option value="tn">Setswana</option>
-              <option value="nso">Sepedi</option>
-              <option value="ts">Xitsonga</option>
-              <option value="ss">siSwati</option>
-              <option value="ve">Tshivenda</option>
-              <option value="nr">isiNdebele</option>
-              <option value="es">Español</option>
-              <option value="fr">French</option>
-              <option value="sn">Shona</option>
-              <option value="sw">Swahili</option>
-              <option value="zh">Mandarin</option>
-            </select>
-          </div>
-          <div class="search-bar">
-            <form role="search" class="flex">
-              <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
-              <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
-            </form>
-          </div>
+      </div>
+      <div class="search-language-container">
+        <div class="language-selector">
+          <select id="language-select" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="af">Afrikaans</option>
+            <option value="zu">isiZulu</option>
+            <option value="xh">isiXhosa</option>
+            <option value="st">Sesotho</option>
+            <option value="tn">Setswana</option>
+            <option value="nso">Sepedi</option>
+            <option value="ts">Xitsonga</option>
+            <option value="ss">siSwati</option>
+            <option value="ve">Tshivenda</option>
+            <option value="nr">isiNdebele</option>
+            <option value="es">Español</option>
+            <option value="fr">French</option>
+            <option value="sn">Shona</option>
+            <option value="sw">Swahili</option>
+            <option value="zh">Mandarin</option>
+          </select>
+        </div>
+        <div class="search-bar">
+          <form role="search" class="flex">
+            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+            <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+          </form>
         </div>
       </div>
     </div>
@@ -490,9 +504,9 @@
       <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="active">OHS System</a></li>
     </ul>
     <div class="step-info">
-      <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp OHS Tools</h3>
+      <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
       <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-      <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know ethical safety practices have evolved over millennia to create safer workplaces?</p>
+      <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
     </div>
   </aside>
 
@@ -500,7 +514,7 @@
   <div class="main-content">
     <!-- Intro Section -->
     <section class="intro">
-      <h2 class="text-2xl font-bold mb-4">Welcome to SafetyHelp OHS Tools</h2>
+      <h2 class="text-2xl font-bold mb-4">Welcome to SafetyHelp</h2>
       <p class="text-gray-600">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
       <div class="mt-6">
         <h3 class="text-xl font-semibold mb-2">Featured Tool: Construction Compliance</h3>
@@ -508,134 +522,256 @@
         <a href="/safety-plans/pages/construction-compliance.html" class="inline-block">Learn More</a>
       </div>
     </section>
+
     <!-- Carousel Section -->
-    <div class="carousel-container" id="carousel-container">
-      <!-- Carousel items are rendered dynamically -->
-      <button class="carousel-prev">Prev</button>
-      <button class="carousel-next">Next</button>
+    <div class="carousel-container">
+      <div class="carousel-item active" data-index="0">
+        <h4>⚒️ Pre-Colonial Safety Practices</h4>
+        <p>Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.</p>
+      </div>
+      <div class="carousel-item" data-index="1">
+        <h4>⛏️ Mineral Revolution (1867)</h4>
+        <p>The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.</p>
+      </div>
+      <div class="carousel-item" data-index="2">
+        <h4>🏭 Early Industrialisation (1886)</h4>
+        <p>Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.</p>
+      </div>
+      <div class="carousel-item" data-index="3">
+        <h4>📜 Mines and Works Act (1911)</h4>
+        <p>First national framework for mine safety, mandating inspectors and safety officers.</p>
+      </div>
+      <div class="carousel-item" data-index="4">
+        <h4>🩺 Silicosis Compensation (1912)</h4>
+        <p>Temporary compensation introduced for miners with occupational lung disease.</p>
+      </div>
+      <div class="carousel-item" data-index="5">
+        <h4>🚨 Safety First Association (1932)</h4>
+        <p>Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.</p>
+      </div>
+      <div class="carousel-item" data-index="6">
+        <h4>📈 OHS Act (1993)</h4>
+        <p>Introduced a universal OHS framework with risk-based approaches and safety committees.</p>
+      </div>
+      <div class="carousel-item" data-index="7">
+        <h4>🌍 Asbestos Litigation (2000)</h4>
+        <p>Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.</p>
+      </div>
+      <div class="carousel-item" data-index="8">
+        <h4>💻 Modern OHS Technology</h4>
+        <p>Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.</p>
+      </div>
+      <button class="carousel-prev">❮</button>
+      <button class="carousel-next">❯</button>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container mx-auto px-6 text-center">
+      <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
+      <p class="mb-4">
+        <a href="/safety-plans/privacy.html" class="mx-2">Privacy Policy</a> |
+        <a href="/safety-plans/terms.html" class="mx-2">Terms of Service</a> |
+        <a href="/safety-plans/contact.html" class="mx-2">Contact Us</a>
+      </p>
+      <div class="newsletter mt-6">
+        <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
+        <form class="flex justify-center">
+          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+          <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </footer>
 
   <!-- Modal for Carousel Detailed Info -->
   <div id="modal" class="modal">
     <div class="modal-content">
-      <span id="modal-close-btn" class="close-btn">&times;</span>
+      <span class="close-btn">×</span>
       <div id="modal-body"></div>
     </div>
   </div>
 
   <!-- Chatbot Container -->
   <div class="chatbot-container">
-    <button id="chat-toggle" class="chat-toggle-btn px-3 py-1">Chat</button>
-    <div id="chat-window" class="chat-hidden bg-white p-4 shadow-lg rounded">
-      <div id="chat-output"></div>
-      <div id="chat-input-container" class="mt-2">
-        <input type="text" id="chat-input" placeholder="Ask a question...">
-        <button id="chat-send">Send</button>
+    <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
+      <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
+    </button>
+    <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+      <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+        <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+      </div>
+      <div id="chat-input-container" class="flex border-t border-gray-200">
+        <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+        <button id="chat-send" aria-label="Send message" class="px-4 py-2">Send</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 SafetyHelp OHS Tools. All rights reserved.</p>
-  </footer>
-
-  <!-- Scripts: Carousel, Modal, Firebase, and Chatbot -->
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script>
-    // Carousel Data: Items from Prehistoric to 2025
-    const carouselData = [
+    // Translation Initialization with Debugging
+    document.addEventListener('DOMContentLoaded', async () => {
+      const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
+      const resources = {};
+
+      for (const lang of languages) {
+        try {
+          const response = await fetch(`/safety-plans/assets/locales/${lang}.json`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          resources[lang] = { translation: data };
+          console.log(`Loaded translations for ${lang}:`, data);
+        } catch (error) {
+          console.error(`Failed to load translations for ${lang}:`, error);
+        }
+      }
+
+      if (Object.keys(resources).length === 0) {
+        console.error("No translation files loaded. Check file paths and network connectivity.");
+      }
+
+      await i18next.init({
+        lng: 'en',
+        resources,
+        fallbackLng: 'en',
+        debug: true
+      });
+
+      updateContent();
+
+      document.getElementById('language-select').addEventListener('change', (e) => {
+        i18next.changeLanguage(e.target.value, (err) => {
+          if (err) {
+            console.error('Error changing language:', err);
+            return;
+          }
+          updateContent();
+        });
+      });
+    });
+
+    function updateContent() {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = i18next.t(key);
+        element.textContent = translation;
+        console.log(`Translating ${key} to ${translation}`);
+      });
+    }
+
+    // Carousel Functionality
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    let currentIndex = 0;
+
+    function showItem(index) {
+      carouselItems.forEach(item => item.classList.remove('active'));
+      carouselItems[index].classList.add('active');
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+      showItem(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % carouselItems.length;
+      showItem(currentIndex);
+    });
+
+    // Modal for Carousel Items
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.close-btn');
+
+    const detailedContent = [
       {
-        title: "🦕 Prehistoric Safety",
-        details: "In prehistoric times, early humans relied on instinct, communal learning, and rudimentary tools to navigate everyday hazards in nature.",
-        link: "https://example.com/prehistoric-safety"
+        title: '⚒️ Pre-Colonial Safety Practices',
+        summary: 'Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.',
+        details: 'Before colonial influence, indigenous South African communities like the Bantu and Khoisan developed safety practices rooted in survival. Hunters were trained to handle spears and bows safely, reducing accidental injuries. Medicinal plants like aloe were used to treat cuts and burns, showcasing early occupational health practices. Task rotation in agriculture also minimized fatigue-related injuries.',
+        link: 'https://www.sahistory.org.za/article/indigenous-knowledge-systems'
       },
       {
-        title: "🏺 Ancient Civilizations",
-        details: "Ancient civilizations introduced formalized safety practices. For example, Roman builders adopted innovative structural techniques that protected workers.",
-        link: "https://example.com/ancient-safety"
+        title: '⛏️ Mineral Revolution (1867)',
+        summary: 'The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.',
+        details: 'In 1867, Erasmus Jacobs’ discovery of the “Eureka” diamond sparked the Mineral Revolution, leading to mass labor migration into mining areas. Deep-shaft mining in Kimberley exposed workers to deadly risks like cave-ins, silica dust (causing silicosis), and carbon monoxide poisoning. By 1875, over 50,000 workers were in the diamond fields, often without safety gear.',
+        link: 'https://www.sahistory.org.za/article/mineral-revolution'
       },
       {
-        title: "⚙️ Industrial Revolution",
-        details: "The Industrial Revolution brought about the first safety regulations in factories, as innovators and lawmakers began formalizing occupational health standards.",
-        link: "https://example.com/industrial-safety"
+        title: '🏭 Early Industrialisation (1886)',
+        summary: 'Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.',
+        details: 'The 1886 Witwatersrand gold rush established Johannesburg as a mining hub. By 1904, the Mine Health and Safety Inspectorate reported over 1,000 fatalities annually, mostly from rockfalls and explosions. Early factories also introduced risks like machinery entanglement and chemical burns, with little to no regulation until the early 20th century.',
+        link: 'https://www.dmr.gov.za/mine-health-and-safety'
       },
       {
-        title: "🚧 Modern Safety",
-        details: "The 20th century saw the establishment of comprehensive systems and regulations designed to safeguard workers across all industries.",
-        link: "https://example.com/modern-safety"
+        title: '📜 Mines and Works Act (1911)',
+        summary: 'First national framework for mine safety, mandating inspectors and safety officers.',
+        details: 'The Mines and Works Act of 1911 was a pioneering law in South Africa, requiring mine operators to appoint safety officers and inspectors. It introduced basic safety standards like ventilation requirements and banned certain hazardous practices. However, it also enforced a “colour bar,” limiting skilled roles to white workers, exacerbating risks for black laborers.',
+        link: 'https://en.wikipedia.org/wiki/Mines_and_Works_Act'
       },
       {
-        title: "🌐 Safety in 2025",
-        details: "In 2025, digital innovations, data analytics, and AI revolutionize OHS, enabling real-time hazard monitoring and proactive compliance measures.",
-        link: "https://example.com/digital-safety"
+        title: '🩺 Silicosis Compensation (1912)',
+        summary: 'Temporary compensation introduced for miners with occupational lung disease.',
+        details: 'Silicosis, a lung disease caused by inhaling silica dust, became rampant among miners by the early 1900s. The 1912 temporary compensation scheme was a response to growing cases, offering limited financial support. By 1916, the Miners’ Phthisis Act formalized compensation, recognizing silicosis as an occupational disease affecting over 20% of miners by 1920.',
+        link: 'https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1748-0361.2007.00114.x'
+      },
+      {
+        title: '🚨 Safety First Association (1932)',
+        summary: 'Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.',
+        details: 'Sir Ernest Oppenheimer, a mining magnate, founded the Safety First Association in 1932 to reduce workplace accidents in South Africa’s mines and industries. The association introduced safety campaigns, training programs, and posters with slogans like “Safety First, Always.” It laid the groundwork for modern safety culture in South African workplaces.',
+        link: 'https://safety1st.co.za/about-us/'
+      },
+      {
+        title: '📈 OHS Act (1993)',
+        summary: 'Introduced a universal OHS framework with risk-based approaches and safety committees.',
+        details: 'The Occupational Health and Safety Act of 1993 revolutionized workplace safety in South Africa by establishing a universal framework. It mandated risk assessments, health and safety committees, and worker training. The Act also created the Advisory Council for Occupational Health and Safety, ensuring continuous improvement in OHS standards across industries.',
+        link: 'https://www.gov.za/documents/occupational-health-and-safety-act'
+      },
+      {
+        title: '🌍 Asbestos Litigation (2000)',
+        summary: 'Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.',
+        details: 'The 2000 Lubbe v Cape plc case was a landmark for South African asbestos victims. It allowed workers exposed to asbestos in South African mines to sue the UK-based parent company, Cape plc, in British courts. The case highlighted corporate accountability and led to compensation for thousands of workers suffering from asbestosis and mesothelioma.',
+        link: 'https://en.wikipedia.org/wiki/Lubbe_v_Cape_plc'
+      },
+      {
+        title: '💻 Modern OHS Technology',
+        summary: 'Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.',
+        details: 'Modern OHS in South Africa leverages Industry 4.0 technologies. Wearable sensors monitor workers’ vital signs, detecting fatigue or heat stress in real-time. AI models predict hazards in mines, reducing accidents by up to 30%. However, data privacy issues and the digital skills gap remain challenges, especially in rural workplaces.',
+        link: 'https://www.dmr.gov.za/mine-health-and-safety'
       }
     ];
 
-    let currentCarouselIndex = 0;
-
-    function renderCarousel() {
-      const carouselContainer = document.getElementById('carousel-container');
-      // Remove any existing carousel items (retain Prev/Next buttons)
-      carouselContainer.querySelectorAll('.carousel-item').forEach(item => item.remove());
-      
-      // Render carousel items; only the active item is shown
-      carouselData.forEach((item, index) => {
-        const carouselItem = document.createElement('div');
-        carouselItem.className = 'carousel-item' + (index === currentCarouselIndex ? ' active' : '');
-        carouselItem.setAttribute('data-index', index);
-        carouselItem.innerHTML = `<h4>${item.title}</h4><p>${item.details.substring(0, 50)}...</p>`;
-        carouselContainer.appendChild(carouselItem);
+    carouselItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = item.getAttribute('data-index');
+        const content = detailedContent[index];
+        modalBody.innerHTML = `
+          <h4>${content.title}</h4>
+          <p>${content.details}</p>
+          <p><a href="${content.link}" target="_blank">Learn More</a></p>
+        `;
+        modal.style.display = 'flex';
       });
-    }
-
-    function setCarouselEventListeners() {
-      const carouselItems = document.querySelectorAll('.carousel-item');
-      carouselItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const index = item.getAttribute('data-index');
-          const content = carouselData[index];
-          modalBody.innerHTML = `
-            <h4>${content.title}</h4>
-            <p>${content.details}</p>
-            <p><a href="${content.link}" target="_blank" class="text-blue-500 hover:underline">Learn More</a></p>
-          `;
-          modal.style.display = 'flex';
-        });
-      });
-    }
-
-    document.querySelector('.carousel-prev').addEventListener('click', () => {
-      currentCarouselIndex = (currentCarouselIndex - 1 + carouselData.length) % carouselData.length;
-      renderCarousel();
-      setCarouselEventListeners();
     });
-
-    document.querySelector('.carousel-next').addEventListener('click', () => {
-      currentCarouselIndex = (currentCarouselIndex + 1) % carouselData.length;
-      renderCarousel();
-      setCarouselEventListeners();
-    });
-
-    renderCarousel();
-    setCarouselEventListeners();
-
-    // Modal functionality
-    const modal = document.getElementById('modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = document.getElementById('modal-close-btn');
 
     closeBtn.addEventListener('click', () => {
       modal.style.display = 'none';
     });
 
-    window.addEventListener('click', (e) => {
-      if(e.target === modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
         modal.style.display = 'none';
       }
     });
 
-    // Firebase and Chatbot (unchanged)
+    // Firebase and Chatbot
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_AUTH_DOMAIN",
