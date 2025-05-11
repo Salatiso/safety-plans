@@ -303,6 +303,43 @@
         .compliance-note.hidden {
             display: none;
         }
+        /* Activity Groups */
+        .activity-group details {
+            margin-bottom: 10px;
+        }
+        .activity-group summary {
+            background-color: #f4f4f4;
+            padding: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #333;
+        }
+        .activity-group summary:hover {
+            background-color: #e5e7eb;
+        }
+        .activity-group details > summary {
+            list-style: none;
+        }
+        .activity-group details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .activity-group details > summary::before {
+            content: '► ';
+            font-size: 0.8em;
+            margin-right: 4px;
+        }
+        .activity-group details[open] > summary::before {
+            content: '▼ ';
+        }
+        .activity-group .category-content {
+            padding: 10px;
+        }
+        .activity-group .checkbox-item {
+            margin-bottom: 5px;
+        }
+        .activity-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
         /* Footer */
         footer {
             background-color: #007BFF;
@@ -553,7 +590,152 @@
                     <p data-i18n="form.step_2.description">Review suggested activities for your assessment, uncheck those that don’t apply, and search for additional tasks if needed.</p>
                     <input type="text" id="activity-search" data-i18n="[placeholder]form.step_2.search_placeholder" placeholder="Search activities (e.g., scaffolding)" aria-label="Search activities" aria-describedby="activity-search-desc">
                     <p id="activity-search-desc" class="form-desc" data-i18n="form.step_2.search_desc">Type to filter activities by name or hazard.</p>
-                    <div id="activity-groups"></div>
+                    <div id="activity-groups" class="activity-group">
+                        <details>
+                            <summary>General Activities</summary>
+                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="security-guards" name="activities" value="security-guards" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="security-guards" data-i18n="form.step_2.activities.security_guards">Security guards</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="night-work" name="activities" value="night-work" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="night-work" data-i18n="form.step_2.activities.night_work">Night Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="moving-traffic" name="activities" value="moving-traffic" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="moving-traffic" data-i18n="form.step_2.activities.moving_traffic">Moving Traffic Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="vibration-exposure" name="activities" value="vibration-exposure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="vibration-exposure" data-i18n="form.step_2.activities.vibration_exposure">Vibration Exposure</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="noise-exposure" name="activities" value="noise-exposure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="noise-exposure" data-i18n="form.step_2.activities.noise_exposure">Noise Exposure</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Hazardous Activities</summary>
+                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="welders" name="activities" value="welders" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="welders" data-i18n="form.step_2.activities.welders">Welders</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="welding" name="activities" value="welding" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="welding" data-i18n="form.step_2.activities.welding">Welding</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="hot-work" name="activities" value="hot-work" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="hot-work" data-i18n="form.step_2.activities.hot_work">Hot Work (e.g., cutting, grinding)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="combustible-materials" name="activities" value="combustible-materials" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="combustible-materials" data-i18n="form.step_2.activities.combustible_materials">Combustible Materials</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="hazardous-substances" name="activities" value="hazardous-substances" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="hazardous-substances" data-i18n="form.step_2.activities.hazardous_substances">Handling Hazardous Substances</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Office/Workplace Specific</summary>
+                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="office-fit-out" name="activities" value="office-fit-out" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="office-fit-out" data-i18n="form.step_2.activities.office_fit_out">Office Fit-Out</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="sensitive-it-equipment" name="activities" value="sensitive-it-equipment" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="sensitive-it-equipment" data-i18n="form.step_2.activities.sensitive_it_equipment">Sensitive IT Equipment</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="manual-handling" name="activities" value="manual-handling" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="manual-handling" data-i18n="form.step_2.activities.manual_handling">Manual Handling</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-electricity" name="activities" value="working-electricity" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="working-electricity" data-i18n="form.step_2.activities.working_electricity">Electricity Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="dust-exposure" name="activities" value="dust-exposure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="dust-exposure" data-i18n="form.step_2.activities.dust_exposure">Dust Exposure</label>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Construction Specific</summary>
+                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="civil-contractors" name="activities" value="civil-contractors" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="civil-contractors" data-i18n="form.step_2.activities.civil_contractors">Civil Contractors</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="excavation" name="activities" value="excavation" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="excavation" data-i18n="form.step_2.activities.excavation">Excavation</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="crane-operations" name="activities" value="crane-operations" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="crane-operations" data-i18n="form.step_2.activities.crane_operations">Crane Operations</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-near-water" name="activities" value="working-near-water" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="working-near-water" data-i18n="form.step_2.activities.working_near_water">Work Near Water</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pile-driving" name="activities" value="pile-driving" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="pile-driving" data-i18n="form.step_2.activities.pile_driving">Pile Driving</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-tunnels" name="activities" value="working-tunnels" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="working-tunnels" data-i18n="form.step_2.activities.working_tunnels">Tunnel Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="general-construction" name="activities" value="general-construction" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="general-construction" data-i18n="form.step_2.activities.general_construction">General Construction</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-from-heights" name="activities" value="working-from-heights" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="working-from-heights" data-i18n="form.step_2.activities.working_from_heights">Working from Heights</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="scaffolding" name="activities" value="scaffolding" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="scaffolding" data-i18n="form.step_2.activities.scaffolding">Scaffolding</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="multi-storey" name="activities" value="multi-storey" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="multi-storey" data-i18n="form.step_2.activities.multi_storey">Multi-Storey Construction</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="asbestos" name="activities" value="asbestos" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="asbestos" data-i18n="form.step_2.activities.asbestos">Asbestos Removal</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="confined-space" name="activities" value="confined-space" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="confined-space" data-i18n="form.step_2.activities.confined_space">Confined Space Entry</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="demolition" name="activities" value="demolition" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="demolition" data-i18n="form.step_2.activities.demolition">Demolition</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="roof-work" name="activities" value="roof-work" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="roof-work" data-i18n="form.step_2.activities.roof_work">Roof Work</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="temporary-works" name="activities" value="temporary-works" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="temporary-works" data-i18n="form.step_2.activities.temporary_works">Temporary Works</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="live-voltage" name="activities" value="live-voltage" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="live-voltage" data-i18n="form.step_2.activities.live_voltage">Live Voltage Work</label>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
                     <button type="button" class="back-btn" data-i18n="form.back">Back</button>
                     <button type="submit" disabled data-i18n="form.step_2.next">Next: Assign Ratings</button>
                 </form>
@@ -760,6 +942,37 @@
                 "form.step_2.description": "Review suggested activities for your assessment, uncheck those that don’t apply, and search for additional tasks if needed.",
                 "form.step_2.search_placeholder": "Search activities (e.g., scaffolding)",
                 "form.step_2.search_desc": "Type to filter activities by name or hazard.",
+                "form.step_2.activities.security_guards": "Security guards",
+                "form.step_2.activities.night_work": "Night Work",
+                "form.step_2.activities.moving_traffic": "Moving Traffic Work",
+                "form.step_2.activities.vibration_exposure": "Vibration Exposure",
+                "form.step_2.activities.noise_exposure": "Noise Exposure",
+                "form.step_2.activities.welders": "Welders",
+                "form.step_2.activities.welding": "Welding",
+                "form.step_2.activities.hot_work": "Hot Work (e.g., cutting, grinding)",
+                "form.step_2.activities.combustible_materials": "Combustible Materials",
+                "form.step_2.activities.hazardous_substances": "Handling Hazardous Substances",
+                "form.step_2.activities.office_fit_out": "Office Fit-Out",
+                "form.step_2.activities.sensitive_it_equipment": "Sensitive IT Equipment",
+                "form.step_2.activities.manual_handling": "Manual Handling",
+                "form.step_2.activities.working_electricity": "Electricity Work",
+                "form.step_2.activities.dust_exposure": "Dust Exposure",
+                "form.step_2.activities.civil_contractors": "Civil Contractors",
+                "form.step_2.activities.excavation": "Excavation",
+                "form.step_2.activities.crane_operations": "Crane Operations",
+                "form.step_2.activities.working_near_water": "Work Near Water",
+                "form.step_2.activities.pile_driving": "Pile Driving",
+                "form.step_2.activities.working_tunnels": "Tunnel Work",
+                "form.step_2.activities.general_construction": "General Construction",
+                "form.step_2.activities.working_from_heights": "Working from Heights",
+                "form.step_2.activities.scaffolding": "Scaffolding",
+                "form.step_2.activities.multi_storey": "Multi-Storey Construction",
+                "form.step_2.activities.asbestos": "Asbestos Removal",
+                "form.step_2.activities.confined_space": "Confined Space Entry",
+                "form.step_2.activities.demolition": "Demolition",
+                "form.step_2.activities.roof_work": "Roof Work",
+                "form.step_2.activities.temporary_works": "Temporary Works",
+                "form.step_2.activities.live_voltage": "Live Voltage Work",
                 "form.step_2.next": "Next: Assign Ratings",
                 "form.step_3.title": "Step 3: Assign Risk Ratings",
                 "form.step_3.description": "Assign a risk rating (High, Medium, Low) for each selected activity. High = serious injury possible, Medium = moderate injury, Low = minimal risk.",
@@ -879,38 +1092,37 @@
             let currentStep = 1;
             let assessmentType = '';
             let selectedActivities = [];
+
             const activitiesData = {
                 baseline: [
-                    { activity: "Scaffolding", hazard: "Falls", risk: "Injury from falling", controls: "Guardrails, harnesses", legal: "CR 10" },
-                    { activity: "Excavation", hazard: "Collapse", risk: "Burial, injury", controls: "Shoring, barriers", legal: "CR 13" },
-                    { activity: "Crane Operations", hazard: "Overhead loads", risk: "Struck by load", controls: "Signalman, PPE", legal: "CR 22" },
-                    { activity: "Welding", hazard: "Burns, fumes", risk: "Burns, respiratory issues", controls: "Ventilation, PPE", legal: "HCS Reg" },
-                    { activity: "Manual Handling", hazard: "Lifting", risk: "Back strain", controls: "Training, mechanical aids", legal: "OHSA 8" }
+                    { category: "Construction Specific", activity: "Scaffolding", hazard: "Falls", risk: "Injury from falling", controls: "Guardrails, harnesses", legal: "CR 10" },
+                    { category: "Construction Specific", activity: "Excavation", hazard: "Collapse", risk: "Burial, injury", controls: "Shoring, barriers", legal: "CR 13" },
+                    { category: "Construction Specific", activity: "Crane Operations", hazard: "Overhead loads", risk: "Struck by load", controls: "Signalman, PPE", legal: "CR 22" }
                 ],
                 "issue-based": [
-                    { activity: "Chemical Spill", hazard: "Exposure", risk: "Chemical burns, poisoning", controls: "Spill kits, PPE", legal: "HCS Reg" },
-                    { activity: "Fire Hazard", hazard: "Flammables", risk: "Burns, smoke inhalation", controls: "Fire extinguishers, evacuation", legal: "OHSA 8" },
-                    { activity: "Electrical Fault", hazard: "Live wires", risk: "Electrocution", controls: "Lockout/tagout, PPE", legal: "EIR" }
+                    { category: "Hazardous Activities", activity: "Chemical Spill", hazard: "Exposure", risk: "Chemical burns, poisoning", controls: "Spill kits, PPE", legal: "HCS Reg" },
+                    { category: "Hazardous Activities", activity: "Fire Hazard", hazard: "Flammables", risk: "Burns, smoke inhalation", controls: "Fire extinguishers, evacuation", legal: "OHSA 8" },
+                    { category: "Hazardous Activities", activity: "Electrical Fault", hazard: "Live wires", risk: "Electrocution", controls: "Lockout/tagout, PPE", legal: "EIR" }
                 ],
                 continuous: [
-                    { activity: "Daily Inspections", hazard: "Equipment failure", risk: "Injury from malfunction", controls: "Checklists, maintenance", legal: "OHSA 8" },
-                    { activity: "Housekeeping", hazard: "Tripping", risk: "Falls, injuries", controls: "Regular cleaning, signage", legal: "OHSA 8" }
+                    { category: "General Activities", activity: "Daily Inspections", hazard: "Equipment failure", risk: "Injury from malfunction", controls: "Checklists, maintenance", legal: "OHSA 8" },
+                    { category: "General Activities", activity: "Housekeeping", hazard: "Tripping", risk: "Falls, injuries", controls: "Regular cleaning, signage", legal: "OHSA 8" }
                 ],
                 periodic: [
-                    { activity: "Annual Audit", hazard: "Non-compliance", risk: "Fines, injuries", controls: "Audit checklist, training", legal: "OHSA 8" },
-                    { activity: "Equipment Review", hazard: "Wear and tear", risk: "Malfunction, injury", controls: "Maintenance, replacement", legal: "OHSA 8" }
+                    { category: "General Activities", activity: "Annual Audit", hazard: "Non-compliance", risk: "Fines, injuries", controls: "Audit checklist, training", legal: "OHSA 8" },
+                    { category: "General Activities", activity: "Equipment Review", hazard: "Wear and tear", risk: "Malfunction, injury", controls: "Maintenance, replacement", legal: "OHSA 8" }
                 ],
                 ergonomic: [
-                    { activity: "Office Work", hazard: "Poor posture", risk: "Musculoskeletal issues", controls: "Ergonomic chairs, breaks", legal: "OHSA 8" },
-                    { activity: "Repetitive Tasks", hazard: "Strain", risk: "RSI", controls: "Rotation, ergonomic tools", legal: "OHSA 8" }
+                    { category: "Office/Workplace Specific", activity: "Office Work", hazard: "Poor posture", risk: "Musculoskeletal issues", controls: "Ergonomic chairs, breaks", legal: "OHSA 8" },
+                    { category: "Office/Workplace Specific", activity: "Repetitive Tasks", hazard: "Strain", risk: "RSI", controls: "Rotation, ergonomic tools", legal: "OHSA 8" }
                 ],
                 chemical: [
-                    { activity: "Handling Chemicals", hazard: "Exposure", risk: "Burns, poisoning", controls: "PPE, ventilation", legal: "HCS Reg" },
-                    { activity: "Storage", hazard: "Leaks", risk: "Fire, exposure", controls: "Bunded storage, labels", legal: "HCS Reg" }
+                    { category: "Hazardous Activities", activity: "Handling Chemicals", hazard: "Exposure", risk: "Burns, poisoning", controls: "PPE, ventilation", legal: "HCS Reg" },
+                    { category: "Hazardous Activities", activity: "Storage", hazard: "Leaks", risk: "Fire, exposure", controls: "Bunded storage, labels", legal: "HCS Reg" }
                 ],
                 noise: [
-                    { activity: "Machinery Operation", hazard: "High noise", risk: "Hearing loss", controls: "Ear protection, barriers", legal: "Noise Reg" },
-                    { activity: "Construction Noise", hazard: "Prolonged exposure", risk: "Hearing damage", controls: "Ear muffs, scheduling", legal: "Noise Reg" }
+                    { category: "Construction Specific", activity: "Machinery Operation", hazard: "High noise", risk: "Hearing loss", controls: "Ear protection, barriers", legal: "Noise Reg" },
+                    { category: "Construction Specific", activity: "Construction Noise", hazard: "Prolonged exposure", risk: "Hearing damage", controls: "Ear muffs, scheduling", legal: "Noise Reg" }
                 ]
             };
 
@@ -926,16 +1138,56 @@
             // Step 2: Choose Activities
             function populateActivities() {
                 const activityGroups = document.getElementById('activity-groups');
+                const allCheckboxes = activityGroups.querySelectorAll('input[type="checkbox"]');
+                const existingActivities = Array.from(allCheckboxes).map(checkbox => ({
+                    id: checkbox.id,
+                    value: checkbox.value,
+                    checked: checkbox.checked,
+                    label: checkbox.nextElementSibling.textContent
+                }));
+
+                // Filter activities based on the selected assessment type
+                const relevantActivities = activitiesData[assessmentType] || [];
+                const categories = [...new Set(relevantActivities.map(item => item.category))];
+
+                // Restore existing activities and add relevant ones
+                const mergedActivities = [...existingActivities];
+                relevantActivities.forEach((item, index) => {
+                    const existing = mergedActivities.find(activity => activity.value === item.activity.toLowerCase().replace(/\s+/g, '-'));
+                    if (!existing) {
+                        mergedActivities.push({
+                            id: `activity-${item.activity.toLowerCase().replace(/\s+/g, '-')}`,
+                            value: item.activity.toLowerCase().replace(/\s+/g, '-'),
+                            checked: true,
+                            label: `${item.activity} (Hazard: ${item.hazard})`,
+                            category: item.category,
+                            data: item
+                        });
+                    }
+                });
+
+                // Group activities by category
                 activityGroups.innerHTML = '';
-                const activities = activitiesData[assessmentType] || [];
-                activities.forEach((item, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'activity-item';
-                    div.innerHTML = `
-                        <input type="checkbox" id="activity-${index}" name="activities" value="${index}" checked>
-                        <label for="activity-${index}">${item.activity} (Hazard: ${item.hazard})</label>
-                    `;
-                    activityGroups.appendChild(div);
+                categories.forEach(category => {
+                    const categoryActivities = mergedActivities.filter(activity => activity.category === category);
+                    if (categoryActivities.length > 0) {
+                        const details = document.createElement('details');
+                        details.innerHTML = `
+                            <summary>${category}</summary>
+                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+                        `;
+                        const contentDiv = details.querySelector('.category-content');
+                        categoryActivities.forEach(activity => {
+                            const div = document.createElement('div');
+                            div.className = 'checkbox-item';
+                            div.innerHTML = `
+                                <input type="checkbox" id="${activity.id}" name="activities" value="${activity.value}" ${activity.checked ? 'checked' : ''} class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="${activity.id}">${activity.label}</label>
+                            `;
+                            contentDiv.appendChild(div);
+                        });
+                        activityGroups.appendChild(details);
+                    }
                 });
 
                 // Enable/disable Next button based on selection
@@ -953,10 +1205,17 @@
                 // Search functionality
                 document.getElementById('activity-search').addEventListener('input', (e) => {
                     const searchTerm = e.target.value.toLowerCase();
-                    const activityItems = document.querySelectorAll('.activity-item');
-                    activityItems.forEach(item => {
+                    const checkboxItems = document.querySelectorAll('.checkbox-item');
+                    checkboxItems.forEach(item => {
                         const label = item.querySelector('label').textContent.toLowerCase();
                         item.style.display = label.includes(searchTerm) ? 'block' : 'none';
+                    });
+
+                    // Hide categories with no visible activities
+                    const detailsElements = document.querySelectorAll('#activity-groups details');
+                    detailsElements.forEach(details => {
+                        const visibleItems = Array.from(details.querySelectorAll('.checkbox-item')).filter(item => item.style.display !== 'none');
+                        details.style.display = visibleItems.length > 0 ? 'block' : 'none';
                     });
                 });
             }
@@ -964,10 +1223,14 @@
             document.getElementById('activities-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 selectedActivities = [];
-                const activities = activitiesData[assessmentType] || [];
-                document.querySelectorAll('#activities-form input[name="activities"]:checked').forEach(checkbox => {
-                    const index = parseInt(checkbox.value);
-                    selectedActivities.push({ ...activities[index], rating: '' });
+                const checkboxes = document.querySelectorAll('#activities-form input[name="activities"]:checked');
+                checkboxes.forEach(checkbox => {
+                    const activityValue = checkbox.value;
+                    const allActivities = Object.values(activitiesData).flat();
+                    const activity = allActivities.find(item => item.activity.toLowerCase().replace(/\s+/g, '-') === activityValue);
+                    if (activity) {
+                        selectedActivities.push({ ...activity, rating: '' });
+                    }
                 });
                 currentStep = 3;
                 updateStep();
@@ -1042,11 +1305,19 @@
                 const complianceNote = document.querySelector('.compliance-note');
                 if (assessmentType === 'baseline') {
                     complianceNote.classList.remove('hidden');
+                } else {
+                    complianceNote.classList.add('hidden');
                 }
             }
 
             document.getElementById('review-form').addEventListener('submit', (e) => {
                 e.preventDefault();
+                // Basic validation for required fields
+                const siteName = document.getElementById('site-name').value.trim();
+                if (!siteName) {
+                    alert('Please enter a Site/Project Name.');
+                    return;
+                }
                 generatePDF();
                 currentStep = 5;
                 updateStep();
@@ -1064,6 +1335,10 @@
                 assessmentType = '';
                 selectedActivities = [];
                 updateStep();
+                // Reset form fields
+                document.getElementById('review-form').reset();
+                document.getElementById('activity-search').value = '';
+                populateActivities();
             });
 
             // Back Buttons
@@ -1135,7 +1410,7 @@
                     doc.text('Additional Notes', 10, yOffset);
                     yOffset += 5;
                     doc.text(customNotes, 10, yOffset, { maxWidth: 190 });
-                    yOffset += 15;
+                    yOffset += doc.splitTextToSize(customNotes, 190).length * 5 + 10;
                 }
 
                 // Risk Assessment Table
