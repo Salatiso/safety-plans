@@ -1,512 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SafetyHelp - Your go-to resource for Occupational Health and Safety (OHS) tools, plans, and compliance solutions. Safety Personalized, Compliance Simplified-Anytime, Anywhere.">
-    <meta name="keywords" content="SafetyHelp, OHS tools, occupational health and safety, safety plans, compliance, South Africa OHS, safety solutions, OHS history">
-    <meta name="author" content="SafetyHelp">
-    <title>SafetyHelp - OHS Tools, Compliance & History</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-http-backend/dist/umd/i18nextHttpBackend.min.js"></script>
-    <script src="https://unpkg.com/i18next-browser-languagedetector/dist/umd/i18nextBrowserLanguageDetector.min.js"></script>
-
-    <link rel="stylesheet" href="css/custom-styles.css">
-
-    <style>
-        /* Minimal inline styles for elements not covered by Tailwind or custom-styles.css */
-        .chatbot-container {
-            position: fixed;
-            bottom: 1.25rem;
-            right: 1.25rem;
-            z-index: 1000;
-        }
-        #chat-window {
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-hidden { display: none; }
-        #chat-output { flex-grow: 1; }
-        #chat-input-container { display: flex; border-top-width: 1px; }
-        #chat-input { flex-grow: 1; border: none; padding: 0.5rem; }
-        #chat-send { border: none; padding: 0.5rem 1rem; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SafetyHelp OHS Tools - Your go-to resource for Occupational Health and Safety tools. Safety Personalized, Compliance Simplified—Anytime, Anywhere.">
+  <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS">
+  <meta name="author" content="SafetyHelp Team">
+  <title>SafetyHelp - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #E8F0FE;
+      color: #333;
+      margin: 0;
+      padding-top: 100px;
+      display: flex;
+    }
+    header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Header */
+    header {
+      background-color: #007BFF;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      width: 100%;
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .logo-container {
+      padding-left: 10px;
+      text-align: left;
+    }
+    .logo-container img {
+      height: 50px;
+    }
+    .tagline {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+    .nav-links a {
+      color: white;
+      margin: 0 10px;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      color: #FD7E14;
+    }
+    .search-language-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 20px;
+    }
+    .search-bar button {
+      background-color: #FD7E14;
+      color: white;
+    }
+    .search-bar button:hover {
+      background-color: #e06b00;
+    }
+    .language-selector {
+      margin-bottom: 5px;
+    }
+    .language-selector select {
+      padding: 4px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      bottom: 0;
+      width: 250px;
+      background-color: #F4F4F4;
+      overflow-y: auto;
+      z-index: 40;
+      padding: 15px;
+    }
+    .sidebar h2 {
+      color: #007BFF;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    .sidebar a {
+      color: white;
+      background-color: #007BFF;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      display: block;
+      text-decoration: none;
+      font-size: 14px;
+      transition: font-weight 0.3s;
+    }
+    .sidebar a:hover {
+      font-weight: bold;
+      background-color: #0056b3;
+    }
+    .sidebar a.active {
+      background-color: #28A745;
+    }
+    .step-info {
+      background-color: #E8F0FE;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .step-info h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      color: #007BFF;
+      margin-bottom: 10px;
+    }
+    .step-info p {
+      font-size: 14px;
+    }
+    .fun-fact {
+      color: #28A745;
+    }
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      flex-grow: 1;
+      padding: 1.5rem;
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+    .intro {
+      flex: 1;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .intro h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .intro h3 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .intro p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .intro a {
+      background-color: #FD7E14;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .intro a:hover {
+      background-color: #e06b00;
+    }
+    /* Carousel */
+    .carousel-container {
+      flex: 1;
+      max-width: 300px;
+      position: relative;
+    }
+    .carousel-item {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin-bottom: 10px;
+    }
+    .carousel-item:hover {
+      transform: scale(1.05);
+      font-weight: bold;
+    }
+    .carousel-item h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      color: #007BFF;
+      margin-bottom: 5px;
+    }
+    .carousel-item p {
+      font-size: 14px;
+      color: #333;
+    }
+    .carousel-item.active {
+      display: block;
+    }
+    .carousel-item:not(.active) {
+      display: none;
+    }
+    .carousel-prev, .carousel-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #FD7E14;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .carousel-prev:hover, .carousel-next:hover {
+      background-color: #e06b00;
+    }
+    .carousel-prev {
+      left: -50px;
+    }
+    .carousel-next {
+      right: -50px;
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+    .modal-content h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      color: #007BFF;
+      margin-bottom: 10px;
+    }
+    .modal-content p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .modal-content a {
+      color: #28A745;
+      text-decoration: underline;
+    }
+    .modal-content a:hover {
+      color: #1e7e34;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+    /* Footer */
+    footer {
+      background-color: #007BFF;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      width: 100%;
+    }
+    footer p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    footer a {
+      color: #FD7E14;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #e06b00;
+    }
+    /* Newsletter (if used) */
+    .newsletter h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .newsletter input {
+      padding: 8px;
+      border: none;
+      border-radius: 2px;
+      margin-right: 10px;
+      font-size: 14px;
+      width: 150px;
+    }
+    .newsletter button {
+      padding: 8px 16px;
+      background-color: #FD7E14;
+      color: white;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .newsletter button:hover {
+      background-color: #e06b00;
+    }
+    /* Chatbot */
+    .chatbot-container {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 1000;
+    }
+    #chat-window {
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-hidden {
+      display: none;
+    }
+    #chat-output {
+      flex-grow: 1;
+    }
+    #chat-input-container {
+      display: flex;
+      border-top-width: 1px;
+    }
+    #chat-input {
+      flex-grow: 1;
+      border: none;
+      padding: 0.5rem;
+    }
+    #chat-send {
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+    }
+    #chat-send:hover {
+      background-color: #0056b3;
+    }
+    .chat-toggle-btn {
+      background-color: #FD7E14;
+    }
+    .chat-toggle-btn:hover {
+      background-color: #e06b00;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 0;
+        flex-direction: column;
+      }
+      header {
+        position: relative;
+      }
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo-container {
+        width: 100%;
+        text-align: center;
+        padding-left: 0;
+      }
+      .header-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-language-container {
+        align-items: center;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+      .sidebar {
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+        z-index: 1;
+      }
+      .main-content {
+        margin-left: 0;
+        flex-direction: column;
+      }
+      .intro {
+        margin: 1rem 0;
+      }
+      .carousel-container {
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
-
-    <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 shadow-md">
-        <div class="container mx-auto px-4 sm:px-6 py-3 flex flex-wrap justify-between items-center">
-            <div class="flex items-center mr-auto"> <img src="images/SafetyHelp_Logo.jpg" alt="SafetyHelp Logo" id="site-logo" class="h-10 sm:h-12 md:h-14 mr-3 rounded">
-                <div>
-                    <h1 id="site-title" class="text-2xl sm:text-3xl font-bold text-white" data-i18n="header.title">SafetyHelp</h1>
-                    <p id="site-tagline" class="text-xs sm:text-sm text-gray-300 hidden md:block" data-i18n="header.tagline">Safety Personalized, Compliance Simplified-Anytime, Anywhere.</p>
-                </div>
-            </div>
-
-            <nav role="navigation" aria-label="Main navigation" class="main-nav order-last md:order-none w-full md:w-auto mt-3 md:mt-0">
-                <a href="/safety-plans/index.html" class="nav-link" data-i18n="nav.home">Home</a>
-                <a href="/safety-plans/resources.html" class="nav-link" data-i18n="nav.resources">Resources</a>
-                <a href="/safety-plans/services.html" class="nav-link" data-i18n="nav.services">Services</a>
-                <a href="/safety-plans/community.html" class="nav-link" data-i18n="nav.community">Community</a>
-                <a href="/safety-plans/about.html" class="nav-link" data-i18n="nav.about">About</a>
-                <a href="/safety-plans/contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
-            </nav>
-
-            <div class="flex flex-col items-end space-y-2 ml-4 order-first md:order-last">
-                <div class="language-selector-container">
-                    <select id="language-selector" class="bg-gray-700 text-white text-xs p-1.5 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange appearance-none" aria-label="Select language">
-                        <option value="en">English (EN)</option>
-                        <option value="xh">isiXhosa (XH)</option>
-                        <option value="zu">isiZulu (ZU)</option>
-                        <option value="af">Afrikaans (AF)</option>
-                        <option value="st">Sesotho (ST)</option>
-                        <option value="nso">Sepedi (NSO)</option>
-                        <option value="tn">Setswana (TN)</option>
-                        <option value="ts">Xitsonga (TS)</option>
-                        <option value="ss">siSwati (SS)</option>
-                        <option value="ve">Tshivenda (VE)</option>
-                        <option value="nr">isiNdebele (NR)</option>
-                        <option value="es">Español (ES)</option>
-                        <option value="fr">Français (FR)</option>
-                        <option value="sn">chiShona (SN)</option>
-                        <option value="sw">Kiswahili (SW)</option>
-                        <option value="zh">中文 (ZH)</option>
-                    </select>
-                </div>
-                <div class="search-bar w-full sm:w-auto max-w-xs">
-                    <form role="search" class="flex">
-                        <input type="text" placeholder="Search..." data-i18n="[placeholder]search.placeholder" aria-label="Search SafetyHelp" class="search-input px-3 py-1.5 border border-gray-300 rounded-l-md text-gray-800 text-sm flex-grow focus:ring-2 focus:ring-brand-orange focus:border-transparent">
-                        <button type="submit" aria-label="Search" class="search-button px-3 py-1.5 bg-brand-orange hover:bg-orange-600 text-white rounded-r-md text-sm" data-i18n="search.button">Search</button>
-                    </form>
-                </div>
-            </div>
-            <p id="site-tagline-mobile" class="text-xs text-gray-300 md:hidden w-full text-center mt-2 order-last" data-i18n="header.tagline">Safety Personalized, Compliance Simplified-Anytime, Anywhere.</p>
+  <!-- Header -->
+  <header class="bg-gray-900 text-white shadow-md">
+    <div class="container mx-auto header-container">
+      <div class="logo-container">
+        <img src="../images/logo.png" alt="SafetyHelp Logo">
+        <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+      </div>
+      <div class="header-right">
+        <div class="nav-links mb-4 md:mb-0">
+          <a href="/safety-plans/index.html">Home</a>
+          <a href="/safety-plans/resources.html">Resources</a>
+          <a href="/safety-plans/services.html">Services</a>
+          <a href="/safety-plans/community.html">Community</a>
+          <a href="/safety-plans/about.html">About</a>
+          <a href="/safety-plans/contact.html">Contact</a>
         </div>
-    </header>
-
-    <aside class="sidebar bg-gray-800 text-gray-200 p-5">
-        <h2 data-i18n="sidebar.ohs_tools" class="sidebar-title text-2xl font-bold mb-6">OHS Tools</h2>
-        <ul class="space-y-1">
-            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="sidebar-link">Construction Safety</a></li>
-            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="sidebar-link">Emergency Planning</a></li>
-            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="sidebar-link">Risk Assessment</a></li>
-            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="sidebar-link">Legal Appointments</a></li>
-            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="sidebar-link">Incident Management</a></li>
-            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="sidebar-link">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="sidebar-link">Inspections & Audits</a></li>
-            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="sidebar-link">Suppliers</a></li>
-            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="sidebar-link">Legislation</a></li>
-            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="sidebar-link">Community Tools</a></li>
-            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="sidebar-link">Member Dashboard</a></li>
-            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="sidebar-link active">OHS System</a></li>
-        </ul>
-        <div class="step-info mt-8 p-4 bg-gray-700 rounded-lg">
-            <h3 data-i18n="sidebar.welcome_title" class="text-lg font-semibold mb-2 text-white">📜 Welcome to SafetyHelp</h3>
-            <p data-i18n="sidebar.welcome_message" class="text-sm mb-3 text-gray-300">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-            <p class="fun-fact text-sm text-brand-green" data-i18n="sidebar.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
+        <div class="search-language-container">
+          <div class="language-selector">
+            <select id="language-select" aria-label="Select language">
+              <option value="en">English</option>
+              <option value="af">Afrikaans</option>
+              <option value="zu">isiZulu</option>
+              <option value="xh">isiXhosa</option>
+              <option value="st">Sesotho</option>
+              <option value="tn">Setswana</option>
+              <option value="nso">Sepedi</option>
+              <option value="ts">Xitsonga</option>
+              <option value="ss">siSwati</option>
+              <option value="ve">Tshivenda</option>
+              <option value="nr">isiNdebele</option>
+              <option value="es">Español</option>
+              <option value="fr">French</option>
+              <option value="sn">Shona</option>
+              <option value="sw">Swahili</option>
+              <option value="zh">Mandarin</option>
+            </select>
+          </div>
+          <div class="search-bar">
+            <form role="search" class="flex">
+              <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+              <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+            </form>
+          </div>
         </div>
-    </aside>
-
-    <div class="main-content bg-gray-100">
-        <section class="intro bg-white p-6 md:p-8 rounded-lg shadow-lg mb-6">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4" data-i18n="main.welcome_title">Welcome to SafetyHelp</h2>
-            <p class="text-gray-700 leading-relaxed" data-i18n="main.welcome_message">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace. SafetyHelp empowers you to manage compliance efficiently and effectively.</p>
-            <div class="mt-6">
-                <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3" data-i18n="main.featured_tool_title">Featured Tool: Construction Compliance</h3>
-                <p class="text-gray-600 mb-4" data-i18n="main.featured_tool_desc">Ensure your construction projects meet all necessary health and safety regulations with our detailed compliance checklist and plan generator.</p>
-                <a href="/safety-plans/pages/construction-compliance.html" class="inline-block bg-brand-blue text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5" data-i18n="main.learn_more_button">Learn More</a>
-            </div>
-        </section>
-
-        <section id="ohs-timeline-carousel-section" class="bg-white p-6 md:p-8 rounded-lg shadow-lg mb-6">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="carousel.title">A Journey Through OHS History in SA</h2>
-            <div id="ohs-timeline-carousel" class="relative w-full overflow-hidden">
-                <div class="carousel-track flex transition-transform duration-500 ease-in-out">
-                    </div>
-                <button class="carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-brand-blue text-white p-2 rounded-full shadow-md hover:bg-blue-700 z-10" aria-label="Previous slide">❮</button>
-                <button class="carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-brand-blue text-white p-2 rounded-full shadow-md hover:bg-blue-700 z-10" aria-label="Next slide">❯</button>
-                <div class="carousel-dots absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    </div>
-            </div>
-        </section>
-
-        <footer class="site-footer text-white py-8 mt-auto">
-            <div class="container mx-auto px-6 text-center">
-                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
-                <p class="mb-4">
-                    <a href="/safety-plans/privacy.html" class="footer-link" data-i18n="footer.privacy">Privacy Policy</a> |
-                    <a href="/safety-plans/terms.html" class="footer-link" data-i18n="footer.terms">Terms of Service</a> |
-                    <a href="/safety-plans/contact.html" class="footer-link" data-i18n="footer.contact">Contact Us</a>
-                </p>
-                <div class="newsletter mt-6">
-                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter_title">Stay Updated with SafetyHelp</h3>
-                    <form class="flex flex-col sm:flex-row justify-center items-center">
-                        <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter_email_placeholder" aria-label="Email for newsletter" class="newsletter-input px-3 py-2 border border-gray-300 rounded-md sm:rounded-l-md sm:rounded-r-none text-gray-800 w-full sm:w-64 mb-2 sm:mb-0 focus:ring-2 focus:ring-brand-orange focus:border-transparent" required>
-                        <button type="submit" class="newsletter-button px-4 py-2 bg-brand-orange hover:bg-orange-600 text-white rounded-md sm:rounded-r-md sm:rounded-l-none w-full sm:w-auto" data-i18n="footer.subscribe_button">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </footer>
+      </div>
     </div>
+  </header>
 
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn bg-brand-orange hover:bg-orange-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.toggle_button">Ask SafetyHelp</span>
-        </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
-            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                 <p class="mb-2"><strong data-i18n="chatbot.name">Chatbot:</strong> <span data-i18n="chatbot.greeting">Hello! How can I help you with OHS today?</span></p>
-            </div>
-            <div id="chat-input-container" class="flex border-t border-gray-200">
-                <input id="chat-input" type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder" aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none text-sm">
-                <button id="chat-send" aria-label="Send message" class="bg-brand-blue hover:bg-blue-700 text-white px-4 py-2 border-none cursor-pointer text-sm" data-i18n="chatbot.send_button">Send</button>
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
+    <ul class="space-y-2">
+      <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+      <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+      <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+      <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+      <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
+      <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
+      <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+      <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+      <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+      <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
+      <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
+      <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="active">OHS System</a></li>
+    </ul>
+    <div class="step-info">
+      <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp OHS Tools</h3>
+      <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+      <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know ethical safety practices have evolved over millennia to create safer workplaces?</p>
     </div>
+  </aside>
 
-    <div id="timeline-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[1001] hidden">
-        <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="modal-title" class="text-2xl font-bold text-brand-blue">Modal Title</h3>
-                <button id="modal-close-btn" class="text-gray-600 hover:text-gray-900 text-2xl" aria-label="Close modal">&times;</button>
-            </div>
-            <div id="modal-body" class="text-gray-700 space-y-3">
-                </div>
-            <div id="modal-links" class="mt-6 text-sm">
-                </div>
-        </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Intro Section -->
+    <section class="intro">
+      <h2 class="text-2xl font-bold mb-4">Welcome to SafetyHelp OHS Tools</h2>
+      <p class="text-gray-600">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+      <div class="mt-6">
+        <h3 class="text-xl font-semibold mb-2">Featured Tool: Construction Compliance</h3>
+        <p class="text-gray-600 mb-4">Ensure your construction projects meet all necessary health and safety regulations with our detailed compliance checklist and plan generator.</p>
+        <a href="/safety-plans/pages/construction-compliance.html" class="inline-block">Learn More</a>
+      </div>
+    </section>
+    <!-- Carousel Section -->
+    <div class="carousel-container" id="carousel-container">
+      <!-- Carousel items are rendered dynamically -->
+      <button class="carousel-prev">Prev</button>
+      <button class="carousel-next">Next</button>
     </div>
+  </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script>
-        // --- i18next Initialization ---
-        const localesPath = '/safety-plans/assets/locales/{{lng}}.json'; // Adjusted path
-        i18next
-            .use(i18nextHttpBackend)
-            .use(i18nextBrowserLanguageDetector)
-            .init({
-                fallbackLng: 'en',
-                backend: {
-                    loadPath: localesPath
-                },
-                detection: {
-                    order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
-                    caches: ['localStorage', 'cookie']
-                },
-                interpolation: {
-                    escapeValue: false // React already safes from xss
-                }
-            }, (err, t) => {
-                if (err) return console.error('i18next initialization error:', err);
-                updateContent();
-                document.getElementById('language-selector').value = i18next.language.split('-')[0];
-            });
+  <!-- Modal for Carousel Detailed Info -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close-btn" class="close-btn">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
 
-        function updateContent() {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (key.startsWith('[placeholder]')) {
-                    el.setAttribute('placeholder', i18next.t(key.substring('[placeholder]'.length)));
-                } else if (key.startsWith('[aria-label]')) {
-                     el.setAttribute('aria-label', i18next.t(key.substring('[aria-label]'.length)));
-                }
-                else {
-                    el.innerHTML = i18next.t(key);
-                }
-            });
-        }
+  <!-- Chatbot Container -->
+  <div class="chatbot-container">
+    <button id="chat-toggle" class="chat-toggle-btn px-3 py-1">Chat</button>
+    <div id="chat-window" class="chat-hidden bg-white p-4 shadow-lg rounded">
+      <div id="chat-output"></div>
+      <div id="chat-input-container" class="mt-2">
+        <input type="text" id="chat-input" placeholder="Ask a question...">
+        <button id="chat-send">Send</button>
+      </div>
+    </div>
+  </div>
 
-        document.getElementById('language-selector')?.addEventListener('change', (e) => {
-            i18next.changeLanguage(e.target.value, (err, t) => {
-                if (err) return console.error('Error changing language:', err);
-                updateContent();
-            });
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 SafetyHelp OHS Tools. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts: Carousel, Modal, Firebase, and Chatbot -->
+  <script>
+    // Carousel Data: Items from Prehistoric to 2025
+    const carouselData = [
+      {
+        title: "🦕 Prehistoric Safety",
+        details: "In prehistoric times, early humans relied on instinct, communal learning, and rudimentary tools to navigate everyday hazards in nature.",
+        link: "https://example.com/prehistoric-safety"
+      },
+      {
+        title: "🏺 Ancient Civilizations",
+        details: "Ancient civilizations introduced formalized safety practices. For example, Roman builders adopted innovative structural techniques that protected workers.",
+        link: "https://example.com/ancient-safety"
+      },
+      {
+        title: "⚙️ Industrial Revolution",
+        details: "The Industrial Revolution brought about the first safety regulations in factories, as innovators and lawmakers began formalizing occupational health standards.",
+        link: "https://example.com/industrial-safety"
+      },
+      {
+        title: "🚧 Modern Safety",
+        details: "The 20th century saw the establishment of comprehensive systems and regulations designed to safeguard workers across all industries.",
+        link: "https://example.com/modern-safety"
+      },
+      {
+        title: "🌐 Safety in 2025",
+        details: "In 2025, digital innovations, data analytics, and AI revolutionize OHS, enabling real-time hazard monitoring and proactive compliance measures.",
+        link: "https://example.com/digital-safety"
+      }
+    ];
+
+    let currentCarouselIndex = 0;
+
+    function renderCarousel() {
+      const carouselContainer = document.getElementById('carousel-container');
+      // Remove any existing carousel items (retain Prev/Next buttons)
+      carouselContainer.querySelectorAll('.carousel-item').forEach(item => item.remove());
+      
+      // Render carousel items; only the active item is shown
+      carouselData.forEach((item, index) => {
+        const carouselItem = document.createElement('div');
+        carouselItem.className = 'carousel-item' + (index === currentCarouselIndex ? ' active' : '');
+        carouselItem.setAttribute('data-index', index);
+        carouselItem.innerHTML = `<h4>${item.title}</h4><p>${item.details.substring(0, 50)}...</p>`;
+        carouselContainer.appendChild(carouselItem);
+      });
+    }
+
+    function setCarouselEventListeners() {
+      const carouselItems = document.querySelectorAll('.carousel-item');
+      carouselItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const index = item.getAttribute('data-index');
+          const content = carouselData[index];
+          modalBody.innerHTML = `
+            <h4>${content.title}</h4>
+            <p>${content.details}</p>
+            <p><a href="${content.link}" target="_blank" class="text-blue-500 hover:underline">Learn More</a></p>
+          `;
+          modal.style.display = 'flex';
         });
+      });
+    }
 
+    document.querySelector('.carousel-prev').addEventListener('click', () => {
+      currentCarouselIndex = (currentCarouselIndex - 1 + carouselData.length) % carouselData.length;
+      renderCarousel();
+      setCarouselEventListeners();
+    });
 
-        // --- Firebase Config ---
-        const firebaseConfig = { /* YOUR FIREBASE CONFIG */ };
-        let db;
-        try { /* Firebase Init */ } catch (error) { /* Error Handling */ }
+    document.querySelector('.carousel-next').addEventListener('click', () => {
+      currentCarouselIndex = (currentCarouselIndex + 1) % carouselData.length;
+      renderCarousel();
+      setCarouselEventListeners();
+    });
 
-        // --- Chatbot Logic ---
-        // (Existing chatbot JS, ensure data-i18n attributes are updated if needed)
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatWindow = document.getElementById('chat-window');
-        const chatOutput = document.getElementById('chat-output');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
+    renderCarousel();
+    setCarouselEventListeners();
 
-        if (chatToggle) { /* ... */ }
-        function addChatMessage(sender, message) { /* ... */ }
-        async function sendQuery() { /* ... (ensure to use i18next.t for chatbot responses if they need translation) */ }
-        if (chatSend) { /* ... */ }
-        if (chatInput) { /* ... */ }
+    // Modal functionality
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.getElementById('modal-close-btn');
 
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
 
-        // --- OHS Timeline Carousel & Modal Data ---
-        const timelineData = [
-            {
-                year: "Prehistoric",
-                emoji: "🏹",
-                title: "Indigenous Safety Norms",
-                short_desc: "Bantu & Khoisan communities: informal safety norms, tool handling, medicinal plants for wound care.",
-                full_desc: "Prehistoric Bantu and Khoisan communities developed informal safety norms rooted in communal knowledge. Hunters and gatherers trained novices to handle tools safely and used medicinal plants for wound care, illustrating an early emphasis on risk mitigation in daily tasks. Agricultural and crafting practices among Bantu societies (prior to 1652) employed task rotation and communal assistance to reduce fatigue and injury, while knowledge of herbal remedies served as treatment for work-related ailments.",
-                links: []
-            },
-            {
-                year: "1652",
-                emoji: "⚓",
-                title: "European Trades Introduced",
-                short_desc: "Dutch East India Company (Jan van Riebeeck) introduces European trades & new hazards.",
-                full_desc: "The Dutch East India Company establishes a trading post at Cape Town under Jan van Riebeeck, introducing European trades like carpentry and masonry, and with them, rudimentary workplace hazards for the first time.",
-                links: [{ text: "Learn about Jan van Riebeeck", url: "https://en.wikipedia.org/wiki/Jan_van_Riebeeck" }]
-            },
-            {
-                year: "1867-1886",
-                emoji: "💎",
-                title: "The Mineral Revolution",
-                short_desc: "Diamond (1867) & gold (1886) discoveries trigger mass migration and hazardous mining conditions.",
-                full_desc: "In 1867, Erasmus Stephanus Jacobs discovered South Africa’s first diamond (“Eureka”) in Hopetown, triggering the Mineral Revolution. The Kimberley diamond fields (1871) gave rise to deep-shaft mining, exposing workers to collapse, dust, and toxic exposures. The Witwatersrand gold rush in 1886 led to the establishment of gold mines around Johannesburg. By 1904, the Mine Health and Safety Inspectorate recorded its first fatal accidents in underground workings. The late 19th century also saw the emergence of the first mechanised factories (textile, metalworks) in Cape Town and Johannesburg (1886–1940), leading to new injury patterns like entanglement, burns, and chemical exposures.",
-                links: [
-                    { text: "South African Mineral Revolution", url: "https://en.wikipedia.org/wiki/Mineral_Revolution" },
-                    { text: "History of Mining in SA (DMRE)", url: "https://www.dmr.gov.za/mine-health-and-safety" } // Example link
-                ]
-            },
-            {
-                year: "1911",
-                emoji: "📜",
-                title: "Mines and Works Act",
-                short_desc: "First national framework for mine safety, mandating inspectors & safety officers.",
-                full_desc: "The Union of South Africa was formed in 1910, creating a national Department of Labour. The Mines and Works Act (Act No. 12 of 1911) mandated mine inspectors, safety officers, and controversially, “colour bar” employment restrictions. This was the first national framework for mine safety.",
-                links: [
-                    { text: "Mines and Works Act, 1911", url: "https://en.wikipedia.org/wiki/Mines_and_Works_Act,_1911" }
-                ]
-            },
-             {
-                year: "1912-1916",
-                emoji: "😷",
-                title: "Early Disease Compensation",
-                short_desc: "Temporary compensation for silicosis (1912) & Miners’ Phthisis Act (1916).",
-                full_desc: "In 1912, temporary compensation for silicosis was introduced, acknowledging occupational lung disease among miners. The Miners’ Phthisis Act of 1916 established a Board to investigate and compensate silicosis cases among mineworkers. Concurrently (1893–1900), the Chamber of Mines created the Native Labour Department and Wenela to source black migrant labour, often exposing them to the most hazardous jobs.",
-                links: [
-                    { text: "Miners' Phthisis", url: "https://en.wikipedia.org/wiki/Miners%27_phthisis" } // Example link
-                ]
-            },
-            {
-                year: "1932",
-                emoji: "🛡️",
-                title: "Safety First Association",
-                short_desc: "Launched by Sir Ernest Oppenheimer to promote accident prevention in mines and industry.",
-                full_desc: "The Safety First Association was launched in Johannesburg by Sir Ernest Oppenheimer to promote accident prevention in mines and industry, marking a significant private sector initiative towards safety awareness.",
-                links: [ { text: "The Safety First Association", url: "https://www.safety1st.co.za/about-us/"}]
-            },
-            {
-                year: "1973",
-                emoji: "🩺",
-                title: "Occupational Diseases Act",
-                short_desc: "Consolidated compensation for diseases like silicosis and asbestosis.",
-                full_desc: "The Occupational Diseases in Mines and Works Act (Act 78 of 1973) consolidated compensation for specified diseases such as silicosis and asbestosis, coming into force on 1 October 1973. The Erasmus Commission of Enquiry (1976) later examined broader occupational health shortcomings across industries.",
-                links: [{text: "SA Government Gazettes (Archive)", url: "https://www.gov.za/documents/occupational-diseases-mines-and-works-act"}] // Example
-            },
-            {
-                year: "1980s",
-                emoji: "✊",
-                title: "Union Advocacy & Challenges",
-                short_desc: "NUM founded (1982) advocating for safety. Job insecurity magnified risks.",
-                full_desc: "The 1980s saw persistent high unemployment and economic sanctions fueling job insecurity, making workers reluctant to demand safety, thus magnifying risks in unregulated sectors. The Manpower Survey (1987) tracked occupational and racial labour divisions, highlighting hazardous job concentration among non-white workers. The National Union of Mineworkers (NUM), founded in 1982, became a powerful advocate for improved mine safety and black workers’ rights under apartheid.",
-                links: [{text: "National Union of Mineworkers", url: "https://www.num.org.za/"}]
-            },
-            {
-                year: "1993",
-                emoji: "⚖️",
-                title: "Landmark OHS Legislation",
-                short_desc: "OHS Act (Act 85) & COIDA (Act 130) established modern OHS framework.",
-                full_desc: "A pivotal year. The Occupational Health and Safety Act (Act 85 of 1993) introduced a universal OHS framework, a risk-based approach, Health and Safety Committees, and an Advisory Council. The Compensation for Occupational Injuries and Diseases Act (COIDA, Act 130 of 1993) provided for compensation for workplace injuries and diseases across all industries. The Institute of Occupational Hygienists of Southern Africa (IOHSA) also formed its transitional committee in 1992, leading to formal professional OHS bodies.",
-                links: [
-                    { text: "OHS Act 85 of 1993", url: "https://www.gov.za/documents/occupational-health-and-safety-act" },
-                    { text: "COIDA Act 130 of 1993", url: "https://www.gov.za/documents/compensation-occupational-injuries-and-diseases-act" }
-                ]
-            },
-            {
-                year: "1996",
-                emoji: "🇿🇦",
-                title: "Constitutional Right to Safety",
-                short_desc: "SA Constitution enshrines the right to a safe environment.",
-                full_desc: "The South African Constitution, adopted in 1996, enshrines the right to an environment that is not harmful to health or well-being, underpinning OHS in the Bill of Rights. The Mine Health and Safety Act (Act 29 of 1996) also strengthened inspectorate powers and mandatory reporting.",
-                links: [{text: "SA Constitution Bill of Rights", url: "https://www.justice.gov.za/legislation/constitution/SAConstitution-web-eng-02.pdf"}]
-            },
-            {
-                year: "2000-Today",
-                emoji: "🌐",
-                title: "Modernisation & Tech",
-                short_desc: "Litigation (Lubbe v Cape plc), tech adoption (IoT, AI), and ongoing challenges.",
-                full_desc: "The 2000s brought new developments. Lubbe v Cape plc [2000] allowed SA asbestos victims to sue UK parent companies. The PSA obo Members v Minister of Health (2018) reaffirmed employer duty of care. Technology like wearables, IoT sensors, and AI for hazard modeling offers proactive interventions, though data privacy and skills gaps pose new challenges. Persistently high unemployment and crime continue to influence OHS, especially in informal sectors and mining towns.",
-                links: [
-                    {text: "Lubbe v Cape Plc case", url: "https://en.wikipedia.org/wiki/Lubbe_v_Cape_Plc"},
-                    {text: "Mine Health and Safety Act, 1996", url: "https://www.gov.za/documents/mine-health-and-safety-act"}
-                ]
+    window.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Firebase and Chatbot (unchanged)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+      measurementId: "YOUR_MEASUREMENT_ID"
+    };
+
+    let db;
+
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      console.log("Firebase Initialized Successfully");
+    } catch (error) {
+      console.error("Firebase initialization failed:", error);
+      const chatOutput = document.getElementById('chat-output');
+      if (chatOutput) {
+        chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
+      }
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      if (chatInput) chatInput.disabled = true;
+      if (chatSend) chatSend.disabled = true;
+    }
+
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatOutput = document.getElementById('chat-output');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+
+    if (chatToggle) {
+      chatToggle.addEventListener('click', () => {
+        chatWindow.classList.toggle('chat-hidden');
+        if (!chatWindow.classList.contains('chat-hidden')) {
+          chatInput.focus();
+        }
+      });
+    }
+
+    function addChatMessage(sender, message) {
+      if (chatOutput) {
+        const messageElement = document.createElement('p');
+        messageElement.classList.add('mb-2');
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatOutput.appendChild(messageElement);
+        chatOutput.scrollTop = chatOutput.scrollHeight;
+      }
+    }
+
+    async function sendQuery() {
+      if (!db) {
+        addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
+        return;
+      }
+
+      const input = chatInput.value.trim();
+      if (!input) return;
+
+      addChatMessage('You', input);
+      chatInput.value = '';
+      addChatMessage('Chatbot', 'Searching...');
+
+      const query = input.toLowerCase();
+
+      try {
+        const snapshot = await db.collection('ohs-knowledge')
+          .where('keywords', 'array-contains', query)
+          .limit(1)
+          .get();
+
+        let responseFound = false;
+        let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
+
+        if (!snapshot.empty) {
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
+            if (data.file) {
+              response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
             }
-        ];
-
-        // --- Carousel Logic ---
-        const carouselTrack = document.querySelector('#ohs-timeline-carousel .carousel-track');
-        const carouselPrevBtn = document.querySelector('#ohs-timeline-carousel .carousel-prev');
-        const carouselNextBtn = document.querySelector('#ohs-timeline-carousel .carousel-next');
-        const carouselDotsContainer = document.querySelector('#ohs-timeline-carousel .carousel-dots');
-        let currentSlide = 0;
-        let autoScrollInterval;
-
-        function createCarouselItem(item, index) {
-            const slide = document.createElement('div');
-            slide.classList.add('carousel-slide', 'min-w-full', 'md:min-w-1/2', 'lg:min-w-1/3', 'p-4', 'box-border'); // Adjust min-w for multiple items
-            slide.innerHTML = `
-                <div class="bg-gradient-to-br from-brand-blue to-blue-700 text-white p-6 rounded-xl shadow-xl h-full flex flex-col cursor-pointer hover:shadow-2xl transition-shadow duration-300" data-index="${index}">
-                    <div class="flex items-center mb-3">
-                        <span class="text-4xl mr-4">${item.emoji}</span>
-                        <h3 class="text-xl font-bold font-montserrat">${item.year} - ${item.title}</h3>
-                    </div>
-                    <p class="text-sm text-gray-200 flex-grow">${item.short_desc}</p>
-                    <button class="mt-4 text-xs text-brand-orange font-semibold self-start hover:underline" data-i18n="carousel.learn_more">Learn More &raquo;</button>
-                </div>
-            `;
-            slide.querySelector('.bg-gradient-to-br').addEventListener('click', () => openModal(index));
-            return slide;
+            responseFound = true;
+          });
         }
 
-        function createCarouselDots() {
-            timelineData.forEach((_, index) => {
-                const dot = document.createElement('button');
-                dot.classList.add('carousel-dot', 'w-3', 'h-3', 'rounded-full', 'bg-gray-400', 'hover:bg-brand-blue');
-                if (index === 0) dot.classList.add('active-dot', 'bg-brand-blue');
-                dot.addEventListener('click', () => {
-                    goToSlide(index);
-                    resetAutoScroll();
-                });
-                carouselDotsContainer.appendChild(dot);
-            });
+        const searchingMessage = chatOutput.querySelector('p:last-child');
+        if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+          searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
+        } else {
+          addChatMessage('Chatbot', response);
         }
-        
-        function updateDots(activeIndex) {
-            const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active-dot', index === activeIndex);
-                dot.classList.toggle('bg-brand-blue', index === activeIndex);
-                dot.classList.toggle('bg-gray-400', index !== activeIndex);
-            });
+      } catch (error) {
+        console.error("Firestore query failed:", error);
+        const searchingMessage = chatOutput.querySelector('p:last-child');
+        if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+          searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
+        } else {
+          addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
         }
+      }
+    }
 
-        function goToSlide(slideIndex) {
-            const slideWidth = carouselTrack.querySelector('.carousel-slide').offsetWidth;
-            carouselTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
-            currentSlide = slideIndex;
-            updateDots(currentSlide);
+    if (chatSend) {
+      chatSend.addEventListener('click', sendQuery);
+    }
+    if (chatInput) {
+      chatInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          sendQuery();
         }
-        
-        function populateCarousel() {
-            if (!carouselTrack) return;
-            timelineData.forEach((item, index) => {
-                carouselTrack.appendChild(createCarouselItem(item, index));
-            });
-            createCarouselDots();
-            updateDots(0); // Set first dot active
-        }
-
-        function startAutoScroll() {
-            stopAutoScroll(); // Clear existing interval
-            autoScrollInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % timelineData.length;
-                goToSlide(currentSlide);
-            }, 7000); // Change slide every 7 seconds
-        }
-
-        function stopAutoScroll() {
-            clearInterval(autoScrollInterval);
-        }
-        
-        function resetAutoScroll() {
-            stopAutoScroll();
-            startAutoScroll();
-        }
-
-        if (carouselPrevBtn && carouselNextBtn) {
-            carouselPrevBtn.addEventListener('click', () => {
-                currentSlide = (currentSlide - 1 + timelineData.length) % timelineData.length;
-                goToSlide(currentSlide);
-                resetAutoScroll();
-            });
-            carouselNextBtn.addEventListener('click', () => {
-                currentSlide = (currentSlide + 1) % timelineData.length;
-                goToSlide(currentSlide);
-                resetAutoScroll();
-            });
-        }
-        
-        // --- Modal Logic ---
-        const modal = document.getElementById('timeline-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-        const modalLinks = document.getElementById('modal-links');
-        const modalCloseBtn = document.getElementById('modal-close-btn');
-
-        function openModal(index) {
-            const item = timelineData[index];
-            modalTitle.textContent = `${item.emoji} ${item.year} - ${item.title}`;
-            modalBody.innerHTML = `<p>${item.full_desc.replace(/\n/g, '<br>')}</p>`;
-            
-            modalLinks.innerHTML = ''; // Clear previous links
-            if (item.links && item.links.length > 0) {
-                const linksTitle = document.createElement('strong');
-                linksTitle.textContent = 'Learn more:';
-                linksTitle.classList.add('block', 'mb-1');
-                modalLinks.appendChild(linksTitle);
-                item.links.forEach(link => {
-                    const a = document.createElement('a');
-                    a.href = link.url;
-                    a.textContent = link.text;
-                    a.target = '_blank';
-                    a.rel = 'noopener noreferrer';
-                    a.classList.add('text-brand-blue', 'hover:underline', 'block');
-                    modalLinks.appendChild(a);
-                });
-            }
-            modal.classList.remove('hidden');
-            stopAutoScroll(); // Pause carousel when modal is open
-        }
-
-        if (modalCloseBtn) {
-            modalCloseBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-                startAutoScroll(); // Resume carousel
-            });
-        }
-        // Close modal on clicking outside of it
-        if (modal) {
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.classList.add('hidden');
-                    startAutoScroll(); // Resume carousel
-                }
-            });
-        }
-
-
-        // --- Layout Adjustment & Initializations ---
-        function adjustLayoutForHeader() { /* ... (existing function) */ }
-        window.addEventListener('load', () => {
-            adjustLayoutForHeader();
-            populateCarousel();
-            startAutoScroll(); // Start auto-scrolling
-        });
-        window.addEventListener('resize', adjustLayoutForHeader);
-
-    </script>
+      });
+    }
+  </script>
 </body>
 </html>
