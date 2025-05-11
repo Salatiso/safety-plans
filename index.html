@@ -617,7 +617,7 @@
   <script>
     // Translation Initialization with Debugging
     document.addEventListener('DOMContentLoaded', async () => {
-      const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
+      const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
       const resources = {};
 
       // Load English translations as a fallback
@@ -641,11 +641,11 @@
       };
       resources['en'] = { translation: defaultTranslations };
 
-      // Attempt to load translations for other languages
+      // Attempt to load translations for all languages
       for (const lang of languages) {
         if (lang === 'en') continue; // Skip English as it's already added
         try {
-          const response = await fetch(`/safety-plans/assets/locales/${lang}.json`);
+          const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
