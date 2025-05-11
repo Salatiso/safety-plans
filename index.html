@@ -9,9 +9,8 @@
   <title>SafetyHelp - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
   <style>
-    /* Global Styles */
+    /* General Styles */
     body {
       font-family: 'Open Sans', sans-serif;
       background-color: #E8F0FE;
@@ -22,7 +21,7 @@
       flex-direction: column;
       min-height: 100vh;
     }
-    header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
+    header h1, .sidebar h2, footer h3 {
       font-family: 'Montserrat', sans-serif;
     }
     /* Header */
@@ -44,46 +43,43 @@
       align-items: center;
       padding: 10px 20px;
     }
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
     .logo-container {
-      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; /* Align logo and tagline to the extreme right */
+      text-align: right;
     }
     .logo-container img {
       height: 50px;
+      margin-bottom: 5px;
     }
     .tagline {
       font-size: 14px;
-      margin-top: 5px;
+      color: #E8F0FE;
+      font-weight: 400;
     }
     .nav-links {
-      margin-left: 20px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
     .nav-links a {
+      margin: 0 15px;
       color: white;
-      margin: 0 10px;
-      font-family: 'Montserrat', sans-serif;
       text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
     }
     .nav-links a:hover {
       color: #FD7E14;
     }
     .search-language-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-    .search-bar button {
-      background-color: #FD7E14;
-      color: white;
-    }
-    .search-bar button:hover {
-      background-color: #e06b00;
-    }
-    .language-selector {
-      margin-bottom: 5px;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
     }
     .language-selector select {
       padding: 4px;
@@ -104,8 +100,8 @@
     }
     .sidebar h2 {
       color: #007BFF;
-      font-size: 24px;
-      margin-bottom: 15px;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
     .sidebar a {
       color: white;
@@ -116,7 +112,6 @@
       display: block;
       text-decoration: none;
       font-size: 14px;
-      transition: font-weight 0.3s;
     }
     .sidebar a:hover {
       font-weight: bold;
@@ -125,166 +120,11 @@
     .sidebar a.active {
       background-color: #28A745;
     }
-    .step-info {
-      background-color: #E8F0FE;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-    .step-info h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
-      color: #007BFF;
-      margin-bottom: 10px;
-    }
-    .step-info p {
-      font-size: 14px;
-    }
-    .fun-fact {
-      color: #28A745;
-    }
     /* Main Content */
     .main-content {
       margin-left: 250px;
       flex-grow: 1;
       padding: 1.5rem;
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-    }
-    .intro {
-      flex: 3;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-    }
-    .intro h2 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .intro h3 {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .intro p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 15px;
-    }
-    .intro a {
-      background-color: #FD7E14;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 4px;
-      text-decoration: none;
-    }
-    .intro a:hover {
-      background-color: #e06b00;
-    }
-    /* Carousel */
-    .carousel-container {
-      flex: 1;
-      max-width: 250px;
-      position: relative;
-    }
-    .carousel-item {
-      background-color: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      margin-bottom: 10px;
-    }
-    .carousel-item:hover {
-      transform: scale(1.05);
-      font-weight: bold;
-    }
-    .carousel-item h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      color: #007BFF;
-      margin-bottom: 5px;
-    }
-    .carousel-item p {
-      font-size: 14px;
-      color: #333;
-    }
-    .carousel-item.active {
-      display: block;
-    }
-    .carousel-item:not(.active) {
-      display: none;
-    }
-    .carousel-prev, .carousel-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #FD7E14;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .carousel-prev:hover, .carousel-next:hover {
-      background-color: #e06b00;
-    }
-    .carousel-prev {
-      left: -50px;
-    }
-    .carousel-next {
-      right: -50px;
-    }
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-    }
-    .modal-content h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
-      color: #007BFF;
-      margin-bottom: 10px;
-    }
-    .modal-content p {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .modal-content a {
-      color: #28A745;
-      text-decoration: underline;
-    }
-    .modal-content a:hover {
-      color: #1e7e34;
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #333;
     }
     /* Footer */
     footer {
@@ -306,155 +146,12 @@
     footer a:hover {
       color: #e06b00;
     }
-    .newsletter h3 {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .newsletter input {
-      padding: 8px;
-      border: none;
-      border-radius: 2px;
-      margin-right: 10px;
-      font-size: 14px;
-      width: 150px;
-    }
-    .newsletter button {
-      padding: 8px 16px;
-      background-color: #FD7E14;
-      color: white;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .newsletter button:hover {
-      background-color: #e06b00;
-    }
-    /* Chatbot */
-    .chatbot-container {
-      position: fixed;
-      bottom: 1.25rem;
-      right: 1.25rem;
-      z-index: 1000;
-    }
-    #chat-window {
-      width: 300px;
-      max-height: 400px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    .chat-hidden {
-      display: none;
-    }
-    #chat-output {
-      flex-grow: 1;
-    }
-    #chat-input-container {
-      display: flex;
-      border-top-width: 1px;
-    }
-    #chat-input {
-      flex-grow: 1;
-      border: none;
-      padding: 0.5rem;
-    }
-    #chat-send {
-      border: none;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      background-color: #007BFF;
-      color: white;
-    }
-    #chat-send:hover {
-      background-color: #0056b3;
-    }
-    .chat-toggle-btn {
-      background-color: #FD7E14;
-    }
-    .chat-toggle-btn:hover {
-      background-color: #e06b00;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      body {
-        padding-top: 0;
-        flex-direction: column;
-      }
-      header {
-        position: relative;
-      }
-      .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-left {
-        width: 100%;
-        justify-content: center;
-      }
-      .logo-container {
-        text-align: center;
-        padding-left: 0;
-      }
-      .nav-links {
-        margin-left: 0;
-        text-align: center;
-        margin-top: 10px;
-      }
-      .nav-links a {
-        margin: 5px 10px;
-      }
-      .search-language-container {
-        align-items: center;
-        margin-left: 0;
-        margin-top: 10px;
-      }
-      .sidebar {
-        position: relative;
-        top: 0;
-        width: 100%;
-        height: auto;
-        bottom: auto;
-        z-index: 1;
-      }
-      .main-content {
-        margin-left: 0;
-        flex-direction: column;
-      }
-      .intro {
-        margin: 1rem 0;
-      }
-      .carousel-container {
-        max-width: 100%;
-        margin: 1rem 0;
-      }
-      .carousel-prev {
-        left: 0;
-      }
-      .carousel-next {
-        right: 0;
-      }
-    }
   </style>
 </head>
-<body class="bg-gray-100">
-  <!-- Header -->
-  <header class="bg-gray-900 text-white shadow-md">
-    <div class="container mx-auto header-container">
-      <div class="header-left">
-        <div class="logo-container">
-          <img src="../images/logo.png" alt="SafetyHelp Logo">
-          <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
-        </div>
-        <div class="nav-links">
-          <a href="/safety-plans/index.html">Home</a>
-          <a href="/safety-plans/resources.html">Resources</a>
-          <a href="/safety-plans/services.html">Services</a>
-          <a href="/safety-plans/community.html">Community</a>
-          <a href="/safety-plans/about.html">About</a>
-          <a href="/safety-plans/contact.html">Contact</a>
-        </div>
-      </div>
+<body>
+  <header>
+    <div class="header-container">
+      <!-- Search and Language Selector -->
       <div class="search-language-container">
         <div class="language-selector">
           <select id="language-select" aria-label="Select language">
@@ -462,18 +159,7 @@
             <option value="af">Afrikaans</option>
             <option value="zu">isiZulu</option>
             <option value="xh">isiXhosa</option>
-            <option value="st">Sesotho</option>
-            <option value="tn">Setswana</option>
-            <option value="nso">Sepedi</option>
-            <option value="ts">Xitsonga</option>
-            <option value="ss">siSwati</option>
-            <option value="ve">Tshivenda</option>
-            <option value="nr">isiNdebele</option>
-            <option value="es">Español</option>
-            <option value="fr">French</option>
-            <option value="sn">Shona</option>
-            <option value="sw">Swahili</option>
-            <option value="zh">Mandarin</option>
+            <!-- Add other languages -->
           </select>
         </div>
         <div class="search-bar">
@@ -483,410 +169,44 @@
           </form>
         </div>
       </div>
+      <!-- Navigation Links -->
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Resources</a>
+        <a href="#">Services</a>
+        <a href="#">Community</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <!-- Logo and Tagline -->
+      <div class="logo-container">
+        <img src="../images/logo.png" alt="SafetyHelp Logo">
+        <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+      </div>
     </div>
   </header>
-
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
-    <ul class="space-y-2">
-      <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
-      <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
-      <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
-      <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
-      <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
-      <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
-      <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
-      <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
-      <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
-      <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
-      <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
-      <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="active">OHS System</a></li>
+    <h2>Page Name</h2>
+    <ul>
+      <li><a href="#">Construction Safety</a></li>
+      <li><a href="#">Emergency Planning</a></li>
+      <li><a href="#">Risk Assessment</a></li>
+      <!-- Add other sidebar links -->
     </ul>
-    <div class="step-info">
-      <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
-      <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-      <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
-    </div>
   </aside>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Intro Section -->
-    <section class="intro">
-      <h2 class="text-2xl font-bold mb-4">Welcome to SafetyHelp</h2>
-      <p class="text-gray-600">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-      <div class="mt-6">
-        <h3 class="text-xl font-semibold mb-2">Featured Tool: Construction Compliance</h3>
-        <p class="text-gray-600 mb-4">Ensure your construction projects meet all necessary health and safety regulations with our detailed compliance checklist and plan generator.</p>
-        <a href="/safety-plans/pages/construction-compliance.html" class="inline-block">Learn More</a>
-      </div>
+  <main class="main-content">
+    <section>
+      <h1>Welcome to SafetyHelp</h1>
+      <p>Your go-to resource for Occupational Health and Safety (OHS) tools.</p>
     </section>
-
-    <!-- Carousel Section -->
-    <div class="carousel-container">
-      <div class="carousel-item active" data-index="0">
-        <h4>⚒️ Pre-Colonial Safety Practices</h4>
-        <p>Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.</p>
-      </div>
-      <div class="carousel-item" data-index="1">
-        <h4>⛏️ Mineral Revolution (1867)</h4>
-        <p>The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.</p>
-      </div>
-      <div class="carousel-item" data-index="2">
-        <h4>🏭 Early Industrialisation (1886)</h4>
-        <p>Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.</p>
-      </div>
-      <div class="carousel-item" data-index="3">
-        <h4>📜 Mines and Works Act (1911)</h4>
-        <p>First national framework for mine safety, mandating inspectors and safety officers.</p>
-      </div>
-      <div class="carousel-item" data-index="4">
-        <h4>🩺 Silicosis Compensation (1912)</h4>
-        <p>Temporary compensation introduced for miners with occupational lung disease.</p>
-      </div>
-      <div class="carousel-item" data-index="5">
-        <h4>🚨 Safety First Association (1932)</h4>
-        <p>Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.</p>
-      </div>
-      <div class="carousel-item" data-index="6">
-        <h4>📈 OHS Act (1993)</h4>
-        <p>Introduced a universal OHS framework with risk-based approaches and safety committees.</p>
-      </div>
-      <div class="carousel-item" data-index="7">
-        <h4>🌍 Asbestos Litigation (2000)</h4>
-        <p>Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.</p>
-      </div>
-      <div class="carousel-item" data-index="8">
-        <h4>💻 Modern OHS Technology</h4>
-        <p>Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.</p>
-      </div>
-      <button class="carousel-prev">❮</button>
-      <button class="carousel-next">❯</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
+  </main>
   <footer>
-    <div class="container mx-auto px-6 text-center">
-      <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
-      <p class="mb-4">
-        <a href="/safety-plans/privacy.html" class="mx-2">Privacy Policy</a> |
-        <a href="/safety-plans/terms.html" class="mx-2">Terms of Service</a> |
-        <a href="/safety-plans/contact.html" class="mx-2">Contact Us</a>
-      </p>
-      <div class="newsletter mt-6">
-        <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
-        <form class="flex justify-center">
-          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-          <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
-        </form>
-      </div>
-    </div>
+    <p>&copy; 2025 SafetyHelp. All rights reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a> |
+      <a href="#">Contact Us</a>
+    </p>
   </footer>
-
-  <!-- Modal for Carousel Detailed Info -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">×</span>
-      <div id="modal-body"></div>
-    </div>
-  </div>
-
-  <!-- Chatbot Container -->
-  <div class="chatbot-container">
-    <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
-      <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
-    </button>
-    <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
-      <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-        <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
-      </div>
-      <div id="chat-input-container" class="flex border-t border-gray-200">
-        <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-        <button id="chat-send" aria-label="Send message" class="px-4 py-2">Send</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-  <script>
-    // Translation Initialization with Debugging
-    document.addEventListener('DOMContentLoaded', async () => {
-      const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
-      const resources = {};
-
-      for (const lang of languages) {
-        try {
-          const response = await fetch(`/safety-plans/assets/locales/${lang}.json`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          resources[lang] = { translation: data };
-          console.log(`Loaded translations for ${lang}:`, data);
-        } catch (error) {
-          console.error(`Failed to load translations for ${lang}:`, error);
-        }
-      }
-
-      if (Object.keys(resources).length === 0) {
-        console.error("No translation files loaded. Check file paths and network connectivity.");
-      }
-
-      await i18next.init({
-        lng: 'en',
-        resources,
-        fallbackLng: 'en',
-        debug: true
-      });
-
-      updateContent();
-
-      document.getElementById('language-select').addEventListener('change', (e) => {
-        i18next.changeLanguage(e.target.value, (err) => {
-          if (err) {
-            console.error('Error changing language:', err);
-            return;
-          }
-          updateContent();
-        });
-      });
-    });
-
-    function updateContent() {
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        const translation = i18next.t(key);
-        element.textContent = translation;
-        console.log(`Translating ${key} to ${translation}`);
-      });
-    }
-
-    // Carousel Functionality
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    let currentIndex = 0;
-
-    function showItem(index) {
-      carouselItems.forEach(item => item.classList.remove('active'));
-      carouselItems[index].classList.add('active');
-    }
-
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-      showItem(currentIndex);
-    });
-
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % carouselItems.length;
-      showItem(currentIndex);
-    });
-
-    // Modal for Carousel Items
-    const modal = document.getElementById('modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = document.querySelector('.close-btn');
-
-    const detailedContent = [
-      {
-        title: '⚒️ Pre-Colonial Safety Practices',
-        summary: 'Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.',
-        details: 'Before colonial influence, indigenous South African communities like the Bantu and Khoisan developed safety practices rooted in survival. Hunters were trained to handle spears and bows safely, reducing accidental injuries. Medicinal plants like aloe were used to treat cuts and burns, showcasing early occupational health practices. Task rotation in agriculture also minimized fatigue-related injuries.',
-        link: 'https://www.sahistory.org.za/article/indigenous-knowledge-systems'
-      },
-      {
-        title: '⛏️ Mineral Revolution (1867)',
-        summary: 'The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.',
-        details: 'In 1867, Erasmus Jacobs’ discovery of the “Eureka” diamond sparked the Mineral Revolution, leading to mass labor migration into mining areas. Deep-shaft mining in Kimberley exposed workers to deadly risks like cave-ins, silica dust (causing silicosis), and carbon monoxide poisoning. By 1875, over 50,000 workers were in the diamond fields, often without safety gear.',
-        link: 'https://www.sahistory.org.za/article/mineral-revolution'
-      },
-      {
-        title: '🏭 Early Industrialisation (1886)',
-        summary: 'Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.',
-        details: 'The 1886 Witwatersrand gold rush established Johannesburg as a mining hub. By 1904, the Mine Health and Safety Inspectorate reported over 1,000 fatalities annually, mostly from rockfalls and explosions. Early factories also introduced risks like machinery entanglement and chemical burns, with little to no regulation until the early 20th century.',
-        link: 'https://www.dmr.gov.za/mine-health-and-safety'
-      },
-      {
-        title: '📜 Mines and Works Act (1911)',
-        summary: 'First national framework for mine safety, mandating inspectors and safety officers.',
-        details: 'The Mines and Works Act of 1911 was a pioneering law in South Africa, requiring mine operators to appoint safety officers and inspectors. It introduced basic safety standards like ventilation requirements and banned certain hazardous practices. However, it also enforced a “colour bar,” limiting skilled roles to white workers, exacerbating risks for black laborers.',
-        link: 'https://en.wikipedia.org/wiki/Mines_and_Works_Act'
-      },
-      {
-        title: '🩺 Silicosis Compensation (1912)',
-        summary: 'Temporary compensation introduced for miners with occupational lung disease.',
-        details: 'Silicosis, a lung disease caused by inhaling silica dust, became rampant among miners by the early 1900s. The 1912 temporary compensation scheme was a response to growing cases, offering limited financial support. By 1916, the Miners’ Phthisis Act formalized compensation, recognizing silicosis as an occupational disease affecting over 20% of miners by 1920.',
-        link: 'https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1748-0361.2007.00114.x'
-      },
-      {
-        title: '🚨 Safety First Association (1932)',
-        summary: 'Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.',
-        details: 'Sir Ernest Oppenheimer, a mining magnate, founded the Safety First Association in 1932 to reduce workplace accidents in South Africa’s mines and industries. The association introduced safety campaigns, training programs, and posters with slogans like “Safety First, Always.” It laid the groundwork for modern safety culture in South African workplaces.',
-        link: 'https://safety1st.co.za/about-us/'
-      },
-      {
-        title: '📈 OHS Act (1993)',
-        summary: 'Introduced a universal OHS framework with risk-based approaches and safety committees.',
-        details: 'The Occupational Health and Safety Act of 1993 revolutionized workplace safety in South Africa by establishing a universal framework. It mandated risk assessments, health and safety committees, and worker training. The Act also created the Advisory Council for Occupational Health and Safety, ensuring continuous improvement in OHS standards across industries.',
-        link: 'https://www.gov.za/documents/occupational-health-and-safety-act'
-      },
-      {
-        title: '🌍 Asbestos Litigation (2000)',
-        summary: 'Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.',
-        details: 'The 2000 Lubbe v Cape plc case was a landmark for South African asbestos victims. It allowed workers exposed to asbestos in South African mines to sue the UK-based parent company, Cape plc, in British courts. The case highlighted corporate accountability and led to compensation for thousands of workers suffering from asbestosis and mesothelioma.',
-        link: 'https://en.wikipedia.org/wiki/Lubbe_v_Cape_plc'
-      },
-      {
-        title: '💻 Modern OHS Technology',
-        summary: 'Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.',
-        details: 'Modern OHS in South Africa leverages Industry 4.0 technologies. Wearable sensors monitor workers’ vital signs, detecting fatigue or heat stress in real-time. AI models predict hazards in mines, reducing accidents by up to 30%. However, data privacy issues and the digital skills gap remain challenges, especially in rural workplaces.',
-        link: 'https://www.dmr.gov.za/mine-health-and-safety'
-      }
-    ];
-
-    carouselItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const index = item.getAttribute('data-index');
-        const content = detailedContent[index];
-        modalBody.innerHTML = `
-          <h4>${content.title}</h4>
-          <p>${content.details}</p>
-          <p><a href="${content.link}" target="_blank">Learn More</a></p>
-        `;
-        modal.style.display = 'flex';
-      });
-    });
-
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
-
-    // Firebase and Chatbot
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID",
-      measurementId: "YOUR_MEASUREMENT_ID"
-    };
-
-    let db;
-
-    try {
-      firebase.initializeApp(firebaseConfig);
-      db = firebase.firestore();
-      console.log("Firebase Initialized Successfully");
-    } catch (error) {
-      console.error("Firebase initialization failed:", error);
-      const chatOutput = document.getElementById('chat-output');
-      if (chatOutput) {
-        chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
-      }
-      const chatInput = document.getElementById('chat-input');
-      const chatSend = document.getElementById('chat-send');
-      if (chatInput) chatInput.disabled = true;
-      if (chatSend) chatSend.disabled = true;
-    }
-
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatWindow = document.getElementById('chat-window');
-    const chatOutput = document.getElementById('chat-output');
-    const chatInput = document.getElementById('chat-input');
-    const chatSend = document.getElementById('chat-send');
-
-    if (chatToggle) {
-      chatToggle.addEventListener('click', () => {
-        chatWindow.classList.toggle('chat-hidden');
-        if (!chatWindow.classList.contains('chat-hidden')) {
-          chatInput.focus();
-        }
-      });
-    }
-
-    function addChatMessage(sender, message) {
-      if (chatOutput) {
-        const messageElement = document.createElement('p');
-        messageElement.classList.add('mb-2');
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatOutput.appendChild(messageElement);
-        chatOutput.scrollTop = chatOutput.scrollHeight;
-      }
-    }
-
-    async function sendQuery() {
-      if (!db) {
-        addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
-        return;
-      }
-
-      const input = chatInput.value.trim();
-      if (!input) return;
-
-      addChatMessage('You', input);
-      chatInput.value = '';
-      addChatMessage('Chatbot', 'Searching...');
-
-      const query = input.toLowerCase();
-
-      try {
-        const snapshot = await db.collection('ohs-knowledge')
-          .where('keywords', 'array-contains', query)
-          .limit(1)
-          .get();
-
-        let responseFound = false;
-        let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
-
-        if (!snapshot.empty) {
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
-            if (data.file) {
-              response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
-            }
-            responseFound = true;
-          });
-        }
-
-        const searchingMessage = chatOutput.querySelector('p:last-child');
-        if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-          searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
-        } else {
-          addChatMessage('Chatbot', response);
-        }
-      } catch (error) {
-        console.error("Firestore query failed:", error);
-        const searchingMessage = chatOutput.querySelector('p:last-child');
-        if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-          searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
-        } else {
-          addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
-        }
-      }
-    }
-
-    if (chatSend) {
-      chatSend.addEventListener('click', sendQuery);
-    }
-    if (chatInput) {
-      chatInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          sendQuery();
-        }
-      });
-    }
-  </script>
 </body>
 </html>
