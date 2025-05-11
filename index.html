@@ -730,10 +730,136 @@
       <button class="carousel-prev">❮</button>
       <button class="carousel-next">❯</button>
     </div>
+  </div>
 
-    <!-- Updated Carousel Script within the existing <script> tag -->
-    <!-- Note: This replaces the existing carousel script but stays within the same <script> tag -->
-    <!-- Carousel Randomization and Functionality -->
+  <!-- Footer -->
+  <footer>
+    <div class="container mx-auto px-6 text-center">
+      <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
+      <p class="mb-4">
+        <a href="/safety-plans/privacy.html" class="mx-2">Privacy Policy</a> |
+        <a href="/safety-plans/terms.html" class="mx-2">Terms of Service</a> |
+        <a href="/safety-plans/contact.html" class="mx-2">Contact Us</a>
+      </p>
+      <div class="newsletter mt-6">
+        <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
+        <form class="flex justify-center">
+          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+          <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for Carousel Detailed Info -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Chatbot Container -->
+  <div class="chatbot-container">
+    <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
+      <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
+    </button>
+    <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+      <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+        <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+      </div>
+      <div id="chat-input-container" class="flex border-t border-gray-200">
+        <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+        <button id="chat-send" aria-label="Send message" class="px-4 py-2">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script>
+    // Translation Initialization with Debugging
+    document.addEventListener('DOMContentLoaded', async () => {
+      const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
+      const resources = {};
+
+      // Load English translations as a fallback
+      const defaultTranslations = {
+        "sidebar.ohs_tools": "SafetyHelp OHS Tools",
+        "sidebar.construction_safety": "Construction Safety",
+        "sidebar.emergency_planning": "Emergency Planning",
+        "sidebar.risk_assessment": "Risk Assessment",
+        "sidebar.legal_appointments": "Legal Appointments",
+        "sidebar.incident_management": "Incident Management",
+        "sidebar.training": "Training",
+        "sidebar.inspections_audits": "Inspections & Audits",
+        "sidebar.suppliers": "Suppliers",
+        "sidebar.legislation": "Legislation",
+        "sidebar.community_tools": "Community Tools",
+        "sidebar.member_dashboard": "Member Dashboard",
+        "sidebar.ohs_system": "OHS System",
+        "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
+        "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
+        "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?"
+      };
+      resources['en'] = { translation: defaultTranslations };
+
+      // Attempt to load translations for all languages
+      for (const lang of languages) {
+        if (lang === 'en') continue; // Skip English as it's already added
+        try {
+          const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          resources[lang] = { translation: data };
+          console.log(`Loaded translations for ${lang}:`, data);
+        } catch (error) {
+          console.error(`Failed to load translations for ${lang}:`, error);
+          // Fallback to English for this language
+          resources[lang] = { translation: defaultTranslations };
+        }
+      }
+
+      if (Object.keys(resources).length === 0) {
+        console.error("No translation files loaded. Using default English translations.");
+      }
+
+      await i18next.init({
+        lng: 'en',
+        resources,
+        fallbackLng: 'en',
+        debug: true
+      });
+
+      updateContent();
+
+      document.getElementById('language-select').addEventListener('change', (e) => {
+        i18next.changeLanguage(e.target.value, (err) => {
+          if (err) {
+            console.error('Error changing language:', err);
+            return;
+          }
+          updateContent();
+        });
+      });
+    });
+
+    function updateContent() {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = i18next.t(key);
+        if (translation === key) {
+          console.warn(`Translation missing for key: ${key}`);
+        }
+        element.textContent = translation;
+        console.log(`Translating ${key} to ${translation}`);
+      });
+    }
+
+    // Carousel Randomization and Functionality
     const carouselItems = document.querySelectorAll('.carousel-item');
     const prevBtn = document.querySelector('.carousel-prev');
     const nextBtn = document.querySelector('.carousel-next');
@@ -1090,7 +1216,6 @@
       }
     });
 
-   <!-- Firebase and Chatbot -->
     // Firebase and Chatbot
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
@@ -1209,4 +1334,4 @@
     }
   </script>
 </body>
-</html> 
+</html>
