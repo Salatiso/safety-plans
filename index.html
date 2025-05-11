@@ -15,6 +15,7 @@
             font-family: 'Open Sans', sans-serif;
             background-color: #E8F0FE;
             color: #333;
+            margin: 0;
         }
         header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
             font-family: 'Montserrat', sans-serif;
@@ -34,6 +35,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 20px;
         }
         .logo-container {
             padding-left: 10px;
@@ -53,6 +55,7 @@
             color: white;
             margin: 0 10px;
             font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
         }
         .nav-links a:hover {
             color: #FD7E14;
@@ -78,9 +81,105 @@
             border-radius: 4px;
             font-size: 14px;
         }
+        body {
+            padding-top: 100px;
+            display: flex;
+        }
+        .sidebar {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #F4F4F4;
+            overflow-y: auto;
+            z-index: 40;
+            padding: 15px;
+        }
+        .sidebar h2 {
+            color: #007BFF;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .sidebar a {
+            color: white;
+            background-color: #007BFF;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: block;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .sidebar a:hover {
+            font-weight: bold;
+            background-color: #0056b3;
+        }
+        .sidebar a.active {
+            background-color: #28A745;
+        }
+        .step-info {
+            background-color: #E8F0FE;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .step-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        .step-info p {
+            font-size: 14px;
+        }
+        .fun-fact {
+            color: #28A745;
+        }
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 1.5rem;
+            min-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        .intro {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .intro h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .intro h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .intro p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .intro a {
+            background-color: #FD7E14;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .intro a:hover {
+            background-color: #e06b00;
+        }
         .carousel-container {
+            flex: 1;
             max-width: 300px;
-            margin: 10px 0;
             position: relative;
         }
         .carousel-item {
@@ -176,75 +275,45 @@
             cursor: pointer;
             color: #333;
         }
-        body {
-            padding-top: 100px;
-            display: flex;
-        }
-        .sidebar {
-            position: fixed;
-            top: 100px;
-            left: 0;
-            bottom: 0;
-            width: 250px;
-            background-color: #F4F4F4;
-            overflow-y: auto;
-            z-index: 40;
-        }
-        .sidebar h2 {
-            color: #007BFF;
-        }
-        .sidebar a {
-            color: white;
-            background-color: #007BFF;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-            display: block;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            font-weight: bold;
-            background-color: #0056b3;
-        }
-        .sidebar a.active {
-            background-color: #28A745;
-        }
-        .step-info {
-            background-color: #E8F0FE;
-        }
-        .main-content {
-            margin-left: 250px;
-            flex-grow: 1;
-            padding: 1.5rem;
-            min-height: calc(100vh - 100px);
-            display: flex;
-            flex-direction: column;
-        }
-        .intro {
-            flex-grow: 1;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .intro a {
-            background-color: #FD7E14;
-            color: white;
-        }
-        .intro a:hover {
-            background-color: #e06b00;
-        }
         footer {
             background-color: #007BFF;
             color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+        footer p {
+            font-size: 14px;
+            margin: 5px 0;
         }
         footer a {
             color: #FD7E14;
+            text-decoration: none;
         }
         footer a:hover {
             color: #e06b00;
         }
+        .newsletter h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            font-size: 14px;
+            width: 150px;
+        }
         .newsletter button {
+            padding: 8px 16px;
             background-color: #FD7E14;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
         }
         .newsletter button:hover {
             background-color: #e06b00;
@@ -320,9 +389,6 @@
                 margin-left: 0;
                 margin-top: 10px;
             }
-            .carousel-container {
-                max-width: 100%;
-            }
             .sidebar {
                 position: relative;
                 top: 0;
@@ -333,29 +399,33 @@
             }
             .main-content {
                 margin-left: 0;
-                min-height: auto;
+                flex-direction: column;
             }
             .intro {
-                margin: 1rem;
+                margin: 1rem 0;
+            }
+            .carousel-container {
+                max-width: 100%;
+                margin: 1rem 0;
             }
         }
     </style>
 </head>
 <body class="bg-gray-100">
     <header class="bg-gray-900 text-white shadow-md">
-        <div class="container mx-auto px-6 py-4 header-container">
+        <div class="container mx-auto header-container">
             <div class="logo-container">
                 <img src="../images/logo.png" alt="SafetyHelp Logo">
                 <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
             </div>
             <div class="header-right">
                 <div class="nav-links mb-4 md:mb-0">
-                    <a href="/safety-plans/index.html" class="px-3 py-2 hover:text-blue-400">Home</a>
-                    <a href="/safety-plans/resources.html" class="px-3 py-2 hover:text-blue-400">Resources</a>
-                    <a href="/safety-plans/services.html" class="px-3 py-2 hover:text-blue-400">Services</a>
-                    <a href="/safety-plans/community.html" class="px-3 py-2 hover:text-blue-400">Community</a>
-                    <a href="/safety-plans/about.html" class="px-3 py-2 hover:text-blue-400">About</a>
-                    <a href="/safety-plans/contact.html" class="px-3 py-2 hover:text-blue-400">Contact</a>
+                    <a href="/safety-plans/index.html">Home</a>
+                    <a href="/safety-plans/resources.html">Resources</a>
+                    <a href="/safety-plans/services.html">Services</a>
+                    <a href="/safety-plans/community.html">Community</a>
+                    <a href="/safety-plans/about.html">About</a>
+                    <a href="/safety-plans/contact.html">Contact</a>
                 </div>
                 <div class="search-language-container">
                     <div class="language-selector">
@@ -384,98 +454,99 @@
                             <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
                         </form>
                     </div>
-                    <div class="carousel-container">
-                        <div class="carousel-item active" data-index="0">
-                            <h4>⚒️ Pre-Colonial Safety Practices</h4>
-                            <p>Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.</p>
-                        </div>
-                        <div class="carousel-item" data-index="1">
-                            <h4>⛏️ Mineral Revolution (1867)</h4>
-                            <p>The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.</p>
-                        </div>
-                        <div class="carousel-item" data-index="2">
-                            <h4>🏭 Early Industrialisation (1886)</h4>
-                            <p>Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.</p>
-                        </div>
-                        <div class="carousel-item" data-index="3">
-                            <h4>📜 Mines and Works Act (1911)</h4>
-                            <p>First national framework for mine safety, mandating inspectors and safety officers.</p>
-                        </div>
-                        <div class="carousel-item" data-index="4">
-                            <h4>🩺 Silicosis Compensation (1912)</h4>
-                            <p>Temporary compensation introduced for miners with occupational lung disease.</p>
-                        </div>
-                        <div class="carousel-item" data-index="5">
-                            <h4>🚨 Safety First Association (1932)</h4>
-                            <p>Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.</p>
-                        </div>
-                        <div class="carousel-item" data-index="6">
-                            <h4>📈 OHS Act (1993)</h4>
-                            <p>Introduced a universal OHS framework with risk-based approaches and safety committees.</p>
-                        </div>
-                        <div class="carousel-item" data-index="7">
-                            <h4>🌍 Asbestos Litigation (2000)</h4>
-                            <p>Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.</p>
-                        </div>
-                        <div class="carousel-item" data-index="8">
-                            <h4>💻 Modern OHS Technology</h4>
-                            <p>Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.</p>
-                        </div>
-                        <button class="carousel-prev">❮</button>
-                        <button class="carousel-next">❯</button>
-                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <aside class="sidebar p-5">
-        <h2 data-i18n="sidebar.ohs_tools" class="text-2xl font-bold mb-6">OHS Tools</h2>
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
         <ul class="space-y-2">
-            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block">Construction Safety</a></li>
-            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block">Emergency Planning</a></li>
-            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block">Risk Assessment</a></li>
-            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block">Legal Appointments</a></li>
-            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block">Incident Management</a></li>
-            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block">Inspections & Audits</a></li>
-            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block">Suppliers</a></li>
-            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block">Legislation</a></li>
-            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block">Community Tools</a></li>
-            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block">Member Dashboard</a></li>
-            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="block active">OHS System</a></li>
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
+            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="active">OHS System</a></li>
         </ul>
-        <div class="step-info mt-8 p-4 rounded">
-            <h3 data-i18n="sidebar.step_0.title" class="text-lg font-semibold mb-2">📜 Welcome to SafetyHelp</h3>
+        <div class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
             <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-            <p class="fun-fact text-sm text-blue-300" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
+            <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
         </div>
     </aside>
 
-    <div class="main-content bg-gray-100">
-        <section class="intro bg-white p-8 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to SafetyHelp</h2>
+    <div class="main-content">
+        <section class="intro">
+            <h2 class="text-2xl font-bold mb-4">Welcome to SafetyHelp</h2>
             <p class="text-gray-600">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
             <div class="mt-6">
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Featured Tool: Construction Compliance</h3>
+                <h3 class="text-xl font-semibold mb-2">Featured Tool: Construction Compliance</h3>
                 <p class="text-gray-600 mb-4">Ensure your construction projects meet all necessary health and safety regulations with our detailed compliance checklist and plan generator.</p>
-                <a href="/safety-plans/pages/construction-compliance.html" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Learn More</a>
+                <a href="/safety-plans/pages/construction-compliance.html" class="inline-block">Learn More</a>
             </div>
         </section>
 
-        <footer class="bg-gray-900 text-white py-8 mt-auto">
+        <div class="carousel-container">
+            <div class="carousel-item active" data-index="0">
+                <h4>⚒️ Pre-Colonial Safety Practices</h4>
+                <p>Bantu and Khoisan communities used communal knowledge for safety, training novices in tool use and using medicinal plants for injuries.</p>
+            </div>
+            <div class="carousel-item" data-index="1">
+                <h4>⛏️ Mineral Revolution (1867)</h4>
+                <p>The discovery of diamonds in Hopetown led to deep-shaft mining, exposing workers to collapses and toxic dust.</p>
+            </div>
+            <div class="carousel-item" data-index="2">
+                <h4>🏭 Early Industrialisation (1886)</h4>
+                <p>Gold rush in Witwatersrand spurred mining growth, with first recorded fatal accidents by 1904.</p>
+            </div>
+            <div class="carousel-item" data-index="3">
+                <h4>📜 Mines and Works Act (1911)</h4>
+                <p>First national framework for mine safety, mandating inspectors and safety officers.</p>
+            </div>
+            <div class="carousel-item" data-index="4">
+                <h4>🩺 Silicosis Compensation (1912)</h4>
+                <p>Temporary compensation introduced for miners with occupational lung disease.</p>
+            </div>
+            <div class="carousel-item" data-index="5">
+                <h4>🚨 Safety First Association (1932)</h4>
+                <p>Founded by Sir Ernest Oppenheimer to promote accident prevention in mines.</p>
+            </div>
+            <div class="carousel-item" data-index="6">
+                <h4>📈 OHS Act (1993)</h4>
+                <p>Introduced a universal OHS framework with risk-based approaches and safety committees.</p>
+            </div>
+            <div class="carousel-item" data-index="7">
+                <h4>🌍 Asbestos Litigation (2000)</h4>
+                <p>Lubbe v Cape plc allowed SA asbestos victims to sue UK companies, setting a global precedent.</p>
+            </div>
+            <div class="carousel-item" data-index="8">
+                <h4>💻 Modern OHS Technology</h4>
+                <p>Industry 4.0 tools like wearables and AI hazard modeling improve safety but raise privacy concerns.</p>
+            </div>
+            <button class="carousel-prev">❮</button>
+            <button class="carousel-next">❯</button>
+        </div>
+
+        <footer class="py-8">
             <div class="container mx-auto px-6 text-center">
                 <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
                 <p class="mb-4">
-                    <a href="/safety-plans/privacy.html" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
-                    <a href="/safety-plans/terms.html" class="mx-2 hover:text-blue-400">Terms of Service</a> |
-                    <a href="/safety-plans/contact.html" class="mx-2 hover:text-blue-400">Contact Us</a>
+                    <a href="/safety-plans/privacy.html" class="mx-2">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" class="mx-2">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" class="mx-2">Contact Us</a>
                 </p>
                 <div class="newsletter mt-6">
                     <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
                     <form class="flex justify-center">
                         <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-                        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
+                        <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -483,23 +554,23 @@
     </div>
 
     <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
             <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
         </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+        <div id="chat-window" class="chat-hidden border border-gray-300 rounded-lg shadow-xl">
             <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
                 <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
             </div>
             <div id="chat-input-container" class="flex border-t border-gray-200">
                 <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
+                <button id="chat-send" aria-label="Send message" class="px-4 py-2">Send</button>
             </div>
         </div>
     </div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn">×</span>
             <div id="modal-body"></div>
         </div>
     </div>
@@ -508,7 +579,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
         // Translation Initialization
-        async function loadTranslations() {
+        document.addEventListener('DOMContentLoaded', async () => {
             const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
             const resources = {};
 
@@ -521,27 +592,27 @@
                 }
             }
 
-            i18next.init({
+            await i18next.init({
                 lng: 'en',
-                resources
-            }, function(err, t) {
-                updateContent();
+                resources,
+                fallbackLng: 'en'
             });
-        }
 
-        function updateContent() {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                element.textContent = i18next.t(element.getAttribute('data-i18n'));
-            });
-        }
+            updateContent();
 
-        document.getElementById('language-select').addEventListener('change', (e) => {
-            i18next.changeLanguage(e.target.value, () => {
-                updateContent();
+            document.getElementById('language-select').addEventListener('change', (e) => {
+                i18next.changeLanguage(e.target.value, () => {
+                    updateContent();
+                });
             });
         });
 
-        loadTranslations();
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                element.textContent = i18next.t(key);
+            });
+        }
 
         // Carousel Functionality
         const carouselItems = document.querySelectorAll('.carousel-item');
