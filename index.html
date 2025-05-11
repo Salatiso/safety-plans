@@ -578,7 +578,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
-        // Translation Initialization
+        // Translation Initialization with Debugging
         document.addEventListener('DOMContentLoaded', async () => {
             const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
             const resources = {};
@@ -586,22 +586,36 @@
             for (const lang of languages) {
                 try {
                     const response = await fetch(`/safety-plans/assets/locales/${lang}.json`);
-                    resources[lang] = { translation: await response.json() };
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    resources[lang] = { translation: data };
+                    console.log(`Loaded translations for ${lang}:`, data);
                 } catch (error) {
                     console.error(`Failed to load translations for ${lang}:`, error);
                 }
             }
 
+            if (Object.keys(resources).length === 0) {
+                console.error("No translation files loaded. Check file paths and network connectivity.");
+            }
+
             await i18next.init({
                 lng: 'en',
                 resources,
-                fallbackLng: 'en'
+                fallbackLng: 'en',
+                debug: true
             });
 
             updateContent();
 
             document.getElementById('language-select').addEventListener('change', (e) => {
-                i18next.changeLanguage(e.target.value, () => {
+                i18next.changeLanguage(e.target.value, (err) => {
+                    if (err) {
+                        console.error('Error changing language:', err);
+                        return;
+                    }
                     updateContent();
                 });
             });
@@ -610,7 +624,9 @@
         function updateContent() {
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
-                element.textContent = i18next.t(key);
+                const translation = i18next.t(key);
+                element.textContent = translation;
+                console.log(`Translating ${key} to ${translation}`);
             });
         }
 
