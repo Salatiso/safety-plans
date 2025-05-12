@@ -3,63 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OHS Legal Universe & Risk Management | Salatiso Safety Plans</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/legislation.css">
+    <meta name="description" content="Generate a tailored OHS legal universe and risk management plan with SafetyHelp. Ensure compliance with South African legislation, bylaws, and international standards.">
+    <meta name="keywords" content="OHS legal universe, risk management plan, occupational health and safety, safety plans, South Africa OHS, SafetyHelp">
+    <meta name="author" content="SafetyHelp Team">
+    <title data-i18n="page_title.legislation">SafetyHelp - OHS Legal Universe & Risk Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #E8F0FE;
+            color: #333;
+            margin: 0;
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, .wizard h3, .checkout h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Header */
+        header {
+            background-color: #007BFF;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            width: 100%;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-language-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-bar button {
+            background-color: #FD7E14;
+            color: white;
+        }
+        .search-bar button:hover {
+            background-color: #e06b00;
+        }
+        .language-selector {
+            margin-bottom: 5px;
+        }
+        .language-selector select {
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .nav-links {
+            text-align: center;
+            flex: 1;
+        }
+        .nav-links a {
+            color: white;
+            margin: 0 15px;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            color: #FD7E14;
+        }
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .logo-container img {
+            height: 50px;
+        }
+        .tagline {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #F4F4F4;
+            overflow-y: auto;
+            z-index: 40;
+            padding: 15px;
+        }
+        .sidebar h2 {
+            color: #007BFF;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .sidebar a {
+            color: white;
+            background-color: #007BFF;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: block;
+            text-decoration: none;
+            font-size: 14px;
+            transition: font-weight 0.3s;
+        }
+        .sidebar a:hover {
+            font-weight: bold;
+            background-color: #0056b3;
+        }
+        .sidebar a.active {
+            background-color: #28A745;
+        }
+        .step-info {
+            background-color: #E8F0FE;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .step-info h3 {
+            font-size: 18px;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        .step-info p {
+            font-size: 14px;
+        }
+        .fun-fact {
+            color: #28A745;
+        }
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
-                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+        <div class="container mx-auto header-container">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="assets/images/logo.png" alt="SafetyHelp Logo">
+                    <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+                </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
-                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
-                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
-                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
-                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
-                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
-                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
-                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
-                </ul>
-            </nav>
-            <div class="search-bar">
-                <input type="text" placeholder="Search OHS Legislation..." data-i18n="[placeholder]header.search.placeholder">
-                <button data-i18n="header.search.button">Search</button>
+            <div class="nav-links">
+                <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
+                <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
+                <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
+                <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
+                <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
+                <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
+                <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
+            </div>
+            <div class="header-right">
+                <div class="search-language-container">
+                    <div class="language-selector">
+                        <select id="language-select" aria-label="Select language">
+                            <option value="en" data-i18n="language_selector.en">English</option>
+                            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
+                            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
+                            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
+                            <option value="st" data-i18n="language_selector.st">Sesotho</option>
+                            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
+                            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
+                            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
+                            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
+                            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
+                            <option value="nr" data-i18n="language_selector.nr">isiNdebele</option>
+                            <option value="es" data-i18n="language_selector.es">Español</option>
+                            <option value="fr" data-i18n="language_selector.fr">French</option>
+                            <option value="sn" data-i18n="language_selector.sn">Shona</option>
+                            <option value="sw" data-i18n="language_selector.sw">Swahili</option>
+                            <option value="zh" data-i18n="language_selector.zh">Mandarin</option>
+                        </select>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search" class="flex">
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <h2 data-i18n="sidebar.ohs_tools">OHS Tools</h2>
-        <ul>
-            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block py-2 px-1 hover:text-blue-400">Construction Safety</a></li>
-            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block py-2 px-1 hover:text-blue-400">Emergency Planning</a></li>
-            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block py-2 px-1 hover:text-blue-400">Risk Assessment</a></li>
-            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400">Legal Appointments</a></li>
-            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400">Incident Management</a></li>
-            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections \& Audits</a></li>
-            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
-            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
-            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
-            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block py-2 px-1 hover:text-blue-400">Member Dashboard</a></li>
-            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="block py-2 px-1 hover:text-blue-400 active">OHS System</a></li>
+        <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="active">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
+            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system">OHS System</a></li>
         </ul>
-        <div class="step-info">
+        <div id="sidebar-step-info" class="step-info">
             <h3 data-i18n="sidebar.step_0.title">📜 OHS Legal Universe & RMP</h3>
-            <p data-i18n="sidebar.step_0.description">Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.</p>
-            <p class="fun-fact" data-i18n="sidebar.step_0.fun_fact">⚡ Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!</p>
+            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.</p>
+            <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!</p>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main>
+    <div class="main-content">
         <section class="intro">
             <h2 data-i18n="legislation.title">OHS Legal Universe & Risk Management</h2>
             <p data-i18n="legislation.description">Generate a tailored OHS legal universe and risk management plan for your business. Enter your company details, activities, and risks to receive a comprehensive compliance report covering South African legislation, bylaws, and international standards.</p>
@@ -67,104 +243,617 @@
 
         <section class="wizard">
             <h3 data-i18n="legislation.wizard.title">Generate Your RMP</h3>
-            <form id="legislation-wizard">
+            <form id="legislation-wizard" class="space-y-6">
                 <!-- Step 1: Company Details -->
-                <div class="step" id="step-1">
-                    <h4 data-i18n="legislation.wizard.step_1.title">Step 1 of 4: Company Details</h4>
-                    <label data-i18n="legislation.wizard.step_1.company_name_label">Company Name:</label>
-                    <input type="text" id="company-name" required>
-                    <label data-i18n="legislation.wizard.step_1.industry_label">Industry:</label>
-                    <select id="industry" required>
-                        <option value="" data-i18n="legislation.wizard.step_1.option_select">Select Industry</option>
-                        <option value="construction" data-i18n="legislation.wizard.step_1.option_construction">Construction</option>
-                        <option value="manufacturing" data-i18n="legislation.wizard.step_1.option_manufacturing">Manufacturing</option>
-                        <option value="education" data-i18n="legislation.wizard.step_1.option_education">Education</option>
-                        <option value="healthcare" data-i18n="legislation.wizard.step_1.option_healthcare">Healthcare</option>
-                        <option value="retail" data-i18n="legislation.wizard.step_1.option_retail">Retail</option>
-                    </select>
-                    <label data-i18n="legislation.wizard.step_1.location_label">Location (Province):</label>
-                    <select id="location" required>
-                        <option value="" data-i18n="legislation.wizard.step_1.option_select_location">Select Province</option>
-                        <option value="Gauteng" data-i18n="legislation.wizard.step_1.option_gauteng">Gauteng</option>
-                        <option value="KZN" data-i18n="legislation.wizard.step_1.option_kzn">KwaZulu-Natal</option>
-                        <option value="WC" data-i18n="legislation.wizard.step_1.option_wc">Western Cape</option>
-                        <option value="EC" data-i18n="legislation.wizard.step_1.option_ec">Eastern Cape</option>
-                        <option value="FS" data-i18n="legislation.wizard.step_1.option_fs">Free State</option>
-                    </select>
-                    <button type="button" onclick="nextStep(1)" data-i18n="legislation.wizard.nav.next">Next</button>
+                <div class="step active" id="step-1">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legislation.wizard.step_1.title">Step 1 of 4: Company Details</h4>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_1.company_name_label">Company Name:</label>
+                        <input type="text" id="company-name" required class="w-full p-2 border border-gray-300 rounded text-sm">
+                    </div>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_1.industry_label">Industry:</label>
+                        <select id="industry" required class="w-full p-2 border border-gray-300 rounded text-sm">
+                            <option value="" data-i18n="legislation.wizard.step_1.option_select">Select Industry</option>
+                            <option value="construction" data-i18n="legislation.wizard.step_1.option_construction">Construction</option>
+                            <option value="manufacturing" data-i18n="legislation.wizard.step_1.option_manufacturing">Manufacturing</option>
+                            <option value="education" data-i18n="legislation.wizard.step_1.option_education">Education</option>
+                            <option value="healthcare" data-i18n="legislation.wizard.step_1.option_healthcare">Healthcare</option>
+                            <option value="retail" data-i18n="legislation.wizard.step_1.option_retail">Retail</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_1.location_label">Location (Province):</label>
+                        <select id="location" required class="w-full p-2 border border-gray-300 rounded text-sm">
+                            <option value="" data-i18n="legislation.wizard.step_1.option_select_location">Select Province</option>
+                            <option value="Gauteng" data-i18n="legislation.wizard.step_1.option_gauteng">Gauteng</option>
+                            <option value="KZN" data-i18n="legislation.wizard.step_1.option_kzn">KwaZulu-Natal</option>
+                            <option value="WC" data-i18n="legislation.wizard.step_1.option_wc">Western Cape</option>
+                            <option value="EC" data-i18n="legislation.wizard.step_1.option_ec">Eastern Cape</option>
+                            <option value="FS" data-i18n="legislation.wizard.step_1.option_fs">Free State</option>
+                        </select>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button type="button" onclick="nextStep(1)" data-i18n="legislation.wizard.nav.next" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Next</button>
+                    </div>
                 </div>
 
                 <!-- Step 2: Activities -->
-                <div class="step" id="step-2" style="display: none;">
-                    <h4 data-i18n="legislation.wizard.step_2.title">Step 2 of 4: Activities</h4>
-                    <label data-i18n="legislation.wizard.step_2.label">Select Activities (Check all that apply):</label>
-                    <input type="checkbox" id="excavation" data-i18n="legislation.wizard.step_2.option_excavation"> Excavation<br>
-                    <input type="checkbox" id="working-at-heights" data-i18n="legislation.wizard.step_2.option_working_at_heights"> Working at Heights<br>
-                    <input type="checkbox" id="fire-risk" data-i18n="legislation.wizard.step_2.option_fire_risk"> Fire Risk Activities<br>
-                    <button type="button" onclick="prevStep(2)" data-i18n="legislation.wizard.nav.back">Back</button>
-                    <button type="button" onclick="nextStep(2)" data-i18n="legislation.wizard.nav.next">Next</button>
+                <div class="step hidden" id="step-2">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legislation.wizard.step_2.title">Step 2 of 4: Activities</h4>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_2.label">Select Activities (Check all that apply):</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="excavation" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="excavation" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_2.option_excavation">Excavation</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="working-at-heights" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="working-at-heights" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_2.option_working_at_heights">Working at Heights</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="fire-risk" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="fire-risk" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_2.option_fire_risk">Fire Risk Activities</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons flex gap-4">
+                        <button type="button" onclick="prevStep(2)" data-i18n="legislation.wizard.nav.back" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Back</button>
+                        <button type="button" onclick="nextStep(2)" data-i18n="legislation.wizard.nav.next" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Next</button>
+                    </div>
                 </div>
 
                 <!-- Step 3: Risks -->
-                <div class="step" id="step-3" style="display: none;">
-                    <h4 data-i18n="legislation.wizard.step_3.title">Step 3 of 4: Risks</h4>
-                    <label data-i18n="legislation.wizard.step_3.label">Select Risks (Check all that apply):</label>
-                    <input type="checkbox" id="falls" data-i18n="legislation.wizard.step_3.option_falls"> Falls from Heights<br>
-                    <input type="checkbox" id="chemical-exposure" data-i18n="legislation.wizard.step_3.option_chemical_exposure"> Chemical Exposure<br>
-                    <input type="checkbox" id="fire-hazard" data-i18n="legislation.wizard.step_3.option_fire_hazard"> Fire Hazard<br>
-                    <button type="button" onclick="prevStep(3)" data-i18n="legislation.wizard.nav.back">Back</button>
-                    <button type="button" onclick="nextStep(3)" data-i18n="legislation.wizard.nav.next">Next</button>
+                <div class="step hidden" id="step-3">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legislation.wizard.step_3.title">Step 3 of 4: Risks</h4>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_3.label">Select Risks (Check all that apply):</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="falls" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="falls" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_3.option_falls">Falls from Heights</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="chemical-exposure" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="chemical-exposure" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_3.option_chemical_exposure">Chemical Exposure</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="fire-hazard" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="fire-hazard" class="ml-2 text-sm text-gray-600" data-i18n="legislation.wizard.step_3.option_fire_hazard">Fire Hazard</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons flex gap-4">
+                        <button type="button" onclick="prevStep(3)" data-i18n="legislation.wizard.nav.back" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Back</button>
+                        <button type="button" onclick="nextStep(3)" data-i18n="legislation.wizard.nav.next" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Next</button>
+                    </div>
                 </div>
 
                 <!-- Step 4: Review and Generate -->
-                <div class="step" id="step-4" style="display: none;">
-                    <h4 data-i18n="legislation.wizard.step_4.title">Step 4 of 4: Review and Generate</h4>
-                    <p data-i18n="legislation.wizard.step_4.description">Review your inputs and generate your RMP. You can add additional legislation if needed.</p>
-                    <label data-i18n="legislation.wizard.step_4.additional_legislation_label">Add Additional Legislation (Optional):</label>
-                    <textarea id="additional-legislation" data-i18n="[placeholder]legislation.wizard.step_4.additional_legislation_placeholder">Enter any additional legislation here...</textarea>
-                    <button type="button" onclick="prevStep(4)" data-i18n="legislation.wizard.nav.back">Back</button>
-                    <button type="submit" data-i18n="legislation.wizard.nav.generate">Generate RMP</button>
+                <div class="step hidden" id="step-4">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3" data-i18n="legislation.wizard.step_4.title">Step 4 of 4: Review and Generate</h4>
+                    <p class="text-gray-600 mb-4" data-i18n="legislation.wizard.step_4.description">Review your inputs and generate your RMP. You can add additional legislation if needed.</p>
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.wizard.step_4.additional_legislation_label">Add Additional Legislation (Optional):</label>
+                        <textarea id="additional-legislation" data-i18n="[placeholder]legislation.wizard.step_4.additional_legislation_placeholder" placeholder="Enter any additional legislation here..." class="w-full p-2 border border-gray-300 rounded text-sm h-24"></textarea>
+                    </div>
+                    <div class="navigation-buttons flex gap-4">
+                        <button type="button" onclick="prevStep(4)" data-i18n="legislation.wizard.nav.back" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Back</button>
+                        <button type="submit" data-i18n="legislation.wizard.nav.generate" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Generate RMP</button>
+                    </div>
                 </div>
             </form>
         </section>
 
-        <section class="checkout" id="checkout" style="display: none;">
+        <section class="checkout hidden" id="checkout">
             <h3 data-i18n="legislation.cart.title">Checkout</h3>
-            <p data-i18n="legislation.cart.description">Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).</p>
-            <label data-i18n="legislation.cart.voucher_label">Voucher Code:</label>
-            <input type="text" id="voucher-code" placeholder="FREERMP2025" data-i18n="[placeholder]legislation.cart.voucher_placeholder">
-            <button onclick="applyVoucher()" data-i18n="legislation.cart.apply_voucher">Apply Voucher</button>
-            <p data-i18n="legislation.cart.price">Price: R200 (Free with Voucher)</p>
-            <button onclick="downloadRMP()" data-i18n="legislation.cart.download">Download RMP</button>
+            <p data-i18n="legislation.cart.description" class="text-gray-600 mb-4">Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).</p>
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="legislation.cart.voucher_label">Voucher Code:</label>
+                <input type="text" id="voucher-code" data-i18n="[placeholder]legislation.cart.voucher_placeholder" placeholder="FREERMP2025" class="w-full p-2 border border-gray-300 rounded text-sm">
+            </div>
+            <button onclick="applyVoucher()" data-i18n="legislation.cart.apply_voucher" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-2">Apply Voucher</button>
+            <p class="mt-4 text-sm" data-i18n="legislation.cart.price">Price: R200 (Free with Voucher)</p>
+            <button onclick="downloadRMP()" data-i18n="legislation.cart.download" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-2">Download RMP</button>
         </section>
-    </main>
+    </div>
 
-    <!-- Footer -->
     <footer>
-        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
-        <div class="footer-links">
-            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
-            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
-            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
-        </div>
-        <div class="newsletter">
-            <h3 data-i18n="footer.newsletter.title">Stay Updated</h3>
-            <input type="email" placeholder="Enter your email" data-i18n="[placeholder]footer.newsletter.placeholder">
-            <button data-i18n="footer.newsletter.button">Subscribe</button>
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
+            <p class="mb-4">
+                <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2">Terms of Service</a> |
+                <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2">Contact Us</a>
+            </p>
+            <div class="newsletter mt-6">
+                <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                <form class="flex justify-center">
+                    <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                    <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 rounded-r">Subscribe</button>
+                </form>
+            </div>
         </div>
     </footer>
 
-    <!-- Chatbot -->
-    <div class="chatbot">
-        <button data-i18n="chatbot.button">Ask Me</button>
-        <div class="chatbot-content" style="display: none;">
-            <input type="text" placeholder="Ask about OHS..." data-i18n="[placeholder]chatbot.input_placeholder">
-            <button data-i18n="chatbot.send">Send</button>
-            <p data-i18n="chatbot.response">I'm here to help! For personalized OHS advice, please contact a professional.</p>
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+        </button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2">Send</button>
+            </div>
         </div>
     </div>
 
-    <script src="../assets/js/scripts.js"></script>
-    <script src="../assets/js/legislation.js"></script>
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Translation Initialization with Embedded English Translations
+        document.addEventListener('DOMContentLoaded', async () => {
+            const translations = {
+                "header.nav.home": "Home",
+                "header.nav.resources": "Resources",
+                "header.nav.services": "Services",
+                "header.nav.community": "Community",
+                "header.nav.about": "About",
+                "header.nav.contact": "Contact",
+                "header.nav.login": "Login",
+                "header.search.placeholder": "Search OHS Tools...",
+                "header.search.button": "Search",
+                "language_selector.en": "English",
+                "language_selector.af": "Afrikaans",
+                "language_selector.zu": "isiZulu",
+                "language_selector.xh": "isiXhosa",
+                "language_selector.st": "Sesotho",
+                "language_selector.tn": "Setswana",
+                "language_selector.nso": "Sepedi",
+                "language_selector.ts": "Xitsonga",
+                "language_selector.ss": "siSwati",
+                "language_selector.ve": "Tshivenda",
+                "language_selector.nr": "isiNdebele",
+                "language_selector.es": "Español",
+                "language_selector.fr": "French",
+                "language_selector.sn": "Shona",
+                "language_selector.sw": "Swahili",
+                "language_selector.zh": "Mandarin",
+                "sidebar.ohs_tools": "SafetyHelp OHS Tools",
+                "sidebar.construction_safety": "Construction Safety",
+                "sidebar.emergency_planning": "Emergency Planning",
+                "sidebar.risk_assessment": "Risk Assessment",
+                "sidebar.legal_appointments": "Legal Appointments",
+                "sidebar.incident_management": "Incident Management",
+                "sidebar.training": "Training",
+                "sidebar.inspections_audits": "Inspections & Audits",
+                "sidebar.suppliers": "Suppliers",
+                "sidebar.legislation": "Legislation",
+                "sidebar.community_tools": "Community Tools",
+                "sidebar.member_dashboard": "Member Dashboard",
+                "sidebar.ohs_system": "OHS System",
+                "sidebar.step_0.title": "📜 OHS Legal Universe & RMP",
+                "sidebar.step_0.description": "Generate a comprehensive OHS legal universe and risk management plan tailored to your business. Input your company details, activities, and risks to receive a detailed compliance report.",
+                "sidebar.step_0.fun_fact": "⚡ Fun Fact: Proper compliance with OHS laws can reduce workplace incidents by up to 40%!",
+                "legislation.title": "OHS Legal Universe & Risk Management",
+                "legislation.description": "Generate a tailored OHS legal universe and risk management plan for your business. Enter your company details, activities, and risks to receive a comprehensive compliance report covering South African legislation, bylaws, and international standards.",
+                "legislation.wizard.title": "Generate Your RMP",
+                "legislation.wizard.step_1.title": "Step 1 of 4: Company Details",
+                "legislation.wizard.step_1.company_name_label": "Company Name:",
+                "legislation.wizard.step_1.industry_label": "Industry:",
+                "legislation.wizard.step_1.option_select": "Select Industry",
+                "legislation.wizard.step_1.option_construction": "Construction",
+                "legislation.wizard.step_1.option_manufacturing": "Manufacturing",
+                "legislation.wizard.step_1.option_education": "Education",
+                "legislation.wizard.step_1.option_healthcare": "Healthcare",
+                "legislation.wizard.step_1.option_retail": "Retail",
+                "legislation.wizard.step_1.location_label": "Location (Province):",
+                "legislation.wizard.step_1.option_select_location": "Select Province",
+                "legislation.wizard.step_1.option_gauteng": "Gauteng",
+                "legislation.wizard.step_1.option_kzn": "KwaZulu-Natal",
+                "legislation.wizard.step_1.option_wc": "Western Cape",
+                "legislation.wizard.step_1.option_ec": "Eastern Cape",
+                "legislation.wizard.step_1.option_fs": "Free State",
+                "legislation.wizard.step_2.title": "Step 2 of 4: Activities",
+                "legislation.wizard.step_2.label": "Select Activities (Check all that apply):",
+                "legislation.wizard.step_2.option_excavation": "Excavation",
+                "legislation.wizard.step_2.option_working_at_heights": "Working at Heights",
+                "legislation.wizard.step_2.option_fire_risk": "Fire Risk Activities",
+                "legislation.wizard.step_3.title": "Step 3 of 4: Risks",
+                "legislation.wizard.step_3.label": "Select Risks (Check all that apply):",
+                "legislation.wizard.step_3.option_falls": "Falls from Heights",
+                "legislation.wizard.step_3.option_chemical_exposure": "Chemical Exposure",
+                "legislation.wizard.step_3.option_fire_hazard": "Fire Hazard",
+                "legislation.wizard.step_4.title": "Step 4 of 4: Review and Generate",
+                "legislation.wizard.step_4.description": "Review your inputs and generate your RMP. You can add additional legislation if needed.",
+                "legislation.wizard.step_4.additional_legislation_label": "Add Additional Legislation (Optional):",
+                "legislation.wizard.step_4.additional_legislation_placeholder": "Enter any additional legislation here...",
+                "legislation.wizard.nav.back": "Back",
+                "legislation.wizard.nav.next": "Next",
+                "legislation.wizard.nav.generate": "Generate RMP",
+                "legislation.cart.title": "Checkout",
+                "legislation.cart.description": "Your RMP has been generated! Use the voucher code FREERMP2025 for a free download (first 100 users).",
+                "legislation.cart.voucher_label": "Voucher Code:",
+                "legislation.cart.voucher_placeholder": "FREERMP2025",
+                "legislation.cart.apply_voucher": "Apply Voucher",
+                "legislation.cart.price": "Price: R200 (Free with Voucher)",
+                "legislation.cart.download": "Download RMP",
+                "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
+                "footer.links.privacy": "Privacy Policy",
+                "footer.links.terms": "Terms of Service",
+                "footer.links.contact": "Contact Us",
+                "footer.newsletter.title": "Stay Updated",
+                "footer.newsletter.placeholder": "Enter your email",
+                "footer.newsletter.button": "Subscribe",
+                "chatbot.button": "Ask Me",
+                "chatbot.input_placeholder": "Ask about OHS...",
+                "chatbot.send": "Send"
+            };
+
+            await i18next.init({
+                lng: 'en',
+                resources: {
+                    en: { translation: translations }
+                },
+                debug: true
+            });
+
+            updateContent();
+
+            document.getElementById('language-select').addEventListener('change', (e) => {
+                i18next.changeLanguage(e.target.value, (err) => {
+                    if (err) {
+                        console.error('Error changing language:', err);
+                        return;
+                    }
+                    updateContent();
+                });
+            });
+
+            function updateContent() {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', i18next.t(key));
+                    } else {
+                        element.innerHTML = i18next.t(key);
+                    }
+                });
+            }
+
+            // Wizard Navigation Functions
+            function nextStep(current) {
+                if (validateStep(current)) {
+                    document.getElementById(`step-${current}`).classList.remove('active');
+                    document.getElementById(`step-${current}`).classList.add('hidden');
+                    document.getElementById(`step-${current + 1}`).classList.remove('hidden');
+                    document.getElementById(`step-${current + 1}`).classList.add('active');
+                }
+            }
+
+            function prevStep(current) {
+                document.getElementById(`step-${current}`).classList.remove('active');
+                document.getElementById(`step-${current}`).classList.add('hidden');
+                document.getElementById(`step-${current - 1}`).classList.remove('hidden');
+                document.getElementById(`step-${current - 1}`).classList.add('active');
+            }
+
+            function validateStep(step) {
+                if (step === 1) {
+                    const companyName = document.getElementById('company-name').value.trim();
+                    const industry = document.getElementById('industry').value;
+                    const location = document.getElementById('location').value;
+                    return companyName && industry && location;
+                } else if (step === 2) {
+                    const excavation = document.getElementById('excavation').checked;
+                    const workingAtHeights = document.getElementById('working-at-heights').checked;
+                    const fireRisk = document.getElementById('fire-risk').checked;
+                    return excavation || workingAtHeights || fireRisk;
+                } else if (step === 3) {
+                    const falls = document.getElementById('falls').checked;
+                    const chemicalExposure = document.getElementById('chemical-exposure').checked;
+                    const fireHazard = document.getElementById('fire-hazard').checked;
+                    return falls || chemicalExposure || fireHazard;
+                }
+                return true;
+            }
+
+            // Form Submission
+            document.getElementById('legislation-wizard').addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.step').forEach(step => {
+                    step.classList.add('hidden');
+                    step.classList.remove('active');
+                });
+                document.getElementById('checkout').classList.remove('hidden');
+            });
+
+            // Voucher and Download Functions (Placeholder)
+            function applyVoucher() {
+                const voucherCode = document.getElementById('voucher-code').value.trim();
+                if (voucherCode === "FREERMP2025") {
+                    alert("Voucher applied! Your RMP is free.");
+                } else {
+                    alert("Invalid voucher code.");
+                }
+            }
+
+            function downloadRMP() {
+                alert("Downloading your RMP... (This is a placeholder action)");
+                // Implement actual download logic in legislation.js
+            }
+
+            // Chatbot Functionality
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWindow = document.getElementById('chat-window');
+            const chatOutput = document.getElementById('chat-output');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            chatToggle.addEventListener('click', () => {
+                console.log("Chat toggle clicked");
+                chatWindow.classList.toggle('chat-hidden');
+            });
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    const userMessage = document.createElement('p');
+                    userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                    chatOutput.appendChild(userMessage);
+
+                    const botMessage = document.createElement('p');
+                    botMessage.innerHTML = `<strong>Chatbot:</strong> I'm here to help with OHS! For detailed assistance, please contact support@safetyhelp.co.za.`;
+                    chatOutput.appendChild(botMessage);
+
+                    chatInput.value = '';
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }
+            }
+
+            // Firebase Initialization (Placeholder - Replace with actual config)
+            const firebaseConfig = {
+                apiKey: "your-api-key",
+                authDomain: "your-auth-domain",
+                projectId: "your-project-id",
+                storageBucket: "your-storage-bucket",
+                messagingSenderId: "your-messaging-sender-id",
+                appId: "your-app-id"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        });
+    </script>
+
+    <style>
+        /* Intro Section */
+        .intro {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .intro h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .intro p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .intro a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .intro a:hover {
+            text-decoration: underline;
+        }
+        /* Wizard Section */
+        .wizard {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .wizard h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        /* Checkout Section */
+        .checkout {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .checkout h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .checkout p {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+        }
+        /* Footer */
+        footer {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+        footer p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        footer a {
+            color: #FD7E14;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #e06b00;
+        }
+        .newsletter h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            font-size: 14px;
+            width: 150px;
+        }
+        .newsletter button {
+            padding: 8px 16px;
+            background-color: #FD7E14;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .newsletter button:hover {
+            background-color: #e06b00;
+        }
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 1000;
+        }
+        #chat-window {
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-hidden {
+            display: none;
+        }
+        #chat-output {
+            flex-grow: 1;
+        }
+        #chat-input-container {
+            display: flex;
+            border-top-width: 1px;
+        }
+        #chat-input {
+            flex-grow: 1;
+            border: none;
+            padding: 0.5rem;
+        }
+        #chat-send {
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+        }
+        #chat-send:hover {
+            background-color: #0056b3;
+        }
+        .chat-toggle-btn {
+            background-color: #FD7E14;
+        }
+        .chat-toggle-btn:hover {
+            background-color: #e06b00;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+                flex-direction: column;
+            }
+            header {
+                position: relative;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .header-left {
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .nav-links {
+                margin: 10px 0;
+            }
+            .nav-links a {
+                margin: 5px 10px;
+            }
+            .header-right {
+                align-items: center;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                z-index: 1;
+            }
+            .sidebar h2 {
+                text-align: center;
+            }
+            .main-content {
+                margin-left: 0;
+                flex-direction: column;
+            }
+            .intro, .wizard, .checkout {
+                margin: 1rem;
+            }
+        }
+    </style>
 </body>
 </html>
