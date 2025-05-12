@@ -1054,311 +1054,310 @@
         </div>
 
         <!-- Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script>
-        // Translation Initialization with Debugging
-        document.addEventListener('DOMContentLoaded', async () => {
-            const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
-            const resources = {};
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        <script>
+            // Translation Initialization with Debugging
+            document.addEventListener('DOMContentLoaded', async () => {
+                const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
+                const resources = {};
 
-            // Load English translations as a fallback
-            const defaultTranslations = {
-                "header.tagline": "Safety Personalized, Compliance Simplified—Anytime, Anywhere",
-                "header.nav.home": "Home",
-                "header.nav.resources": "Resources",
-                "header.nav.services": "Services",
-                "header.nav.community": "Community",
-                "header.nav.about": "About",
-                "header.nav.contact": "Contact",
-                "header.nav.login": "Login",
-                "header.search.placeholder": "Search OHS Tools...",
-                "header.search.button": "Search",
-                "language_selector.en": "English",
-                "language_selector.af": "Afrikaans",
-                "language_selector.zu": "isiZulu",
-                "language_selector.xh": "isiXhosa",
-                "language_selector.st": "Sesotho",
-                "language_selector.tn": "Setswana",
-                "language_selector.nso": "Sepedi",
-                "language_selector.ts": "Xitsonga",
-                "language_selector.ss": "siSwati",
-                "language_selector.ve": "Tshivenda",
-                "language_selector.nr": "isiNdebele",
-                "language_selector.es": "Español",
-                "language_selector.fr": "French",
-                "language_selector.sn": "Shona",
-                "language_selector.sw": "Swahili",
-                "language_selector.zh": "Mandarin",
-                "sidebar.ohs_tools": "SafetyHelp OHS Tools",
-                "sidebar.construction_safety": "Construction Safety",
-                "sidebar.emergency_planning": "Emergency Planning",
-                "sidebar.risk_assessment": "Risk Assessment",
-                "sidebar.legal_appointments": "Legal Appointments",
-                "sidebar.incident_management": "Incident Management",
-                "sidebar.training": "Training",
-                "sidebar.inspections_audits": "Inspections & Audits",
-                "sidebar.suppliers": "Suppliers",
-                "sidebar.legislation": "Legislation",
-                "sidebar.community_tools": "Community Tools",
-                "sidebar.member_dashboard": "Member Dashboard",
-                "sidebar.ohs_system": "OHS System",
-                "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
-                "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
-                "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?",
-                "intro.title": "Construction Health and Safety",
-                "intro.description": "Ensure compliance with construction health and safety regulations using SafetyHelp OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in 'Safety First: The Essentials of OHS Plans.'",
-                "intro.download_link": "Download the Construction OHS Plan: ",
-                "legal_obligations.client.title": "Client Obligations",
-                "legal_obligations.client.reg_5_1_a": "<strong>Reg 5(1)(a):</strong> Prepare Baseline Risk Assessment (BRA).",
-                "legal_obligations.client.reg_5_1_b": "<strong>Reg 5(1)(b):</strong> Provide H&S Specification.",
-                "legal_obligations.client.reg_5_1_l": "<strong>Reg 5(1)(l):</strong> Approve Contractor’s H&S Plan.",
-                "legal_obligations.contractor.title": "Contractor Obligations",
-                "legal_obligations.contractor.reg_7_1_a": "<strong>Reg 7(1)(a):</strong> Develop H&S Plan.",
-                "legal_obligations.contractor.reg_7_1_b": "<strong>Reg 7(1)(b):</strong> Maintain H&S File on-site.",
-                "legal_obligations.contractor.reg_9": "<strong>Reg 9:</strong> Conduct task HIRAs.",
-                "legal_obligations.professional.title": "H&S Professional Obligations",
-                "legal_obligations.professional.reg_5_5": "<strong>Reg 5(5):</strong> PrCHSA manages H&S for Client.",
-                "legal_obligations.professional.reg_8_5": "<strong>Reg 8(5):</strong> CHSO assists Contractor.",
-                "legal_obligations.professional.sacpcmp": "<strong>SACPCMP:</strong> Maintain registration & CPD.",
-                "action_buttons.hs_spec": "Compile H&S Specification",
-                "action_buttons.hs_plan": "Compile H&S Plan",
-                "action_buttons.risk_assessment": "Compile Risk Assessment",
-                "action_buttons.training": "Conduct Training",
-                "action_buttons.appointments": "Make Legal Appointments",
-                "action_buttons.inspections": "Conduct Inspections/Audits",
-                "action_buttons.incidents": "Manage Incidents",
-                "action_buttons.reports": "Compile Reports",
-                "action_buttons.hs_file": "Compile H&S File",
-                "resources.title": "Contact Accredited H&S Professionals",
-                "resources.description": "Need expert assistance? Reach out to accredited professionals for your project needs.",
-                "resources.jane_doe": "<strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: <a href='mailto:jane.doe@example.com' class='text-blue-500 hover:underline'>jane.doe@example.com</a>",
-                "resources.john_smith": "<strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: <a href='mailto:john.smith@example.com' class='text-blue-500 hover:underline'>john.smith@example.com</a>",
-                "resources.emily_brown": "<strong>Emily Brown, OHS Representative</strong> - Contact: <a href='mailto:emily.brown@example.com' class='text-blue-500 hover:underline'>emily.brown@example.com</a>",
-                "cart.title": "Your Cart",
-                "cart.invoice_reference": "Invoice Reference Number: <span id='invoice-ref-number' class='font-medium'></span> (Valid for 7 days. Register to store indefinitely!)",
-                "cart.table.document": "Document",
-                "cart.table.price": "Price",
-                "cart.checkout.promo_label": "Promo Code:",
-                "cart.checkout.promo_placeholder": "Enter SAFETYFIRST25",
-                "cart.checkout.button": "Checkout",
-                "wizard.step_0": "Please select an action to start the process.",
-                "wizard.step_1.title": "Step 1 of 9: What do you want to do?",
-                "wizard.step_1.label": "Select the Documents you will Compile (Select all that apply):",
-                "wizard.step_1.hs_spec": "<span class='emoji'>📋</span> Health and Safety Specification",
-                "wizard.step_1.hs_plan": "<span class='emoji'>📑</span> Health and Safety Plan",
-                "wizard.step_1.risk_assessment": "<span class='emoji'>⚠️</span> Risk Assessment",
-                "wizard.step_1.training": "<span class='emoji'>🎓</span> Conduct Training",
-                "wizard.step_1.appointments": "<span class='emoji'>📜</span> Conduct Legal Appointments",
-                "wizard.step_1.inspections": "<span class='emoji'>🔍</span> Conduct Inspections/Audits",
-                "wizard.step_1.incidents": "<span class='emoji'>🚑</span> Manage Incidents",
-                "wizard.step_1.reports": "<span class='emoji'>📊</span> Compliance Reports",
-                "wizard.step_1.hs_file": "<span class='emoji'>📂</span> Health and Safety File",
-                "wizard.step_1.error": "Please select at least one document to compile.",
-                "wizard.step_2.title": "Step 2 of 9: Client Details",
-                "wizard.step_2.client_name_label": "Client Company Name:",
-                "wizard.step_2.client_name_error": "Please enter the client company name.",
-                "wizard.step_2.client_address_label": "Client Address:",
-                "wizard.step_2.client_address_error": "Please enter the client address.",
-                "wizard.step_2.client_contact_person_label": "Client Contact Person:",
-                "wizard.step_2.client_contact_person_error": "Please enter the client contact person.",
-                "wizard.step_2.client_contact_role_label": "Client Contact Role:",
-                "wizard.step_2.client_contact_role_error": "Please enter the client contact role.",
-                "wizard.step_2.client_contact_number_label": "Client Contact Number:",
-                "wizard.step_2.client_contact_number_error": "Please enter a valid phone number (e.g., +27123456789).",
-                "wizard.step_2.client_email_label": "Client Email:",
-                "wizard.step_2.client_email_error": "Please enter a valid email address.",
-                "wizard.step_2.client_coida_label": "COIDA Registration Number:",
-                "wizard.step_2.client_coida_error": "Please enter the COIDA registration number.",
-                "wizard.step_3.title": "Step 3 of 9: Is a Contractor Appointed?",
-                "wizard.step_3.contractor_appointed_label": "Contractor Appointed:",
-                "wizard.step_3.option_yes": "Yes",
-                "wizard.step_3.option_no": "No",
-                "wizard.step_3.option_not_applicable": "Not Applicable",
-                "wizard.step_3.contractor_appointed_error": "Please select an option.",
-                "wizard.step_4.title": "Step 4 of 9: Contractor Details",
-                "wizard.step_4.contractor_name_label": "Contractor Company Name:",
-                "wizard.step_4.contractor_name_error": "Please enter the contractor company name.",
-                "wizard.step_4.contractor_address_label": "Contractor Address:",
-                "wizard.step_4.contractor_address_error": "Please enter the contractor address.",
-                "wizard.step_4.contractor_contact_person_label": "Contractor Contact Person:",
-                "wizard.step_4.contractor_contact_person_error": "Please enter the contractor contact person.",
-                "wizard.step_4.contractor_contact_role_label": "Contractor Contact Role:",
-                "wizard.step_4.contractor_contact_role_error": "Please enter the contractor contact role.",
-                "wizard.step_4.contractor_contact_number_label": "Contractor Contact Number:",
-                "wizard.step_4.contractor_contact_number_error": "Please enter a valid phone number (e.g., +27123456789).",
-                "wizard.step_4.contractor_email_label": "Contractor Email:",
-                "wizard.step_4.contractor_email_error": "Please enter a valid email address.",
-                "wizard.step_4.contractor_coida_label": "COIDA Registration Number:",
-                "wizard.step_4.contractor_coida_error": "Please enter the COIDA registration number.",
-                "wizard.step_5.title": "Step 5 of 9: Project Details",
-                "wizard.step_5.project_reference_label": "Project Reference Number:",
-                "wizard.step_5.project_name_label": "Project Name:",
-                "wizard.step_5.project_name_error": "Please enter the project name.",
-                "wizard.step_5.site_address_label": "Site Address:",
-                "wizard.step_5.site_address_error": "Please enter the site address.",
-                "wizard.step_5.site_supervisor_name_label": "Site Supervisor Name:",
-                "wizard.step_5.site_supervisor_name_error": "Please enter the site supervisor name.",
-                "wizard.step_5.site_supervisor_number_label": "Site Supervisor Contact Number:",
-                "wizard.step_5.site_supervisor_number_error": "Please enter a valid phone number (e.g., +27123456789).",
-                "wizard.step_5.site_supervisor_email_label": "Site Supervisor Email:",
-                "wizard.step_5.site_supervisor_email_error": "Please enter a valid email address.",
-                "wizard.step_6.title": "Step 6 of 9: Project Scope",
-                "wizard.step_6.type_of_work_label": "Type of Work to be Performed:",
-                "wizard.step_6.type_of_work_error": "Please enter the type of work.",
-                "wizard.step_6.cidb_grade_label": "CIDB Grade:",
-                "wizard.step_6.cidb_grade_not_applicable": "Not Applicable",
-                "wizard.step_6.cidb_grade_1": "Grade 1",
-                "wizard.step_6.cidb_grade_2": "Grade 2",
-                "wizard.step_6.cidb_grade_3": "Grade 3",
-                "wizard.step_6.cidb_grade_4": "Grade 4",
-                "wizard.step_6.cidb_grade_5": "Grade 5",
-                "wizard.step_6.cidb_grade_6": "Grade 6",
-                "wizard.step_6.cidb_grade_7": "Grade 7",
-                "wizard.step_6.cidb_grade_8": "Grade 8",
-                "wizard.step_6.cidb_grade_9": "Grade 9",
-                "wizard.step_6.cidb_grade_error": "Please select a CIDB grade.",
-                "wizard.step_6.cost_label": "Cost (R):",
-                "wizard.step_6.cost_error": "Please enter a valid project cost (R).",
-                "wizard.step_6.duration_label": "Duration (Days):",
-                "wizard.step_6.duration_error": "Please enter a valid duration (days).",
-                "wizard.step_6.activities_label": "Involved Activities (Select all that apply):",
-                "wizard.step_6.activities.security_guards": "Security guards",
-                "wizard.step_6.activities.night_work": "Night Work",
-                "wizard.step_6.activities.moving_traffic": "Moving Traffic Work",
-                "wizard.step_6.activities.vibration_exposure": "Vibration Exposure",
-                "wizard.step_6.activities.noise_exposure": "Noise Exposure",
-                "wizard.step_6.activities.welders": "Welders",
-                "wizard.step_6.activities.welding": "Welding",
-                "wizard.step_6.activities.hot_work": "Hot Work (e.g., cutting, grinding)",
-                "wizard.step_6.activities.combustible_materials": "Combustible Materials",
-                "wizard.step_6.activities.hazardous_substances": "Handling Hazardous Substances",
-                "wizard.step_6.activities.office_fit_out": "Office Fit-Out",
-                "wizard.step_6.activities.sensitive_it_equipment": "Sensitive IT Equipment",
-                "wizard.step_6.activities.manual_handling": "Manual Handling",
-                "wizard.step_6.activities.working_electricity": "Electricity Work",
-                "wizard.step_6.activities.dust_exposure": "Dust Exposure",
-                "wizard.step_6.activities.civil_contractors": "Civil Contractors",
-                "wizard.step_6.activities.excavation": "Excavation",
-                "wizard.step_6.activities.crane_operations": "Crane Operations",
-                "wizard.step_6.activities.working_near_water": "Work Near Water",
-                "wizard.step_6.activities.pile_driving": "Pile Driving",
-                "wizard.step_6.activities.working_tunnels": "Tunnel Work",
-                "wizard.step_6.activities.general_construction": "General Construction",
-                "wizard.step_6.activities.working_from_heights": "Working from Heights",
-                "wizard.step_6.activities.scaffolding": "Scaffolding",
-                "wizard.step_6.activities.multi_storey": "Multi-Storey Construction",
-                "wizard.step_6.activities.asbestos": "Asbestos Removal",
-                "wizard.step_6.activities.confined_space": "Confined Space Entry",
-                "wizard.step_6.activities.demolition": "Demolition",
-                "wizard.step_6.activities.roof_work": "Roof Work",
-                "wizard.step_6.activities.temporary_works": "Temporary Works",
-                "wizard.step_6.activities.live_voltage": "Live Voltage Work",
-                "wizard.step_6.scope_details_label": "Scope Details:",
-                "wizard.step_6.scope_details_error": "Please enter the scope details.",
-                "wizard.step_7.title": "Step 7 of 9: Compiled By",
-                "wizard.step_7.name_label": "Name:",
-                "wizard.step_7.name_error": "Please enter your name.",
-                "wizard.step_7.number_label": "Contact Number:",
-                "wizard.step_7.number_error": "Please enter a valid phone number (e.g., +27123456789).",
-                "wizard.step_7.email_label": "Email:",
-                "wizard.step_7.email_error": "Please enter a valid email address.",
-                "wizard.step_7.role_label": "Role:",
-                "wizard.step_7.role_trainee": "OHS Trainee",
-                "wizard.step_7.role_ohs_rep": "OHS Representative",
-                "wizard.step_7.role_sacpcmp_officer": "SACPCMP Officer (CHSO)",
-                "wizard.step_7.role_sacpcmp_agent": "SACPCMP Agent (PrCHSA)",
-                "wizard.step_7.role_other": "Other",
-                "wizard.step_7.role_error": "Please select a role.",
-                "wizard.step_7.sacpcmp_reg_label": "SACPCMP Registration Number:",
-                "wizard.step_7.sacpcmp_reg_error": "Please enter the SACPCMP registration number.",
-                "wizard.step_7.specify_role_label": "Specify Role:",
-                "wizard.step_7.specify_role_error": "Please specify your role.",
-                "wizard.step_8.title": "Step 8 of 9: Compiled For",
-                "wizard.step_8.compiled_for_label": "Compiled For:",
-                "wizard.step_8.option_client": "Client",
-                "wizard.step_8.option_contractor": "Contractor",
-                "wizard.step_8.option_other": "Other",
-                "wizard.step_8.compiled_for_error": "Please select an option.",
-                "wizard.step_8.specify_label": "Specify:",
-                "wizard.step_8.specify_error": "Please specify who the document is compiled for.",
-                "wizard.step_9.title": "Step 9 of 9: Review and Add to Cart",
-                "wizard.step_9.description": "Review your selections and add documents to your cart to proceed.",
-                "wizard.step_9.selected_documents_label": "Selected Documents:",
-                "wizard.nav.back": "Back",
-                "wizard.nav.next": "Next",
-                "wizard.nav.add_to_cart": "Add to Cart",
-                "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
-                "footer.links.privacy": "Privacy Policy",
-                "footer.links.terms": "Terms of Service",
-                "footer.links.contact": "Contact Us",
-                "footer.newsletter.title": "Stay Updated",
-                "footer.newsletter.placeholder": "Enter your email",
-                "footer.newsletter.button": "Subscribe",
-                "chatbot.button": "Ask Me",
-                "chatbot.input_placeholder": "Ask about OHS...",
-                "chatbot.send": "Send"
-            };
-            resources['en'] = { translation: defaultTranslations };
+                // Load English translations as a fallback
+                const defaultTranslations = {
+                    "header.tagline": "Safety Personalized, Compliance Simplified—Anytime, Anywhere",
+                    "header.nav.home": "Home",
+                    "header.nav.resources": "Resources",
+                    "header.nav.services": "Services",
+                    "header.nav.community": "Community",
+                    "header.nav.about": "About",
+                    "header.nav.contact": "Contact",
+                    "header.nav.login": "Login",
+                    "header.search.placeholder": "Search OHS Tools...",
+                    "header.search.button": "Search",
+                    "language_selector.en": "English",
+                    "language_selector.af": "Afrikaans",
+                    "language_selector.zu": "isiZulu",
+                    "language_selector.xh": "isiXhosa",
+                    "language_selector.st": "Sesotho",
+                    "language_selector.tn": "Setswana",
+                    "language_selector.nso": "Sepedi",
+                    "language_selector.ts": "Xitsonga",
+                    "language_selector.ss": "siSwati",
+                    "language_selector.ve": "Tshivenda",
+                    "language_selector.nr": "isiNdebele",
+                    "language_selector.es": "Español",
+                    "language_selector.fr": "French",
+                    "language_selector.sn": "Shona",
+                    "language_selector.sw": "Swahili",
+                    "language_selector.zh": "Mandarin",
+                    "sidebar.ohs_tools": "SafetyHelp OHS Tools",
+                    "sidebar.construction_safety": "Construction Safety",
+                    "sidebar.emergency_planning": "Emergency Planning",
+                    "sidebar.risk_assessment": "Risk Assessment",
+                    "sidebar.legal_appointments": "Legal Appointments",
+                    "sidebar.incident_management": "Incident Management",
+                    "sidebar.training": "Training",
+                    "sidebar.inspections_audits": "Inspections & Audits",
+                    "sidebar.suppliers": "Suppliers",
+                    "sidebar.legislation": "Legislation",
+                    "sidebar.community_tools": "Community Tools",
+                    "sidebar.member_dashboard": "Member Dashboard",
+                    "sidebar.ohs_system": "OHS System",
+                    "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
+                    "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
+                    "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?",
+                    "intro.title": "Construction Health and Safety",
+                    "intro.description": "Ensure compliance with construction health and safety regulations using SafetyHelp OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in 'Safety First: The Essentials of OHS Plans.'",
+                    "intro.download_link": "Download the Construction OHS Plan: ",
+                    "legal_obligations.client.title": "Client Obligations",
+                    "legal_obligations.client.reg_5_1_a": "<strong>Reg 5(1)(a):</strong> Prepare Baseline Risk Assessment (BRA).",
+                    "legal_obligations.client.reg_5_1_b": "<strong>Reg 5(1)(b):</strong> Provide H&S Specification.",
+                    "legal_obligations.client.reg_5_1_l": "<strong>Reg 5(1)(l):</strong> Approve Contractor’s H&S Plan.",
+                    "legal_obligations.contractor.title": "Contractor Obligations",
+                    "legal_obligations.contractor.reg_7_1_a": "<strong>Reg 7(1)(a):</strong> Develop H&S Plan.",
+                    "legal_obligations.contractor.reg_7_1_b": "<strong>Reg 7(1)(b):</strong> Maintain H&S File on-site.",
+                    "legal_obligations.contractor.reg_9": "<strong>Reg 9:</strong> Conduct task HIRAs.",
+                    "legal_obligations.professional.title": "H&S Professional Obligations",
+                    "legal_obligations.professional.reg_5_5": "<strong>Reg 5(5):</strong> PrCHSA manages H&S for Client.",
+                    "legal_obligations.professional.reg_8_5": "<strong>Reg 8(5):</strong> CHSO assists Contractor.",
+                    "legal_obligations.professional.sacpcmp": "<strong>SACPCMP:</strong> Maintain registration & CPD.",
+                    "action_buttons.hs_spec": "Compile H&S Specification",
+                    "action_buttons.hs_plan": "Compile H&S Plan",
+                    "action_buttons.risk_assessment": "Compile Risk Assessment",
+                    "action_buttons.training": "Conduct Training",
+                    "action_buttons.appointments": "Make Legal Appointments",
+                    "action_buttons.inspections": "Conduct Inspections/Audits",
+                    "action_buttons.incidents": "Manage Incidents",
+                    "action_buttons.reports": "Compile Reports",
+                    "action_buttons.hs_file": "Compile H&S File",
+                    "resources.title": "Contact Accredited H&S Professionals",
+                    "resources.description": "Need expert assistance? Reach out to accredited professionals for your project needs.",
+                    "resources.jane_doe": "<strong>Jane Doe, SACPCMP Agent (PrCHSA)</strong> - Reg No: PR12345 - Contact: <a href='mailto:jane.doe@example.com' class='text-blue-500 hover:underline'>jane.doe@example.com</a>",
+                    "resources.john_smith": "<strong>John Smith, SACPCMP Officer (CHSO)</strong> - Reg No: CHSO67890 - Contact: <a href='mailto:john.smith@example.com' class='text-blue-500 hover:underline'>john.smith@example.com</a>",
+                    "resources.emily_brown": "<strong>Emily Brown, OHS Representative</strong> - Contact: <a href='mailto:emily.brown@example.com' class='text-blue-500 hover:underline'>emily.brown@example.com</a>",
+                    "cart.title": "Your Cart",
+                    "cart.invoice_reference": "Invoice Reference Number: <span id='invoice-ref-number' class='font-medium'></span> (Valid for 7 days. Register to store indefinitely!)",
+                    "cart.table.document": "Document",
+                    "cart.table.price": "Price",
+                    "cart.checkout.promo_label": "Promo Code:",
+                    "cart.checkout.promo_placeholder": "Enter SAFETYFIRST25",
+                    "cart.checkout.button": "Checkout",
+                    "wizard.step_0": "Please select an action to start the process.",
+                    "wizard.step_1.title": "Step 1 of 9: What do you want to do?",
+                    "wizard.step_1.label": "Select the Documents you will Compile (Select all that apply):",
+                    "wizard.step_1.hs_spec": "<span class='emoji'>📋</span> Health and Safety Specification",
+                    "wizard.step_1.hs_plan": "<span class='emoji'>📑</span> Health and Safety Plan",
+                    "wizard.step_1.risk_assessment": "<span class='emoji'>⚠️</span> Risk Assessment",
+                    "wizard.step_1.training": "<span class='emoji'>🎓</span> Conduct Training",
+                    "wizard.step_1.appointments": "<span class='emoji'>📜</span> Conduct Legal Appointments",
+                    "wizard.step_1.inspections": "<span class='emoji'>🔍</span> Conduct Inspections/Audits",
+                    "wizard.step_1.incidents": "<span class='emoji'>🚑</span> Manage Incidents",
+                    "wizard.step_1.reports": "<span class='emoji'>📊</span> Compliance Reports",
+                    "wizard.step_1.hs_file": "<span class='emoji'>📂</span> Health and Safety File",
+                    "wizard.step_1.error": "Please select at least one document to compile.",
+                    "wizard.step_2.title": "Step 2 of 9: Client Details",
+                    "wizard.step_2.client_name_label": "Client Company Name:",
+                    "wizard.step_2.client_name_error": "Please enter the client company name.",
+                    "wizard.step_2.client_address_label": "Client Address:",
+                    "wizard.step_2.client_address_error": "Please enter the client address.",
+                    "wizard.step_2.client_contact_person_label": "Client Contact Person:",
+                    "wizard.step_2.client_contact_person_error": "Please enter the client contact person.",
+                    "wizard.step_2.client_contact_role_label": "Client Contact Role:",
+                    "wizard.step_2.client_contact_role_error": "Please enter the client contact role.",
+                    "wizard.step_2.client_contact_number_label": "Client Contact Number:",
+                    "wizard.step_2.client_contact_number_error": "Please enter a valid phone number (e.g., +27123456789).",
+                    "wizard.step_2.client_email_label": "Client Email:",
+                    "wizard.step_2.client_email_error": "Please enter a valid email address.",
+                    "wizard.step_2.client_coida_label": "COIDA Registration Number:",
+                    "wizard.step_2.client_coida_error": "Please enter the COIDA registration number.",
+                    "wizard.step_3.title": "Step 3 of 9: Is a Contractor Appointed?",
+                    "wizard.step_3.contractor_appointed_label": "Contractor Appointed:",
+                    "wizard.step_3.option_yes": "Yes",
+                    "wizard.step_3.option_no": "No",
+                    "wizard.step_3.option_not_applicable": "Not Applicable",
+                    "wizard.step_3.contractor_appointed_error": "Please select an option.",
+                    "wizard.step_4.title": "Step 4 of 9: Contractor Details",
+                    "wizard.step_4.contractor_name_label": "Contractor Company Name:",
+                    "wizard.step_4.contractor_name_error": "Please enter the contractor company name.",
+                    "wizard.step_4.contractor_address_label": "Contractor Address:",
+                    "wizard.step_4.contractor_address_error": "Please enter the contractor address.",
+                    "wizard.step_4.contractor_contact_person_label": "Contractor Contact Person:",
+                    "wizard.step_4.contractor_contact_person_error": "Please enter the contractor contact person.",
+                    "wizard.step_4.contractor_contact_role_label": "Contractor Contact Role:",
+                    "wizard.step_4.contractor_contact_role_error": "Please enter the contractor contact role.",
+                    "wizard.step_4.contractor_contact_number_label": "Contractor Contact Number:",
+                    "wizard.step_4.contractor_contact_number_error": "Please enter a valid phone number (e.g., +27123456789).",
+                    "wizard.step_4.contractor_email_label": "Contractor Email:",
+                    "wizard.step_4.contractor_email_error": "Please enter a valid email address.",
+                    "wizard.step_4.contractor_coida_label": "COIDA Registration Number:",
+                    "wizard.step_4.contractor_coida_error": "Please enter the COIDA registration number.",
+                    "wizard.step_5.title": "Step 5 of 9: Project Details",
+                    "wizard.step_5.project_reference_label": "Project Reference Number:",
+                    "wizard.step_5.project_name_label": "Project Name:",
+                    "wizard.step_5.project_name_error": "Please enter the project name.",
+                    "wizard.step_5.site_address_label": "Site Address:",
+                    "wizard.step_5.site_address_error": "Please enter the site address.",
+                    "wizard.step_5.site_supervisor_name_label": "Site Supervisor Name:",
+                    "wizard.step_5.site_supervisor_name_error": "Please enter the site supervisor name.",
+                    "wizard.step_5.site_supervisor_number_label": "Site Supervisor Contact Number:",
+                    "wizard.step_5.site_supervisor_number_error": "Please enter a valid phone number (e.g., +27123456789).",
+                    "wizard.step_5.site_supervisor_email_label": "Site Supervisor Email:",
+                    "wizard.step_5.site_supervisor_email_error": "Please enter a valid email address.",
+                    "wizard.step_6.title": "Step 6 of 9: Project Scope",
+                    "wizard.step_6.type_of_work_label": "Type of Work to be Performed:",
+                    "wizard.step_6.type_of_work_error": "Please enter the type of work.",
+                    "wizard.step_6.cidb_grade_label": "CIDB Grade:",
+                    "wizard.step_6.cidb_grade_not_applicable": "Not Applicable",
+                    "wizard.step_6.cidb_grade_1": "Grade 1",
+                    "wizard.step_6.cidb_grade_2": "Grade 2",
+                    "wizard.step_6.cidb_grade_3": "Grade 3",
+                    "wizard.step_6.cidb_grade_4": "Grade 4",
+                    "wizard.step_6.cidb_grade_5": "Grade 5",
+                    "wizard.step_6.cidb_grade_6": "Grade 6",
+                    "wizard.step_6.cidb_grade_7": "Grade 7",
+                    "wizard.step_6.cidb_grade_8": "Grade 8",
+                    "wizard.step_6.cidb_grade_9": "Grade 9",
+                    "wizard.step_6.cidb_grade_error": "Please select a CIDB grade.",
+                    "wizard.step_6.cost_label": "Cost (R):",
+                    "wizard.step_6.cost_error": "Please enter a valid project cost (R).",
+                    "wizard.step_6.duration_label": "Duration (Days):",
+                    "wizard.step_6.duration_error": "Please enter a valid duration (days).",
+                    "wizard.step_6.activities_label": "Involved Activities (Select all that apply):",
+                    "wizard.step_6.activities.security_guards": "Security guards",
+                    "wizard.step_6.activities.night_work": "Night Work",
+                    "wizard.step_6.activities.moving_traffic": "Moving Traffic Work",
+                    "wizard.step_6.activities.vibration_exposure": "Vibration Exposure",
+                    "wizard.step_6.activities.noise_exposure": "Noise Exposure",
+                    "wizard.step_6.activities.welders": "Welders",
+                    "wizard.step_6.activities.welding": "Welding",
+                    "wizard.step_6.activities.hot_work": "Hot Work (e.g., cutting, grinding)",
+                    "wizard.step_6.activities.combustible_materials": "Combustible Materials",
+                    "wizard.step_6.activities.hazardous_substances": "Handling Hazardous Substances",
+                    "wizard.step_6.activities.office_fit_out": "Office Fit-Out",
+                    "wizard.step_6.activities.sensitive_it_equipment": "Sensitive IT Equipment",
+                    "wizard.step_6.activities.manual_handling": "Manual Handling",
+                    "wizard.step_6.activities.working_electricity": "Electricity Work",
+                    "wizard.step_6.activities.dust_exposure": "Dust Exposure",
+                    "wizard.step_6.activities.civil_contractors": "Civil Contractors",
+                    "wizard.step_6.activities.excavation": "Excavation",
+                    "wizard.step_6.activities.crane_operations": "Crane Operations",
+                    "wizard.step_6.activities.working_near_water": "Work Near Water",
+                    "wizard.step_6.activities.pile_driving": "Pile Driving",
+                    "wizard.step_6.activities.working_tunnels": "Tunnel Work",
+                    "wizard.step_6.activities.general_construction": "General Construction",
+                    "wizard.step_6.activities.working_from_heights": "Working from Heights",
+                    "wizard.step_6.activities.scaffolding": "Scaffolding",
+                    "wizard.step_6.activities.multi_storey": "Multi-Storey Construction",
+                    "wizard.step_6.activities.asbestos": "Asbestos Removal",
+                    "wizard.step_6.activities.confined_space": "Confined Space Entry",
+                    "wizard.step_6.activities.demolition": "Demolition",
+                    "wizard.step_6.activities.roof_work": "Roof Work",
+                    "wizard.step_6.activities.temporary_works": "Temporary Works",
+                    "wizard.step_6.activities.live_voltage": "Live Voltage Work",
+                    "wizard.step_6.scope_details_label": "Scope Details:",
+                    "wizard.step_6.scope_details_error": "Please enter the scope details.",
+                    "wizard.step_7.title": "Step 7 of 9: Compiled By",
+                    "wizard.step_7.name_label": "Name:",
+                    "wizard.step_7.name_error": "Please enter your name.",
+                    "wizard.step_7.number_label": "Contact Number:",
+                    "wizard.step_7.number_error": "Please enter a valid phone number (e.g., +27123456789).",
+                    "wizard.step_7.email_label": "Email:",
+                    "wizard.step_7.email_error": "Please enter a valid email address.",
+                    "wizard.step_7.role_label": "Role:",
+                    "wizard.step_7.role_trainee": "OHS Trainee",
+                    "wizard.step_7.role_ohs_rep": "OHS Representative",
+                    "wizard.step_7.role_sacpcmp_officer": "SACPCMP Officer (CHSO)",
+                    "wizard.step_7.role_sacpcmp_agent": "SACPCMP Agent (PrCHSA)",
+                    "wizard.step_7.role_other": "Other",
+                    "wizard.step_7.role_error": "Please select a role.",
+                    "wizard.step_7.sacpcmp_reg_label": "SACPCMP Registration Number:",
+                    "wizard.step_7.sacpcmp_reg_error": "Please enter the SACPCMP registration number.",
+                    "wizard.step_7.specify_role_label": "Specify Role:",
+                    "wizard.step_7.specify_role_error": "Please specify your role.",
+                    "wizard.step_8.title": "Step 8 of 9: Compiled For",
+                    "wizard.step_8.compiled_for_label": "Compiled For:",
+                    "wizard.step_8.option_client": "Client",
+                    "wizard.step_8.option_contractor": "Contractor",
+                    "wizard.step_8.option_other": "Other",
+                    "wizard.step_8.compiled_for_error": "Please select an option.",
+                    "wizard.step_8.specify_label": "Specify:",
+                    "wizard.step_8.specify_error": "Please specify who the document is compiled for.",
+                    "wizard.step_9.title": "Step 9 of 9: Review and Add to Cart",
+                    "wizard.step_9.description": "Review your selections and add documents to your cart to proceed.",
+                    "wizard.step_9.selected_documents_label": "Selected Documents:",
+                    "wizard.nav.back": "Back",
+                    "wizard.nav.next": "Next",
+                    "wizard.nav.add_to_cart": "Add to Cart",
+                    "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
+                    "footer.links.privacy": "Privacy Policy",
+                    "footer.links.terms": "Terms of Service",
+                    "footer.links.contact": "Contact Us",
+                    "footer.newsletter.title": "Stay Updated",
+                    "footer.newsletter.placeholder": "Enter your email",
+                    "footer.newsletter.button": "Subscribe",
+                    "chatbot.button": "Ask Me",
+                    "chatbot.input_placeholder": "Ask about OHS...",
+                    "chatbot.send": "Send"
+                };
+                resources['en'] = { translation: defaultTranslations };
 
-            // Attempt to load translations for all languages
-            for (const lang of languages) {
-                if (lang === 'en') continue; // Skip English as it's already added
-                try {
-                    const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                // Attempt to load translations for all languages
+                for (const lang of languages) {
+                    if (lang === 'en') continue; // Skip English as it's already added
+                    try {
+                        const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        resources[lang] = { translation: data };
+                        console.log(`Loaded translations for ${lang}:`, data);
+                    } catch (error) {
+                        console.error(`Failed to load translations for ${lang}:`, error);
+                        // Fallback to English for this language
+                        resources[lang] = { translation: defaultTranslations };
                     }
-                    const data = await response.json();
-                    resources[lang] = { translation: data };
-                    console.log(`Loaded translations for ${lang}:`, data);
-                } catch (error) {
-                    console.error(`Failed to load translations for ${lang}:`, error);
-                    // Fallback to English for this language
-                    resources[lang] = { translation: defaultTranslations };
                 }
-            }
 
-            if (Object.keys(resources).length === 0) {
-                console.error("No translation files loaded. Using default English translations.");
-            }
+                if (Object.keys(resources).length === 0) {
+                    console.error("No translation files loaded. Using default English translations.");
+                }
 
-            await i18next.init({
-                lng: 'en',
-                resources,
-                fallbackLng: 'en',
-                debug: true
-            });
-
-            updateContent();
-
-            document.getElementById('language-select').addEventListener('change', (e) => {
-                i18next.changeLanguage(e.target.value, (err) => {
-                    if (err) {
-                        console.error('Error changing language:', err);
-                        return;
-                    }
-                    updateContent();
+                await i18next.init({
+                    lng: 'en',
+                    resources,
+                    fallbackLng: 'en',
+                    debug: true
                 });
-            });
 
-            function updateContent() {
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.getAttribute('data-i18n');
-                    const translation = i18next.t(key);
-                    if (translation === key) {
-                        console.warn(`Translation missing for key: ${key}`);
-                    }
-                    if (element.hasAttribute('placeholder')) {
-                        element.setAttribute('placeholder', translation);
-                    } else {
-                        element.innerHTML = translation; // Use innerHTML to render HTML content in translations
-                    }
-                    console.log(`Translating ${key} to ${translation}`);
+                updateContent();
+
+                document.getElementById('language-select').addEventListener('change', (e) => {
+                    i18next.changeLanguage(e.target.value, (err) => {
+                        if (err) {
+                            console.error('Error changing language:', err);
+                            return;
+                        }
+                        updateContent();
+                    });
                 });
-            }
-        });
-    </script>
+
+                function updateContent() {
+                    document.querySelectorAll('[data-i18n]').forEach(element => {
+                        const key = element.getAttribute('data-i18n');
+                        const translation = i18next.t(key);
+                        if (translation === key) {
+                            console.warn(`Translation missing for key: ${key}`);
+                        }
+                        if (element.hasAttribute('placeholder')) {
+                            element.setAttribute('placeholder', translation);
+                        } else {
+                            element.innerHTML = translation; // Use innerHTML to render HTML content in translations
+                        }
+                        console.log(`Translating ${key} to ${translation}`);
+                    });
+                }
+            });
 
             // Wizard State Management
             let currentStep = 0;
@@ -2026,6 +2025,15 @@
                     if (event.key === 'Enter') {
                         sendQuery();
                     }
+                });
+            }
+
+            // Verify Login Link Navigation
+            const loginLink = document.getElementById('login-link');
+            if (loginLink) {
+                loginLink.addEventListener('click', (event) => {
+                    console.log("Login link clicked, navigating to /safety-plans/login.html");
+                    // Do not call event.preventDefault(), allowing default navigation to occur
                 });
             }
         </script>
