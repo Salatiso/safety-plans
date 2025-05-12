@@ -2112,16 +2112,10 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
-        // Translation Initialization with Debugging
+        // Translation Initialization with Embedded English Translations
         document.addEventListener('DOMContentLoaded', async () => {
-            const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
-            const resources = {};
-
-            // Load English translations as a fallback
-            const defaultTranslations = {
+            const translations = {
                 "header.nav.home": "Home",
                 "header.nav.resources": "Resources",
                 "header.nav.services": "Services",
@@ -2470,33 +2464,12 @@
                 "chatbot.input_placeholder": "Ask about OHS...",
                 "chatbot.send": "Send"
             };
-            resources['en'] = { translation: defaultTranslations };
-
-            // Attempt to load translations for all languages
-            for (const lang of languages) {
-                if (lang === 'en') continue; // Skip English as it's already added
-                try {
-                    const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    resources[lang] = { translation: data };
-                    console.log(`Loaded translations for ${lang}:`, data);
-                } catch (error) {
-                    console.error(`Failed to load translations for ${lang}:`, error);
-                    resources[lang] = { translation: defaultTranslations };
-                }
-            }
-
-            if (Object.keys(resources).length === 0) {
-                console.error("No translation files loaded. Using default English translations.");
-            }
 
             await i18next.init({
                 lng: 'en',
-                resources,
-                fallbackLng: 'en',
+                resources: {
+                    en: { translation: translations }
+                },
                 debug: true
             });
 
@@ -2932,20 +2905,29 @@
 
             // Wizard Navigation
             function startWizard(mode) {
+                console.log("Starting wizard with mode:", mode);
                 wizardMode = mode;
                 currentStep = 0;
                 selectedDocuments = [];
                 companyDetails = {};
                 document.getElementById('wizard-container').classList.remove('hidden');
                 document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-                document.getElementById(`step-${currentStep}`).classList.add('active');
+                if (mode === 'specific') {
+                    document.getElementById('step-specific').classList.add('active');
+                    const docId = mode === 'specific' ? arguments[1] : mode;
+                    selectedDocuments = [docId];
+                    document.getElementById('specific-step-title').textContent = `Customize ${i18next.t(documentData[docId].nameKey)}`;
+                    document.getElementById('specific-step-description').textContent = `Provide your company details to customize the ${i18next.t(documentData[docId].nameKey)}.`;
+                } else {
+                    document.getElementById(`step-${currentStep}`).classList.add('active');
+                }
                 updateProgressBar();
                 updateNavigationButtons();
                 updateSelectedDocuments();
             }
 
             function updateProgressBar() {
-                const totalSteps = wizardMode === 'automated' ? 5 : 4;
+                const totalSteps = wizardMode === 'automated' ? 5 : (wizardMode === 'specific' ? 1 : 4);
                 const progress = (currentStep / (totalSteps - 1)) * 100;
                 document.getElementById('progress-fill').style.width = `${progress}%`;
             }
@@ -2961,9 +2943,12 @@
                 } else if (wizardMode === 'semi-automated' || wizardMode === 'manual') {
                     nextBtn.style.display = currentStep < 3 ? 'inline-block' : 'none';
                     addToCartBtn.style.display = currentStep === 3 ? 'inline-block' : 'none';
+                } else if (wizardMode === 'specific') {
+                    nextBtn.style.display = 'none';
+                    addToCartBtn.style.display = currentStep === 0 ? 'inline-block' : 'none';
                 } else {
-                    nextBtn.style.display = currentStep < 1 ? 'inline-block' : 'none';
-                    addToCartBtn.style.display = currentStep === 1 ? 'inline-block' : 'none';
+                    nextBtn.style.display = 'inline-block';
+                    addToCartBtn.style.display = 'none';
                 }
             }
 
@@ -2978,6 +2963,7 @@
             }
 
             function validateStep(step) {
+                console.log(`Validating step ${step} in mode ${wizardMode}`);
                 if (wizardMode === 'automated') {
                     if (step === 1) {
                         const industry = document.getElementById('industry').value;
@@ -3250,6 +3236,7 @@
             }
 
             document.getElementById('wizard-back').addEventListener('click', () => {
+                console.log("Back button clicked, current step:", currentStep);
                 if (currentStep > 0) {
                     currentStep--;
                     document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
@@ -3268,6 +3255,7 @@
             });
 
             document.getElementById('wizard-next').addEventListener('click', () => {
+                console.log("Next button clicked, current step:", currentStep);
                 if (validateStep(currentStep)) {
                     currentStep++;
                     document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
@@ -3366,22 +3354,6 @@
                             });
                         }
                         document.getElementById(`step-${currentStep}-manual`).classList.add('active');
-                    } else if (wizardMode === 'specific') {
-                        if (currentStep === 1) {
-                            document.getElementById('review-company-name').textContent = companyDetails.companyName;
-                            document.getElementById('review-company-address').textContent = companyDetails.companyAddress;
-                            document.getElementById('review-ceo-name').textContent = companyDetails.ceoName;
-                            document.getElementById('review-safety-officer').textContent = companyDetails.safetyOfficer;
-                            document.getElementById('review-emergency-contact').textContent = companyDetails.emergencyContact;
-                            const tbody = document.getElementById('review-documents');
-                            tbody.innerHTML = '';
-                            selectedDocuments.forEach(doc => {
-                                const tr = document.createElement('tr');
-                                tr.innerHTML = `<td class="border border-gray-200 p-2">${documentData[doc].emoji} ${i18next.t(documentData[doc].nameKey)}</td>`;
-                                tbody.appendChild(tr);
-                            });
-                        }
-                        document.getElementById(`step-${currentStep}`).classList.add('active');
                     }
                     updateProgressBar();
                     updateNavigationButtons();
@@ -3389,6 +3361,7 @@
             });
 
             document.getElementById('wizard-add-to-cart').addEventListener('click', () => {
+                console.log("Add to Cart clicked, selected documents:", selectedDocuments);
                 document.getElementById('wizard-container').classList.add('hidden');
                 document.getElementById('cart-container').classList.remove('hidden');
                 const tbody = document.getElementById('cart-items');
@@ -3407,6 +3380,7 @@
 
             // PDF Generation
             document.getElementById('generate-documents').addEventListener('click', () => {
+                console.log("Generate Documents clicked");
                 const compiledByName = document.getElementById('compiled-by-name').value.trim();
                 const compiledByRole = document.getElementById('compiled-by-role').value.trim();
                 const compiledByContact = document.getElementById('compiled-by-contact').value.trim();
@@ -3485,6 +3459,7 @@
             const chatSend = document.getElementById('chat-send');
 
             chatToggle.addEventListener('click', () => {
+                console.log("Chat toggle clicked");
                 chatWindow.classList.toggle('chat-hidden');
             });
 
@@ -3508,18 +3483,6 @@
                     chatOutput.scrollTop = chatOutput.scrollHeight;
                 }
             }
-
-            // Firebase Initialization (Placeholder - Replace with actual config)
-            const firebaseConfig = {
-                apiKey: "your-api-key",
-                authDomain: "your-auth-domain",
-                projectId: "your-project-id",
-                storageBucket: "your-storage-bucket",
-                messagingSenderId: "your-messaging-sender-id",
-                appId: "your-app-id"
-            };
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
         });
     </script>
 </body>
