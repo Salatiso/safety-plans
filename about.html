@@ -3,56 +3,647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about Salatiso OHS Tools, a platform dedicated to enhancing workplace safety through automated OHS solutions.">
-    <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS, Salatiso, about">
-    <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Salatiso OHS Tools - About</title> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="Learn about SafetyHelp, a platform created by Salatiso Lonwabo Mdeni to enhance workplace and community safety through automated, AI-enhanced OHS solutions, reflecting over 20 years of industry experience.">
+    <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS, SafetyHelp, about">
+    <meta name="author" content="SafetyHelp Team">
+    <title data-i18n="page_title.about">SafetyHelp - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
     <style>
-        /* Custom styles can be added here if needed, complementing Tailwind */
+        /* Global Styles */
         body {
             font-family: 'Open Sans', sans-serif;
-        }
-        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
-             font-family: 'Montserrat', sans-serif;
-        }
-        /* Adjustments for fixed header and sidebar */
-        body {
-            padding-top: 80px; /* Adjust based on actual header height */
-            display: flex;
-        }
-        .sidebar {
-            position: fixed;
-            top: 80px; /* Match body padding-top */
-            left: 0;
-            bottom: 0;
-            width: 250px; /* Fixed sidebar width */
-            overflow-y: auto;
-            z-index: 40; /* Below header */
-        }
-        .main-content {
-            margin-left: 250px; /* Same as sidebar width */
-            flex-grow: 1; /* Take remaining space */
-            padding: 1.5rem; /* Equivalent to p-6 */
-            min-height: calc(100vh - 80px); /* Full height minus header */
+            background-color: #E8F0FE;
+            color: #333;
+            margin: 0;
+            padding-top: 100px;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
-        .intro {
-            flex-grow: 1; /* Allow intro section to fill space */
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, .story h2, .values h2, .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
         }
+        /* Header */
         header {
+            background-color: #007BFF;
+            color: white;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 50; /* Ensure header is on top */
+            z-index: 50;
+            width: 100%;
         }
-        /* Chatbot styles */
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-language-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-bar button {
+            background-color: #FD7E14;
+            color: white;
+        }
+        .search-bar button:hover {
+            background-color: #e06b00;
+        }
+        .language-selector {
+            margin-bottom: 5px;
+        }
+        .language-selector select {
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .nav-links {
+            text-align: center;
+            flex: 1;
+        }
+        .nav-links a {
+            color: white;
+            margin: 0 15px;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            color: #FD7E14;
+        }
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .logo-container img {
+            height: 50px;
+        }
+        .tagline {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #F4F4F4;
+            overflow-y: auto;
+            z-index: 40;
+            padding: 15px;
+        }
+        .sidebar h2 {
+            color: #007BFF;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .sidebar a {
+            color: white;
+            background-color: #007BFF;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: block;
+            text-decoration: none;
+            font-size: 14px;
+            transition: font-weight 0.3s;
+        }
+        .sidebar a:hover {
+            font-weight: bold;
+            background-color: #0056b3;
+        }
+        .sidebar a.active {
+            background-color: #28A745;
+        }
+        .step-info {
+            background-color: #E8F0FE;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .step-info h3 {
+            font-size: 18px;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        .step-info p {
+            font-size: 14px;
+        }
+        .fun-fact {
+            color: #28A745;
+        }
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container mx-auto header-container">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="assets/images/logo.png" alt="SafetyHelp Logo">
+                    <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
+                <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
+                <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
+                <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
+                <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
+                <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
+                <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
+            </div>
+            <div class="header-right">
+                <div class="search-language-container">
+                    <div class="language-selector">
+                        <select id="language-select" aria-label="Select language">
+                            <option value="en" data-i18n="language_selector.en">English</option>
+                            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
+                            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
+                            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
+                            <option value="st" data-i18n="language_selector.st">Sesotho</option>
+                            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
+                            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
+                            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
+                            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
+                            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
+                            <option value="nr" data-i18n="language_selector.nr">isiNdebele</option>
+                            <option value="es" data-i18n="language_selector.es">Español</option>
+                            <option value="fr" data-i18n="language_selector.fr">French</option>
+                            <option value="sn" data-i18n="language_selector.sn">Shona</option>
+                            <option value="sw" data-i18n="language_selector.sw">Swahili</option>
+                            <option value="zh" data-i18n="language_selector.zh">Mandarin</option>
+                        </select>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search" class="flex">
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
+            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system">OHS System</a></li>
+        </ul>
+        <div id="sidebar-step-info" class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
+            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+            <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Carousel Section -->
+        <section class="carousel relative overflow-hidden">
+            <div id="carousel-slides" class="flex transition-transform duration-500">
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/hero-workplace.jpg" alt="Safe Workplace" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_1.title">Empowering Safer Workplaces and Communities</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/book-safety-first.jpg" alt="Safety First Book" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_2.title">Inspired by <em>Safety First: The Essentials of OHS Plans</em></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/future-tools.jpg" alt="Future Tools" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_3.title">Stay Tuned for Careers, Mentorship, and More!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75" aria-label="Previous slide">&larr;</button>
+            <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75" aria-label="Next slide">&rarr;</button>
+        </section>
+
+        <!-- Introduction Section -->
+        <section class="intro bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="intro.title" class="text-2xl font-bold text-gray-800 mb-4">About SafetyHelp</h2>
+            <p data-i18n="intro.description" class="text-gray-600 mb-4">Welcome to SafetyHelp, a platform born from over 20 years of my experience in the health and safety industry. I’m Salatiso Lonwabo Mdeni, and I’ve dedicated my career to enhancing workplace and community safety, starting with manual tools that were often cumbersome and limited to professionals. My vision has always been to create a future where OHS tools are accessible to everyone, automated where possible, integrated with risk management systems, and enhanced by AI to foster safer environments.</p>
+            <p data-i18n="intro.experience" class="text-gray-600 mb-4">With extensive experience in both private and public sectors—including roles at Anglo Platinum, Metrorail, and Absa—and running my OHS and risk management consultancy since 2012, I’ve seen firsthand the impact of effective safety practices. SafetyHelp is the culmination of this journey, inspired by my books, <em>Safety First: The Essentials of OHS Plans</em> and <em>Safety First: Essentials for Your OHS Career Journey</em>, to empower businesses, professionals, and communities worldwide.</p>
+        </section>
+
+        <!-- My Journey Section -->
+        <section class="story bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="story.title" class="text-2xl font-bold text-gray-800 mb-4">My Journey in Health and Safety</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-4 md:mb-0 md:mr-6">
+                    <img src="assets/images/salatiso-portrait.jpg" alt="Salatiso Lonwabo Mdeni" class="w-full h-48 object-cover rounded-lg">
+                </div>
+                <div class="md:w-2/3">
+                    <p data-i18n="story.description_1" class="text-gray-600 mb-4">My passion for safety began at Kiriyatswane Secondary School in Embalenhle, where the scent of a nearby Sasol plant sparked my curiosity about health and safety. I pursued Environmental Health at Pretoria Technikon (now Tshwane University of Technology), starting my career as a Junior Environmental Health Practitioner in East London. From there, I gained hands-on experience in mining with Anglo Platinum, managed safety programs at Metrorail, and led emergency response initiatives at Absa.</p>
+                    <p data-i18n="story.description_2" class="text-gray-600 mb-4">Since 2012, I’ve run my own OHS and risk management consultancy, working across sectors to improve safety standards. My books, <em>Safety First: The Essentials of OHS Plans</em> and <em>Safety First: Essentials for Your OHS Career Journey</em>, reflect my commitment to making safety accessible. SafetyHelp embodies this vision, bringing my expertise to a digital platform to create safer workplaces and communities for all.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values Section -->
+        <section class="values bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="values.title" class="text-2xl font-bold text-gray-800 mb-4">Our Core Values</h2>
+            <p data-i18n="values.description" class="text-gray-600 mb-4">The values that guide SafetyHelp stem from my personal philosophy, reflected in the acronym SALATISO—Safety, Assurance, Learning, Adaptability, Training, Integrity, Solutions, and Operations. These principles shape everything we do.</p>
+            <ul class="space-y-2">
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">🛡️</span>
+                    <span data-i18n="values.safety"><strong>Safety</strong>: Prioritizing the well-being of every individual.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✅</span>
+                    <span data-i18n="values.assurance"><strong>Assurance</strong>: Ensuring confidence through reliable safety practices.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">📚</span>
+                    <span data-i18n="values.learning"><strong>Learning</strong>: Committing to continuous improvement and education.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">🔄</span>
+                    <span data-i18n="values.adaptability"><strong>Adaptability</strong>: Embracing change to meet evolving safety needs.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">🎓</span>
+                    <span data-i18n="values.training"><strong>Training</strong>: Empowering users with knowledge and skills.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">🤝</span>
+                    <span data-i18n="values.integrity"><strong>Integrity</strong>: Upholding honesty and ethical standards in all we do.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">💡</span>
+                    <span data-i18n="values.solutions"><strong>Solutions</strong>: Providing practical, innovative tools for safety challenges.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">⚙️</span>
+                    <span data-i18n="values.operations"><strong>Operations</strong>: Streamlining processes for efficient safety management.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="cta.title" class="text-2xl font-bold text-gray-800 mb-4">Join Me in Building a Safer Future</h2>
+            <p data-i18n="cta.description_1" class="text-gray-600 mb-4">SafetyHelp is a growing platform, and I’d love to hear from you! Explore our tools to enhance safety in your workplace or community, and share your feedback and suggestions to help us improve.</p>
+            <p data-i18n="cta.description_2" class="text-gray-600 mb-4">Stay tuned for upcoming modules and tools, including careers, mentorship programs, and more, as we continue to evolve and support safer environments together.</p>
+            <div class="flex flex-col md:flex-row gap-4">
+                <a href="/safety-plans/pages/ohs-system.html" data-i18n="cta.explore_button" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-center">Explore Our OHS Tools</a>
+                <a href="/safety-plans/contact.html" data-i18n="cta.feedback_button" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 text-center">Share Your Feedback</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 mt-auto">
+            <div class="container mx-auto px-6 text-center">
+                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
+                <p class="mb-4">
+                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
+                </p>
+                <div class="newsletter mt-6">
+                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                    <form class="flex justify-center">
+                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+        </button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Translation Initialization with Embedded English Translations
+        document.addEventListener('DOMContentLoaded', async () => {
+            const translations = {
+                "header.nav.home": "Home",
+                "header.nav.resources": "Resources",
+                "header.nav.services": "Services",
+                "header.nav.community": "Community",
+                "header.nav.about": "About",
+                "header.nav.contact": "Contact",
+                "header.nav.login": "Login",
+                "header.search.placeholder": "Search OHS Tools...",
+                "header.search.button": "Search",
+                "language_selector.en": "English",
+                "language_selector.af": "Afrikaans",
+                "language_selector.zu": "isiZulu",
+                "language_selector.xh": "isiXhosa",
+                "language_selector.st": "Sesotho",
+                "language_selector.tn": "Setswana",
+                "language_selector.nso": "Sepedi",
+                "language_selector.ts": "Xitsonga",
+                "language_selector.ss": "siSwati",
+                "language_selector.ve": "Tshivenda",
+                "language_selector.nr": "isiNdebele",
+                "language_selector.es": "Español",
+                "language_selector.fr": "French",
+                "language_selector.sn": "Shona",
+                "language_selector.sw": "Swahili",
+                "language_selector.zh": "Mandarin",
+                "sidebar.ohs_tools": "SafetyHelp OHS Tools",
+                "sidebar.construction_safety": "Construction Safety",
+                "sidebar.emergency_planning": "Emergency Planning",
+                "sidebar.risk_assessment": "Risk Assessment",
+                "sidebar.legal_appointments": "Legal Appointments",
+                "sidebar.incident_management": "Incident Management",
+                "sidebar.training": "Training",
+                "sidebar.inspections_audits": "Inspections & Audits",
+                "sidebar.suppliers": "Suppliers",
+                "sidebar.legislation": "Legislation",
+                "sidebar.community_tools": "Community Tools",
+                "sidebar.member_dashboard": "Member Dashboard",
+                "sidebar.ohs_system": "OHS System",
+                "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
+                "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
+                "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?",
+                "carousel.slide_1.title": "Empowering Safer Workplaces and Communities",
+                "carousel.slide_2.title": "Inspired by <em>Safety First: The Essentials of OHS Plans</em>",
+                "carousel.slide_3.title": "Stay Tuned for Careers, Mentorship, and More!",
+                "intro.title": "About SafetyHelp",
+                "intro.description": "Welcome to SafetyHelp, a platform born from over 20 years of my experience in the health and safety industry. I’m Salatiso Lonwabo Mdeni, and I’ve dedicated my career to enhancing workplace and community safety, starting with manual tools that were often cumbersome and limited to professionals. My vision has always been to create a future where OHS tools are accessible to everyone, automated where possible, integrated with risk management systems, and enhanced by AI to foster safer environments.",
+                "intro.experience": "With extensive experience in both private and public sectors—including roles at Anglo Platinum, Metrorail, and Absa—and running my OHS and risk management consultancy since 2012, I’ve seen firsthand the impact of effective safety practices. SafetyHelp is the culmination of this journey, inspired by my books, <em>Safety First: The Essentials of OHS Plans</em> and <em>Safety First: Essentials for Your OHS Career Journey</em>, to empower businesses, professionals, and communities worldwide.",
+                "story.title": "My Journey in Health and Safety",
+                "story.description_1": "My passion for safety began at Kiriyatswane Secondary School in Embalenhle, where the scent of a nearby Sasol plant sparked my curiosity about health and safety. I pursued Environmental Health at Pretoria Technikon (now Tshwane University of Technology), starting my career as a Junior Environmental Health Practitioner in East London. From there, I gained hands-on experience in mining with Anglo Platinum, managed safety programs at Metrorail, and led emergency response initiatives at Absa.",
+                "story.description_2": "Since 2012, I’ve run my own OHS and risk management consultancy, working across sectors to improve safety standards. My books, <em>Safety First: The Essentials of OHS Plans</em> and <em>Safety First: Essentials for Your OHS Career Journey</em>, reflect my commitment to making safety accessible. SafetyHelp embodies this vision, bringing my expertise to a digital platform to create safer workplaces and communities for all.",
+                "values.title": "Our Core Values",
+                "values.description": "The values that guide SafetyHelp stem from my personal philosophy, reflected in the acronym SALATISO—Safety, Assurance, Learning, Adaptability, Training, Integrity, Solutions, and Operations. These principles shape everything we do.",
+                "values.safety": "<strong>Safety</strong>: Prioritizing the well-being of every individual.",
+                "values.assurance": "<strong>Assurance</strong>: Ensuring confidence through reliable safety practices.",
+                "values.learning": "<strong>Learning</strong>: Committing to continuous improvement and education.",
+                "values.adaptability": "<strong>Adaptability</strong>: Embracing change to meet evolving safety needs.",
+                "values.training": "<strong>Training</strong>: Empowering users with knowledge and skills.",
+                "values.integrity": "<strong>Integrity</strong>: Upholding honesty and ethical standards in all we do.",
+                "values.solutions": "<strong>Solutions</strong>: Providing practical, innovative tools for safety challenges.",
+                "values.operations": "<strong>Operations</strong>: Streamlining processes for efficient safety management.",
+                "cta.title": "Join Me in Building a Safer Future",
+                "cta.description_1": "SafetyHelp is a growing platform, and I’d love to hear from you! Explore our tools to enhance safety in your workplace or community, and share your feedback and suggestions to help us improve.",
+                "cta.description_2": "Stay tuned for upcoming modules and tools, including careers, mentorship programs, and more, as we continue to evolve and support safer environments together.",
+                "cta.explore_button": "Explore Our OHS Tools",
+                "cta.feedback_button": "Share Your Feedback",
+                "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
+                "footer.links.privacy": "Privacy Policy",
+                "footer.links.terms": "Terms of Service",
+                "footer.links.contact": "Contact Us",
+                "footer.newsletter.title": "Stay Updated",
+                "footer.newsletter.placeholder": "Enter your email",
+                "footer.newsletter.button": "Subscribe",
+                "chatbot.button": "Ask Me",
+                "chatbot.input_placeholder": "Ask about OHS...",
+                "chatbot.send": "Send"
+            };
+
+            await i18next.init({
+                lng: 'en',
+                resources: {
+                    en: { translation: translations }
+                },
+                debug: true
+            });
+
+            updateContent();
+
+            document.getElementById('language-select').addEventListener('change', (e) => {
+                i18next.changeLanguage(e.target.value, (err) => {
+                    if (err) {
+                        console.error('Error changing language:', err);
+                        return;
+                    }
+                    updateContent();
+                });
+            });
+
+            function updateContent() {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', i18next.t(key));
+                    } else {
+                        element.innerHTML = i18next.t(key);
+                    }
+                });
+            }
+
+            // Carousel Functionality
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevSlide = document.getElementById('prev-slide');
+            const nextSlide = document.getElementById('next-slide');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                if (index >= slides.length) index = 0;
+                if (index < 0) index = slides.length - 1;
+                document.getElementById('carousel-slides').style.transform = `translateX(-${index * 100}%)`;
+                currentSlide = index;
+            }
+
+            prevSlide.addEventListener('click', () => showSlide(currentSlide - 1));
+            nextSlide.addEventListener('click', () => showSlide(currentSlide + 1));
+            setInterval(() => showSlide(currentSlide + 1), 5000);
+
+            // Chatbot Functionality
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWindow = document.getElementById('chat-window');
+            const chatOutput = document.getElementById('chat-output');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            chatToggle.addEventListener('click', () => {
+                console.log("Chat toggle clicked");
+                chatWindow.classList.toggle('chat-hidden');
+            });
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    const userMessage = document.createElement('p');
+                    userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                    chatOutput.appendChild(userMessage);
+
+                    const botMessage = document.createElement('p');
+                    botMessage.innerHTML = `<strong>Chatbot:</strong> I'm here to help with OHS! For detailed assistance, please contact support@safetyhelp.co.za.`;
+                    chatOutput.appendChild(botMessage);
+
+                    chatInput.value = '';
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }
+            }
+
+            // Firebase Initialization (Placeholder - Replace with actual config)
+            const firebaseConfig = {
+                apiKey: "your-api-key",
+                authDomain: "your-auth-domain",
+                projectId: "your-project-id",
+                storageBucket: "your-storage-bucket",
+                messagingSenderId: "your-messaging-sender-id",
+                appId: "your-app-id"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        });
+    </script>
+
+    <style>
+        /* Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        #carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        /* Intro, Story, Values, and CTA Sections */
+        .intro, .story, .values, .cta-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .intro h2, .story h2, .values h2, .cta-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .intro p, .story p, .values p, .cta-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .intro a, .story a, .values a, .cta-section a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .intro a:hover, .story a:hover, .values a:hover, .cta-section a:hover {
+            text-decoration: underline;
+        }
+        /* Footer */
+        footer {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+        footer p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        footer a {
+            color: #FD7E14;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #e06b00;
+        }
+        .newsletter h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            font-size: 14px;
+            width: 150px;
+        }
+        .newsletter button {
+            padding: 8px 16px;
+            background-color: #FD7E14;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .newsletter button:hover {
+            background-color: #e06b00;
+        }
+        /* Chatbot */
         .chatbot-container {
             position: fixed;
-            bottom: 1.25rem; /* Equivalent to bottom-5 */
-            right: 1.25rem; /* Equivalent to right-5 */
+            bottom: 1.25rem;
+            right: 1.25rem;
             z-index: 1000;
         }
         #chat-window {
@@ -69,249 +660,78 @@
             flex-grow: 1;
         }
         #chat-input-container {
-             display: flex;
-             border-top-width: 1px;
+            display: flex;
+            border-top-width: 1px;
         }
-         #chat-input {
-             flex-grow: 1;
-             border: none;
-             padding: 0.5rem; /* p-2 */
-         }
-         #chat-send {
-             border: none;
-             padding: 0.5rem 1rem; /* p-2 px-4 */
-             cursor: pointer;
-         }
-
+        #chat-input {
+            flex-grow: 1;
+            border: none;
+            padding: 0.5rem;
+        }
+        #chat-send {
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+        }
+        #chat-send:hover {
+            background-color: #0056b3;
+        }
+        .chat-toggle-btn {
+            background-color: #FD7E14;
+        }
+        .chat-toggle-btn:hover {
+            background-color: #e06b00;
+        }
         /* Responsive adjustments */
         @media (max-width: 768px) {
             body {
-                padding-top: 0; /* Remove top padding */
-                flex-direction: column; /* Stack elements vertically */
+                padding-top: 0;
+                flex-direction: column;
             }
             header {
-                position: relative; /* Make header part of the flow */
+                position: relative;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .header-left {
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .nav-links {
+                margin: 10px 0;
+            }
+            .nav-links a {
+                margin: 5px 10px;
+            }
+            .header-right {
+                align-items: center;
             }
             .sidebar {
-                position: relative; /* Make sidebar part of the flow */
+                position: relative;
                 top: 0;
                 width: 100%;
                 height: auto;
                 bottom: auto;
-                z-index: 1; /* Reset z-index */
+                z-index: 1;
+            }
+            .sidebar h2 {
+                text-align: center;
             }
             .main-content {
-                margin-left: 0; /* Remove left margin */
-                min-height: auto; /* Adjust min-height */
+                margin-left: 0;
+                flex-direction: column;
             }
-            .intro {
-                 margin: 1rem; /* Adjust margin */
+            .intro, .story, .values, .cta-section {
+                margin: 1rem;
+            }
+            .carousel img {
+                height: 200px;
             }
         }
     </style>
-</head>
-<body class="bg-gray-100">
-    <header class="bg-gray-900 text-white shadow-md">
-        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="logo-placeholder bg-white text-gray-800 p-2 rounded text-sm text-center w-full md:w-auto mb-4 md:mb-0 md:mr-6">
-                [Logo Placeholder - Reserved for Salatiso OHS Tools Logo]
-            </div>
-            <div class="header-content flex-grow w-full">
-                <h1 class="text-3xl font-bold mb-2 text-center md:text-left">Salatiso OHS Tools</h1>
-                <nav role="navigation" aria-label="Main navigation" class="flex flex-col md:flex-row justify-between items-center w-full">
-                    <div class="nav-links mb-4 md:mb-0">
-                        <a href="/safety-plans/index.html" class="px-3 py-2 hover:text-blue-400">Home</a>
-                        <a href="/safety-plans/resources.html" class="px-3 py-2 hover:text-blue-400">Resources</a>
-                        <a href="/safety-plans/services.html" class="px-3 py-2 hover:text-blue-400">Services</a>
-                        <a href="/safety-plans/community.html" class="px-3 py-2 hover:text-blue-400">Community</a>
-                        <a href="/safety-plans/about.html" class="px-3 py-2 hover:text-blue-400">About</a>
-                        <a href="/safety-plans/contact.html" class="px-3 py-2 hover:text-blue-400">Contact</a>
-                    </div>
-                    <div class="search-bar w-full md:w-auto">
-                        <form role="search" class="flex">
-                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800 flex-grow">
-                            <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
-                        </form>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <aside class="sidebar bg-gray-900 text-gray-200 p-5">
-        <h2 data-i18n="sidebar.ohs_tools" class="text-2xl font-bold mb-6 text-white">OHS Tools</h2>
-        <ul class="space-y-2">
-            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety" class="block py-2 px-1 hover:text-blue-400">Construction Safety</a></li>
-            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning" class="block py-2 px-1 hover:text-blue-400">Emergency Planning</a></li>
-            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment" class="block py-2 px-1 hover:text-blue-400">Risk Assessment</a></li>
-            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments" class="block py-2 px-1 hover:text-blue-400">Legal Appointments</a></li>
-            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management" class="block py-2 px-1 hover:text-blue-400">Incident Management</a></li>
-            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training" class="block py-2 px-1 hover:text-blue-400">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits" class="block py-2 px-1 hover:text-blue-400">Inspections \& Audits</a></li>
-            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers" class="block py-2 px-1 hover:text-blue-400">Suppliers</a></li>
-            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation" class="block py-2 px-1 hover:text-blue-400">Legislation</a></li>
-            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools" class="block py-2 px-1 hover:text-blue-400">Community Tools</a></li>
-            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard" class="block py-2 px-1 hover:text-blue-400">Member Dashboard</a></li>
-            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system" class="block py-2 px-1 hover:text-blue-400 active">OHS System</a></li>
-        </ul>
-        <div class="step-info mt-8 p-4 bg-gray-800 rounded">
-            <h3 data-i18n="sidebar.step_0.title" class="text-lg font-semibold mb-2 text-white">📜 Welcome to Salatiso OHS Tools</h3>
-            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-            <p class="fun-fact text-sm text-blue-300" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
-        </div>
-    </aside>
-
-    <div class="main-content bg-gray-100">
-        <section class="intro bg-white p-8 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">About Salatiso OHS Tools</h2> <p class="text-gray-600">Salatiso OHS Tools is a platform dedicated to enhancing workplace safety through automated Occupational Health and Safety (OHS) solutions. Inspired by the book "Safety First: The Essentials of OHS Plans" by Salatiso Lonwabo Mdeni, our mission is to provide comprehensive tools and resources that empower businesses and professionals to create safer work environments. SALATISO stands for Safety, Assurance, Learning, Adaptability, Training, Integrity, Solutions, and Operations—values that guide our vision to become a global leader in OHS by 2030.</p> </section>
-
-        <footer class="bg-gray-900 text-white py-8 mt-auto">
-            <div class="container mx-auto px-6 text-center">
-                <p class="mb-2">© 2025 Salatiso OHS Tools. All rights reserved.</p>
-                <p class="mb-4">
-                    <a href="/safety-plans/privacy.html" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
-                    <a href="/safety-plans/terms.html" class="mx-2 hover:text-blue-400">Terms of Service</a> |
-                    <a href="/safety-plans/contact.html" class="mx-2 hover:text-blue-400">Contact Us</a>
-                </p>
-                <div class="newsletter mt-6">
-                    <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
-                    <form class="flex justify-center">
-                        <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-                        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
-        </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
-            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                 <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
-            </div>
-            <div id="chat-input-container" class="flex border-t border-gray-200">
-                <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none cursor-pointer">Send</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script>
-        // Firebase Config - IMPORTANT: Use environment variables or a secure config method in production
-        const firebaseConfig = {
-             apiKey: "YOUR_API_KEY", // Replace with your actual API key
-             authDomain: "YOUR_AUTH_DOMAIN", // Replace
-             projectId: "YOUR_PROJECT_ID", // Replace
-             storageBucket: "YOUR_STORAGE_BUCKET", // Replace
-             messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Replace
-             appId: "YOUR_APP_ID", // Replace
-             measurementId: "YOUR_MEASUREMENT_ID" // Optional
-        };
-
-        let db; // Declare db globally
-
-        // Initialize Firebase with error handling
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore(); // Assign firestore instance
-            console.log("Firebase Initialized Successfully");
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            const chatOutput = document.getElementById('chat-output');
-            if (chatOutput) {
-                 chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
-            }
-            const chatInput = document.getElementById('chat-input');
-            const chatSend = document.getElementById('chat-send');
-            if (chatInput) chatInput.disabled = true;
-            if (chatSend) chatSend.disabled = true;
-        }
-
-        // Elements
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatWindow = document.getElementById('chat-window');
-        const chatOutput = document.getElementById('chat-output');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        // Toggle Chat Window
-        if (chatToggle) {
-            chatToggle.addEventListener('click', () => {
-                chatWindow.classList.toggle('chat-hidden');
-                if (!chatWindow.classList.contains('chat-hidden')) {
-                    chatInput.focus();
-                }
-            });
-        }
-
-        // Function to add message to chat output
-        function addChatMessage(sender, message) {
-            if (chatOutput) {
-                const messageElement = document.createElement('p');
-                messageElement.classList.add('mb-2');
-                messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-                chatOutput.appendChild(messageElement);
-                chatOutput.scrollTop = chatOutput.scrollHeight;
-            }
-        }
-
-        // Send Question to Chatbot
-        async function sendQuery() {
-            if (!db) {
-                addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
-                return;
-            }
-            const input = chatInput.value.trim();
-            if (!input) return;
-            addChatMessage('You', input);
-            chatInput.value = '';
-            addChatMessage('Chatbot', 'Searching...');
-            const query = input.toLowerCase();
-
-            try {
-                const snapshot = await db.collection('ohs-knowledge')
-                                         .where('keywords', 'array-contains', query)
-                                         .limit(1)
-                                         .get();
-                let responseFound = false;
-                let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
-
-                if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
-                        response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
-                        if (data.file) {
-                            response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
-                        }
-                        responseFound = true;
-                    });
-                }
-                 const searchingMessage = chatOutput.querySelector('p:last-child');
-                 if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
-                 } else {
-                    addChatMessage('Chatbot', response);
-                 }
-            } catch (error) {
-                console.error("Firestore query failed:", error);
-                 const searchingMessage = chatOutput.querySelector('p:last-child');
-                 if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
-                 } else {
-                    addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
-                 }
-            }
-        }
-
-        // Event listeners
-        if (chatSend) chatSend.addEventListener('click', sendQuery);
-        if (chatInput) chatInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') sendQuery(); });
-
-    </script>
 </body>
 </html>
