@@ -872,7 +872,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+   <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
@@ -1097,7 +1097,8 @@
                 baseline: [
                     { category: "Construction Specific", activity: "Scaffolding", hazard: "Falls", risk: "Injury from falling", controls: "Guardrails, harnesses", legal: "CR 10" },
                     { category: "Construction Specific", activity: "Excavation", hazard: "Collapse", risk: "Burial, injury", controls: "Shoring, barriers", legal: "CR 13" },
-                    { category: "Construction Specific", activity: "Crane Operations", hazard: "Overhead loads", risk: "Struck by load", controls: "Signalman, PPE", legal: "CR 22" }
+                    { category: "Construction Specific", activity: "Crane Operations", hazard: "Overhead loads", risk: "Struck by load", controls: "Signalman, PPE", legal: "CR 22" },
+                    { category: "Construction Specific", activity: "Working from Heights", hazard: "Falls", risk: "Injury from falling", controls: "Fall protection, training", legal: "CR 10" }
                 ],
                 "issue-based": [
                     { category: "Hazardous Activities", activity: "Chemical Spill", hazard: "Exposure", risk: "Chemical burns, poisoning", controls: "Spill kits, PPE", legal: "HCS Reg" },
@@ -1127,17 +1128,35 @@
             };
 
             // Step 1: Select Risk Assessment Type
-            document.getElementById('risk-assessment-type-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                assessmentType = document.getElementById('assessment-type').value;
-                currentStep = 2;
-                updateStep();
-                populateActivities();
-            });
+            const riskAssessmentForm = document.getElementById('risk-assessment-type-form');
+            if (riskAssessmentForm) {
+                riskAssessmentForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log("Step 1 form submitted");
+                    assessmentType = document.getElementById('assessment-type').value;
+                    console.log("Selected assessment type:", assessmentType);
+                    if (assessmentType) {
+                        currentStep = 2;
+                        updateStep();
+                        populateActivities();
+                    } else {
+                        console.error("No assessment type selected");
+                    }
+                });
+            } else {
+                console.error("Risk assessment form not found");
+            }
 
             // Step 2: Choose Activities
             function populateActivities() {
+                console.log("Populating activities for type:", assessmentType);
                 const activityGroups = document.getElementById('activity-groups');
+                if (!activityGroups) {
+                    console.error("Activity groups container not found");
+                    return;
+                }
+
+                // Get existing activities from the DOM
                 const allCheckboxes = activityGroups.querySelectorAll('input[type="checkbox"]');
                 const existingActivities = Array.from(allCheckboxes).map(checkbox => ({
                     id: checkbox.id,
@@ -1148,16 +1167,17 @@
 
                 // Filter activities based on the selected assessment type
                 const relevantActivities = activitiesData[assessmentType] || [];
-                const categories = [...new Set(relevantActivities.map(item => item.category))];
+                console.log("Relevant activities:", relevantActivities);
 
-                // Restore existing activities and add relevant ones
+                // Merge existing activities with relevant ones
                 const mergedActivities = [...existingActivities];
                 relevantActivities.forEach((item, index) => {
-                    const existing = mergedActivities.find(activity => activity.value === item.activity.toLowerCase().replace(/\s+/g, '-'));
+                    const activityValue = item.activity.toLowerCase().replace(/\s+/g, '-');
+                    const existing = mergedActivities.find(activity => activity.value === activityValue);
                     if (!existing) {
                         mergedActivities.push({
-                            id: `activity-${item.activity.toLowerCase().replace(/\s+/g, '-')}`,
-                            value: item.activity.toLowerCase().replace(/\s+/g, '-'),
+                            id: `activity-${activityValue}-${index}`,
+                            value: activityValue,
                             checked: true,
                             label: `${item.activity} (Hazard: ${item.hazard})`,
                             category: item.category,
@@ -1167,28 +1187,34 @@
                 });
 
                 // Group activities by category
+                const categories = [...new Set(mergedActivities.map(item => item.category))];
                 activityGroups.innerHTML = '';
-                categories.forEach(category => {
-                    const categoryActivities = mergedActivities.filter(activity => activity.category === category);
-                    if (categoryActivities.length > 0) {
-                        const details = document.createElement('details');
-                        details.innerHTML = `
-                            <summary>${category}</summary>
-                            <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2"></div>
-                        `;
-                        const contentDiv = details.querySelector('.category-content');
-                        categoryActivities.forEach(activity => {
-                            const div = document.createElement('div');
-                            div.className = 'checkbox-item';
-                            div.innerHTML = `
-                                <input type="checkbox" id="${activity.id}" name="activities" value="${activity.value}" ${activity.checked ? 'checked' : ''} class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="${activity.id}">${activity.label}</label>
+
+                if (categories.length === 0) {
+                    activityGroups.innerHTML = '<p>No activities available for this assessment type.</p>';
+                } else {
+                    categories.forEach(category => {
+                        const categoryActivities = mergedActivities.filter(activity => activity.category === category);
+                        if (categoryActivities.length > 0) {
+                            const details = document.createElement('details');
+                            details.innerHTML = `
+                                <summary>${category}</summary>
+                                <div class="category-content grid grid-cols-1 md:grid-cols-2 gap-2"></div>
                             `;
-                            contentDiv.appendChild(div);
-                        });
-                        activityGroups.appendChild(details);
-                    }
-                });
+                            const contentDiv = details.querySelector('.category-content');
+                            categoryActivities.forEach(activity => {
+                                const div = document.createElement('div');
+                                div.className = 'checkbox-item';
+                                div.innerHTML = `
+                                    <input type="checkbox" id="${activity.id}" name="activities" value="${activity.value}" ${activity.checked ? 'checked' : ''} class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="${activity.id}">${activity.label}</label>
+                                `;
+                                contentDiv.appendChild(div);
+                            });
+                            activityGroups.appendChild(details);
+                        }
+                    });
+                }
 
                 // Enable/disable Next button based on selection
                 const nextButton = document.getElementById('activities-form').querySelector('button[type="submit"]');
@@ -1196,6 +1222,7 @@
                 const updateNextButton = () => {
                     const atLeastOneChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
                     nextButton.disabled = !atLeastOneChecked;
+                    console.log("Next button disabled:", nextButton.disabled);
                 };
                 checkboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', updateNextButton);
@@ -1203,25 +1230,32 @@
                 updateNextButton();
 
                 // Search functionality
-                document.getElementById('activity-search').addEventListener('input', (e) => {
-                    const searchTerm = e.target.value.toLowerCase();
-                    const checkboxItems = document.querySelectorAll('.checkbox-item');
-                    checkboxItems.forEach(item => {
-                        const label = item.querySelector('label').textContent.toLowerCase();
-                        item.style.display = label.includes(searchTerm) ? 'block' : 'none';
-                    });
+                const activitySearch = document.getElementById('activity-search');
+                if (activitySearch) {
+                    activitySearch.addEventListener('input', (e) => {
+                        const searchTerm = e.target.value.toLowerCase();
+                        console.log("Searching for:", searchTerm);
+                        const checkboxItems = document.querySelectorAll('.checkbox-item');
+                        checkboxItems.forEach(item => {
+                            const label = item.querySelector('label').textContent.toLowerCase();
+                            item.style.display = label.includes(searchTerm) ? 'block' : 'none';
+                        });
 
-                    // Hide categories with no visible activities
-                    const detailsElements = document.querySelectorAll('#activity-groups details');
-                    detailsElements.forEach(details => {
-                        const visibleItems = Array.from(details.querySelectorAll('.checkbox-item')).filter(item => item.style.display !== 'none');
-                        details.style.display = visibleItems.length > 0 ? 'block' : 'none';
+                        // Hide categories with no visible activities
+                        const detailsElements = document.querySelectorAll('#activity-groups details');
+                        detailsElements.forEach(details => {
+                            const visibleItems = Array.from(details.querySelectorAll('.checkbox-item')).filter(item => item.style.display !== 'none');
+                            details.style.display = visibleItems.length > 0 ? 'block' : 'none';
+                        });
                     });
-                });
+                } else {
+                    console.error("Activity search input not found");
+                }
             }
 
             document.getElementById('activities-form').addEventListener('submit', (e) => {
                 e.preventDefault();
+                console.log("Step 2 form submitted");
                 selectedActivities = [];
                 const checkboxes = document.querySelectorAll('#activities-form input[name="activities"]:checked');
                 checkboxes.forEach(checkbox => {
@@ -1232,6 +1266,7 @@
                         selectedActivities.push({ ...activity, rating: '' });
                     }
                 });
+                console.log("Selected activities:", selectedActivities);
                 currentStep = 3;
                 updateStep();
                 populateRatings();
@@ -1239,6 +1274,7 @@
 
             // Step 3: Assign Ratings
             function populateRatings() {
+                console.log("Populating ratings for selected activities:", selectedActivities);
                 const tbody = document.getElementById('ratings-table-body');
                 tbody.innerHTML = '';
                 selectedActivities.forEach((activity, index) => {
@@ -1267,6 +1303,7 @@
                 const updateNextButton = () => {
                     const allSelected = Array.from(selects).every(select => select.value !== '');
                     nextButton.disabled = !allSelected;
+                    console.log("Ratings Next button disabled:", nextButton.disabled);
                 };
                 selects.forEach(select => {
                     select.addEventListener('change', updateNextButton);
@@ -1276,6 +1313,7 @@
 
             document.getElementById('ratings-form').addEventListener('submit', (e) => {
                 e.preventDefault();
+                console.log("Step 3 form submitted");
                 selectedActivities.forEach((activity, index) => {
                     activity.rating = document.querySelector(`select[name="rating-${index}"]`).value;
                 });
@@ -1286,6 +1324,7 @@
 
             // Step 4: Review and Customize
             function populateReview() {
+                console.log("Populating review table with activities:", selectedActivities);
                 const tbody = document.getElementById('review-table-body');
                 tbody.innerHTML = '';
                 selectedActivities.forEach(activity => {
@@ -1310,8 +1349,9 @@
                 }
             }
 
-            document.getElementById('review-form').addEventListener('submit', (e) => {
+           document.getElementById('review-form').addEventListener('submit', (e) => {
                 e.preventDefault();
+                console.log("Step 4 form submitted");
                 // Basic validation for required fields
                 const siteName = document.getElementById('site-name').value.trim();
                 if (!siteName) {
@@ -1326,11 +1366,13 @@
             // Step 5: Guidance
             document.getElementById('download-again').addEventListener('click', (e) => {
                 e.preventDefault();
+                console.log("Downloading PDF again");
                 generatePDF();
             });
 
             document.getElementById('start-new').addEventListener('click', (e) => {
                 e.preventDefault();
+                console.log("Starting new assessment");
                 currentStep = 1;
                 assessmentType = '';
                 selectedActivities = [];
@@ -1344,6 +1386,7 @@
             // Back Buttons
             document.querySelectorAll('.back-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    console.log("Back button clicked, current step:", currentStep);
                     currentStep--;
                     updateStep();
                     if (currentStep === 2) populateActivities();
@@ -1354,12 +1397,19 @@
 
             // Update Step Display
             function updateStep() {
+                console.log("Updating step to:", currentStep);
                 document.querySelectorAll('.step').forEach(step => step.classList.add('hidden'));
-                document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+                const stepElement = document.getElementById(`step-${currentStep}`);
+                if (stepElement) {
+                    stepElement.classList.remove('hidden');
+                } else {
+                    console.error(`Step element not found for step-${currentStep}`);
+                }
             }
 
             // Generate PDF
             function generatePDF() {
+                console.log("Generating PDF");
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 let yOffset = 10;
@@ -1568,6 +1618,19 @@
                 mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
             }
         }
+
+        // Ensure content updates after dynamic DOM changes
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const translation = i18next.t(key);
+                if (translation === key) {
+                    console.warn(`Translation missing for key: ${key}`);
+                }
+                element.innerHTML = translation; // Use innerHTML to render HTML content in translations
+                console.log(`Translating ${key} to ${translation}`);
+            });
+        }
     </script>
 </body>
-</html>
+</html> 
