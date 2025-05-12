@@ -3,57 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Salatiso Safety Plans</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <meta name="description" content="Login page for SafetyHelp - Coming Soon. Discover the benefits of registering and subscribing.">
+    <meta name="keywords" content="SafetyHelp login, OHS registration, subscription benefits">
+    <meta name="author" content="SafetyHelp Team">
+    <title>SafetyHelp - Login (Coming Soon)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #E8F0FE;
+            color: #333;
+            margin: 0;
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Header */
+        header {
+            background-color: #007BFF;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            width: 100%;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-language-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .search-bar button {
+            background-color: #FD7E14;
+            color: white;
+        }
+        .search-bar button:hover {
+            background-color: #e06b00;
+        }
+        .language-selector {
+            margin-bottom: 5px;
+        }
+        .language-selector select {
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .nav-links {
+            text-align: center;
+            flex: 1;
+        }
+        .nav-links a {
+            color: white;
+            margin: 0 15px;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            color: #FD7E14;
+        }
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .logo-container img {
+            height: 50px;
+        }
+        .tagline {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .content-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .benefits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .benefits-table th, .benefits-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .benefits-table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .benefits-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .benefits-table .yes {
+            color: #28A745;
+            font-weight: bold;
+        }
+        .benefits-table .no {
+            color: #DC3545;
+            font-weight: bold;
+        }
+        /* Footer */
+        footer {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+        footer p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        footer a {
+            color: #FD7E14;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #e06b00;
+        }
+        .newsletter h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .newsletter input {
+            padding: 8px;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            font-size: 14px;
+            width: 150px;
+        }
+        .newsletter button {
+            padding: 8px 16px;
+            background-color: #FD7E14;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .newsletter button:hover {
+            background-color: #e06b00;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+            }
+            header {
+                position: relative;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .header-left {
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .nav-links {
+                margin: 10px 0;
+            }
+            .nav-links a {
+                margin: 5px 10px;
+            }
+            .header-right {
+                align-items: center;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .content-section {
+                padding: 15px;
+            }
+            .benefits-table th, .benefits-table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="../assets/images/logo.png" alt="Salatiso Safety Plans Logo">
-                <h1 data-i18n="header.title">Salatiso OHS Tools</h1>
+        <div class="container mx-auto header-container">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="assets/images/logo.png" alt="SafetyHelp Logo">
+                    <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+                </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="../index.html" data-i18n="header.nav.home">Home</a></li>
-                    <li><a href="#" data-i18n="header.nav.resources">Resources</a></li>
-                    <li><a href="#" data-i18n="header.nav.services">Services</a></li>
-                    <li><a href="#" data-i18n="header.nav.community">Community</a></li>
-                    <li><a href="#" data-i18n="header.nav.about">About</a></li>
-                    <li><a href="#" data-i18n="header.nav.contact">Contact</a></li>
-                    <li><a href="../login.html" data-i18n="header.nav.login">Login</a></li>
-                    <li><a href="#" data-i18n="header.nav.logout" style="display: none;">Logout</a></li>
-                </ul>
-            </nav>
+            <div class="nav-links">
+                <a href="/safety-plans/index.html">Home</a>
+                <a href="/safety-plans/resources.html">Resources</a>
+                <a href="/safety-plans/services.html">Services</a>
+                <a href="/safety-plans/community.html">Community</a>
+                <a href="/safety-plans/about.html">About</a>
+                <a href="/safety-plans/contact.html">Contact</a>
+                <a href="#" id="login-link">Login</a>
+            </div>
+            <div class="header-right">
+                <div class="search-language-container">
+                    <div class="language-selector">
+                        <select id="language-select" aria-label="Select language">
+                            <option value="en">English</option>
+                            <option value="af">Afrikaans</option>
+                            <option value="zu">isiZulu</option>
+                            <option value="xh">isiXhosa</option>
+                            <option value="st">Sesotho</option>
+                            <option value="tn">Setswana</option>
+                            <option value="nso">Sepedi</option>
+                            <option value="ts">Xitsonga</option>
+                            <option value="ss">siSwati</option>
+                            <option value="ve">Tshivenda</option>
+                            <option value="nr">isiNdebele</option>
+                            <option value="es">Español</option>
+                            <option value="fr">French</option>
+                            <option value="sn">Shona</option>
+                            <option value="sw">Swahili</option>
+                            <option value="zh">Mandarin</option>
+                        </select>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search" class="flex">
+                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+                            <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main>
-        <section class="login">
-            <h2>[Placeholder: Login]</h2>
-            <form id="login-form">
-                <label>[Placeholder: Email:]</label>
-                <input type="email" id="login-email" required>
-                <label>[Placeholder: Password:]</label>
-                <input type="password" id="login-password" required>
-                <button type="submit">[Placeholder: Login]</button>
-            </form>
-            <p>[Placeholder: Don't have an account? <a href="signup.html">Sign Up</a>]</p>
+    <div class="main-content">
+        <section class="content-section">
+            <h2>Login - Coming Soon!</h2>
+            <p>We’re working hard to bring you a seamless login experience. In the meantime, explore the benefits of registering with SafetyHelp and see how subscribing can enhance your experience even further.</p>
+            <h3>Benefits of Registering vs. Not Registering</h3>
+            <table class="benefits-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Non-Registered User</th>
+                        <th>Registered User</th>
+                        <th>Subscribed Member</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Access to Basic Tools</td>
+                        <td class="yes">Yes</td>
+                        <td class="yes">Yes</td>
+                        <td class="yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Document Downloads</td>
+                        <td>Limited (Temporary Access, 7 Days)</td>
+                        <td>Permanent Access</td>
+                        <td>Permanent Access</td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Document</td>
+                        <td>Standard Price (e.g., R50)</td>
+                        <td>Standard Price (e.g., R50)</td>
+                        <td class="yes">Discounted Price (e.g., R40)</td>
+                    </tr>
+                    <tr>
+                        <td>Early Access to New Features</td>
+                        <td class="no">No</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Access to Book & Product Launches</td>
+                        <td class="no">No</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes (Early Access)</td>
+                    </tr>
+                    <tr>
+                        <td>Exclusive Discounts</td>
+                        <td class="no">No</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Website Trusted Seal (Visible to Others)</td>
+                        <td class="no">No</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Preference in Content Featuring (Articles, Services)</td>
+                        <td class="no">No</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Personalized Dashboard</td>
+                        <td class="no">No</td>
+                        <td class="yes">Yes</td>
+                        <td class="yes">Yes (Enhanced)</td>
+                    </tr>
+                    <tr>
+                        <td>Community Participation</td>
+                        <td>Limited</td>
+                        <td class="yes">Full Access</td>
+                        <td class="yes">Full Access + Priority</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="mt-4">Stay tuned for the launch of our login feature! Registering and subscribing will unlock a range of benefits to enhance your SafetyHelp experience.</p>
         </section>
-    </main>
+    </div>
 
     <!-- Footer -->
-    <footer>
-        <p data-i18n="footer.copyright">© 2025 Salatiso OHS Tools. All Rights Reserved.</p>
-        <div class="footer-links">
-            <a href="#" data-i18n="footer.links.privacy">Privacy Policy</a>
-            <a href="#" data-i18n="footer.links.terms">Terms of Service</a>
-            <a href="#" data-i18n="footer.links.contact">Contact Us</a>
+    <footer class="bg-gray-900 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
+            <p class="mb-4">
+                <a href="/safety-plans/privacy.html" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                <a href="/safety-plans/contact.html" class="mx-2 hover:text-blue-400">Contact Us</a>
+            </p>
+            <div class="newsletter mt-6">
+                <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
+                <form class="flex justify-center">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                    <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
+                </form>
+            </div>
         </div>
     </footer>
-
-    <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
