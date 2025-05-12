@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Salatiso OHS Tools to collaborate, inquire about book discounts, or share suggestions for improving occupational health and safety in workplaces and communities.">
-    <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS, Salatiso, contact">
-    <meta name="author" content="Salatiso Lonwabo Mdeni">
-    <title>Salatiso OHS Tools - Contact</title>
+    <meta name="description" content="Contact SafetyHelp to collaborate, share suggestions, or inquire about books by Salatiso Lonwabo Mdeni, enhancing occupational health and safety in workplaces and communities.">
+    <meta name="keywords" content="OHS tools, occupational health and safety, safety plans, South Africa OHS, SafetyHelp, contact">
+    <meta name="author" content="SafetyHelp Team">
+    <title data-i18n="page_title.contact">SafetyHelp - Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
     <style>
         /* Global Styles */
         body {
@@ -22,7 +23,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, .contact-form h2 {
             font-family: 'Montserrat', sans-serif;
         }
         /* Header */
@@ -137,7 +138,6 @@
             margin-top: 20px;
         }
         .step-info h3 {
-            font-family: 'Montserrat', sans-serif;
             font-size: 18px;
             color: #007BFF;
             margin-bottom: 10px;
@@ -154,142 +154,450 @@
             flex-grow: 1;
             padding: 1.5rem;
             display: flex;
-            flex-direction: row;
-            gap: 20px;
+            flex-direction: column;
         }
-        .intro {
-            flex: 3;
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container mx-auto header-container">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="assets/images/logo.png" alt="SafetyHelp Logo">
+                    <p class="tagline" data-i18n="header.tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="/safety-plans/index.html" data-i18n="header.nav.home">Home</a>
+                <a href="/safety-plans/resources.html" data-i18n="header.nav.resources">Resources</a>
+                <a href="/safety-plans/services.html" data-i18n="header.nav.services">Services</a>
+                <a href="/safety-plans/community.html" data-i18n="header.nav.community">Community</a>
+                <a href="/safety-plans/about.html" data-i18n="header.nav.about">About</a>
+                <a href="/safety-plans/contact.html" data-i18n="header.nav.contact">Contact</a>
+                <a href="#" id="login-link" data-i18n="header.nav.login">Login</a>
+            </div>
+            <div class="header-right">
+                <div class="search-language-container">
+                    <div class="language-selector">
+                        <select id="language-select" aria-label="Select language">
+                            <option value="en" data-i18n="language_selector.en">English</option>
+                            <option value="af" data-i18n="language_selector.af">Afrikaans</option>
+                            <option value="zu" data-i18n="language_selector.zu">isiZulu</option>
+                            <option value="xh" data-i18n="language_selector.xh">isiXhosa</option>
+                            <option value="st" data-i18n="language_selector.st">Sesotho</option>
+                            <option value="tn" data-i18n="language_selector.tn">Setswana</option>
+                            <option value="nso" data-i18n="language_selector.nso">Sepedi</option>
+                            <option value="ts" data-i18n="language_selector.ts">Xitsonga</option>
+                            <option value="ss" data-i18n="language_selector.ss">siSwati</option>
+                            <option value="ve" data-i18n="language_selector.ve">Tshivenda</option>
+                            <option value="nr" data-i18n="language_selector.nr">isiNdebele</option>
+                            <option value="es" data-i18n="language_selector.es">Español</option>
+                            <option value="fr" data-i18n="language_selector.fr">French</option>
+                            <option value="sn" data-i18n="language_selector.sn">Shona</option>
+                            <option value="sw" data-i18n="language_selector.sw">Swahili</option>
+                            <option value="zh" data-i18n="language_selector.zh">Mandarin</option>
+                        </select>
+                    </div>
+                    <div class="search-bar">
+                        <form role="search" class="flex">
+                            <input type="text" data-i18n="[placeholder]header.search.placeholder" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
+                            <button type="submit" aria-label="Search" data-i18n="header.search.button" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
+        <ul class="space-y-2">
+            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
+            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
+            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
+            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
+            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
+            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
+            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
+            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
+            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
+            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
+            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
+            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system">OHS System</a></li>
+        </ul>
+        <div id="sidebar-step-info" class="step-info">
+            <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
+            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
+            <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Carousel Section -->
+        <section class="carousel relative overflow-hidden">
+            <div id="carousel-slides" class="flex transition-transform duration-500">
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/collaboration.jpg" alt="Collaboration" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_1.title">Let’s Collaborate on Safety Solutions</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/book-safety-first.jpg" alt="Safety First Books" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_2.title">Explore My Books for Safety Insights</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="relative">
+                        <img src="assets/images/community-safety.jpg" alt="Community Safety" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <h2 class="text-3xl font-bold text-white" data-i18n="carousel.slide_3.title">Share Your Ideas for a Safer Future</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75" aria-label="Previous slide">←</button>
+            <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75" aria-label="Next slide">→</button>
+        </section>
+
+        <!-- Intro Section -->
+        <section class="intro bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="intro.title" class="text-2xl font-bold text-gray-800 mb-4">Contact SafetyHelp</h2>
+            <p data-i18n="intro.description" class="text-gray-600 mb-4">I’m Salatiso Lonwabo Mdeni, and I’d love to hear from you! At SafetyHelp, we’re committed to making occupational health and safety accessible to all, empowering workplaces and communities to thrive safely. Whether you’re interested in collaborating, sharing suggestions, or inquiring about my books, let’s connect to build a safer future together.</p>
+            <p class="text-gray-600 mb-4">
+                <a href="#" class="text-blue-500 hover:underline" id="toggleIntro" data-i18n="intro.toggle_link">Read More</a>
+            </p>
+            <div id="introMoreContent" class="intro-content text-gray-600 mb-4">
+                <p data-i18n="intro.vision">SafetyHelp is more than a platform—it’s a movement toward safer living. In the future, we plan to introduce mentorship programs, professional profiles, and job listings to further enhance community safety. Your input is invaluable in shaping these initiatives, so please share your ideas!</p>
+            </div>
+
+            <!-- Direct Contact Links -->
+            <div class="mb-8">
+                <h3 data-i18n="intro.direct_contact_title" class="text-xl font-semibold text-gray-800 mb-2">Reach Out Directly</h3>
+                <p data-i18n="intro.direct_contact_description" class="text-gray-600 mb-4">Prefer a direct approach? You can email me or connect via social media:</p>
+                <ul class="space-y-2">
+                    <li><strong data-i18n="intro.email_label">Email:</strong> <a href="mailto:support@safetyhelp.co.za" class="text-blue-500 hover:underline">support@safetyhelp.co.za</a></li>
+                    <li><strong data-i18n="intro.social_label">Social Media:</strong> <a href="https://twitter.com/safetyhelp" target="_blank" class="text-blue-500 hover:underline">Twitter</a> | <a href="https://linkedin.com/company/safetyhelp" target="_blank" class="text-blue-500 hover:underline">LinkedIn</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form bg-white p-8 rounded-lg shadow-md mb-6">
+            <h2 data-i18n="form.title" class="text-2xl font-bold text-gray-800 mb-4">Join Us in Making a Difference</h2>
+            <p data-i18n="form.description" class="text-gray-600 mb-4">Your voice matters! Share your comments, suggestions, book discount inquiries, or collaboration ideas below. By contributing, you’re helping build safer workplaces and communities—thank you for being part of this journey!</p>
+            <p data-i18n="form.note" class="text-gray-600 mb-4 italic">Note: Form submissions currently open your email client. We’re working on a more seamless submission process—stay tuned!</p>
+            <form class="space-y-4" id="contactForm" action="mailto:support@safetyhelp.co.za?cc=salatiso.mdeni@gmail.com" method="post" enctype="text/plain">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700" data-i18n="form.name_label">Name</label>
+                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="email_contact" class="block text-sm font-medium text-gray-700" data-i18n="form.email_label">Email (Optional)</label>
+                    <input type="email" id="email_contact" name="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <div class="mt-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="emailConsent" name="emailConsent" class="mr-2">
+                            <span class="text-sm text-gray-600" data-i18n="form.consent_label">I consent to providing my email for feedback purposes. I understand that without an email, feedback cannot be provided.</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700" data-i18n="form.message_label">Message</label>
+                    <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" data-i18n="[placeholder]form.message_placeholder" placeholder="Share your comments, suggestions, book discount inquiries, or collaboration ideas..."></textarea>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button type="submit" data-i18n="form.submit_button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
+                    <a href="/safety-plans/pages/ohs-system.html" data-i18n="form.explore_button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">Explore SafetyHelp Tools</a>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 mt-auto">
+            <div class="container mx-auto px-6 text-center">
+                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
+                <p class="mb-4">
+                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
+                </p>
+                <div class="newsletter mt-6">
+                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                    <form class="flex justify-center">
+                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 rounded-r">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+        </button>
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
+                <p><strong>Chatbot:</strong> <span data-i18n="chatbot.welcome">Hello! How can I help you with OHS today?</span></p>
+            </div>
+            <div id="chat-input-container" class="flex border-t border-gray-200">
+                <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Translation Initialization with Embedded English Translations
+        document.addEventListener('DOMContentLoaded', async () => {
+            const translations = {
+                "header.tagline": "Safety Personalized, Compliance Simplified—Anytime, Anywhere",
+                "header.nav.home": "Home",
+                "header.nav.resources": "Resources",
+                "header.nav.services": "Services",
+                "header.nav.community": "Community",
+                "header.nav.about": "About",
+                "header.nav.contact": "Contact",
+                "header.nav.login": "Login",
+                "header.search.placeholder": "Search OHS Tools...",
+                "header.search.button": "Search",
+                "language_selector.en": "English",
+                "language_selector.af": "Afrikaans",
+                "language_selector.zu": "isiZulu",
+                "language_selector.xh": "isiXhosa",
+                "language_selector.st": "Sesotho",
+                "language_selector.tn": "Setswana",
+                "language_selector.nso": "Sepedi",
+                "language_selector.ts": "Xitsonga",
+                "language_selector.ss": "siSwati",
+                "language_selector.ve": "Tshivenda",
+                "language_selector.nr": "isiNdebele",
+                "language_selector.es": "Español",
+                "language_selector.fr": "French",
+                "language_selector.sn": "Shona",
+                "language_selector.sw": "Swahili",
+                "language_selector.zh": "Mandarin",
+                "sidebar.ohs_tools": "SafetyHelp OHS Tools",
+                "sidebar.construction_safety": "Construction Safety",
+                "sidebar.emergency_planning": "Emergency Planning",
+                "sidebar.risk_assessment": "Risk Assessment",
+                "sidebar.legal_appointments": "Legal Appointments",
+                "sidebar.incident_management": "Incident Management",
+                "sidebar.training": "Training",
+                "sidebar.inspections_audits": "Inspections & Audits",
+                "sidebar.suppliers": "Suppliers",
+                "sidebar.legislation": "Legislation",
+                "sidebar.community_tools": "Community Tools",
+                "sidebar.member_dashboard": "Member Dashboard",
+                "sidebar.ohs_system": "OHS System",
+                "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
+                "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
+                "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?",
+                "carousel.slide_1.title": "Let’s Collaborate on Safety Solutions",
+                "carousel.slide_2.title": "Explore My Books for Safety Insights",
+                "carousel.slide_3.title": "Share Your Ideas for a Safer Future",
+                "intro.title": "Contact SafetyHelp",
+                "intro.description": "I’m Salatiso Lonwabo Mdeni, and I’d love to hear from you! At SafetyHelp, we’re committed to making occupational health and safety accessible to all, empowering workplaces and communities to thrive safely. Whether you’re interested in collaborating, sharing suggestions, or inquiring about my books, let’s connect to build a safer future together.",
+                "intro.toggle_link": "Read More",
+                "intro.vision": "SafetyHelp is more than a platform—it’s a movement toward safer living. In the future, we plan to introduce mentorship programs, professional profiles, and job listings to further enhance community safety. Your input is invaluable in shaping these initiatives, so please share your ideas!",
+                "intro.direct_contact_title": "Reach Out Directly",
+                "intro.direct_contact_description": "Prefer a direct approach? You can email me or connect via social media:",
+                "intro.email_label": "Email:",
+                "intro.social_label": "Social Media:",
+                "form.title": "Join Us in Making a Difference",
+                "form.description": "Your voice matters! Share your comments, suggestions, book discount inquiries, or collaboration ideas below. By contributing, you’re helping build safer workplaces and communities—thank you for being part of this journey!",
+                "form.note": "Note: Form submissions currently open your email client. We’re working on a more seamless submission process—stay tuned!",
+                "form.name_label": "Name",
+                "form.email_label": "Email (Optional)",
+                "form.consent_label": "I consent to providing my email for feedback purposes. I understand that without an email, feedback cannot be provided.",
+                "form.message_label": "Message",
+                "form.message_placeholder": "Share your comments, suggestions, book discount inquiries, or collaboration ideas...",
+                "form.submit_button": "Submit",
+                "form.explore_button": "Explore SafetyHelp Tools",
+                "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
+                "footer.links.privacy": "Privacy Policy",
+                "footer.links.terms": "Terms of Service",
+                "footer.links.contact": "Contact Us",
+                "footer.newsletter.title": "Stay Updated",
+                "footer.newsletter.placeholder": "Enter your email",
+                "footer.newsletter.button": "Subscribe",
+                "chatbot.button": "Ask Me",
+                "chatbot.input_placeholder": "Ask about OHS...",
+                "chatbot.send": "Send",
+                "chatbot.welcome": "Hello! How can I help you with OHS today?"
+            };
+
+            await i18next.init({
+                lng: 'en',
+                resources: {
+                    en: { translation: translations }
+                },
+                debug: true
+            });
+
+            updateContent();
+
+            document.getElementById('language-select').addEventListener('change', (e) => {
+                i18next.changeLanguage(e.target.value, (err) => {
+                    if (err) {
+                        console.error('Error changing language:', err);
+                        return;
+                    }
+                    updateContent();
+                });
+            });
+
+            function updateContent() {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', i18next.t(key));
+                    } else {
+                        element.innerHTML = i18next.t(key);
+                    }
+                });
+            }
+
+            // Carousel Functionality
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevSlide = document.getElementById('prev-slide');
+            const nextSlide = document.getElementById('next-slide');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                if (index >= slides.length) index = 0;
+                if (index < 0) index = slides.length - 1;
+                document.getElementById('carousel-slides').style.transform = `translateX(-${index * 100}%)`;
+                currentSlide = index;
+            }
+
+            prevSlide.addEventListener('click', () => showSlide(currentSlide - 1));
+            nextSlide.addEventListener('click', () => showSlide(currentSlide + 1));
+            setInterval(() => showSlide(currentSlide + 1), 5000);
+
+            // Toggle Introduction Content
+            document.getElementById('toggleIntro').addEventListener('click', (e) => {
+                e.preventDefault();
+                const moreContent = document.getElementById('introMoreContent');
+                moreContent.classList.toggle('visible');
+                e.target.textContent = moreContent.classList.contains('visible') ? i18next.t('intro.toggle_link').replace('Read More', 'Read Less') : i18next.t('intro.toggle_link');
+            });
+
+            // Form Submission with Consent Validation
+            document.getElementById('contactForm').addEventListener('submit', (e) => {
+                const email = document.getElementById('email_contact').value;
+                const consent = document.getElementById('emailConsent').checked;
+                if (email && !consent) {
+                    e.preventDefault();
+                    alert('Please consent to providing your email address to receive feedback, or leave the email field blank.');
+                }
+            });
+
+            // Chatbot Functionality
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWindow = document.getElementById('chat-window');
+            const chatOutput = document.getElementById('chat-output');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            chatToggle.addEventListener('click', () => {
+                console.log("Chat toggle clicked");
+                chatWindow.classList.toggle('chat-hidden');
+            });
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    const userMessage = document.createElement('p');
+                    userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                    chatOutput.appendChild(userMessage);
+
+                    const botMessage = document.createElement('p');
+                    botMessage.innerHTML = `<strong>Chatbot:</strong> I'm here to help with OHS! For detailed assistance, please contact support@safetyhelp.co.za.`;
+                    chatOutput.appendChild(botMessage);
+
+                    chatInput.value = '';
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }
+            }
+
+            // Firebase Initialization (Placeholder - Replace with actual config)
+            const firebaseConfig = {
+                apiKey: "your-api-key",
+                authDomain: "your-auth-domain",
+                projectId: "your-project-id",
+                storageBucket: "your-storage-bucket",
+                messagingSenderId: "your-messaging-sender-id",
+                appId: "your-app-id"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        });
+    </script>
+
+    <style>
+        /* Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        #carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        /* Intro and Contact Form Sections */
+        .intro, .contact-form {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            margin-bottom: 24px;
         }
-        .intro h2 {
+        .intro h2, .contact-form h2 {
             font-size: 24px;
             color: #333;
             margin-bottom: 10px;
         }
-        .intro h3 {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .intro p {
+        .intro p, .contact-form p {
             font-size: 14px;
             color: #666;
             margin-bottom: 15px;
         }
-        .intro a {
-            background-color: #FD7E14;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
+        .intro a, .contact-form a {
+            color: #007BFF;
             text-decoration: none;
         }
-        .intro a:hover {
-            background-color: #e06b00;
-        }
-        /* Carousel */
-        .carousel-container {
-            flex: 1;
-            max-width: 250px;
-            position: relative;
-        }
-        .carousel-item {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-bottom: 10px;
-        }
-        .carousel-item:hover {
-            transform: scale(1.05);
-            font-weight: bold;
-        }
-        .carousel-item h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            color: #007BFF;
-            margin-bottom: 5px;
-        }
-        .carousel-item p {
-            font-size: 14px;
-            color: #333;
-        }
-        .carousel-item.active {
-            display: block;
-        }
-        .carousel-item:not(.active) {
-            display: none;
-        }
-        .carousel-prev, .carousel-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #FD7E14;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .carousel-prev:hover, .carousel-next:hover {
-            background-color: #e06b00;
-        }
-        .carousel-prev {
-            left: -50px;
-        }
-        .carousel-next {
-            right: -50px;
-        }
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-        }
-        .modal-content h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            color: #007BFF;
-            margin-bottom: 10px;
-        }
-        .modal-content p {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .modal-content a {
-            color: #28A745;
+        .intro a:hover, .contact-form a:hover {
             text-decoration: underline;
         }
-        .modal-content a:hover {
-            color: #1e7e34;
+        .intro-content {
+            display: none;
         }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            color: #333;
+        .intro-content.visible {
+            display: block;
         }
         /* Footer */
         footer {
@@ -380,13 +688,6 @@
         .chat-toggle-btn:hover {
             background-color: #e06b00;
         }
-        /* Contact Page Specific Styles */
-        .intro-content {
-            display: none;
-        }
-        .intro-content.visible {
-            display: block;
-        }
         /* Responsive adjustments */
         @media (max-width: 768px) {
             body {
@@ -428,1004 +729,13 @@
                 margin-left: 0;
                 flex-direction: column;
             }
-            .intro {
-                margin: 1rem 0;
+            .intro, .contact-form {
+                margin: 1rem;
             }
-            .carousel-container {
-                max-width: 100%;
-                margin: 1rem 0;
-            }
-            .carousel-prev {
-                left: 0;
-            }
-            .carousel-next {
-                right: 0;
+            .carousel img {
+                height: 200px;
             }
         }
     </style>
-</head>
-<body class="bg-gray-100">
-    <!-- Header -->
-    <header class="bg-gray-900 text-white shadow-md">
-        <div class="container mx-auto header-container">
-            <div class="header-left">
-                <div class="logo-container">
-                    <img src="assets/images/logo.png" alt="SafetyHelp Logo">
-                    <p class="tagline">Safety Personalized, Compliance Simplified—Anytime, Anywhere</p>
-                </div>
-            </div>
-            <div class="nav-links">
-                <a href="/safety-plans/index.html">Home</a>
-                <a href="/safety-plans/resources.html">Resources</a>
-                <a href="/safety-plans/services.html">Services</a>
-                <a href="/safety-plans/community.html">Community</a>
-                <a href="/safety-plans/about.html">About</a>
-                <a href="/safety-plans/contact.html">Contact</a>
-            </div>
-            <div class="header-right">
-                <div class="search-language-container">
-                    <div class="language-selector">
-                        <select id="language-select" aria-label="Select language">
-                            <option value="en">English</option>
-                            <option value="af">Afrikaans</option>
-                            <option value="zu">isiZulu</option>
-                            <option value="xh">isiXhosa</option>
-                            <option value="st">Sesotho</option>
-                            <option value="tn">Setswana</option>
-                            <option value="nso">Sepedi</option>
-                            <option value="ts">Xitsonga</option>
-                            <option value="ss">siSwati</option>
-                            <option value="ve">Tshivenda</option>
-                            <option value="nr">isiNdebele</option>
-                            <option value="es">Español</option>
-                            <option value="fr">French</option>
-                            <option value="sn">Shona</option>
-                            <option value="sw">Swahili</option>
-                            <option value="zh">Mandarin</option>
-                        </select>
-                    </div>
-                    <div class="search-bar">
-                        <form role="search" class="flex">
-                            <input type="text" placeholder="Search OHS Tools..." aria-label="Search OHS Tools" class="px-3 py-1 border border-gray-300 rounded-l text-gray-800">
-                            <button type="submit" aria-label="Search" class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
-        <ul class="space-y-2">
-            <li><a href="/safety-plans/pages/construction-compliance.html" data-i18n="sidebar.construction_safety">Construction Safety</a></li>
-            <li><a href="/safety-plans/pages/emergency-response-plan.html" data-i18n="sidebar.emergency_planning">Emergency Planning</a></li>
-            <li><a href="/safety-plans/pages/risk-assessment.html" data-i18n="sidebar.risk_assessment">Risk Assessment</a></li>
-            <li><a href="/safety-plans/pages/legal-appointments.html" data-i18n="sidebar.legal_appointments">Legal Appointments</a></li>
-            <li><a href="/safety-plans/pages/incident-management.html" data-i18n="sidebar.incident_management">Incident Management</a></li>
-            <li><a href="/safety-plans/pages/training.html" data-i18n="sidebar.training">Training</a></li>
-            <li><a href="/safety-plans/pages/inspections-audits.html" data-i18n="sidebar.inspections_audits">Inspections & Audits</a></li>
-            <li><a href="/safety-plans/pages/suppliers.html" data-i18n="sidebar.suppliers">Suppliers</a></li>
-            <li><a href="/safety-plans/pages/legislation.html" data-i18n="sidebar.legislation">Legislation</a></li>
-            <li><a href="/safety-plans/pages/community-tools.html" data-i18n="sidebar.community_tools">Community Tools</a></li>
-            <li><a href="/safety-plans/pages/member-dashboard.html" data-i18n="sidebar.member_dashboard">Member Dashboard</a></li>
-            <li><a href="/safety-plans/pages/ohs-system.html" data-i18n="sidebar.ohs_system">OHS System</a></li>
-        </ul>
-        <div class="step-info">
-            <h3 data-i18n="sidebar.step_0.title">📜 Welcome to SafetyHelp</h3>
-            <p data-i18n="sidebar.step_0.description" class="text-sm mb-3">Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.</p>
-            <p class="fun-fact text-sm" data-i18n="sidebar.step_0.fun_fact">⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?</p>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Intro Section -->
-        <section class="intro">
-            <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
-            <p class="text-gray-600 mb-4">
-                At Salatiso OHS Tools, we aim to make OHS compliance easy and accessible, empowering communities to improve health and safety everywhere—from homes to churches, spaza shops to traditional ceremonies.
-                <a href="#" class="text-blue-500 hover:underline ml-2" id="toggleIntro">Read More</a>
-            </p>
-            <div id="introMoreContent" class="intro-content text-gray-600 mb-4">
-                Our vision is to create a safer world by providing tools and resources that simplify compliance and foster a culture of safety. In the future, we plan to introduce mentorship programs, professional profiles, skills and job listings for candidates and employers, and collaboration opportunities to further enhance community safety. Join us in this mission by sharing your ideas and exploring partnership possibilities!
-            </div>
-
-            <div class="mb-8">
-                <div id="carouselInner">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Salatiso</h3>
-                        <p class="text-gray-600 mb-4">Explore our core platform dedicated to innovative OHS solutions and community empowerment.</p>
-                        <a href="#" class="text-blue-500 hover:underline" onclick="toggleMoreInfo('salatisoMore')">More Info</a>
-                        <div id="salatisoMore" class="intro-content text-gray-600">
-                            Salatiso.com is the foundation of our mission, offering tools and resources to enhance occupational health and safety across various sectors. Visit us to learn more about our initiatives and how you can get involved.
-                            <a href="https://salatiso.com/" target="_blank" class="text-blue-500 hover:underline block mt-2">Visit Salatiso.com</a>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Sazi Life</h3>
-                        <p class="text-gray-600 mb-4">Discover a platform focused on holistic wellness, safety education, and community support.</p>
-                        <a href="#" class="text-blue-500 hover:underline" onclick="toggleMoreInfo('saziMore')">More Info</a>
-                        <div id="saziMore" class="intro-content text-gray-600">
-                            Sazi.life promotes a balanced approach to safety and well-being, providing educational content and community-driven initiatives to foster safer living environments. Check it out to see how you can contribute to a safer lifestyle.
-                            <a href="https://sazi.life/" target="_blank" class="text-blue-500 hover:underline block mt-2">Visit Sazi.life</a>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Flamea</h3>
-                        <p class="text-gray-600 mb-4">Learn about our initiatives to ignite change through safety advocacy and education.</p>
-                        <a href="#" class="text-blue-500 hover:underline" onclick="toggleMoreInfo('flameaMore')">More Info</a>
-                        <div id="flameaMore" class="intro-content text-gray-600">
-                            Flamea.org is dedicated to sparking change by advocating for safety education and awareness. Join our movement to make safety a priority in every aspect of life.
-                            <a href="https://flamea.org/" target="_blank" class="text-blue-500 hover:underline block mt-2">Visit Flamea.org</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <form class="mt-8 space-y-4" id="contactForm" action="mailto:salatiso@salatiso.com?cc=salatiso.mdeni@gmail.com" method="post" enctype="text/plain">
-                <h3 class="text-xl font-semibold text-gray-700 mb-3">Join Us in Making a Difference</h3>
-                <p class="text-gray-600 mb-4">
-                    Your voice matters! Share your comments, suggestions, or inquire about book discounts below. We also welcome collaboration opportunities to further our mission of enhancing safety. By contributing, you’re helping build safer communities—thank you for being part of this journey!
-                </p>
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                <div>
-                    <label for="email_contact" class="block text-sm font-medium text-gray-700">Email (Optional)</label>
-                    <input type="email" id="email_contact" name="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    <div class="mt-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" id="emailConsent" name="emailConsent" class="mr-2">
-                            <span class="text-sm text-gray-600">I consent to providing my email for feedback purposes. I understand that without an email, feedback cannot be provided.</span>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Share your comments, suggestions, book discount inquiries, or collaboration ideas..."></textarea>
-                </div>
-                <div>
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Carousel Section -->
-        <div class="carousel-container">
-            <div class="carousel-item active" data-index="0">
-                <h4>🌍 Prehistoric Era: Early OHS Practices</h4>
-                <p>Early humans used communal knowledge to train hunters on safe tool use, minimizing injuries.</p>
-            </div>
-            <div class="carousel-item" data-index="1">
-                <h4>🏹 3000 BCE: Ancient Egypt OHS</h4>
-                <p>Egyptian pyramid builders used ramps to reduce lifting injuries, an early ergonomic practice.</p>
-            </div>
-            <div class="carousel-item" data-index="2">
-                <h4>⚒️ 1800 BCE: Babylonian Code of Hammurabi</h4>
-                <p>The Code of Hammurabi included laws on workplace accountability, like penalties for builders if structures collapsed.</p>
-            </div>
-            <div class="carousel-item" data-index="3">
-                <h4>🩺 400 BCE: Hippocrates on Lead Poisoning</h4>
-                <p>Greek physician Hippocrates described lead poisoning in miners, an early recognition of occupational disease.</p>
-            </div>
-            <div class="carousel-item" data-index="4">
-                <h4>🏺 200 BCE: Roman OHS Innovations</h4>
-                <p>Romans used aqueducts to reduce worker exposure to contaminated water, improving health on construction sites.</p>
-            </div>
-            <div class="carousel-item" data-index="5">
-                <h4>🌿 Pre-1652: Precolonial South Africa OHS</h4>
-                <p>Bantu and Khoisan communities used medicinal plants like aloe to treat work-related injuries.</p>
-            </div>
-            <div class="carousel-item" data-index="6">
-                <h4>🪓 Pre-1652: Task Rotation in South Africa</h4>
-                <p>Indigenous South Africans practiced task rotation in agriculture to reduce fatigue and injury risks.</p>
-            </div>
-            <div class="carousel-item" data-index="7">
-                <h4>⚒️ 1652: Dutch East India Company in Cape Town</h4>
-                <p>The Dutch introduced European trades like carpentry, bringing new workplace hazards to South Africa.</p>
-            </div>
-            <div class="carousel-item" data-index="8">
-                <h4>⛏️ 1867: Mineral Revolution in South Africa</h4>
-                <p>Diamond discovery in Hopetown led to deep-shaft mining, exposing workers to cave-ins and silica dust.</p>
-            </div>
-            <div class="carousel-item" data-index="9">
-                <h4>🪨 1871: Kimberley Deep-Shaft Mining Risks</h4>
-                <p>Kimberley mines introduced risks like toxic gas exposure, with over 50,000 workers affected by 1875.</p>
-            </div>
-            <div class="carousel-item" data-index="10">
-                <h4>🏭 1886: Witwatersrand Gold Rush</h4>
-                <p>The gold rush in Johannesburg led to over 1,000 annual fatalities by 1904 due to rockfalls and explosions.</p>
-            </div>
-            <div class="carousel-item" data-index="11">
-                <h4>🛠️ 1886: Industrial OHS in South Africa</h4>
-                <p>Factories in Cape Town and Johannesburg introduced risks like machinery entanglement and chemical burns.</p>
-            </div>
-            <div class="carousel-item" data-index="12">
-                <h4>🌍 1893: Migrant Labour System in South Africa</h4>
-                <p>The Chamber of Mines created a migrant labour system, exposing black workers to hazardous jobs.</p>
-            </div>
-            <div class="carousel-item" data-index="13">
-                <h4>📜 1911: Mines and Works Act in South Africa</h4>
-                <p>South Africa’s first OHS framework mandated mine inspectors but enforced a “colour bar” limiting safety roles to white workers.</p>
-            </div>
-            <div class="carousel-item" data-index="14">
-                <h4>🩺 1912: Silicosis Compensation in South Africa</h4>
-                <p>Temporary compensation for silicosis was introduced, with over 20% of miners affected by 1920.</p>
-            </div>
-            <div class="carousel-item" data-index="15">
-                <h4>🚨 1932: Safety First Association in South Africa</h4>
-                <p>Sir Ernest Oppenheimer founded the Safety First Association to promote accident prevention in mines.</p>
-            </div>
-            <div class="carousel-item" data-index="16">
-                <h4>🌍 1948: ILO Convention 81 on Labour Inspection</h4>
-                <p>The ILO’s Labour Inspection Convention influenced South Africa to strengthen workplace safety oversight.</p>
-            </div>
-            <div class="carousel-item" data-index="17">
-                <h4>🩺 1973: Occupational Diseases Act in South Africa</h4>
-                <p>Compensation for diseases like silicosis and asbestosis was consolidated, effective October 1973.</p>
-            </div>
-            <div class="carousel-item" data-index="18">
-                <h4>📋 1976: Erasmus Commission on OHS</h4>
-                <p>The Erasmus Commission examined OHS shortcomings across South African industries, highlighting enforcement gaps.</p>
-            </div>
-            <div class="carousel-item" data-index="19">
-                <h4>🪖 1982: National Union of Mineworkers (NUM)</h4>
-                <p>NUM was founded, advocating for better mine safety and black workers’ rights under apartheid.</p>
-            </div>
-            <div class="carousel-item" data-index="20">
-                <h4>📉 1980s: Job Insecurity in South Africa</h4>
-                <p>High unemployment and sanctions increased job insecurity, deterring workers from demanding safer conditions.</p>
-            </div>
-            <div class="carousel-item" data-index="21">
-                <h4>📊 1987: Manpower Survey in South Africa</h4>
-                <p>The survey highlighted hazardous job concentration among non-white workers, exacerbating OHS risks.</p>
-            </div>
-            <div class="carousel-item" data-index="22">
-                <h4>📜 1992: IOHSA in South Africa</h4>
-                <p>The Institute of Occupational Hygienists of Southern Africa was formed, professionalizing OHS.</p>
-            </div>
-            <div class="carousel-item" data-index="23">
-                <h4>📋 1993: OHS Act in South Africa</h4>
-                <p>The Occupational Health and Safety Act introduced universal OHS frameworks, including risk assessments.</p>
-            </div>
-            <div class="carousel-item" data-index="24">
-                <h4>🩺 1993: COIDA in South Africa</h4>
-                <p>The Compensation for Occupational Injuries and Diseases Act provided compensation across industries.</p>
-            </div>
-            <div class="carousel-item" data-index="25">
-                <h4>👥 1994: Gender Integration in South Africa</h4>
-                <p>Post-apartheid workplace gender integration increased women’s exposure to OHS risks in male-dominated sectors.</p>
-            </div>
-            <div class="carousel-item" data-index="26">
-                <h4>👩‍🏭 1995: Women in Mining</h4>
-                <p>Women faced ergonomic and psychosocial hazards in South African mines, often in low-skilled roles.</p>
-            </div>
-            <div class="carousel-item" data-index="27">
-                <h4>📜 1996: Mine Health and Safety Act</h4>
-                <p>South Africa strengthened mine safety with mandatory accident reporting and inspectorate powers.</p>
-            </div>
-            <div class="carousel-item" data-index="28">
-                <h4>⚖️ 1996: SA Constitution and OHS</h4>
-                <p>The South African Constitution enshrined the right to a safe work environment in the Bill of Rights.</p>
-            </div>
-            <div class="carousel-item" data-index="29">
-                <h4>🌍 1997: SADC HIV Programs</h4>
-                <p>Southern African mines introduced HIV prevention programs, but they had limited OHS impact.</p>
-            </div>
-            <div class="carousel-item" data-index="30">
-                <h4>🌍 1999: Global OHS Research Gap</h4>
-                <p>Leading OHS journals focused on workplace issues, often neglecting developing countries like South Africa.</p>
-            </div>
-            <div class="carousel-item" data-index="31">
-                <h4>⚖️ 2000: Lubbe v Cape plc</h4>
-                <p>SA asbestos victims sued UK companies, setting a global precedent for corporate OHS accountability.</p>
-            </div>
-            <div class="carousel-item" data-index="32">
-                <h4>📜 2001: King II Report in South Africa</h4>
-                <p>The King II Report integrated OHS into corporate governance, emphasizing social responsibility.</p>
-            </div>
-            <div class="carousel-item" data-index="33">
-                <h4>📉 2001-2020: Inconsistent OHS Data</h4>
-                <p>South Africa’s lack of a national OHS surveillance system led to inconsistent occupational disease reporting.</p>
-            </div>
-            <div class="carousel-item" data-index="34">
-                <h4>🛠️ 2003: Informal Labour in Kenya</h4>
-                <p>Kenyan informal workers faced unsafe conditions, a trend mirrored in South Africa’s informal sector.</p>
-            </div>
-            <div class="carousel-item" data-index="35">
-                <h4>📜 2004: Companies Act and OHS</h4>
-                <p>South Africa’s Companies Act began emphasizing OHS in corporate responsibility frameworks.</p>
-            </div>
-            <div class="carousel-item" data-index="36">
-                <h4>📉 2008: Rising Unemployment in South Africa</h4>
-                <p>Unemployment exceeded 30%, driving workers into hazardous informal jobs with poor OHS standards.</p>
-            </div>
-            <div class="carousel-item" data-index="37">
-                <h4>📜 2009: King III Report and ESG</h4>
-                <p>King III integrated OHS into ESG frameworks, urging companies to prioritize workplace safety.</p>
-            </div>
-            <div class="carousel-item" data-index="38">
-                <h4>🌍 2010: ILO WISE Program Influence</h4>
-                <p>The ILO’s WISE program influenced South African small enterprises to adopt practical OHS improvements.</p>
-            </div>
-            <div class="carousel-item" data-index="39">
-                <h4>⛏️ 2011: Artisanal Mining in Africa</h4>
-                <p>Artisanal mining exposed workers to dust and fumes, impacting South African Zama Zamas similarly.</p>
-            </div>
-            <div class="carousel-item" data-index="40">
-                <h4>🛒 2012: Spaza Shops OHS Risks</h4>
-                <p>South African spaza shops faced OHS issues like poor ventilation and fire hazards in informal settings.</p>
-            </div>
-            <div class="carousel-item" data-index="41">
-                <h4>🔋 2013: Green Tech Mining Concerns</h4>
-                <p>Cobalt mining for EV batteries in the DRC exposed workers to toxic chemicals, influencing SA’s green tech OHS debates.</p>
-            </div>
-            <div class="carousel-item" data-index="42">
-                <h4>🌍 2014: E-Waste Dumping in Africa</h4>
-                <p>E-waste dumping in West Africa released toxins, impacting SA workers through similar disposal practices.</p>
-            </div>
-            <div class="carousel-item" data-index="43">
-                <h4>⛏️ 2015: Zama Zamas in South Africa</h4>
-                <p>Over 30,000 Zama Zamas operated in 6,000 abandoned SA mines, facing unsupported tunnels and gas risks.</p>
-            </div>
-            <div class="carousel-item" data-index="44">
-                <h4>🚨 2016: Crime and OHS in South Africa</h4>
-                <p>Violent crime in SA mining towns exposed security guards to OHS risks like assault and trauma.</p>
-            </div>
-            <div class="carousel-item" data-index="45">
-                <h4>🌍 2017: Global Initiative on Zama Zamas</h4>
-                <p>A report highlighted crime in SA’s Zama Zama sector, including gang violence affecting worker safety.</p>
-            </div>
-            <div class="carousel-item" data-index="46">
-                <h4>⚖️ 2018: PSA obo Members v Minister</h4>
-                <p>A case reaffirmed employer duty under SA’s OHS Act after unsafe government building conditions were reported.</p>
-            </div>
-            <div class="carousel-item" data-index="47">
-                <h4>👩 2019: Gender Discrimination in Zama Zamas</h4>
-                <p>Female Zama Zamas faced sexual abuse and restricted site access, increasing their OHS vulnerabilities.</p>
-            </div>
-            <div class="carousel-item" data-index="48">
-                <h4>🌱 2020: Green Tech Disposal Risks</h4>
-                <p>Disposal of rare earth elements for green tech in SA raised OHS concerns like chemical exposure.</p>
-            </div>
-            <div class="carousel-item" data-index="49">
-                <h4>📉 2021: Unemployment and Informal Work</h4>
-                <p>SA’s unemployment rate hit 45%, pushing workers into unsafe informal roles with minimal OHS protections.</p>
-            </div>
-            <button class="carousel-prev">❮</button>
-            <button class="carousel-next">❯</button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container mx-auto px-6 text-center">
-            <p class="mb-2">© 2025 SafetyHelp. All rights reserved.</p>
-            <p class="mb-4">
-                <a href="/safety-plans/privacy.html" class="mx-2">Privacy Policy</a> |
-                <a href="/safety-plans/terms.html" class="mx-2">Terms of Service</a> |
-                <a href="/safety-plans/contact.html" class="mx-2">Contact Us</a>
-            </p>
-            <div class="newsletter mt-6">
-                <h3 class="text-lg font-semibold mb-3">Stay Updated</h3>
-                <form class="flex justify-center">
-                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-                    <button type="submit" class="px-4 py-2 rounded-r">Subscribe</button>
-                </form>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal for Carousel Detailed Info -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">×</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <!-- Chatbot Container -->
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> Ask Me
-        </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
-            <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
-            </div>
-            <div id="chat-input-container" class="flex border-t border-gray-200">
-                <input id="chat-input" type="text" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" class="px-4 py-2">Send</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script>
-        // Translation Initialization with Debugging
-        document.addEventListener('DOMContentLoaded', async () => {
-            const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
-            const resources = {};
-
-            // Load English translations as a fallback
-            const defaultTranslations = {
-                "sidebar.ohs_tools": "SafetyHelp OHS Tools",
-                "sidebar.construction_safety": "Construction Safety",
-                "sidebar.emergency_planning": "Emergency Planning",
-                "sidebar.risk_assessment": "Risk Assessment",
-                "sidebar.legal_appointments": "Legal Appointments",
-                "sidebar.incident_management": "Incident Management",
-                "sidebar.training": "Training",
-                "sidebar.inspections_audits": "Inspections & Audits",
-                "sidebar.suppliers": "Suppliers",
-                "sidebar.legislation": "Legislation",
-                "sidebar.community_tools": "Community Tools",
-                "sidebar.member_dashboard": "Member Dashboard",
-                "sidebar.ohs_system": "OHS System",
-                "sidebar.step_0.title": "📜 Welcome to SafetyHelp",
-                "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
-                "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?"
-            };
-            resources['en'] = { translation: defaultTranslations };
-
-            // Attempt to load translations for all languages
-            for (const lang of languages) {
-                if (lang === 'en') continue; // Skip English as it's already added
-                try {
-                    const response = await fetch(`/safety-plans/assets/locales/${lang}/translation.json`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    resources[lang] = { translation: data };
-                    console.log(`Loaded translations for ${lang}:`, data);
-                } catch (error) {
-                    console.error(`Failed to load translations for ${lang}:`, error);
-                    // Fallback to English for this language
-                    resources[lang] = { translation: defaultTranslations };
-                }
-            }
-
-            if (Object.keys(resources).length === 0) {
-                console.error("No translation files loaded. Using default English translations.");
-            }
-
-            await i18next.init({
-                lng: 'en',
-                resources,
-                fallbackLng: 'en',
-                debug: true
-            });
-
-            updateContent();
-
-            document.getElementById('language-select').addEventListener('change', (e) => {
-                i18next.changeLanguage(e.target.value, (err) => {
-                    if (err) {
-                        console.error('Error changing language:', err);
-                        return;
-                    }
-                    updateContent();
-                });
-            });
-        });
-
-        function updateContent() {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                const translation = i18next.t(key);
-                if (translation === key) {
-                    console.warn(`Translation missing for key: ${key}`);
-                }
-                element.textContent = translation;
-                console.log(`Translating ${key} to ${translation}`);
-            });
-        }
-
-        // Carousel Randomization and Functionality
-        const carouselItems = document.querySelectorAll('.carousel-item');
-        const prevBtn = document.querySelector('.carousel-prev');
-        const nextBtn = document.querySelector('.carousel-next');
-
-        // Randomize the initial item on page load
-        let currentIndex = Math.floor(Math.random() * carouselItems.length);
-
-        function showItem(index) {
-            carouselItems.forEach(item => item.classList.remove('active'));
-            carouselItems[index].classList.add('active');
-        }
-
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-            showItem(currentIndex);
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % carouselItems.length;
-            showItem(currentIndex);
-        });
-
-        // Initial display
-        showItem(currentIndex);
-
-        // Modal for Carousel Items
-        const modal = document.getElementById('modal');
-        const modalBody = document.getElementById('modal-body');
-        const closeBtn = document.querySelector('.close-btn');
-
-        const detailedContent = [
-            {
-                title: '🌍 Prehistoric Era: Early OHS Practices',
-                summary: 'Early humans used communal knowledge to train hunters on safe tool use, minimizing injuries.',
-                details: 'Prehistoric communities globally relied on oral traditions to pass down safety practices, such as safe hunting techniques and the use of natural remedies for injuries, laying the foundation for OHS.',
-                link: 'https://www.sahistory.org.za/article/indigenous-knowledge-systems'
-            },
-            {
-                title: '🏹 3000 BCE: Ancient Egypt OHS',
-                summary: 'Egyptian pyramid builders used ramps to reduce lifting injuries, an early ergonomic practice.',
-                details: 'Ancient Egyptians implemented ramps and sledges to move heavy stones, reducing physical strain and setting a precedent for ergonomic considerations in labor-intensive work.',
-                link: 'https://www.history.com/topics/ancient-egypt/the-egyptian-pyramids'
-            },
-            {
-                title: '⚒️ 1800 BCE: Babylonian Code of Hammurabi',
-                summary: 'The Code of Hammurabi included laws on workplace accountability, like penalties for builders if structures collapsed.',
-                details: 'One of the earliest legal codes, the Code of Hammurabi held builders accountable for structural failures, marking an early step in workplace responsibility.',
-                link: 'https://www.britannica.com/topic/Code-of-Hammurabi'
-            },
-            {
-                title: '🩺 400 BCE: Hippocrates on Lead Poisoning',
-                summary: 'Greek physician Hippocrates described lead poisoning in miners, an early recognition of occupational disease.',
-                details: 'Hippocrates noted symptoms like abdominal pain in miners, linking lead exposure to health issues and influencing later OHS awareness globally.',
-                link: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1039204/'
-            },
-            {
-                title: '🏺 200 BCE: Roman OHS Innovations',
-                summary: 'Romans used aqueducts to reduce worker exposure to contaminated water, improving health on construction sites.',
-                details: 'Roman engineering provided clean water via aqueducts, reducing waterborne diseases among workers and setting a standard for environmental health in OHS.',
-                link: 'https://www.ancient.eu/Roman_Aqueducts/'
-            },
-            {
-                title: '🌿 Pre-1652: Precolonial South Africa OHS',
-                summary: 'Bantu and Khoisan communities used medicinal plants like aloe to treat work-related injuries.',
-                details: 'Indigenous South Africans used natural remedies and communal knowledge to address injuries from hunting and farming, showcasing early OHS practices.',
-                link: 'https://www.sahistory.org.za/article/indigenous-knowledge-systems'
-            },
-            {
-                title: '🪓 Pre-1652: Task Rotation in South Africa',
-                summary: 'Indigenous South Africans practiced task rotation in agriculture to reduce fatigue and injury risks.',
-                details: 'Task rotation among Bantu communities minimized repetitive strain injuries, a practice that aligns with modern ergonomic principles in OHS.',
-                link: 'https://www.sahistory.org.za/article/indigenous-knowledge-systems'
-            },
-            {
-                title: '⚒️ 1652: Dutch East India Company in Cape Town',
-                summary: 'The Dutch introduced European trades like carpentry, bringing new workplace hazards to South Africa.',
-                details: 'The arrival of the Dutch East India Company introduced carpentry and masonry, exposing workers to new risks like tool injuries and dust exposure.',
-                link: 'https://www.sahistory.org.za/article/dutch-east-india-company-voc'
-            },
-            {
-                title: '⛏️ 1867: Mineral Revolution in South Africa',
-                summary: 'Diamond discovery in Hopetown led to deep-shaft mining, exposing workers to cave-ins and silica dust.',
-                details: 'Erasmus Jacobs’ discovery sparked mass labor migration, with workers facing deadly risks like cave-ins and silicosis from silica dust exposure.',
-                link: 'https://www.sahistory.org.za/article/mineral-revolution'
-            },
-            {
-                title: '🪨 1871: Kimberley Deep-Shaft Mining Risks',
-                summary: 'Kimberley mines introduced risks like toxic gas exposure, with over 50,000 workers affected by 1875.',
-                details: 'Deep-shaft mining in Kimberley led to carbon monoxide poisoning and cave-ins, with over 50,000 workers exposed by 1875, highlighting early OHS challenges.',
-                link: 'https://www.sahistory.org.za/article/mineral-revolution'
-            },
-            {
-                title: '🏭 1886: Witwatersrand Gold Rush',
-                summary: 'The gold rush in Johannesburg led to over 1,000 annual fatalities by 1904 due to rockfalls and explosions.',
-                details: 'The Witwatersrand gold rush established Johannesburg as a mining hub, but poor safety led to over 1,000 deaths yearly by 1904 from preventable accidents.',
-                link: 'https://www.dmr.gov.za/mine-health-and-safety'
-            },
-            {
-                title: '🛠️ 1886: Industrial OHS in South Africa',
-                summary: 'Factories in Cape Town and Johannesburg introduced risks like machinery entanglement and chemical burns.',
-                details: 'Early factories brought new OHS hazards like entanglement in machinery and exposure to chemicals, with little regulation to protect workers.',
-                link: 'https://www.sahistory.org.za/article/industrialisation-south-africa'
-            },
-            {
-                title: '🌍 1893: Migrant Labour System in South Africa',
-                summary: 'The Chamber of Mines created a migrant labour system, exposing black workers to hazardous jobs.',
-                details: 'The migrant labour system entrenched racial disparities, assigning black workers to the most dangerous mining tasks with minimal safety protections.',
-                link: 'https://www.sahistory.org.za/article/migrant-labour-system'
-            },
-            {
-                title: '📜 1911: Mines and Works Act in South Africa',
-                summary: 'South Africa’s first OHS framework mandated mine inspectors but enforced a “colour bar” limiting safety roles to white workers.',
-                details: 'The Act introduced ventilation standards and banned hazardous practices, but racial policies increased risks for black workers.',
-                link: 'https://en.wikipedia.org/wiki/Mines_and_Works_Act'
-            },
-            {
-                title: '🩺 1912: Silicosis Compensation in South Africa',
-                summary: 'Temporary compensation for silicosis was introduced, with over 20% of miners affected by 1920.',
-                details: 'Silicosis affected over 20% of South African miners by 1920, prompting temporary compensation schemes to address occupational lung disease.',
-                link: 'https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1748-0361.2007.00114.x'
-            },
-            {
-                title: '🚨 1932: Safety First Association in South Africa',
-                summary: 'Sir Ernest Oppenheimer founded the Safety First Association to promote accident prevention in mines.',
-                details: 'The Safety First Association launched campaigns and training, laying the groundwork for modern safety culture in South African workplaces.',
-                link: 'https://safety1st.co.za/about-us/'
-            },
-            {
-                title: '🌍 1948: ILO Convention 81 on Labour Inspection',
-                summary: 'The ILO’s Labour Inspection Convention influenced South Africa to strengthen workplace safety oversight.',
-                details: 'ILO Convention 81 emphasized the need for robust labour inspections, pushing South Africa to improve OHS enforcement mechanisms.',
-                link: 'https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C081'
-            },
-            {
-                title: '🩺 1973: Occupational Diseases Act in South Africa',
-                summary: 'Compensation for diseases like silicosis and asbestosis was consolidated, effective October 1973.',
-                details: 'The Act streamlined compensation for occupational diseases, addressing long-standing issues like silicosis in South African mines.',
-                link: 'https://www.gov.za/documents/occupational-diseases-mines-and-works-act'
-            },
-            {
-                title: '📋 1976: Erasmus Commission on OHS',
-                summary: 'The Erasmus Commission examined OHS shortcomings across South African industries, highlighting enforcement gaps.',
-                details: 'The Commission revealed poor enforcement and unsafe conditions, calling for stronger OHS regulations across sectors.',
-                link: 'https://www.sciencedirect.com/science/article/abs/pii/027795368190142X'
-            },
-            {
-                title: '🪖 1982: National Union of Mineworkers (NUM)',
-                summary: 'NUM was founded, advocating for better mine safety and black workers’ rights under apartheid.',
-                details: 'NUM’s advocacy led to improved safety standards and highlighted racial disparities in OHS protections.',
-                link: 'https://www.num.org.za/About-Us/History'
-            },
-            {
-                title: '📉 1980s: Job Insecurity in South Africa',
-                summary: 'High unemployment and sanctions increased job insecurity, deterring workers from demanding safer conditions.',
-                details: 'Economic pressures and sanctions made workers reluctant to report OHS violations, fearing job loss.',
-                link: 'https://www.sahistory.org.za/article/economic-sanctions-against-apartheid'
-            },
-            {
-                title: '📊 1987: Manpower Survey in South Africa',
-                summary: 'The survey highlighted hazardous job concentration among non-white workers, exacerbating OHS risks.',
-                details: 'Non-white workers were disproportionately assigned to dangerous roles, increasing their exposure to OHS hazards.',
-                link: 'https://www.sciencedirect.com/science/article/abs/pii/027795368190142X'
-            },
-            {
-                title: '📜 1992: IOHSA in South Africa',
-                summary: 'The Institute of Occupational Hygienists of Southern Africa was formed, professionalizing OHS.',
-                details: 'IOHSA’s formation marked a step toward professionalizing OHS practices and improving workplace safety standards.',
-                link: 'https://www.occhealth.co.za/about-us'
-            },
-            {
-                title: '📋 1993: OHS Act in South Africa',
-                summary: 'The Occupational Health and Safety Act introduced universal OHS frameworks, including risk assessments.',
-                details: 'The Act mandated risk assessments and safety committees, revolutionizing workplace safety in South Africa.',
-                link: 'https://www.gov.za/documents/occupational-health-and-safety-act'
-            },
-            {
-                title: '🩺 1993: COIDA in South Africa',
-                summary: 'The Compensation for Occupational Injuries and Diseases Act provided compensation across industries.',
-                details: 'COIDA ensured workers in all sectors could claim compensation for workplace injuries and diseases.',
-                link: 'https://www.gov.za/documents/compensation-occupational-injuries-and-diseases-act'
-            },
-            {
-                title: '👥 1994: Gender Integration in South Africa',
-                summary: 'Post-apartheid workplace gender integration increased women’s exposure to OHS risks in male-dominated sectors.',
-                details: 'Women entering mining and construction faced ergonomic hazards and discrimination, necessitating new OHS policies.',
-                link: 'https://www.sahistory.org.za/article/women-and-work-post-1994'
-            },
-            {
-                title: '👩‍🏭 1995: Women in Mining',
-                summary: 'Women faced ergonomic and psychosocial hazards in South African mines, often in low-skilled roles.',
-                details: 'Women miners dealt with ill-fitting equipment and harassment, highlighting the need for gender-specific OHS measures.',
-                link: 'https://www.scielosp.org/article/bwho/2001.v79n9/863-868/en/'
-            },
-            {
-                title: '📜 1996: Mine Health and Safety Act',
-                summary: 'South Africa strengthened mine safety with mandatory accident reporting and inspectorate powers.',
-                details: 'The Act improved safety oversight by mandating reporting and empowering inspectors to enforce regulations.',
-                link: 'https://www.dmr.gov.za/mine-health-and-safety'
-            },
-            {
-                title: '⚖️ 1996: SA Constitution and OHS',
-                summary: 'The South African Constitution enshrined the right to a safe work environment in the Bill of Rights.',
-                details: 'This constitutional right provided a legal basis for enforcing OHS standards across all workplaces.',
-                link: 'https://www.gov.za/documents/constitution-republic-south-africa-1996'
-            },
-            {
-                title: '🌍 1997: SADC HIV Programs',
-                summary: 'Southern African mines introduced HIV prevention programs, but they had limited OHS impact.',
-                details: 'While HIV programs addressed health, they often overlooked broader OHS issues like workplace safety.',
-                link: 'https://www.sciencedirect.com/science/article/abs/pii/027795368190142X'
-            },
-            {
-                title: '🌍 1999: Global OHS Research Gap',
-                summary: 'Leading OHS journals focused on workplace issues, often neglecting developing countries like South Africa.',
-                details: 'Research gaps limited the global understanding of OHS challenges in developing regions like South Africa.',
-                link: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1446872/'
-            },
-            {
-                title: '⚖️ 2000: Lubbe v Cape plc',
-                summary: 'SA asbestos victims sued UK companies, setting a global precedent for corporate OHS accountability.',
-                details: 'The case allowed compensation for thousands of SA workers, highlighting the need for global OHS standards.',
-                link: 'https://en.wikipedia.org/wiki/Lubbe_v_Cape_plc'
-            },
-            {
-                title: '📜 2001: King II Report in South Africa',
-                summary: 'The King II Report integrated OHS into corporate governance, emphasizing social responsibility.',
-                details: 'King II urged companies to prioritize OHS as part of ethical governance, influencing SA business practices.',
-                link: 'https://www.iodsa.co.za/page/KingII'
-            },
-            {
-                title: '📉 2001-2020: Inconsistent OHS Data',
-                summary: 'South Africa’s lack of a national OHS surveillance system led to inconsistent occupational disease reporting.',
-                details: 'Without a surveillance system, SA struggled to track occupational diseases like noise-induced hearing loss.',
-                link: 'https://www.mdpi.com/2071-1050/14/17/10464'
-            },
-            {
-                title: '🛠️ 2003: Informal Labour in Kenya',
-                summary: 'Kenyan informal workers faced unsafe conditions, a trend mirrored in South Africa’s informal sector.',
-                details: 'Informal workers lacked protective equipment, a common issue in SA’s informal workplaces like spaza shops.',
-                link: 'https://academic.oup.com/annweh/article/50/5/445/149350'
-            },
-            {
-                title: '📜 2004: Companies Act and OHS',
-                summary: 'South Africa’s Companies Act began emphasizing OHS in corporate responsibility frameworks.',
-                details: 'The Act encouraged companies to integrate OHS into their operations, aligning with global standards.',
-                link: 'https://www.gov.za/documents/companies-act'
-            },
-            {
-                title: '📉 2008: Rising Unemployment in South Africa',
-                summary: 'Unemployment exceeded 30%, driving workers into hazardous informal jobs with poor OHS standards.',
-                details: 'High unemployment pushed workers into unsafe informal roles, increasing OHS risks like injuries and stress.',
-                link: 'https://www.trade.gov/country-commercial-guides/south-africa-market-challenges'
-            },
-            {
-                title: '📜 2009: King III Report and ESG',
-                summary: 'King III integrated OHS into ESG frameworks, urging companies to prioritize workplace safety.',
-                details: 'King III linked OHS to environmental, social, and governance (ESG) criteria, enhancing corporate accountability.',
-                link: 'https://www.iodsa.co.za/page/KingIII'
-            },
-            {
-                title: '🌍 2010: ILO WISE Program Influence',
-                summary: 'The ILO’s WISE program influenced South African small enterprises to adopt practical OHS improvements.',
-                details: 'The WISE program promoted low-cost safety solutions, benefiting small businesses in SA’s informal sector.',
-                link: 'https://www.ncbi.nlm.nih.gov/books/NBK224697/'
-            },
-            {
-                title: '⛏️ 2011: Artisanal Mining in Africa',
-                summary: 'Artisanal mining exposed workers to dust and fumes, impacting South African Zama Zamas similarly.',
-                details: 'Artisanal mining risks like dust exposure in Zambia mirrored those faced by SA’s Zama Zamas.',
-                link: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6358123/'
-            },
-            {
-                title: '🛒 2012: Spaza Shops OHS Risks',
-                summary: 'South African spaza shops faced OHS issues like poor ventilation and fire hazards in informal settings.',
-                details: 'Spaza shops, common in SA townships, often lacked fire safety measures, posing risks to workers and customers.',
-                link: 'https://www.scielosp.org/article/bwho/2001.v79n9/863-868/en/'
-            },
-            {
-                title: '🔋 2013: Green Tech Mining Concerns',
-                summary: 'Cobalt mining for EV batteries in the DRC exposed workers to toxic chemicals, influencing SA’s green tech OHS debates.',
-                details: 'Cobalt mining risks in the DRC raised concerns in SA about OHS in green tech mineral extraction.',
-                link: 'https://www.sciencedirect.com/science/article/pii/S2214790X22000992'
-            },
-            {
-                title: '🌍 2014: E-Waste Dumping in Africa',
-                summary: 'E-waste dumping in West Africa released toxins, impacting SA workers through similar disposal practices.',
-                details: 'E-waste in Ghana and Nigeria exposed workers to lead and noise, a growing concern for SA’s informal recyclers.',
-                link: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6358123/'
-            },
-            {
-                title: '⛏️ 2015: Zama Zamas in South Africa',
-                summary: 'Over 30,000 Zama Zamas operated in 6,000 abandoned SA mines, facing unsupported tunnels and gas risks.',
-                details: 'Zama Zamas worked in dangerous conditions, with risks like methane explosions and tunnel collapses.',
-                link: 'https://www.dailymaverick.co.za/article/2022-02-02-the-zama-zama-informal-mining-unlike-anything-else-in-the-world/'
-            },
-            {
-                title: '🚨 2016: Crime and OHS in South Africa',
-                summary: 'Violent crime in SA mining towns exposed security guards to OHS risks like assault and trauma.',
-                details: 'Crime in SA’s mining regions increased psychological stress and physical risks for security personnel.',
-                link: 'https://www.newyorker.com/magazine/2023/02/27/the-dystopian-underworld-of-south-africas-illegal-gold-mines'
-            },
-            {
-                title: '🌍 2017: Global Initiative on Zama Zamas',
-                summary: 'A report highlighted crime in SA’s Zama Zama sector, including gang violence affecting worker safety.',
-                details: 'Syndicates controlling Zama Zama operations introduced violence, increasing OHS risks like assault underground.',
-                link: 'https://www.sciencedirect.com/science/article/pii/S2214790X2300175X'
-            },
-            {
-                title: '⚖️ 2018: PSA obo Members v Minister',
-                summary: 'A case reaffirmed employer duty under SA’s OHS Act after unsafe government building conditions were reported.',
-                details: 'The case highlighted the need for government workplaces to comply with OHS standards, setting a precedent.',
-                link: 'https://www.dmr.gov.za/mine-health-and-safety'
-            },
-            {
-                title: '👩 2019: Gender Discrimination in Zama Zamas',
-                summary: 'Female Zama Zamas faced sexual abuse and restricted site access, increasing their OHS vulnerabilities.',
-                details: 'Women in Zama Zama mining endured harassment and limited safety resources, exacerbating OHS risks.',
-                link: 'https://www.dispatchlive.co.za/news/2020-01-30-female-zama-zamas-suffer-sexual-abuse-and-discrimination-in-mining/'
-            },
-            {
-                title: '🌱 2020: Green Tech Disposal Risks',
-                summary: 'Disposal of rare earth elements for green tech in SA raised OHS concerns like chemical exposure.',
-                details: 'Improper disposal of green tech materials exposed SA workers to toxins, mirroring global e-waste issues.',
-                link: 'https://www.mdpi.com/2071-1050/14/17/10464'
-            },
-            {
-                title: '📉 2021: Unemployment and Informal Work',
-                summary: 'SA’s unemployment rate hit 45%, pushing workers into unsafe informal roles with minimal OHS protections.',
-                details: 'High unemployment forced workers into informal sectors like Zama Zamas, increasing exposure to OHS hazards.',
-                link: 'https://www.trade.gov/country-commercial-guides/south-africa-market-challenges'
-            }
-        ];
-
-        carouselItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const index = item.getAttribute('data-index');
-                const content = detailedContent[index];
-                modalBody.innerHTML = `
-                    <h4>${content.title}</h4>
-                    <p>${content.details}</p>
-                    <p><a href="${content.link}" target="_blank">Learn More</a></p>
-                `;
-                modal.style.display = 'flex';
-            });
-        });
-
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Firebase and Chatbot
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID",
-            measurementId: "YOUR_MEASUREMENT_ID"
-        };
-
-        let db;
-
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-            console.log("Firebase Initialized Successfully");
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            const chatOutput = document.getElementById('chat-output');
-            if (chatOutput) {
-                chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
-            }
-            const chatInput = document.getElementById('chat-input');
-            const chatSend = document.getElementById('chat-send');
-            if (chatInput) chatInput.disabled = true;
-            if (chatSend) chatSend.disabled = true;
-        }
-
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatWindow = document.getElementById('chat-window');
-        const chatOutput = document.getElementById('chat-output');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        if (chatToggle) {
-            chatToggle.addEventListener('click', () => {
-                chatWindow.classList.toggle('chat-hidden');
-                if (!chatWindow.classList.contains('chat-hidden')) {
-                    chatInput.focus();
-                }
-            });
-        }
-
-        function addChatMessage(sender, message) {
-            if (chatOutput) {
-                const messageElement = document.createElement('p');
-                messageElement.classList.add('mb-2');
-                messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-                chatOutput.appendChild(messageElement);
-                chatOutput.scrollTop = chatOutput.scrollHeight;
-            }
-        }
-
-        async function sendQuery() {
-            if (!db) {
-                addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
-                return;
-            }
-
-            const input = chatInput.value.trim();
-            if (!input) return;
-
-            addChatMessage('You', input);
-            chatInput.value = '';
-            addChatMessage('Chatbot', 'Searching...');
-
-            const query = input.toLowerCase();
-
-            try {
-                const snapshot = await db.collection('ohs-knowledge')
-                    .where('keywords', 'array-contains', query)
-                    .limit(1)
-                    .get();
-
-                let responseFound = false;
-                let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
-
-                if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
-                        response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
-                        if (data.file) {
-                            response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
-                        }
-                        responseFound = true;
-                    });
-                }
-
-                const searchingMessage = chatOutput.querySelector('p:last-child');
-                if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
-                } else {
-                    addChatMessage('Chatbot', response);
-                }
-            } catch (error) {
-                console.error("Firestore query failed:", error);
-                const searchingMessage = chatOutput.querySelector('p:last-child');
-                if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
-                } else {
-                    addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
-                }
-            }
-        }
-
-        if (chatSend) {
-            chatSend.addEventListener('click', sendQuery);
-        }
-        if (chatInput) {
-            chatInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    sendQuery();
-                }
-            });
-        }
-
-        // Toggle more info for carousel items
-        function toggleMoreInfo(id) {
-            const element = document.getElementById(id);
-            element.classList.toggle('visible');
-        }
-
-        // Toggle introduction content
-        document.getElementById('toggleIntro').addEventListener('click', (e) => {
-            e.preventDefault();
-            const moreContent = document.getElementById('introMoreContent');
-            moreContent.classList.toggle('visible');
-            e.target.textContent = moreContent.classList.contains('visible') ? 'Read Less' : 'Read More';
-        });
-
-        // Form submission with consent validation
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            const email = document.getElementById('email_contact').value;
-            const consent = document.getElementById('emailConsent').checked;
-            if (email && !consent) {
-                e.preventDefault();
-                alert('Please consent to providing your email address to receive feedback, or leave the email field blank.');
-            }
-        });
-    </script>
 </body>
 </html>
