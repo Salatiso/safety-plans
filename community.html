@@ -281,6 +281,18 @@
                 </div>
                 <button id="seeMoreArticles" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">See More</button>
             </section>
+            <!-- Suppliers Section -->
+        <section class="suppliers">
+            <h2 data-i18n="suppliers.title" class="text-2xl font-bold mb-4">OHS Suppliers and Reviews</h2>
+            <p data-i18n="suppliers.description" class="text-gray-600 mb-4">Find trusted OHS suppliers and contractors. Rate suppliers you've worked with, or register your services to reach a wider audience.</p>
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                <button id="submitReviewBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit a Review</button>
+                <button id="registerSupplierBtn" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Register as a Supplier/Professional</button>
+            </div>
+            <div id="supplierList" class="space-y-4">
+                <!-- Supplier reviews will be dynamically loaded here -->
+            </div>
+        </section>
         </div>
 
         <!-- Carousel Section -->
@@ -489,20 +501,7 @@
             <button class="carousel-next">❯</button>
         </div>
     </div>
-
-    <div class="content-column">
-        <!-- Suppliers Section -->
-        <section class="suppliers">
-            <h2 data-i18n="suppliers.title" class="text-2xl font-bold mb-4">OHS Suppliers and Reviews</h2>
-            <p data-i18n="suppliers.description" class="text-gray-600 mb-4">Find trusted OHS suppliers and contractors. Rate suppliers you've worked with, or register your services to reach a wider audience.</p>
-            <div class="flex flex-col md:flex-row gap-4 mb-4">
-                <button id="submitReviewBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit a Review</button>
-                <button id="registerSupplierBtn" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Register as a Supplier/Professional</button>
-            </div>
-            <div id="supplierList" class="space-y-4">
-                <!-- Supplier reviews will be dynamically loaded here -->
-            </div>
-        </section>
+        
 
         <!-- Registration Wizard Modal -->
         <div id="registrationModal" class="modal">
