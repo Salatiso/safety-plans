@@ -678,6 +678,62 @@
                 overflow-x: auto;
             }
         }
+        /* Chatbot */
+    .chatbot-container {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        z-index: 1000;
+    }
+    #chat-window {
+        width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+    }
+    .chat-hidden {
+        display: none;
+    }
+    .chat-expanded {
+        display: flex;
+    }
+    #chat-output {
+        flex-grow: 1;
+    }
+    #chat-input-container {
+        display: flex;
+        border-top-width: 1px;
+    }
+    #chat-input {
+        flex-grow: 1;
+        border: none;
+        padding: 0.5rem;
+    }
+    #chat-send {
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+    }
+    #chat-send:hover {
+        background-color: #0056b3;
+    }
+    .chat-toggle-btn {
+        background-color: #FD7E14;
+    }
+    .chat-toggle-btn:hover {
+        background-color: #e06b00;
+    }
+    .chat-toggle-btn.collapsed {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    .chat-toggle-btn.collapsed #chat-toggle-text {
+        display: none;
+    }
     </style>
 </head>
 <body>
@@ -1076,17 +1132,18 @@
     </div>
 
     <!-- Chatbot Container -->
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+    <div class="chatbot-container fixed bottom-5 right-5 z-50">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center bg-orange-500 text-white hover:bg-orange-600 transition duration-300">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> 
+            <span id="chat-toggle-text" data-i18n="chatbot.button">Ask Salatiso</span>
         </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl mt-2">
             <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+                <p><strong>Salatiso:</strong> <span data-i18n="chatbot.welcome">Hello! How can I help you with OHS today?</span></p>
             </div>
             <div id="chat-input-container" class="flex border-t border-gray-200">
                 <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2">Send</button>
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600">Send</button>
             </div>
         </div>
     </div>
