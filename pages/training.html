@@ -1315,3 +1315,83 @@
                 "training.cart.customization.company_name_label": "Company Name:",
                 "training.cart.customization.company_name_error": "Please enter your company name.",
                 "training.cart.customization.location
+
+        // Chatbot Functionality
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatOutput = document.getElementById('chat-output');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    let isExpanded = false;
+
+    chatToggle.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        chatWindow.classList.toggle('chat-hidden', !isExpanded);
+        chatWindow.classList.toggle('chat-expanded', isExpanded);
+        chatToggle.classList.toggle('collapsed', !isExpanded);
+        if (isExpanded) {
+            chatInput.focus();
+        }
+    });
+
+    async function sendQuery() {
+        if (!db) {
+            addChatMessage('Salatiso', 'Sorry, I am currently unavailable.');
+            return;
+        }
+        const input = chatInput.value.trim();
+        if (!input) return;
+        addChatMessage('You', input);
+        chatInput.value = '';
+        addChatMessage('Salatiso', 'Searching...');
+        const query = input.toLowerCase();
+
+        try {
+            const snapshot = await db.collection('ohs-knowledge')
+                                     .where('keywords', 'array-contains', query)
+                                     .limit(1)
+                                     .get();
+            let responseFound = false;
+            let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
+
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
+                    if (data.file) {
+                        response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
+                    }
+                    responseFound = true;
+                });
+            }
+            const searchingMessage = chatOutput.querySelector('p:last-child');
+            if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                searchingMessage.innerHTML = `<strong>Salatiso:</strong> ${response}`;
+            } else {
+                addChatMessage('Salatiso', response);
+            }
+        } catch (error) {
+            console.error("Firestore query failed:", error);
+            const searchingMessage = chatOutput.querySelector('p:last-child');
+            if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                searchingMessage.innerHTML = `<strong>Salatiso:</strong> Oops, something went wrong while searching. Please try again!`;
+            } else {
+                addChatMessage('Salatiso', 'Oops, something went wrong while searching. Please try again!');
+            }
+        }
+    }
+
+    function addChatMessage(sender, message) {
+        if (chatOutput) {
+            const messageElement = document.createElement('p');
+            messageElement.classList.add('mb-2');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatOutput.appendChild(messageElement);
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+    }
+
+    chatSend.addEventListener('click', sendQuery);
+    chatInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') sendQuery();
+    });
