@@ -687,17 +687,18 @@
     </div>
 
     <!-- Chatbot Container -->
-    <div class="chatbot-container">
-        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
-            <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
+    <div class="chatbot-container fixed bottom-5 right-5 z-50">
+        <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center bg-orange-500 text-white hover:bg-orange-600 transition duration-300">
+            <span class="chat-icon text-2xl mr-1">⛑️</span> 
+            <span id="chat-toggle-text" data-i18n="chatbot.button">Ask Salatiso</span>
         </button>
-        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
+        <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl mt-2">
             <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                <p><strong>Chatbot:</strong> <span data-i18n="chatbot.welcome">Hello! How can I help you with OHS today?</span></p>
+                <p><strong>Salatiso:</strong> <span data-i18n="chatbot.welcome">Hello! How can I help you with OHS today?</span></p>
             </div>
             <div id="chat-input-container" class="flex border-t border-gray-200">
                 <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
-                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2">Send</button>
+                <button id="chat-send" aria-label="Send message" data-i18n="chatbot.send" class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600">Send</button>
             </div>
         </div>
     </div>
@@ -768,7 +769,7 @@
                 "footer.newsletter.title": "Stay Updated",
                 "footer.newsletter.placeholder": "Enter your email",
                 "footer.newsletter.button": "Subscribe",
-                "chatbot.button": "Ask Me",
+                "chatbot.button": "Ask Salatiso",
                 "chatbot.input_placeholder": "Ask about OHS...",
                 "chatbot.send": "Send",
                 "chatbot.welcome": "Hello! How can I help you with OHS today?"
@@ -923,36 +924,84 @@
             });
 
             // Chatbot Functionality
-            const chatToggle = document.getElementById('chat-toggle');
-            const chatWindow = document.getElementById('chat-window');
-            const chatOutput = document.getElementById('chat-output');
-            const chatInput = document.getElementById('chat-input');
-            const chatSend = document.getElementById('chat-send');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatOutput = document.getElementById('chat-output');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    let isExpanded = false;
 
-            chatToggle.addEventListener('click', () => {
-                chatWindow.classList.toggle('chat-hidden');
-            });
+    chatToggle.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        chatWindow.classList.toggle('chat-hidden', !isExpanded);
+        chatWindow.classList.toggle('chat-expanded', isExpanded);
+        chatToggle.classList.toggle('collapsed', !isExpanded);
+        if (isExpanded) {
+            chatInput.focus();
+        }
+    });
 
-            chatSend.addEventListener('click', sendMessage);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendMessage();
-            });
+    async function sendQuery() {
+        if (!db) {
+            addChatMessage('Salatiso', 'Sorry, I am currently unavailable.');
+            return;
+        }
+        const input = chatInput.value.trim();
+        if (!input) return;
+        addChatMessage('You', input);
+        chatInput.value = '';
+        addChatMessage('Salatiso', 'Searching...');
+        const query = input.toLowerCase();
 
-            function sendMessage() {
-                const message = chatInput.value.trim();
-                if (message) {
-                    const userMessage = document.createElement('p');
-                    userMessage.innerHTML = `<strong>You:</strong> ${message}`;
-                    chatOutput.appendChild(userMessage);
+        try {
+            const snapshot = await db.collection('ohs-knowledge')
+                                     .where('keywords', 'array-contains', query)
+                                     .limit(1)
+                                     .get();
+            let responseFound = false;
+            let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
 
-                    const botMessage = document.createElement('p');
-                    botMessage.innerHTML = `<strong>Chatbot:</strong> I'm here to help with OHS! For detailed assistance, please use the contact form on the Contact page.`;
-                    chatOutput.appendChild(botMessage);
-
-                    chatInput.value = '';
-                    chatOutput.scrollTop = chatOutput.scrollHeight;
-                }
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
+                    if (data.file) {
+                        response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
+                    }
+                    responseFound = true;
+                });
             }
+            const searchingMessage = chatOutput.querySelector('p:last-child');
+            if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                searchingMessage.innerHTML = `<strong>Salatiso:</strong> ${response}`;
+            } else {
+                addChatMessage('Salatiso', response);
+            }
+        } catch (error) {
+            console.error("Firestore query failed:", error);
+            const searchingMessage = chatOutput.querySelector('p:last-child');
+            if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                searchingMessage.innerHTML = `<strong>Salatiso:</strong> Oops, something went wrong while searching. Please try again!`;
+            } else {
+                addChatMessage('Salatiso', 'Oops, something went wrong while searching. Please try again!');
+            }
+        }
+    }
+
+    function addChatMessage(sender, message) {
+        if (chatOutput) {
+            const messageElement = document.createElement('p');
+            messageElement.classList.add('mb-2');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatOutput.appendChild(messageElement);
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+    }
+
+    chatSend.addEventListener('click', sendQuery);
+    chatInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') sendQuery();
+    });
 
             // Articles Functionality
             const seeMoreArticlesBtn = document.getElementById('seeMoreArticles');
@@ -1634,6 +1683,62 @@
                 right: 0;
             }
         }
+        /* Chatbot */
+    .chatbot-container {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        z-index: 1000;
+    }
+    #chat-window {
+        width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+    }
+    .chat-hidden {
+        display: none;
+    }
+    .chat-expanded {
+        display: flex;
+    }
+    #chat-output {
+        flex-grow: 1;
+    }
+    #chat-input-container {
+        display: flex;
+        border-top-width: 1px;
+    }
+    #chat-input {
+        flex-grow: 1;
+        border: none;
+        padding: 0.5rem;
+    }
+    #chat-send {
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+    }
+    #chat-send:hover {
+        background-color: #0056b3;
+    }
+    .chat-toggle-btn {
+        background-color: #FD7E14;
+    }
+    .chat-toggle-btn:hover {
+        background-color: #e06b00;
+    }
+    .chat-toggle-btn.collapsed {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    .chat-toggle-btn.collapsed #chat-toggle-text {
+        display: none;
+    }
     </style>
 </body>
 </html>
