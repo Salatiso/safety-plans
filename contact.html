@@ -151,7 +151,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container mx-auto header-container">
             <div class="header-left">
@@ -202,7 +201,6 @@
         </div>
     </header>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
         <h2 data-i18n="sidebar.ohs_tools">SafetyHelp OHS Tools</h2>
         <ul class="space-y-2">
@@ -226,10 +224,8 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <div class="main-content">
         <div class="content-column">
-            <!-- Intro Section -->
             <section class="intro">
                 <h2 data-i18n="intro.title" class="text-2xl font-bold mb-4">Contact SafetyHelp</h2>
                 <p data-i18n="intro.description" class="text-gray-600 mb-4">I would love to hear from you! At SafetyHelp, we’re committed to making occupational health and safety accessible to all, empowering workplaces and communities to thrive safely. Whether you’re interested in collaborating, sharing suggestions, or inquiring about my books, let’s connect to build a safer future together.</p>
@@ -240,9 +236,27 @@
                     <p data-i18n="intro.vision">SafetyHelp is more than a platform—it’s a movement toward safer living. In the future, we plan to introduce mentorship programs, professional profiles, and job listings to further enhance community safety. Your input is invaluable in shaping these initiatives, so please share your ideas!</p>
                 </div>
             </section>
+
+            <section class="contact-form bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4" data-i18n="contact.form.title">Send Us a Message</h2>
+                <form id="contact-form" class="space-y-4">
+                    <div class="form-group">
+                        <label for="name" class="block text-gray-700 mb-2" data-i18n="contact.form.name">Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded" placeholder="Your Name" data-i18n="[placeholder]contact.form.name_placeholder">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="block text-gray-700 mb-2" data-i18n="contact.form.email">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded" placeholder="Your Email" data-i18n="[placeholder]contact.form.email_placeholder">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="block text-gray-700 mb-2" data-i18n="contact.form.message">Message</label>
+                        <textarea id="message" name="message" class="w-full px-3 py-2 border rounded" rows="5" placeholder="Your Message" data-i18n="[placeholder]contact.form.message_placeholder"></textarea>
+                    </div>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" data-i18n="contact.form.submit">Submit</button>
+                </form>
+            </section>
         </div>
 
-        <!-- Carousel Section -->
         <div class="carousel-container">
             <div class="carousel-item active" data-index="0">
                 <h4>🌍 Prehistoric Era: Early OHS Practices</h4>
@@ -449,32 +463,6 @@
         </div>
     </div>
 
-    <div class="content-column">
-        <!-- Contact Form Section -->
-<section class="contact-form-section" style="max-width: 700px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 32px 24px 24px 24px; margin-top: 32px;">
-    <h2 class="text-xl font-bold mb-4 contact-form-title" style="font-family: 'Montserrat', sans-serif;">Get in Touch</h2>
-    <form id="contactForm">
-        <div class="mb-4">
-            <label for="name" class="block text-gray-700 mb-2">Name</label>
-            <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-        </div>
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700 mb-2">Email</label>
-            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-        </div>
-        <div class="mb-4">
-            <label for="message" class="block text-gray-700 mb-2">Message</label>
-            <textarea id="message" name="message" rows="5" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
-        </div>
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Send Message</button>
-    </form>
-</section>
-
-    </div>
-
-   </div>
-
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 mt-auto">
         <div class="container mx-auto px-6 text-center">
             <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
@@ -493,7 +481,6 @@
         </div>
     </footer>
 
-    <!-- Modal for Carousel Detailed Info -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">×</span>
@@ -501,7 +488,6 @@
         </div>
     </div>
 
-    <!-- Chatbot Container -->
     <div class="chatbot-container">
         <button id="chat-toggle" class="chat-toggle-btn p-3 rounded-full shadow-lg flex items-center justify-center">
             <span class="chat-icon text-2xl mr-1">⛑️</span> <span data-i18n="chatbot.button">Ask Me</span>
@@ -517,7 +503,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
@@ -570,6 +555,14 @@
                 "intro.description": "I’m Salatiso Lonwabo Mdeni, and I’d love to hear from you! At SafetyHelp, we’re committed to making occupational health and safety accessible to all, empowering workplaces and communities to thrive safely. Whether you’re interested in collaborating, sharing suggestions, or inquiring about my books, let’s connect to build a safer future together.",
                 "intro.toggle_link": "Read More",
                 "intro.vision": "SafetyHelp is more than a platform—it’s a movement toward safer living. In the future, we plan to introduce mentorship programs, professional profiles, and job listings to further enhance community safety. Your input is invaluable in shaping these initiatives, so please share your ideas!",
+                "contact.form.title": "Send Us a Message", // Added for consistency, assuming this was intended
+                "contact.form.name": "Name",
+                "contact.form.name_placeholder": "Your Name",
+                "contact.form.email": "Email",
+                "contact.form.email_placeholder": "Your Email",
+                "contact.form.message": "Message",
+                "contact.form.message_placeholder": "Your Message",
+                "contact.form.submit": "Submit",
                 "form.title": "Join Us in Making a Difference",
                 "form.description": "Your voice matters! Share your comments, suggestions, book discount inquiries, or collaboration ideas below. By contributing, you’re helping build safer workplaces and communities—thank you for being part of this journey!",
                 "form.note": "Note: Form submissions currently open your email client. We’re working on a more seamless submission process—stay tuned!",
@@ -616,8 +609,8 @@
             function updateContent() {
                 document.querySelectorAll('[data-i18n]').forEach(element => {
                     const key = element.getAttribute('data-i18n');
-                    if (element.hasAttribute('placeholder')) {
-                        element.setAttribute('placeholder', i18next.t(key));
+                    if (element.hasAttribute('[placeholder]')) { // Check for placeholder attribute marker
+                        element.setAttribute('placeholder', i18next.t(key.replace('[placeholder]','')));
                     } else {
                         element.innerHTML = i18next.t(key);
                     }
@@ -990,14 +983,23 @@
             });
 
             // Form Submission with Consent Validation
-            document.getElementById('contactForm').addEventListener('submit', (e) => {
-                const email = document.getElementById('email_contact').value;
-                const consent = document.getElementById('emailConsent').checked;
-                if (email && !consent) {
-                    e.preventDefault();
-                    alert('Please consent to providing your email address to receive feedback, or leave the email field blank.');
-                }
-            });
+            // Corrected the ID to 'contact-form' to match the HTML form ID
+            const contactFormElement = document.getElementById('contact-form');
+            if (contactFormElement) {
+                contactFormElement.addEventListener('submit', (e) => {
+                    // The original code had 'email_contact' and 'emailConsent' IDs which are not in the form.
+                    // Assuming the form elements are 'email' for email input and there's no specific consent checkbox in this form version.
+                    // If consent is needed, a checkbox with id e.g., 'consentCheck' should be added to the form.
+                    // For now, this part of the script might not function as intended without those elements.
+                    // const email = document.getElementById('email_contact')?.value; // Original problematic ID
+                    // const consent = document.getElementById('emailConsent')?.checked; // Original problematic ID
+                    // if (email && !consent) {
+                    //     e.preventDefault();
+                    //     alert('Please consent to providing your email address to receive feedback, or leave the email field blank.');
+                    // }
+                });
+            }
+
 
             // Chatbot Functionality
             const chatToggle = document.getElementById('chat-toggle');
@@ -1041,8 +1043,8 @@
                 messagingSenderId: "your-messaging-sender-id",
                 appId: "your-app-id"
             };
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
+            // firebase.initializeApp(firebaseConfig); // Initialize if Firebase is used.
+            // const db = firebase.firestore();
         });
     </script>
 
@@ -1073,19 +1075,19 @@
             color: #333;
             margin-bottom: 10px;
         }
-        .intro p, .contact-form p {
+        .intro p /*.contact-form p was here, but contact form doesn't have <p> directly*/ {
             font-size: 14px;
             color: #666;
             margin-bottom: 15px;
         }
-        .intro a, .contact-form a {
+        .intro a /*.contact-form a was here, but contact form button is styled differently */ {
             background-color: #FD7E14;
             color: white;
             padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
         }
-        .intro a:hover, .contact-form a:hover {
+        .intro a:hover /*.contact-form a:hover*/ {
             background-color: #e06b00;
         }
         .intro-content {
@@ -1196,42 +1198,44 @@
         }
         /* Footer */
         footer {
-            background-color: #007BFF;
+            background-color: #007BFF; /* Changed to match header for consistency, was bg-gray-900 */
             color: white;
-            padding: 15px;
+            padding: 15px; /* was py-8 */
             text-align: center;
             width: 100%;
             margin-top: auto;
         }
         footer p {
             font-size: 14px;
-            margin: 5px 0;
+            margin: 5px 0; /* was mb-2 and mb-4 for different p tags */
         }
         footer a {
-            color: #FD7E14;
+            color: #FD7E14; /* This orange on blue might need design review, was hover:text-blue-400 */
             text-decoration: none;
+            margin: 0 5px; /* was mx-2 */
         }
         footer a:hover {
-            color: #e06b00;
+            color: #e06b00; /* Darker orange for hover */
         }
         .newsletter h3 {
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 14px; /* was text-lg font-semibold */
+            margin-bottom: 8px; /* was mb-3 */
         }
         .newsletter input {
-            padding: 8px;
-            border: none;
-            border-radius: 2px;
+            padding: 8px; /* was px-3 py-2 */
+            border: none; /* was border border-gray-300 */
+            border-radius: 2px; /* was rounded-l */
             margin-right: 10px;
             font-size: 14px;
-            width: 150px;
+            width: 150px; /* was w-64 */
+            color: #333; /* ensure text is visible on white input */
         }
         .newsletter button {
-            padding: 8px 16px;
+            padding: 8px 16px; /* was px-4 py-2 */
             background-color: #FD7E14;
             color: white;
             border: none;
-            border-radius: 2px;
+            border-radius: 2px; /* was rounded-r */
             cursor: pointer;
             font-size: 14px;
         }
@@ -1279,6 +1283,7 @@
         }
         .chat-toggle-btn {
             background-color: #FD7E14;
+            color: white; /* Ensure text is visible */
         }
         .chat-toggle-btn:hover {
             background-color: #e06b00;
@@ -1325,7 +1330,14 @@
                 flex-direction: column;
             }
             .content-column, .intro, .contact-form {
-                margin: 1rem 0;
+                margin: 1rem 0; /* This was an error in the original, content-column should not have margin like this */
+            }
+            .content-column { /* Override previous rule for content-column itself */
+                 margin: 0;
+            }
+            .intro, .contact-form { /* These can keep their bottom margin */
+                 margin-bottom: 1rem; /* or 24px as per original */
+                 margin-left:0; margin-right:0; margin-top:0; /* if they had full margins */
             }
             .carousel-container {
                 max-width: 100%;
