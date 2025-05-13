@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manage legal appointments for OHS compliance with Salatiso OHS Tools.">
-    <meta name="keywords" content="OHS tools, legal appointments, occupational health and safety, safety plans, South Africa OHS, Salatiso">
+    <meta name="description" content="Manage legal appointments for occupational health and safety compliance with SafetyHelp OHS Tools.">
+    <meta name="keywords" content="OHS tools, legal appointments, occupational health and safety, safety compliance, South Africa OHS, SafetyHelp">
     <meta name="author" content="SafetyHelp Team">
-    <title data-i18n="page_title.legal_appointments">Salatiso OHS Tools - Legal Appointments</title>
+    <title data-i18n="page_title.legal_appointments">SafetyHelp - Legal Appointments</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.2.2/js/orgchart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.2.2/css/orgchart.min.css">
     <style>
         /* Global Styles */
         body {
@@ -23,7 +26,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3 {
+        header h1, .sidebar h2, .sidebar h3, .intro h2, footer h3, #organogram-section h3, .cart-container h3 {
             font-family: 'Montserrat', sans-serif;
         }
         /* Header */
@@ -157,23 +160,75 @@
             display: flex;
             flex-direction: column;
         }
-        .intro {
+        .intro, .organogram-section, .cart-container {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 24px;
-            flex: 1;
         }
-        .intro h2 {
+        .intro h2, .organogram-section h2, .cart-container h2 {
             font-size: 24px;
             color: #333;
             margin-bottom: 10px;
         }
-        .intro p {
+        .intro p, .organogram-section p, .cart-container p {
             font-size: 14px;
             color: #666;
             margin-bottom: 15px;
+        }
+        .intro button, .organogram-section button, .cart-container button {
+            background-color: #FD7E14;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .intro button:hover, .organogram-section button:hover, .cart-container button:hover {
+            background-color: #e06b00;
+        }
+        /* Organogram Styles */
+        #orgchart-container {
+            width: 100%;
+            height: 400px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .orgchart-node {
+            cursor: pointer;
+        }
+        .orgchart-node:hover {
+            background-color: #f0f0f0;
+        }
+        /* Form Styles */
+        .form-group input, .form-group select, .form-group textarea {
+            margin-top: 4px;
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+        .form-group .error {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
         }
         /* Footer */
         footer {
@@ -305,8 +360,11 @@
                 margin-left: 0;
                 flex-direction: column;
             }
-            .intro {
+            .intro, .organogram-section, .cart-container {
                 margin: 1rem 0;
+            }
+            #orgchart-container {
+                height: 300px;
             }
         }
     </style>
@@ -391,28 +449,84 @@
     <div class="main-content">
         <!-- Intro Section -->
         <section class="intro">
-            <h2 data-i18n="intro.title">Legal Appointments</h2>
-            <p data-i18n="intro.description">Ensure compliance with OHS regulations by managing legal appointments effectively with Salatiso OHS Tools. Our resources help you assign and track roles to meet legal requirements, as outlined in "Safety First: The Essentials of OHS Plans."</p>
+            <h2 class="text-2xl font-bold mb-4" data-i18n="intro.title">Legal Appointments</h2>
+            <p class="text-gray-600 mb-4" data-i18n="intro.description">Manage occupational health and safety legal appointments as required by South African OHS regulations. Use the organogram to assign roles, populate appointee details, and generate a comprehensive document with appointment letters, training records, and more.</p>
         </section>
 
-       <footer>
-            <div class="container mx-auto px-6 text-center">
-                <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
-                <p class="mb-4">
-                    <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2">Privacy Policy</a> |
-                    <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2">Terms of Service</a> |
-                    <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2">Contact Us</a>
-                </p>
-                <div class="newsletter mt-6">
-                    <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
-                    <form class="flex justify-center">
-                        <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
-                        <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 rounded-r">Subscribe</button>
-                    </form>
-                </div>
+        <!-- Organogram Section -->
+        <section id="organogram-section" class="organogram-section">
+            <h2 class="text-2xl font-bold mb-4" data-i18n="organogram.title">OHS Legal Appointments Organogram</h2>
+            <div id="orgchart-container"></div>
+            <div id="appointee-form" class="hidden">
+                <h3 class="text-lg font-semibold mb-3" id="selected-role"></h3>
+                <form id="appointee-details-form" class="space-y-4">
+                    <div class="form-group">
+                        <label for="appointee-name" data-i18n="organogram.form.name">Appointee Name</label>
+                        <input type="text" id="appointee-name" name="appointee-name" class="w-full px-3 py-2 border rounded">
+                        <p id="appointee-name-error" class="error hidden" data-i18n="organogram.form.name_error">Please enter the appointee's name.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointee-email" data-i18n="organogram.form.email">Email</label>
+                        <input type="email" id="appointee-email" name="appointee-email" class="w-full px-3 py-2 border rounded">
+                        <p id="appointee-email-error" class="error hidden" data-i18n="organogram.form.email_error">Please enter a valid email address.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointee-phone" data-i18n="organogram.form.phone">Phone Number</label>
+                        <input type="tel" id="appointee-phone" name="appointee-phone" pattern="\+[0-9]{10,}" placeholder="+27123456789" class="w-full px-3 py-2 border rounded">
+                        <p id="appointee-phone-error" class="error hidden" data-i18n="organogram.form.phone_error">Please enter a valid phone number (e.g., +27123456789).</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="start-date" data-i18n="organogram.form.start_date">Start Date</label>
+                        <input type="date" id="start-date" name="start-date" class="w-full px-3 py-2 border rounded">
+                        <p id="start-date-error" class="error hidden" data-i18n="organogram.form.start_date_error">Please enter the start date.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date" data-i18n="organogram.form.end_date">End Date</label>
+                        <input type="date" id="end-date" name="end-date" class="w-full px-3 py-2 border rounded">
+                    </div>
+                    <div class="form-group">
+                        <label for="training" data-i18n="organogram.form.training">Training/Competency</label>
+                        <textarea id="training" name="training" class="w-full px-3 py-2 border rounded" rows="3" placeholder="e.g., First Aid Level 1, SACPCMP Registration"></textarea>
+                        <p id="training-error" class="error hidden" data-i18n="organogram.form.training_error">Please enter training/competency details.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" data-i18n="organogram.form.notes">Additional Notes</label>
+                        <textarea id="notes" name="notes" class="w-full px-3 py-2 border rounded" rows="3" placeholder="e.g., SACPCMP Registration Number: CHSO12345"></textarea>
+                    </div>
+                    <button type="button" id="save-appointee-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" data-i18n="organogram.form.save">Save Appointee</button>
+                </form>
             </div>
-        </footer>
+            <button id="generate-document-btn" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" data-i18n="organogram.generate_document">Generate Appointment Document</button>
+        </section>
+
+        <!-- Cart and Checkout Section -->
+        <section id="cart-checkout-section" class="cart-container hidden">
+            <h2 class="text-2xl font-bold mb-4" data-i18n="cart.title">Your Cart</h2>
+            <div id="cart-items" class="space-y-4"></div>
+            <p id="cart-total" class="text-lg font-semibold mt-4"></p>
+            <button id="checkout-btn" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" data-i18n="cart.checkout.button">Proceed to Checkout</button>
+            <button id="subscribe-btn" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ml-2" data-i18n="cart.subscribe.button">Subscribe for Full Access</button>
+        </section>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2" data-i18n="footer.copyright">© 2025 SafetyHelp. All rights reserved.</p>
+            <p class="mb-4">
+                <a href="/safety-plans/privacy.html" data-i18n="footer.links.privacy" class="mx-2 hover:text-blue-400">Privacy Policy</a> |
+                <a href="/safety-plans/terms.html" data-i18n="footer.links.terms" class="mx-2 hover:text-blue-400">Terms of Service</a> |
+                <a href="/safety-plans/contact.html" data-i18n="footer.links.contact" class="mx-2 hover:text-blue-400">Contact Us</a>
+            </p>
+            <div class="newsletter mt-6">
+                <h3 class="text-lg font-semibold mb-3" data-i18n="footer.newsletter.title">Stay Updated</h3>
+                <form class="flex justify-center">
+                    <input type="email" data-i18n="[placeholder]footer.newsletter.placeholder" placeholder="Enter your email" aria-label="Email for newsletter" class="px-3 py-2 border border-gray-300 rounded-l text-gray-800 w-64">
+                    <button type="submit" data-i18n="footer.newsletter.button" class="px-4 py-2 rounded-r">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </footer>
 
     <!-- Chatbot Container -->
     <div class="chatbot-container">
@@ -421,7 +535,7 @@
         </button>
         <div id="chat-window" class="chat-hidden bg-white border border-gray-300 rounded-lg shadow-xl">
             <div id="chat-output" class="p-3 text-sm h-80 overflow-y-scroll">
-                <p><strong>Chatbot:</strong> Hello! How can I help you with OHS today?</p>
+                <p><strong>Chatbot:</strong> <span data-i18n="chatbot.welcome">Hello! How can I help you with OHS today?</span></p>
             </div>
             <div id="chat-input-container" class="flex border-t border-gray-200">
                 <input id="chat-input" type="text" data-i18n="[placeholder]chatbot.input_placeholder" placeholder="Ask about OHS..." aria-label="Ask about OHS" class="flex-grow p-2 border-none focus:outline-none">
@@ -430,7 +544,7 @@
         </div>
     </div>
 
-    <!-- Firebase Scripts and Chatbot Logic -->
+    <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
@@ -441,6 +555,7 @@
 
             // Load English translations as a fallback
             const defaultTranslations = {
+                "header.tagline": "Safety Personalized, Compliance Simplified—Anytime, Anywhere",
                 "header.nav.home": "Home",
                 "header.nav.resources": "Resources",
                 "header.nav.services": "Services",
@@ -483,7 +598,25 @@
                 "sidebar.step_0.description": "Explore our comprehensive tools and resources to enhance occupational health and safety in your workplace.",
                 "sidebar.step_0.fun_fact": "⚡ Did you know using reputable ethical suppliers can reduce workplace hazards by ensuring work is done on time and to the highest quality and safety standards?",
                 "intro.title": "Legal Appointments",
-                "intro.description": "Ensure compliance with OHS regulations by managing legal appointments effectively with Salatiso OHS Tools. Our resources help you assign and track roles to meet legal requirements, as outlined in 'Safety First: The Essentials of OHS Plans.'",
+                "intro.description": "Manage occupational health and safety legal appointments as required by South African OHS regulations. Use the organogram to assign roles, populate appointee details, and generate a comprehensive document with appointment letters, training records, and more.",
+                "organogram.title": "OHS Legal Appointments Organogram",
+                "organogram.form.name": "Appointee Name",
+                "organogram.form.name_error": "Please enter the appointee's name.",
+                "organogram.form.email": "Email",
+                "organogram.form.email_error": "Please enter a valid email address.",
+                "organogram.form.phone": "Phone Number",
+                "organogram.form.phone_error": "Please enter a valid phone number (e.g., +27123456789).",
+                "organogram.form.start_date": "Start Date",
+                "organogram.form.start_date_error": "Please enter the start date.",
+                "organogram.form.end_date": "End Date",
+                "organogram.form.training": "Training/Competency",
+                "organogram.form.training_error": "Please enter training/competency details.",
+                "organogram.form.notes": "Additional Notes",
+                "organogram.form.save": "Save Appointee",
+                "organogram.generate_document": "Generate Appointment Document",
+                "cart.title": "Your Cart",
+                "cart.checkout.button": "Proceed to Checkout",
+                "cart.subscribe.button": "Subscribe for Full Access",
                 "footer.copyright": "© 2025 SafetyHelp. All rights reserved.",
                 "footer.links.privacy": "Privacy Policy",
                 "footer.links.terms": "Terms of Service",
@@ -493,7 +626,8 @@
                 "footer.newsletter.button": "Subscribe",
                 "chatbot.button": "Ask Me",
                 "chatbot.input_placeholder": "Ask about OHS...",
-                "chatbot.send": "Send"
+                "chatbot.send": "Send",
+                "chatbot.welcome": "Hello! How can I help you with OHS today?"
             };
             resources['en'] = { translation: defaultTranslations };
 
@@ -537,152 +671,347 @@
                     updateContent();
                 });
             });
-        });
 
-        function updateContent() {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                const translation = i18next.t(key);
-                if (translation === key) {
-                    console.warn(`Translation missing for key: ${key}`);
-                }
-                element.innerHTML = translation; // Use innerHTML to render HTML content in translations
-                console.log(`Translating ${key} to ${translation}`);
-            });
-        }
-
-        // Firebase and Chatbot
-        const firebaseConfig = {
-            apiKey: "AIzaSyDlzylJ0WF_WMZQA2bJeqbzkEMhihYcZW0",
-            authDomain: "safety-first-chatbot.firebaseapp.com",
-            projectId: "safety-first-chatbot",
-            storageBucket: "safety-first-chatbot.firebasestorage.app",
-            messagingSenderId: "741489856541",
-            appId: "1:741489856541:web:0833fa5deb60dd54c9b6f4",
-            measurementId: "G-04Y1PQDYVD"
-        };
-
-        let db;
-
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-            console.log("Firebase Initialized Successfully");
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            const chatOutput = document.getElementById('chat-output');
-            if (chatOutput) {
-                chatOutput.innerHTML += "<p class='text-red-600'><strong>Error:</strong> Chatbot unavailable due to configuration issue.</p>";
+            function updateContent() {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    const translation = i18next.t(key);
+                    if (translation === key) {
+                        console.warn(`Translation missing for key: ${key}`);
+                    }
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', translation);
+                    } else {
+                        element.innerHTML = translation;
+                    }
+                    console.log(`Translating ${key} to ${translation}`);
+                });
             }
+
+            // Firebase Initialization
+            const firebaseConfig = {
+                apiKey: "your-api-key",
+                authDomain: "your-auth-domain",
+                projectId: "your-project-id",
+                storageBucket: "your-storage-bucket",
+                messagingSenderId: "your-messaging-sender-id",
+                appId: "your-app-id"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            // Organogram Data
+            const orgChartData = [
+                { id: "ceo", title: "CEO", responsibilities: "Ultimate accountability for OHS compliance (Section 16(1) OHSA)" },
+                { id: "16-2-appointees", title: "Section 16(2) Appointees", parent: "ceo", responsibilities: "Assist CEO in OHS duties" },
+                { id: "hs-manager", title: "Health and Safety Manager", parent: "16-2-appointees", responsibilities: "Manage OHS programs" },
+                { id: "hs-reps", title: "Health and Safety Representatives", parent: "hs-manager", responsibilities: "Identify hazards, represent employees (Section 17)" },
+                { id: "hs-committee", title: "Health and Safety Committee", parent: "hs-manager", responsibilities: "Oversee OHS, make recommendations (Section 19)" },
+                { id: "first-aiders", title: "First Aiders", parent: "hs-reps", responsibilities: "Provide first aid (General Safety Regulation 3)" },
+                { id: "fire-fighters", title: "Fire Fighters", parent: "hs-reps", responsibilities: "Handle fire emergencies (General Safety Regulation 29)" },
+                { id: "incident-investigators", title: "Incident Investigators", parent: "hs-reps", responsibilities: "Investigate incidents (General Administrative Regulation 8)" },
+                { id: "risk-assessor", title: "Risk Assessor", parent: "hs-manager", responsibilities: "Conduct risk assessments (Construction Regulation 9)" },
+                { id: "scaffold-inspector", title: "Scaffold Inspector", parent: "hs-manager", responsibilities: "Inspect scaffolding (Construction Regulation 16)" },
+                { id: "lifting-operator", title: "Lifting Machinery Operator", parent: "hs-manager", responsibilities: "Operate lifting machinery (Driven Machinery Regulation 18)" },
+                { id: "ohp", title: "Occupational Health Practitioner", parent: "hs-manager", responsibilities: "Medical surveillance (Hazardous Chemical Substances Regulation 10)" },
+                { id: "env-officer", title: "Environmental Officer", parent: "hs-manager", responsibilities: "Manage environmental risks (NEMA)" },
+                { id: "construction-manager", title: "Construction Manager", parent: "hs-manager", responsibilities: "Manage construction work (Construction Regulation 8)" }
+            ];
+
+            let appointees = JSON.parse(localStorage.getItem('appointees')) || {};
+
+            // Initialize Organogram
+            const orgChart = new OrgChart({
+                container: '#orgchart-container',
+                data: orgChartData,
+                nodeContent: 'title',
+                nodeTemplate: function(data) {
+                    const appointee = appointees[data.id] || {};
+                    return `
+                        <div class="orgchart-node" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <div class="title">${data.title}</div>
+                            <div class="content">${appointee.name || 'Not Assigned'}</div>
+                        </div>
+                    `;
+                },
+                onClick: function(node) {
+                    document.getElementById('appointee-form').classList.remove('hidden');
+                    document.getElementById('selected-role').textContent = node.data.title;
+                    const appointee = appointees[node.data.id] || {};
+                    document.getElementById('appointee-name').value = appointee.name || '';
+                    document.getElementById('appointee-email').value = appointee.email || '';
+                    document.getElementById('appointee-phone').value = appointee.phone || '';
+                    document.getElementById('start-date').value = appointee.startDate || '';
+                    document.getElementById('end-date').value = appointee.endDate || '';
+                    document.getElementById('training').value = appointee.training || '';
+                    document.getElementById('notes').value = appointee.notes || '';
+                    document.getElementById('save-appointee-btn').dataset.nodeId = node.data.id;
+                }
+            });
+
+            // Save Appointee Details
+            document.getElementById('save-appointee-btn').addEventListener('click', async () => {
+                const nodeId = document.getElementById('save-appointee-btn').dataset.nodeId;
+                const name = document.getElementById('appointee-name').value;
+                const email = document.getElementById('appointee-email').value;
+                const phone = document.getElementById('appointee-phone').value;
+                const startDate = document.getElementById('start-date').value;
+                const endDate = document.getElementById('end-date').value;
+                const training = document.getElementById('training').value;
+                const notes = document.getElementById('notes').value;
+
+                let isValid = true;
+                document.querySelectorAll('.error').forEach(error => error.classList.add('hidden'));
+
+                if (!name) {
+                    document.getElementById('appointee-name-error').classList.remove('hidden');
+                    isValid = false;
+                }
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('appointee-email-error').classList.remove('hidden');
+                    isValid = false;
+                }
+                if (!phone || !/\+[0-9]{10,}/.test(phone)) {
+                    document.getElementById('appointee-phone-error').classList.remove('hidden');
+                    isValid = false;
+                }
+                if (!startDate) {
+                    document.getElementById('start-date-error').classList.remove('hidden');
+                    isValid = false;
+                }
+                if (!training) {
+                    document.getElementById('training-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    appointees[nodeId] = {
+                        name,
+                        email,
+                        phone,
+                        startDate,
+                        endDate,
+                        training,
+                        notes,
+                        role: orgChartData.find(node => node.id === nodeId).title,
+                        responsibilities: orgChartData.find(node => node.id === nodeId).responsibilities
+                    };
+                    localStorage.setItem('appointees', JSON.stringify(appointees));
+                    await db.collection('legalAppointments').doc(nodeId).set(appointees[nodeId]);
+                    orgChart.init(orgChartData);
+                    document.getElementById('appointee-form').classList.add('hidden');
+                }
+            });
+
+            // Generate Appointment Document
+            document.getElementById('generate-document-btn').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let yOffset = 10;
+
+                // Title
+                doc.setFontSize(16);
+                doc.text("SafetyHelp OHS Legal Appointments", 10, yOffset);
+                yOffset += 10;
+
+                // Organogram (Text Representation)
+                doc.setFontSize(12);
+                doc.text("Organogram", 10, yOffset);
+                yOffset += 10;
+                orgChartData.forEach(node => {
+                    const appointee = appointees[node.id] || {};
+                    const indent = node.parent ? "    " : "";
+                    doc.text(`${indent}${node.title}: ${appointee.name || 'Not Assigned'}`, 10, yOffset);
+                    yOffset += 5;
+                });
+                yOffset += 10;
+
+                // Appointment Letters and Details
+                for (const [nodeId, appointee] of Object.entries(appointees)) {
+                    const node = orgChartData.find(n => n.id === nodeId);
+                    doc.addPage();
+                    yOffset = 10;
+
+                    // Appointment Letter
+                    doc.setFontSize(14);
+                    doc.text("Appointment Letter", 10, yOffset);
+                    yOffset += 10;
+                    doc.setFontSize(12);
+                    doc.text(`To: ${appointee.name}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`Role: ${node.title}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, yOffset);
+                    yOffset += 10;
+                    doc.text("Dear " + appointee.name + ",", 10, yOffset);
+                    yOffset += 10;
+                    doc.text(`We are pleased to appoint you as the ${node.title} for SafetyHelp.`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text("Your responsibilities include:", 10, yOffset);
+                    yOffset += 5;
+                    doc.text(node.responsibilities, 10, yOffset);
+                    yOffset += 10;
+                    doc.text(`Start Date: ${appointee.startDate}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`End Date: ${appointee.endDate || 'N/A'}`, 10, yOffset);
+                    yOffset += 10;
+                    doc.text("Sincerely,", 10, yOffset);
+                    yOffset += 5;
+                    doc.text("SafetyHelp Management", 10, yOffset);
+                    yOffset += 20;
+
+                    // Appointee Details
+                    doc.text("Appointee Details", 10, yOffset);
+                    yOffset += 10;
+                    doc.text(`Email: ${appointee.email}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`Phone: ${appointee.phone}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`Training/Competency: ${appointee.training}`, 10, yOffset);
+                    yOffset += 5;
+                    doc.text(`Notes: ${appointee.notes || 'N/A'}`, 10, yOffset);
+                }
+
+                // Add to Cart
+                const docData = {
+                    name: "Legal Appointments Document",
+                    price: 100,
+                    type: 'legal-appointments',
+                    content: appointees
+                };
+                cart.push(docData);
+                db.collection('tempDocuments').add({
+                    ...docData,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                updateCart();
+                doc.save("legal-appointments.pdf");
+            });
+
+            // Cart Management
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            function updateCart() {
+                const cartItems = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                cartItems.innerHTML = '';
+                let total = 0;
+                cart.forEach(item => {
+                    const div = document.createElement('div');
+                    div.classList.add('flex', 'justify-between', 'bg-gray-50', 'p-4', 'rounded-lg', 'shadow');
+                    div.innerHTML = `<p>${item.name}</p><p>R${item.price}</p>`;
+                    cartItems.appendChild(div);
+                    total += item.price;
+                });
+                cartTotal.textContent = `Total: R${total}`;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                if (cart.length > 0) {
+                    document.getElementById('cart-checkout-section').classList.remove('hidden');
+                }
+            }
+
+            // Checkout
+            document.getElementById('checkout-btn').addEventListener('click', async () => {
+                const accessCode = 'ACCESS-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                alert(`Checkout successful! Your access code is: ${accessCode}. Documents will be available for 7 days.`);
+                await db.collection('invoices').add({
+                    accessCode: accessCode,
+                    cart: cart,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('cart-checkout-section').classList.add('hidden');
+            });
+
+            document.getElementById('subscribe-btn').addEventListener('click', () => {
+                alert('Redirecting to subscription page... (Monthly: R200, Annual: R2000)');
+            });
+
+            // Chatbot Functionality
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWindow = document.getElementById('chat-window');
+            const chatOutput = document.getElementById('chat-output');
             const chatInput = document.getElementById('chat-input');
             const chatSend = document.getElementById('chat-send');
-            if (chatInput) chatInput.disabled = true;
-            if (chatSend) chatSend.disabled = true;
-        }
 
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatWindow = document.getElementById('chat-window');
-        const chatOutput = document.getElementById('chat-output');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        if (chatToggle) {
             chatToggle.addEventListener('click', () => {
                 chatWindow.classList.toggle('chat-hidden');
                 if (!chatWindow.classList.contains('chat-hidden')) {
                     chatInput.focus();
                 }
             });
-        }
 
-        function addChatMessage(sender, message) {
-            if (chatOutput) {
-                const messageElement = document.createElement('p');
-                messageElement.classList.add('mb-2');
-                messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-                chatOutput.appendChild(messageElement);
-                chatOutput.scrollTop = chatOutput.scrollHeight;
-            }
-        }
-
-        async function sendQuery() {
-            if (!db) {
-                addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
-                return;
-            }
-
-            const input = chatInput.value.trim();
-            if (!input) return;
-
-            addChatMessage('You', input);
-            chatInput.value = '';
-            addChatMessage('Chatbot', 'Searching...');
-
-            const query = input.toLowerCase();
-
-            try {
-                const snapshot = await db.collection('ohs-knowledge')
-                    .where('keywords', 'array-contains', query)
-                    .limit(1)
-                    .get();
-
-                let responseFound = false;
-                let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
-
-                if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
-                        response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
-                        if (data.file) {
-                            response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
-                        }
-                        responseFound = true;
-                    });
+            async function sendQuery() {
+                if (!db) {
+                    addChatMessage('Chatbot', 'Sorry, the chatbot is currently unavailable.');
+                    return;
                 }
+                const input = chatInput.value.trim();
+                if (!input) return;
+                addChatMessage('You', input);
+                chatInput.value = '';
+                addChatMessage('Chatbot', 'Searching...');
+                const query = input.toLowerCase();
 
-                const searchingMessage = chatOutput.querySelector('p:last-child');
-                if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
-                } else {
-                    addChatMessage('Chatbot', response);
-                }
-            } catch (error) {
-                console.error("Firestore query failed:", error);
-                const searchingMessage = chatOutput.querySelector('p:last-child');
-                if(searchingMessage && searchingMessage.textContent.includes('Searching...')) {
-                    searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
-                } else {
-                    addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
+                try {
+                    const snapshot = await db.collection('ohs-knowledge')
+                                             .where('keywords', 'array-contains', query)
+                                             .limit(1)
+                                             .get();
+                    let responseFound = false;
+                    let response = "Sorry, I couldn’t find specific information on that topic. Please try rephrasing or ask a different question.";
+
+                    if (!snapshot.empty) {
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            response = `Based on information from ${data.book || 'our resources'} (Chapter ${data.chapter || 'N/A'}), here's a summary: <br>${data.content.substring(0, 250)}...`;
+                            if (data.file) {
+                                response += ` (See <a href="/safety-plans/resources/${data.file}" target="_blank" class="text-blue-500 hover:underline">full chapter</a>)`;
+                            }
+                            responseFound = true;
+                        });
+                    }
+                    const searchingMessage = chatOutput.querySelector('p:last-child');
+                    if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                        searchingMessage.innerHTML = `<strong>Chatbot:</strong> ${response}`;
+                    } else {
+                        addChatMessage('Chatbot', response);
+                    }
+                } catch (error) {
+                    console.error("Firestore query failed:", error);
+                    const searchingMessage = chatOutput.querySelector('p:last-child');
+                    if (searchingMessage && searchingMessage.textContent.includes('Searching...')) {
+                        searchingMessage.innerHTML = `<strong>Chatbot:</strong> Oops, something went wrong while searching. Please try again!`;
+                    } else {
+                        addChatMessage('Chatbot', 'Oops, something went wrong while searching. Please try again!');
+                    }
                 }
             }
-        }
 
-        if (chatSend) {
+            function addChatMessage(sender, message) {
+                if (chatOutput) {
+                    const messageElement = document.createElement('p');
+                    messageElement.classList.add('mb-2');
+                    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+                    chatOutput.appendChild(messageElement);
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }
+            }
+
             chatSend.addEventListener('click', sendQuery);
-        }
-        if (chatInput) {
             chatInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    sendQuery();
-                }
+                if (event.key === 'Enter') sendQuery();
             });
-        }
 
-        // Adjust Layout
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
-        function adjustLayout() {
-            const headerHeight = document.querySelector('header').offsetHeight || 0;
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            if (sidebar && mainContent) {
-                sidebar.style.top = `${headerHeight}px`;
-                sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
-                mainContent.style.marginLeft = `${sidebar.offsetWidth}px`;
-                mainContent.style.paddingTop = `${headerHeight}px`;
-                mainContent.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+            // Verify Login Link Navigation
+            const loginLink = document.getElementById('login-link');
+            if (loginLink) {
+                loginLink.addEventListener('click', (event) => {
+                    console.log("Login link clicked, navigating to /safety-plans/login.html");
+                });
             }
-        }
+        });
     </script>
 </body>
-</html> 
+</html>
