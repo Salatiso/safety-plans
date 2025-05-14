@@ -1782,50 +1782,122 @@
 
             // Compile Document as PDF
             function compileDocument(docType, formData) {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                let yOffset = 10;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let yOffset = 10;
 
-                doc.setFontSize(16);
-                doc.text(`${i18next.t(`wizard.step_1.${docType}`)}`, 10, yOffset);
-                yOffset += 10;
+  // Render title with translated key
+  doc.setFontSize(16);
+  doc.text(i18next.t(`wizard.step_1.${docType}`), 10, yOffset);
+  yOffset += 10;
 
-                doc.setFontSize(12);
-                doc.text('Client Details', 10, yOffset);
-                yOffset += 10;
-                doc.text(`Company Name: ${formData.clientDetails.name}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`Address: ${formData.clientDetails.address}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`Contact Person: ${formData.clientDetails.contactPerson}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`Contact Role: ${formData.clientDetails.contactRole}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`Contact Number: ${formData.clientDetails.contactNumber}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`Email: ${formData.clientDetails.email}`, 10, yOffset);
-                yOffset += 5;
-                doc.text(`COIDA Registration: ${formData.clientDetails.coida}`, 10, yOffset);
-                yOffset += 10;
+  // Introduction
+  doc.setFontSize(12);
+  doc.text('1. Introduction', 10, yOffset);
+  yOffset += 5;
+  doc.text('This Health and Safety Specification outlines requirements for the project, ensuring compliance with the OHS Act and Construction Regulations.', 10, yOffset, { maxWidth: 180 });
+  yOffset += 15;
 
-                if (formData.contractorDetails) {
-                    doc.text('Contractor Details', 10, yOffset);
-                    yOffset += 10;
-                    doc.text(`Company Name: ${formData.contractorDetails.name}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`Address: ${formData.contractorDetails.address}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`Contact Person: ${formData.contractorDetails.contactPerson}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`Contact Role: ${formData.contractorDetails.contactRole}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`Contact Number: ${formData.contractorDetails.contactNumber}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`Email: ${formData.contractorDetails.email}`, 10, yOffset);
-                    yOffset += 5;
-                    doc.text(`COIDA Registration: ${formData.contractorDetails.coida}`, 10, yOffset);
-                    yOffset += 10;
-                }
+  // Client Details
+  doc.text('2. Client Details', 10, yOffset);
+  yOffset += 5;
+  doc.text(`Company Name: ${formData.clientDetails.name}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Address: ${formData.clientDetails.address}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Contact Person: ${formData.clientDetails.contactPerson}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Contact Role: ${formData.clientDetails.contactRole}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Contact Number: ${formData.clientDetails.contactNumber}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Email: ${formData.clientDetails.email}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`COIDA Registration: ${formData.clientDetails.coida}`, 10, yOffset);
+  yOffset += 10;
+
+  // Project Details
+  doc.text('3. Project Details', 10, yOffset);
+  yOffset += 5;
+  doc.text(`Reference Number: ${formData.projectDetails.reference || 'N/A'}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Project Name: ${formData.projectDetails.name}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Site Address: ${formData.projectDetails.siteAddress}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Site Supervisor Name: ${formData.projectDetails.siteSupervisorName}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Site Supervisor Contact: ${formData.projectDetails.siteSupervisorNumber}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Site Supervisor Email: ${formData.projectDetails.siteSupervisorEmail}`, 10, yOffset);
+  yOffset += 10;
+
+  // Project Scope
+  doc.text('4. Project Scope', 10, yOffset);
+  yOffset += 5;
+  doc.text(`Type of Work: ${formData.projectScope.typeOfWork}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`CIDB Grade: ${formData.projectScope.cidbGrade}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Cost (R): ${formData.projectScope.cost}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Duration (Days): ${formData.projectScope.duration}`, 10, yOffset);
+  yOffset += 5;
+  doc.text('Activities:', 10, yOffset);
+  yOffset += 5;
+  formData.projectScope.activities.forEach(activity => {
+    doc.text(`- ${i18next.t(`wizard.step_6.activities.${activity}`)}`, 15, yOffset);
+    yOffset += 5;
+  });
+  doc.text(`Scope Details: ${formData.projectScope.scopeDetails}`, 10, yOffset);
+  yOffset += 10;
+
+  // Activity-Specific Requirements
+  doc.text('5. Activity-Specific Requirements', 10, yOffset);
+  yOffset += 5;
+  formData.projectScope.activities.forEach(activity => {
+    if (activity === 'scaffolding') {
+      doc.text('5.1 Scaffolding', 10, yOffset);
+      yOffset += 5;
+      doc.text('Description: Erection, use, and dismantling of scaffolding.', 10, yOffset);
+      yOffset += 5;
+      doc.text('Hazards: Falls, scaffold collapse.', 10, yOffset);
+      yOffset += 5;
+      doc.text('Controls: Competent erectors, weekly inspections, fall arrest systems.', 10, yOffset);
+      yOffset += 5;
+      doc.text('Legal: Construction Regulation 16.', 10, yOffset);
+      yOffset += 5;
+    }
+    // Add more activity sections as needed
+  });
+
+  // General Safety Requirements
+  doc.text('6. General Safety Requirements', 10, yOffset);
+  yOffset += 5;
+  doc.text('PPE: Hard hats, safety boots, high-visibility vests required.', 10, yOffset);
+  yOffset += 5;
+  doc.text('Emergency Procedures: Evacuation plans and emergency contacts mandatory.', 10, yOffset);
+  yOffset += 5;
+
+  // Compiled By
+  doc.text('7. Compiled By', 10, yOffset);
+  yOffset += 5;
+  doc.text(`Name: ${formData.compiledBy.name}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Contact Number: ${formData.compiledBy.number}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Email: ${formData.compiledBy.email}`, 10, yOffset);
+  yOffset += 5;
+  doc.text(`Role: ${i18next.t(`wizard.step_7.role_${formData.compiledBy.role}`)}`, 10, yOffset);
+  yOffset += 10;
+
+  // Compiled For
+  doc.text('8. Compiled For', 10, yOffset);
+  yOffset += 5;
+  doc.text(`${i18next.t(`wizard.step_8.option_${formData.compiledFor.for}`)}`, 10, yOffset);
+
+  return doc;
+}
 
                 doc.text('Project Details', 10, yOffset);
                 yOffset += 10;
