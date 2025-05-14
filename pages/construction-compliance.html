@@ -9,6 +9,7 @@
     <title data-i18n="page_title.construction">SafetyHelp - Construction Health and Safety</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/safety-plans/assets/css/construction-compliance.css">
     <script src="https://unpkg.com/i18next@23.15.2/dist/umd/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@8.0.0/dist/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -471,7 +472,7 @@
         <section class="intro">
             <h2 class="text-2xl font-bold mb-4" data-i18n="intro.title">Construction Health and Safety</h2>
             <p class="text-gray-600 mb-4" data-i18n="intro.description">Ensure compliance with construction health and safety regulations using Salatiso OHS Tools. Our resources help you manage risks, comply with legal requirements, and protect workers on-site, drawing from best practices outlined in "Safety First: The Essentials of OHS Plans."</p>
-            <p class="text-gray-600" data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/python-script/OHS_Plan_Fillable.pdf" class="text-blue-500 hover:underline">Click Here</a></p>
+            <p class="text-gray-600" data-i18n="intro.download_link">Download the Construction OHS Plan: <a href="/safety-plans/generated/OHS_Plan_Fillable.pdf" class="text-blue-500 hover:underline">Click Here</a></p>
 
             <div class="legal-obligations mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="legal-card bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition-shadow">
@@ -530,61 +531,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="hs-spec" name="documents" value="hs-spec" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.hs_spec"><span class="emoji">📋</span> Health and Safety Specification</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="hs-plan" name="documents" value="hs-plan" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.hs_plan"><span class="emoji">📑</span> Health and Safety Plan</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="risk-assessment" name="documents" value="risk-assessment" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.risk_assessment"><span class="emoji">⚠️</span> Risk Assessment</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="training" name="documents" value="training" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.training"><span class="emoji">🎓</span> Conduct Training</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="appointments" name="documents" value="appointments" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.appointments"><span class="emoji">📜</span> Conduct Legal Appointments</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="inspections" name="documents" value="inspections" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.inspections"><span class="emoji">🔍</span> Conduct Inspections/Audits</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="incidents" name="documents" value="incidents" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.incidents"><span class="emoji">🚑</span> Manage Incidents</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="reports" name="documents" value="reports" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.reports"><span class="emoji">📊</span> Compliance Reports</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-gray-200 p-2">
-                                                <input type="checkbox" id="hs-file" name="documents" value="hs-file" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-                                            </td>
-                                            <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.hs_file"><span class="emoji">📂</span> Health and Safety File</td>
-                                        </tr>
-                                    </tbody>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="health-safety-specification-template" name="documents" value="health-safety-specification-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.health_safety_specification_template"><span class="emoji">📋</span> Health and Safety Specification</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="construction-health-safety-plan-template" name="documents" value="construction-health-safety-plan-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.construction_health_safety_plan_template"><span class="emoji">📑</span> Health and Safety Plan</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="baseline-risk-assessment-template" name="documents" value="baseline-risk-assessment-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.baseline_risk_assessment_template"><span class="emoji">⚠️</span> Baseline Risk Assessment</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="risk-assessment-plan-template" name="documents" value="risk-assessment-plan-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.risk_assessment_plan_template"><span class="emoji">⚠️</span> Risk Assessment Plan</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="ohs-training-competency-policy-template" name="documents" value="ohs-training-competency-policy-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_training_competency_policy_template"><span class="emoji">🎓</span> Training Policy</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="section-16-1-appointment-template" name="documents" value="section-16-1-appointment-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.section_16_1_appointment_template"><span class="emoji">📜</span> Section 16(1) Appointment</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="ohs-audit-inspection-standard-template" name="documents" value="ohs-audit-inspection-standard-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_audit_inspection_standard_template"><span class="emoji">🔍</span> Inspections/Audits Standard</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="ohs-incident-management-standard-template" name="documents" value="ohs-incident-management-standard-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_incident_management_standard_template"><span class="emoji">🚑</span> Incident Management Standard</td>
+    </tr>
+    <tr>
+        <td class="border border-gray-200 p-2">
+            <input type="checkbox" id="ohs-contractor-management-policy-template" name="documents" value="ohs-contractor-management-policy-template" class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+        </td>
+        <td class="border border-gray-200 p-2 document-name" data-i18n="wizard.step_1.ohs_contractor_management_policy_template"><span class="emoji">🤝</span> Contractor Management Policy</td>
+    </tr>
+</tbody>
                                 </table>
                                 <p id="documents-error" class="error hidden" data-i18n="wizard.step_1.error">Please select at least one document to compile.</p>
                             </div>
@@ -1059,7 +1060,7 @@
         <script>
             // Translation Initialization with Debugging
             document.addEventListener('DOMContentLoaded', async () => {
-                const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw'];
+                const languages = ['en', 'af', 'zu', 'xh', 'st', 'tn', 'nso', 'ts', 'ss', 've', 'nr', 'es', 'fr', 'sn', 'sw', 'zh'];
                 const resources = {};
 
                 // Load English translations as a fallback
@@ -1913,14 +1914,14 @@
 
             // Firebase and Chatbot
             const firebaseConfig = {
-                apiKey: "YOUR_API_KEY",
-                authDomain: "YOUR_AUTH_DOMAIN",
-                projectId: "YOUR_PROJECT_ID",
-                storageBucket: "YOUR_STORAGE_BUCKET",
-                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-                appId: "YOUR_APP_ID",
-                measurementId: "YOUR_MEASUREMENT_ID"
-            };
+    apiKey: "your-actual-api-key",
+    authDomain: "your-actual-auth-domain",
+    projectId: "your-actual-project-id",
+    storageBucket: "your-actual-storage-bucket",
+    messagingSenderId: "your-actual-messaging-sender-id",
+    appId: "your-actual-app-id",
+    measurementId: "your-actual-measurement-id"
+};
 
             let db;
 
